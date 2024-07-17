@@ -134,7 +134,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo1" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo2" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo3" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>
@@ -182,7 +182,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo4" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>
@@ -198,7 +198,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo5" allowfullscreen></iframe>
+                    
                 </div>
             </div>
         </div>
@@ -214,7 +214,7 @@
             </div>
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo6" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>

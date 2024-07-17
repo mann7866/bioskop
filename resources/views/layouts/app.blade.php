@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Bioskop') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,28 +37,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{{ __('Genres') }}</a>
-                            </li>
-                        </ul>
-                    <ul class="navbar-nav me-auto">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{{ __('Details') }}</a>
-                            </li>
-                        </ul>
-                    </ul>
-                    <ul class="navbar-nav me-auto">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{{ __('Film') }}</a>
-                            </li>
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ __('Genres') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ __('Details') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ __('Film') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form class="d-flex mx-auto" method="GET">
+                    <form class="d-flex mx-auto" method="GET" action="{{ url('/search') }}">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
@@ -86,7 +77,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">{{ __('Data') }}</a>
+                                    {{-- <a class="dropdown-item" href="#">{{ __('Data') }}</a> --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                   document.getElementById('logout-form').submit();">
