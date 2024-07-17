@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Bioskop') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -37,6 +37,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{{ __('Genres') }}</a>
+                            </li>
+                        </ul>
+                    <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{{ __('Details') }}</a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{{ __('Film') }}</a>
+                            </li>
+                        </ul>
                     </ul>
 
                     <!-- Center Search Form -->
