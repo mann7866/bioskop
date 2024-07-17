@@ -15,8 +15,16 @@ Auth::routes();
 // Route untuk home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route untuk logout menggunakan metode POST
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/home');
-})->name('logout');
+Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
+Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create'])->name('genre.create');
+Route::post('/genre/store', [App\Http\Controllers\genreController::class,'store'])->name('genre.store');
+Route::get('/genre/{id}/edit', [App\Http\Controllers\genreController::class,'edit'])->name('genre.edit');
+Route::put('/genre/{id}/update', [App\Http\Controllers\genreController::class,'update'])->name('genre.update');
+Route::get('/genre/{id}/delete', [App\Http\Controllers\genreController::class,'destroy'])->name('genre.delete');
+
+Route::get('/time', [App\Http\Controllers\timeController::class,'index'])->name('time');
+Route::get('/time/create', [App\Http\Controllers\timeController::class,'create'])->name('time.create');
+Route::post('/time/store', [App\Http\Controllers\timeController::class,'store'])->name('time.store');
+Route::get('/time/{id}/edit', [App\Http\Controllers\timeController::class,'edit'])->name('time.edit');
+Route::put('/time/{id}/update', [App\Http\Controllers\timeController::class,'update'])->name('time.update');
+Route::get('/time/{id}/delete', [App\Http\Controllers\timeController::class,'destroy'])->name('time.delete');

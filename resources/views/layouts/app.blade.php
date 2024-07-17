@@ -25,8 +25,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Bioskop') }}
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -49,10 +49,26 @@
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form class="d-flex mx-auto" method="GET" action="{{ url('/search') }}">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <form class="d-flex mx-auto" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Small button
+                        </button>
+                        <ul class="dropdown-menu text-center">
+                            <li>
+                                <a href="{{ route('genre') }}">genre</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('time') }}">Time</a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -98,8 +114,13 @@
         <main class="py-4">
             @yield('content')
         </main>
-        
+
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>

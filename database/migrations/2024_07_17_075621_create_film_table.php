@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_genre')->references('id')->on('genre')->onDelete('restrict')->onUpdate('cascade');
             $table->string('judul');
-            $table->foreignId('id_jamTayang')->references('id')->on('waktu')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('id_jamTayang')->references('id')->on('time')->onDelete('restrict')->onUpdate('cascade');
             $table->string('tanggalTayang');
             $table->foreignId('id_deskripsi')->references('id')->on('detail')->onDelete('restrict')->onUpdate('cascade');
             $table->string('harga');

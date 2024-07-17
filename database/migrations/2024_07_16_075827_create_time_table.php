@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waktu', function (Blueprint $table) {
+        Schema::create('time', function (Blueprint $table) {
             $table->id();
             $table->time('jamTayang');
             $table->date('TanggalTayang');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waktu');
+        Schema::dropIfExists('time');
     }
 };
