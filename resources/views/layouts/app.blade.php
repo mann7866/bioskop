@@ -38,7 +38,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Genres') }}</a>
+                            <a class="nav-link" href="{{route('genre')}}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Details') }}</a>

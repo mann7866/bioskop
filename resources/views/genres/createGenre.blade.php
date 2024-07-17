@@ -9,7 +9,7 @@
             <div class="mb-3">
                 <label class="form-label">Genre</label>
                 <input type="text" class="form-control @error('genre') is-invalid @enderror" id="genre"
-                    name="genre" placeholder="Enter Metode Pembayaran">
+                    name="genre" placeholder="Tambahkan Genre">
                 @error('genre')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
