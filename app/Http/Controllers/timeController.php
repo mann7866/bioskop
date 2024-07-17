@@ -34,7 +34,7 @@ class timeController extends Controller
             "tanggalTayang"=> "required",
         ]) ;
 
-        Time::crete($validateData);
+        Time::create($validateData);
         return redirect()->route("time")->with("success","Berhasil Tambah waktu");
 
     }
@@ -63,18 +63,14 @@ class timeController extends Controller
     {
 
         $time = Time::find($id);
-        $validateData = $request;
 
-        if($validateData['jamTayang' && 'tanggalTayang']) {
         $validateData = $request->validate([
             "jamTayang"=> "required",
             "tanggalTayang"=> "required",
         ]) ;
-        Time::crete($validateData);
+        $time->update($validateData);
         return redirect()->route("time")->with("success","Berhasil Tambah waktu");
-        }else{
-        return redirect()->route("time")->with("success","Berhasil Tambah waktu");
-        }
+       
 
     }
 

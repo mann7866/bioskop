@@ -3,24 +3,23 @@
 @section('content')
 <div class="container mt-4">
     <div class="form-container">
-        <h1 class="form-title text-center">Tambah Genre</h1>
+        <h1 class="form-title text-center">Tambah Waktu Tayang</h1>
         <form action="{{ route('time.store') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Jam Tayang</label>
-
-                {!! Form::time('jamTayang', null, ['class' => 'form-control']) !!}
-
+                <label for="jamTayang" class="form-label">Jam Tayang</label>
+                <input type="time" class="form-control @error('jamTayang') is-invalid @enderror" id="jamTayang"
+                       name="jamTayang" step="60">
                 @error('jamTayang')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Genre</label>
+                <label class="form-label">Tanggal Tayang</label>
 
-
-               {!! Form::date('tanggalTayang', null, ['class' => 'form-control']) !!}
+                <input type="date" class="form-control @error('tanggalTayang') is-invalid @enderror" id="tanggalTayang"
+                name="tanggalTayang">
 
                 @error('tanggalTayang')
                     <div class="invalid-feedback">{{ $message }}</div>
