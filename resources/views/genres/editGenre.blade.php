@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="form-container">
-        <h1 class="form-title text-center">Tambah Genre</h1>
+        <h1 class="form-title text-center">Edit Genre</h1>
         <form action="{{ route('genre.update', $genre->id ) }}" method="POST">
             @csrf
             @method('put')

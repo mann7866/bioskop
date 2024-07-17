@@ -21,14 +21,15 @@
             <thead>
 
                 <tr>
-                    <th class="text-center">time</th>
+                    <th class="text-center">Jam Tayang</th>
+                    <th class="text-center">Tanggal Tayang</th>
                     <th class="text-center">Opsi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($time as $item)
                 <tr>
-                    <td class="text-center">{{ $item->jamTayang }}</td>
+                    <td class="text-center">{{ date('H:i', strtotime($item->jamTayang)) }}</td>
                     <td class="text-center">{{ $item->tanggalTayang }}</td>
                     <td class="text-center">
                         <a href="{{ route('time.edit', $item->id) }}" class="btn btn-success">

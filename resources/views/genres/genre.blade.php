@@ -10,7 +10,7 @@
 </div>
 @endif
 
-<div>
+<div>   
     <a class="btn btn-primary  mt-5" href="{{ route('genre.create') }}">
         Tambah Genre
     </a>
