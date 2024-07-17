@@ -8,6 +8,7 @@
         transition: transform 0.3s ease;
         width: calc(33.333% - 10px); /* Adjust the width to fit three items per row with some margin */
         margin: 5px;
+        cursor: pointer; /* Add pointer cursor for clickable effect */
     }
 
     .film-card img {
@@ -49,6 +50,9 @@
         flex-wrap: wrap;
         justify-content: space-between;
     }
+    .poss{
+        position: static;
+    }
 </style>
 
 <div class="container">
@@ -61,15 +65,17 @@
                 </div>
             </div>
             <div class="film-container">
-                <div class="mb-4 film-card">
+                {{-- Film 1 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
                     <img src="{{ asset('image/us-1.jpg') }}" class="img-fluid" alt="Film 1">
                     <div class="film-description">
-                        <h5>Sou Sou No Frieren</h5>
+                        <h5 class="poss">Sou Sou No Frieren</h5>
                         <p>Sang Elf yang telah Mengalahkan Raja Iblis</p>
                     </div>
                     <label class="film-label">Sou Sou No Frieren</label>
                 </div>
-                <div class="mb-4 film-card">
+                {{-- Film 2 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film2Modal">
                     <img src="{{asset('image/us-3.jpg')}}" class="img-fluid" alt="Film 2">
                     <div class="film-description">
                         <h5>Demon Slayer</h5>
@@ -77,7 +83,8 @@
                     </div>
                     <label class="film-label">Film 2</label>
                 </div>
-                <div class="mb-4 film-card">
+                {{-- Film 3 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film3Modal">
                     <img src="{{ asset('image/us-2.jpg') }}" class="img-fluid" alt="Film 3">
                     <div class="film-description">
                         <h5>Oshi No Ko</h5>
@@ -85,7 +92,8 @@
                     </div>
                     <label class="film-label">Film 3</label>
                 </div>
-                <div class="mb-4 film-card">
+                {{-- Film 4 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film4Modal">
                     <img src="{{ asset('image/us-3.jpg') }}" class="img-fluid" alt="Film 4">
                     <div class="film-description">
                         <h5>Demon Slayer Art</h5>
@@ -93,7 +101,8 @@
                     </div>
                     <label class="film-label">Film 4</label>
                 </div>
-                <div class="mb-4 film-card">
+                {{-- Film 5 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film5Modal">
                     <img src="{{ asset('image/us-4.jpeg') }}" class="img-fluid" alt="Film 5">
                     <div class="film-description">
                         <h5>Film 5</h5>
@@ -101,13 +110,111 @@
                     </div>
                     <label class="film-label">Film 5</label>
                 </div>
-                <div class="mb-4 film-card">
+                {{-- Film 6 --}}
+                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film6Modal">
                     <img src="{{ asset('image/us-5.jpeg') }}" class="img-fluid" alt="Film 6">
                     <div class="film-description">
                         <h5>Film 6</h5>
                         <p>Deskripsi singkat film 6.</p>
                     </div>
                     <label class="film-label">Film 6</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Bootstrap Modals --}}
+<div class="modal fade" id="film1Modal" tabindex="-1" aria-labelledby="film1ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film1ModalLabel">Sou Sou No Frieren</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo1" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="film2Modal" tabindex="-1" aria-labelledby="film2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film2ModalLabel">Demon Slayer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo2" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="film3Modal" tabindex="-1" aria-labelledby="film3ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film3ModalLabel">Oshi No Ko</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo3" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="film4Modal" tabindex="-1" aria-labelledby="film4ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film4ModalLabel">Demon Slayer Art</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo4" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="film5Modal" tabindex="-1" aria-labelledby="film5ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film5ModalLabel">Film 5</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo5" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="film6Modal" tabindex="-1" aria-labelledby="film6ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="film6ModalLabel">Film 6</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/samplevideo6" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
