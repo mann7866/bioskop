@@ -82,9 +82,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card text-center mb-4">
-                <div class="card-header">{{ __('Bioskop Amerika') }}</div>
+                <div class="card-header">{{ __('Bioskop ') }}</div>
                 <div class="card-body">
-                    <p>{{ __('Welcome to Bioskop Amerika! Enjoy the latest movies.') }}</p>
+                    <p>{{ __('Welcome to Bioskop ') }}</p>
                 </div>
             </div>
             <div class="film-container">

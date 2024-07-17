@@ -7,9 +7,17 @@
         {{ session('success') }}
     </div>
 @endif
-
+<style>
+    .warning{
+        background-color: blue;
+        transition: 2s ease;
+    }
+    .warning:hover{
+        border-radius: 25px 27px ;
+    }
+</style>
 <div>
-    <a class="btn btn-primary mt-5 m-2" href="{{ route('genre.create') }}">
+    <a class="btn btn-primary mt-5 m-2 warning" href="{{ route('genre.create') }}">
         <i class="fas fa-plus"></i> Tambah Genre
     </a>
 </div>
@@ -20,8 +28,8 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover" id="genreTable" width="100%" cellspacing="0">
-                <thead class="table-dark">
+            <table class="table table-striped table-hover table-bordered" id="genreTable" width="100%" cellspacing="0">
+                <thead class="table-primary">
                     <tr>
                         <th class="text-center">Genre</th>
                         <th class="text-center">Opsi</th>
@@ -33,11 +41,11 @@
                             <td class="text-center">{{ $item->genre }}</td>
                             <td class="text-center">
                                 <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <ion-icon name="pencil-outline"></ion-icon>
                                 </a>
                                 <a href="{{ route('genre.delete', $item->id) }}">
                                     <button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
-                                        <i class="fas fa-trash-alt"></i> Hapus
+                                        <ion-icon name="trash-outline"></ion-icon>
                                     </button>
                                 </a>
                             </td>

@@ -15,10 +15,16 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">
-                Tambah
+            <button class="btn btn-outline-primary mt-3 col-md-2  hover" type="submit" name="submit">
+                <ion-icon name="add-circle-outline"></ion-icon>
             </button>
+            <a href="{{route('genre')}}" class="btn btn-outline-danger mt-3 col-md-2 hover"><ion-icon name="arrow-back-outline"></ion-icon></a>
         </form>
     </div>
 </div>
+<style>
+    .hover:hover{
+        border-radius: 20px 30px;
+    }
+</style>
 @endsection
