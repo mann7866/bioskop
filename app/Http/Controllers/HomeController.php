@@ -21,6 +21,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    //  me
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('query');
+    //     $films = Film::where('title', 'like', "%{$query}%")
+    //         ->orWhere('description', 'like', "%{$query}%")
+    //         ->get();
+
+    //     return view('search-results', compact('films'));
+    // }
     public function index()
     {
         return view('home');
