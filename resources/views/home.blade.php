@@ -43,6 +43,28 @@
         display: block;
         text-align: center;
         margin-top: 10px;
+        position: relative;
+    }
+
+    .film-card .btn-order {
+        position: absolute;
+        bottom: 10px; /* Adjust according to your design */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #28a745; /* Green background color */
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem; /* Font size for the icon */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .film-card .btn-order i {
+        margin-right: 5px; /* Space between icon and text */
     }
 
     .film-container {
@@ -50,7 +72,8 @@
         flex-wrap: wrap;
         justify-content: space-between;
     }
-    .poss{
+
+    .poss {
         position: static;
     }
 </style>
@@ -72,7 +95,12 @@
                         <h5 class="poss">Sou Sou No Frieren</h5>
                         <p>Sang Elf yang telah Mengalahkan Raja Iblis</p>
                     </div>
-                    <label class="film-label">Sou Sou No Frieren</label>
+                    <label class="film-label">
+                        Sou Sou No Frieren
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
                 {{-- Film 2 --}}
                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film2Modal">
@@ -81,7 +109,12 @@
                         <h5>Demon Slayer</h5>
                         <p>Bercerita tentang seorang kaka yang Mencari Obat untuk Adik Ya</p>
                     </div>
-                    <label class="film-label">Film 2</label>
+                    <label class="film-label">
+                        Film 2
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
                 {{-- Film 3 --}}
                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film3Modal">
@@ -90,7 +123,12 @@
                         <h5>Oshi No Ko</h5>
                         <p>Mengorbanan Sang Ibu Yang Di bunuh Fans</p>
                     </div>
-                    <label class="film-label">Film 3</label>
+                    <label class="film-label">
+                        Film 3
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
                 {{-- Film 4 --}}
                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film4Modal">
@@ -99,7 +137,12 @@
                         <h5>Demon Slayer Art</h5>
                         <p>Peperangan Antara Iblis tingkat atas</p>
                     </div>
-                    <label class="film-label">Film 4</label>
+                    <label class="film-label">
+                        Film 4
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
                 {{-- Film 5 --}}
                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film5Modal">
@@ -108,7 +151,12 @@
                         <h5>Film 5</h5>
                         <p>Deskripsi singkat film 5.</p>
                     </div>
-                    <label class="film-label">Film 5</label>
+                    <label class="film-label">
+                        Film 5
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
                 {{-- Film 6 --}}
                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film6Modal">
@@ -117,7 +165,12 @@
                         <h5>Film 6</h5>
                         <p>Deskripsi singkat film 6.</p>
                     </div>
-                    <label class="film-label">Film 6</label>
+                    <label class="film-label">
+                        Film 6
+                        <button class="btn-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Order
+                        </button>
+                    </label>
                 </div>
             </div>
         </div>
