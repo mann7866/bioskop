@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($genres as $item->id)
+                    @foreach ($genres as $item)
 
                         <tr>
                             <td class="text-center">{{ $item->id_judul }}</td>
