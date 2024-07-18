@@ -7,14 +7,14 @@
         position: relative;
         overflow: hidden;
         transition: transform 0.3s ease;
-        width: calc(50% - 10px); /* Adjust the width to fit two items per row with some margin */
+        width: calc(33.333% - 10px); /* Adjust the width to fit three items per row with some margin */
         margin: 5px;
         cursor: pointer; /* Add pointer cursor for clickable effect */
     }
 
     .film-card img {
         width: 100%;
-        height: 200px; /* Reduced height for smaller images */
+        height: 400px; /* Fixed height for uniformity */
         object-fit: cover; /* Ensures the image covers the entire area without stretching */
         transition: transform 0.3s ease;
     }
@@ -38,6 +38,13 @@
 
     .film-card:hover .film-description {
         opacity: 1;
+    }
+
+    .film-label {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        position: relative;
     }
 
     .btn-edit, .btn-delete {
@@ -81,19 +88,6 @@
     .poss {
         position: static;
     }
-
-    /* Media queries to ensure responsiveness */
-    @media (max-width: 768px) {
-        .film-card {
-            width: calc(50% - 10px);
-        }
-    }
-
-    @media (max-width: 576px) {
-        .film-card {
-            width: 100%;
-        }
-    }
 </style>
 
 <div>
@@ -107,9 +101,17 @@
     <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
         <div class="film-description">
-            <h1 class="poss">{{ $item->judul }}</h1>
-            <p>{{ $item->deskripsi }}</p>
             <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
+            @foreach ($genres as $s)
+
+            <p>Genre: {{ $s->genre }}</p>
+            @endforeach
+            <h1 class="poss">{{ $item->judul }}</h1>
+            <p>Pemeran: {{ $item->pemeran }}</p>
+            <p>Penulis: {{ $item->penulis }}</p>
+            <p>Sutradara: {{ $item->sutradara }}</p>
+            <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
+            <p>{{ $item->deskripsi }}</p>
         </div>
 
         <a href="{{ route('detail.edit', $item->id) }}">
