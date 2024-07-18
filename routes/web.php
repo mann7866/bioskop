@@ -28,3 +28,10 @@ Route::post('/time/store', [App\Http\Controllers\timeController::class,'store'])
 Route::get('/time/{id}/edit', [App\Http\Controllers\timeController::class,'edit'])->name('time.edit');
 Route::put('/time/{id}/update', [App\Http\Controllers\timeController::class,'update'])->name('time.update');
 Route::get('/time/{id}/delete', [App\Http\Controllers\timeController::class,'destroy'])->name('time.delete');
+
+Route::get('/detail', [App\Http\Controllers\DetailController::class,'index'])->name('detail');
+Route::get('/detail/create', [App\Http\Controllers\DetailController::class,'create'])->name('detail.create');
+Route::post('/detail/store', [App\Http\Controllers\DetailController::class,'store'])->name('detail.store');
+Route::get('/detail/{id}/edit', [App\Http\Controllers\DetailController::class,'edit'])->name('detail.edit');
+Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,'update'])->name('detail.update');
+Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
