@@ -47,10 +47,22 @@
                             <a class="nav-link" href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('time') }}">{{ __('Jam Tanyang') }}</a>
+                            <a class="nav-link" href="{{ route('time') }}">{{ __('Jam Tayang') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('detail')}}">{{ __('Details') }}</a>
+                            <a class="nav-link" href="{{ route('detail') }}">{{ __('Details') }}</a>
+                        </li>
+                        <!-- Dropdown Menu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Fitur
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
+                                <li><a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
+                                <li><a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
+                                <li><a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
+                            </ul>
                         </li>
                     </ul>
 
@@ -138,15 +150,8 @@
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     {{-- cdn bosstraps --}}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -98,7 +98,7 @@
 
 <div class="film-container">
     @foreach ($detail as $item)
-    <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
+    <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
         <div class="film-description">
             <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
@@ -121,6 +121,31 @@
                 <ion-icon name="trash-outline"></ion-icon>
             </button>
         </a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="film{{ $item->id }}Modal" tabindex="-1" aria-labelledby="film{{ $item->id }}ModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid mb-3" alt="{{ $item->judul }}">
+                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
+                    <p>Pemeran: {{ $item->pemeran }}</p>
+                    <p>Penulis: {{ $item->penulis }}</p>
+                    <p>Sutradara: {{ $item->sutradara }}</p>
+                    <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
+                    <p>{{ $item->deskripsi }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     @endforeach
 </div>
