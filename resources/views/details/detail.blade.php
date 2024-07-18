@@ -47,25 +47,36 @@
         position: relative;
     }
 
-    .film-card .btn-order {
+    .btn-edit, .btn-delete {
         position: absolute;
-        bottom: 10px; /* Adjust according to your design */
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #28a745; /* Green background color */
+        top: 10px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.7);
         color: white;
         border: none;
-        padding: 5px 15px;
-        border-radius: 5px;
+        border-radius: 50%;
         cursor: pointer;
-        font-size: 1rem; /* Font size for the icon */
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: background-color 0.3s ease;
     }
 
-    .film-card .btn-order i {
-        margin-right: 5px; /* Space between icon and text */
+    .btn-edit {
+        left: 10px;
+    }
+
+    .btn-delete {
+        right: 10px;
+    }
+
+    .btn-edit:hover, .btn-delete:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-edit ion-icon, .btn-delete ion-icon {
+        font-size: 20px;
     }
 
     .film-container {
@@ -87,7 +98,6 @@
 
 <div class="film-container">
     @foreach ($detail as $item)
-
     <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
         <div class="film-description">
@@ -101,18 +111,17 @@
         </div>
 
         <a href="{{ route('detail.edit', $item->id) }}">
-            <button type="button" class="btn btn-success btn-sm">
-                <ion-icon name="trash-outline"></ion-icon>
+            <button type="button" class="btn-edit">
+                <ion-icon name="create-outline"></ion-icon>
             </button>
         </a>
 
         <a href="{{ route('detail.delete', $item->id) }}">
-            <button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
+            <button type="button" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
                 <ion-icon name="trash-outline"></ion-icon>
             </button>
         </a>
     </div>
-
     @endforeach
 </div>
 

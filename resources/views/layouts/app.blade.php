@@ -50,7 +50,7 @@
                             <a class="nav-link" href="{{ route('time') }}">{{ __('Jam Tanyang') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Film') }}</a>
+                            <a class="nav-link" href="{{route('detail')}}">{{ __('Details') }}</a>
                         </li>
                     </ul>
 
