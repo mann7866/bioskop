@@ -107,6 +107,14 @@
     <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
         <div class="film-description">
+<<<<<<< HEAD
+=======
+            <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
+            @foreach ($genres as $s)
+
+            <p>Genre: {{ $s->genre }}</p>
+            @endforeach
+>>>>>>> 34cda4bbcf717cdad8272d7d4abbeccca33fdbef
             <h1 class="poss">{{ $item->judul }}</h1>
             <p>{{ $item->deskripsi }}</p>
             <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
@@ -136,7 +144,23 @@
                 </div>
                 <div class="modal-body">
                     <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid mb-3" alt="{{ $item->judul }}">
+
+                    <h1 class="poss">{{ $item->judul }}</h1>
+
+
+                    <style>
+                        .genre-item {
+                            display: inline-block;
+                            margin-right: 3px;
+                        }
+                    </style>
+
+                    @foreach ($genres as $s)
+                        <p class="genre-item"> {{ $s->genre }},</p>
+                    @endforeach
+
                     <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
+
                     <p>Pemeran: {{ $item->pemeran }}</p>
                     <p>Penulis: {{ $item->penulis }}</p>
                     <p>Sutradara: {{ $item->sutradara }}</p>
