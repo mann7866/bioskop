@@ -199,6 +199,7 @@
                 <div class="modal-body">
                     <div class="embed-responsive embed-responsive-16by9">
                         {{-- Konten video atau trailer di sini --}}
+                        <h1>Test</h1>
                     </div>
                 </div>
             </div>
