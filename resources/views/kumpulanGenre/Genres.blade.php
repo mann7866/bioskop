@@ -29,7 +29,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered" id="genreTable" width="100%" cellspacing="0">
-                <thead class="table-primary">
+                <thead class="table-danger">
                     <tr>
                         <th class="text-center">Judul Film</th>
                         <th class="text-center">Genre Film</th>
