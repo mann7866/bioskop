@@ -70,8 +70,8 @@ class DetailController extends Controller
     public function edit(string $id)
     {
         $detail = Detail::find($id);
-        $genres = Genres::all();
-        return view("details.editDetail", compact("detail", "genre"));
+
+        return view("details.editDetail", compact("detail"));
     }
 
     /**
@@ -96,7 +96,7 @@ class DetailController extends Controller
                 "foto" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "deskripsi" => "required|max:50",
             ]);
-
+            
             $detail->update($validateData);
         }
             if ($request->hasFile("foto")) {
