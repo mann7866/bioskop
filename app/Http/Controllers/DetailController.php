@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\genre;
 use App\Models\Detail;
+use App\Models\Genres;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller
@@ -68,7 +70,8 @@ class DetailController extends Controller
     public function edit(string $id)
     {
         $detail = Detail::find($id);
-        return view("details.editDetail", compact("detail"));
+        $genres = Genres::all();
+        return view("details.editDetail", compact("detail", "genre"));
     }
 
     /**

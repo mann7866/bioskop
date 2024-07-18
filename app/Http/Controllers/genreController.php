@@ -85,5 +85,6 @@ class genreController extends Controller
          if ($genre->delete()){
          return redirect()->route("genre")->with('delete','genre berhasil diHapus.');
     }
+    
     }
 }

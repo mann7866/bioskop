@@ -12,4 +12,9 @@ class genre extends Model
     protected $table = 'genre';
 
     protected $guarded = [];
+
+    public function details()
+    {
+        return $this->belongsToMany(Detail::class, 'Genres');
+    }
 }
