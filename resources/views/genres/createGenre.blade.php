@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <div class="form-container">
         <h1 class="form-title text-center">Tambah Genre</h1>
-        <form action="{{ route('genre.store') }}" method="POST">
+        <form action="{{ route('genre.store') }}" method="POST" >
             @csrf
             <div class="mb-3">
                 <label class="form-label">Genre</label>

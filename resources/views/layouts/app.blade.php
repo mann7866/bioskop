@@ -67,6 +67,9 @@
                             <li>
                                 <a href="{{ route('time') }}">Time</a>
                             </li>
+                            <li>
+                                <a href="{{ route('detail') }}">Detail</a>
+                            </li>
                         </ul>
                     </div>
 

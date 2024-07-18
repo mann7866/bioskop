@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('penulis');
             $table->string('sutradara');
             $table->string('perusahaanProduksi');
+            $table->text('deskripsi');
+            $table->string('foto');
             $table->timestamps();
         });
     }
