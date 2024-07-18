@@ -9,7 +9,7 @@
 @endif
 <style>
     .warning{
-        background-color: blue;
+        background-color: hsl(202, 100%, 50%);
         transition: 2s ease;
     }
     .warning:hover{
