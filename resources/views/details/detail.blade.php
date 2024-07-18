@@ -145,7 +145,7 @@
                 </div>
                 <div class="modal-body">
                     <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid mb-3" alt="{{ $item->judul }}">
-                    <h1 class="poss">{{ $item->judul }}</h1>
+
                     <style>
                         .genre-item {
                             display: inline-block;

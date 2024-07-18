@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Detail;
 use App\Models\genre;
+use App\Models\Detail;
+use App\Models\Genres;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller

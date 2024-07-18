@@ -38,16 +38,16 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($genres as $item)
+                    @foreach ($genres as $item->id)
 
                         <tr>
                             <td class="text-center">{{ $item->id_judul }}</td>
                             <td class="text-center">{{ $item->id_genre }}</td>
                             <td class="text-center">
-                                <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
+                                <a href="{{ route('genres.edit', $item->id) }}" class="btn btn-success btn-sm">
                                     <ion-icon name="pencil-outline"></ion-icon>
                                 </a>
-                                <a href="{{ route('genre.delete', $item->id) }}">
+                                <a href="{{ route('genres.delete', $item->id) }}">
                                     <button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
