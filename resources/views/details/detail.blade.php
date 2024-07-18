@@ -102,9 +102,16 @@
         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
         <div class="film-description">
             <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
-            @foreach ($genres as $s)
 
-            <p>Genre: {{ $s->genre }}</p>
+            <style>
+                .genre-item {
+                    display: inline-block;
+                    margin-right: 3px;
+                }
+            </style>
+
+            @foreach ($genres as $s)
+                <p class="genre-item"> {{ $s->genre }},</p>
             @endforeach
             <h1 class="poss">{{ $item->judul }}</h1>
             <p>Pemeran: {{ $item->pemeran }}</p>
@@ -138,6 +145,17 @@
                 </div>
                 <div class="modal-body">
                     <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid mb-3" alt="{{ $item->judul }}">
+                    <h1 class="poss">{{ $item->judul }}</h1>
+                    <style>
+                        .genre-item {
+                            display: inline-block;
+                            margin-right: 3px;
+                        }
+                    </style>
+
+                    @foreach ($genres as $s)
+                        <p class="genre-item"> {{ $s->genre }},</p>
+                    @endforeach
                     <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                     <p>Pemeran: {{ $item->pemeran }}</p>
                     <p>Penulis: {{ $item->penulis }}</p>
