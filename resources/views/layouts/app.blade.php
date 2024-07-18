@@ -70,6 +70,9 @@
                             <li>
                                 <a href="{{ route('detail') }}">Detail</a>
                             </li>
+                            <li>
+                                <a href="{{ route('genres') }}">Kumpulan Genre</a>
+                            </li>
                         </ul>
                     </div>
 

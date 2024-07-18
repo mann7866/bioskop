@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detail;
+use App\Models\Film;
+use App\Models\Time;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -11,7 +14,10 @@ class FilmController extends Controller
      */
     public function index()
     {
-        //
+        $Film = Film::all();
+        $detail = Detail::all();
+        $time = Time::all();
+        return view("films.film");
     }
 
     /**
@@ -19,7 +25,7 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        return view("films.filmCreate");
     }
 
     /**
@@ -27,7 +33,17 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            "id_genre"=> "required",
+            "judul"=> "required",
+            "id_jamTayang"=> "required",
+            "tanggalTayang"=> "required",
+            "id_deskripsi"=> "required",
+            "harga"=> "required|max:1000000000",
+        ]) ;
+
+            Film::create($validateData) ;
+            return redirect()->route("film")->with('success', 'Berhasil Tambah Film') ;
     }
 
     /**

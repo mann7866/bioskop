@@ -11,4 +11,9 @@ class Detail extends Model
 
     protected $table = 'detail';
     protected $guarded = [];
+
+    public function genres()
+    {
+        return $this->belongsToMany(genre::class, 'Genres');
+    }
 }
