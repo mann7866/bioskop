@@ -15,7 +15,13 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    {{-- Data aos --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    {{-- scrips data aos --}}
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -41,7 +47,7 @@
                             <a class="nav-link" href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Details') }}</a>
+                            <a class="nav-link" href="{{ route('time') }}">{{ __('Jam Tanyang') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Film') }}</a>
