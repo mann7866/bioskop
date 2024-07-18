@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\genre;
 use App\Models\Detail;
-use App\Models\Genres;
+use App\Models\genre;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller
@@ -15,7 +14,8 @@ class DetailController extends Controller
     public function index()
     {
         $detail = Detail::all();
-        return view("details.detail", compact("detail"));
+        $genres = genre::all();
+        return view("details.detail", compact("detail","genres"));
     }
 
     /**
@@ -96,7 +96,7 @@ class DetailController extends Controller
                 "foto" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "deskripsi" => "required|max:50",
             ]);
-            
+
             $detail->update($validateData);
         }
             if ($request->hasFile("foto")) {
