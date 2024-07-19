@@ -8,12 +8,35 @@
     </div>
 @endif
 <style>
-    .warning{
-        background-color: blue;
-        transition: 2s ease;
+    .warning {
+        background-color: #007bff; /* Warna biru dari Bootstrap */
+        transition: 0.3s ease;
     }
-    .warning:hover{
-        border-radius: 25px 27px ;
+    .warning:hover {
+        border-radius: 25px 27px;
+        background-color: #0056b3; /* Warna biru gelap saat hover */
+    }
+    .table-responsive {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    #genreTable {
+        max-width: 1165px; /* Atur lebar maksimum tabel */
+        margin: auto; /* Centering tabel */
+    }
+    th, td {
+        white-space: nowrap; /* Mencegah teks melampaui batas kolom */
+    }
+    .card-header {
+        background-color: #f8f9fa; /* Warna latar belakang header */
+        border-bottom: 1px solid #dee2e6; /* Garis bawah header */
+    }
+    .card-title {
+        font-size: 1.5rem; /* Ukuran font judul card */
+        color: #343a40; /* Warna font judul card */
+    }
+    .btn-success, .btn-danger {
+        font-size: 0.875rem; /* Ukuran font tombol */
     }
 </style>
 <div>
@@ -28,7 +51,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered" id="genreTable" width="100%" cellspacing="0">
+            <table class="table table-striped table-hover table-bordered" id="genreTable" cellspacing="0">
                 <thead class="table-primary">
                     <tr>
                         <th class="text-center">Judul Film</th>
@@ -37,9 +60,7 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($genres as $item)
-
                         <tr>
                             <td class="text-center">{{ $item->id_judul }}</td>
                             <td class="text-center">{{ $item->id_genre }}</td>
@@ -54,7 +75,6 @@
                                 </a>
                             </td>
                         </tr>
-
                     @endforeach
                 </tbody>
             </table>
@@ -69,15 +89,6 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#genreTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/Indonesian.json"
-                }
-            });
-        });
-    </script>
 @endpush
 
 @push('styles')
