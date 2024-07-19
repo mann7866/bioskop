@@ -25,7 +25,14 @@
 
 <body>
     <style>
-       
+        .dropdown-item:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .dropdown-item {
+            transition: color 0.3s, text-decoration 0.3s;
+        }
     </style>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
@@ -43,30 +50,20 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"  href="{{ route('genre') }}">{{ __('Genres') }}</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('detail') }}">{{ __('Details') }}</a>
                         </li>
-                        <!-- Dropdown Menu -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Fitur
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
-                                <li><a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
-                                <li><a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
-                                <li><a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
-                            </ul>
+                        <!-- Button to open offcanvas -->
+                        <li class="nav-item">
+                            <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Fitur </button>
                         </li>
                     </ul>
 
                     <!-- Center Search Form -->
                     <form class="d-flex mx-auto" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="query">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
@@ -114,6 +111,22 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+
+    <!-- Offcanvas Content -->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Fitur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="list-unstyled">
+          <li><a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
+          <li><a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
+          <li><a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
+          <li><a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
+        </ul>
+      </div>
     </div>
 
     <!-- SweetAlert -->
