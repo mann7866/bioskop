@@ -93,7 +93,7 @@
                             <div class="film-container">
                                 {{-- Film 1 --}}
                                 <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
-                                    <img src="{{ asset('image/us-1.jpg') }}" class="img-fluid" alt="Film 1">
+                                    <img src="{{ asset('image/'. {{ $item->foto }}) }}" class="img-fluid" alt="Film 1">
                                     <button class="btn-pesan">
                                         <i class="fa-solid fa-cart-shopping"></i> Pesan
                                     </button>
@@ -231,7 +231,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="embed-responsive embed-responsive-16by9">
-                        
+
                     </div>
                 </div>
             </div>
