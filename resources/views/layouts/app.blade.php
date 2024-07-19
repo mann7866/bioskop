@@ -119,8 +119,8 @@
         <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Fitur</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
-        <ul class="list-unstyled">
+      <div class="offcanvas-body nav nav-underline">
+        <ul class="list-unstyled nav nav-underline">
           <li>
             <a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
           <li>
