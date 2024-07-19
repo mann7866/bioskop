@@ -121,10 +121,14 @@
       </div>
       <div class="offcanvas-body">
         <ul class="list-unstyled">
-          <li><a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
-          <li><a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
-          <li><a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
-          <li><a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
+          <li>
+            <a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
+          <li>
+            <a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
+          <li>
+            <a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
+          <li>
+            <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
         </ul>
       </div>
     </div>
