@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detail;
-use App\Models\Genres;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,8 +36,8 @@ class HomeController extends Controller
     public function index()
     {
         $detail = Detail::all();
-     
-        return view('home', compact('detail','genres'));
+
+        return view('home', compact('detail'));
     }
 }
 

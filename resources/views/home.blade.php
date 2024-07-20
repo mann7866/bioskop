@@ -92,20 +92,26 @@
                             <div class="film-container">
                                 {{-- Film 1 --}}
                                 @foreach ($detail as $item)
-                                    <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="Film 1">
-                                        <button class="btn-pesan">
-                                            <i class="fa-solid fa-cart-shopping"></i> Pesan
-                                        </button>
-                                        <div class="film-description">
-                                            <h5 class="poss">{{ $item->judul }}</h5>
-                                            <p>{{ $item->deskripsi }}</p>
-                                        </div>
-                                        <label class="film-label">
-                                            {{ $item->judul }}
-                                        </label>
+
+                                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
+                                    <img src="{{ asset('image/'. $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                    <button class="btn-pesan">
+                                        <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                    </button>
+                                    <div class="film-description">
+                                        <h5 class="poss">{{ $item->judul }}</h5>
+                                        <p>{{ $item->deskripsi }}</p>
                                     </div>
+                                    <label class="film-label">
+                                        {{ $item->judul }}
+                                    </label>
+                                </div>
+
                                 @endforeach
+                                {{-- Film 2 --}}
+
+                                {{-- Film 3 (Oshi No Ko) --}}
+
                             </div>
                         </div>
 

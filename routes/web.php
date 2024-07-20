@@ -1,8 +1,8 @@
 <?php
 // routes/web.php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {
@@ -35,13 +35,6 @@ Route::post('/detail/store', [App\Http\Controllers\DetailController::class,'stor
 Route::get('/detail/{id}/edit', [App\Http\Controllers\DetailController::class,'edit'])->name('detail.edit');
 Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,'update'])->name('detail.update');
 Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
-
-Route::get('/film', [App\Http\Controllers\FilmController::class,'index'])->name('film');
-Route::get('/film/create', [App\Http\Controllers\FilmController::class,'create'])->name('film.create');
-Route::get('/film/store', [App\Http\Controllers\FilmController::class,'store'])->name('film.store');
-Route::get('/film/{id}/edit', [App\Http\Controllers\FilmController::class,'edit'])->name('film.edit');
-Route::get('/film/{id}/update', [App\Http\Controllers\FilmController::class,'update'])->name('film.update');
-Route::get('/film/{id}/delete', [App\Http\Controllers\FilmController::class,'destroy'])->name('film.delete');
 
 Route::get('/genres', [App\Http\Controllers\GenreDetail::class,'index'])->name('genres');
 // Route::get('/genres/create', [App\Http\Controllers\GenresController::class,'create'])->name('genres.create');

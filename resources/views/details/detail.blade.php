@@ -115,6 +115,8 @@
                 <div class="film-description">
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
 
+                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
+
                     <style>
                         .genre-item {
                             display: inline-block;
