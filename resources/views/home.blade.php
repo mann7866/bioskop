@@ -157,7 +157,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#filmCarousel');
             var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 3000,  // Mengatur interval pergeseran otomatis menjadi 3 detik
+                interval: 2000,  // Mengatur interval pergeseran otomatis menjadi 3 detik
                 wrap: true
             });
         });

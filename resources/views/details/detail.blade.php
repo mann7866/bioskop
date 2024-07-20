@@ -2,27 +2,33 @@
 
 @section('content')
     <style>
-        .film-card {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            width: calc(50% - 10px);
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+       .film-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: calc(50% - 10px);
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 300px; /* Tinggi tetap untuk card */
+    display: flex;
+    flex-direction: column;
+}
 
-        .film-card img {
-            width: 100%;
-            height: 300px; /* Tinggi tetap untuk card */
-            object-fit: cover; /* Menjaga aspek rasio dan memotong jika perlu */
-            transition: transform 0.3s ease;
-        }
+.film-card img {
+    width: 100%;
+    height: 100%; /* Mengisi tinggi kartu */
+    object-fit: cover; /* Memotong gambar jika perlu */
+    transition: transform 0.3s ease;
+}
 
-        .film-card:hover img {
-            transform: scale(1.1);
-        }
+.film-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Gaya lainnya tetap sama */
+
 
         .film-description {
             position: absolute;
@@ -167,6 +173,32 @@
                 width: 100%;
             }
         }
+        .warning {
+        background-color: blue;
+        transition: 2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* .warning:hover {
+        border-radius: 25px 27px;
+    } */
+
+    .warning::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: red;
+        transition: all 0.3s;
+    }
+
+    .warning:hover::after {
+        left: 0;
+        width: 100%;
+    }
     </style>
 
     <div>

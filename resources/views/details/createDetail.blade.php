@@ -1,117 +1,132 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container mt-4">
-        <div class="form-container">
-            <h1 class="form-title text-center">Tambah Detail Film</h1>
-            <form action="{{ route('detail.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="mb-3">
-                    <label for="judul" class="form-label">Judul</label>
-                    <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                        name="judul">
-                    @error('judul')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+@section('content') 
+{{-- syle --}}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Tambah Detail Film</h1>
+    <form class="row g-3 needs-validation" action="{{ route('detail.store') }}" method="POST" enctype="multipart/form-data" novalidate>
+        @csrf
 
-
-                <div class="mb-3">
-                    @foreach ($genre as $item)
-                        <div class="form-check">
-                            <input class="form-check-input" name="genres[]" type="checkbox" value="{{ $item->id }}" id="genre-{{ $item->id }}">
-                            <label class="form-check-label" for="genre-{{ $item->id }}">
-                                {{ $item->genre }}
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Tanggal Rilis</label>
-                    <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis"
-                        name="tanggalRilis">
-                    @error('tanggalRilis')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Pemeran</label>
-                    <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran"
-                        name="pemeran">
-                    @error('pemeran')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Penulis</label>
-                    <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis"
-                        name="penulis">
-                    @error('penulis')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Sutradara</label>
-                    <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara"
-                        name="sutradara">
-                    @error('sutradara')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Perusahaan Produksi</label>
-                    <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror"
-                        id="perusahaanProduksi" name="perusahaanProduksi">
-                    @error('perusahaanProduksi')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="deskripsi" cols="30"
-                        rows="5"></textarea>
-                    @error('deskripsi')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Upload Foto</label>
-                    <div class="input-group">
-                        <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
-                            id="inputGroupFile">
-                        <label class="btn btn-success input-group-text" for="inputGroupFile">Upload</label>
-                    </div>
-                    <img id="imagePreview" class="mt-2" style="max-width: 200px; max-height: 200px; display: none;">
-                    @error('foto')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <button class="btn btn-primary mt-3" type="submit" name="submit">Tambah Deskripsi</button>
-            </form>
+        <div class="col-md-6">
+            <label for="judul" class="form-label">Judul</label>
+            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required>
+            @error('judul')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-    </div>
 
-    <script>
-        // Function to preview image
-        function previewImage(event) {
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('imagePreview');
-                output.style.display = 'block'; // Ensure image preview is visible
-                output.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
+        <div class="col-md-6 mt-5 sty">
+            <label class="form-label">Genres=></label>
+            @foreach ($genre as $item)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input @error('genres') is-invalid @enderror" type="checkbox" name="genres[]" value="{{ $item->id }}" id="genre-{{ $item->id }}">
+                    <label class="form-check-label" for="genre-{{ $item->id }}">
+                        {{ $item->genre }}
+                    </label>
+                </div>
+            @endforeach
+            @error('genres')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="tanggalRilis" class="form-label">Tanggal Rilis</label>
+            <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis" name="tanggalRilis" required>
+            @error('tanggalRilis')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="pemeran" class="form-label">Pemeran</label>
+            <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran" name="pemeran" required>
+            @error('pemeran')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="penulis" class="form-label">Penulis</label>
+            <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis" name="penulis" required>
+            @error('penulis')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="sutradara" class="form-label">Sutradara</label>
+            <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara" name="sutradara" required>
+            @error('sutradara')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="perusahaanProduksi" class="form-label">Perusahaan Produksi</label>
+            <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi" name="perusahaanProduksi" required>
+            @error('perusahaanProduksi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-12">
+            <label for="deskripsi" class="form-label">Deskripsi</label>
+            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+            @error('deskripsi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-12">
+            <label for="foto" class="form-label">Upload Foto</label>
+            <div class="input-group">
+                <input type="file" class="form-control @error('foto') is-invalid @enderror" id="inputGroupFile" name="foto" required>
+                <label class="input-group-text" for="inputGroupFile">Upload</label>
+            </div>
+            <img id="imagePreview" class="mt-2" style="max-width: 200px; max-height: 200px; display: none;">
+            @error('foto')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Tambah Deskripsi</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Function to preview image
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('imagePreview');
+            output.style.display = 'block'; // Ensure image preview is visible
+            output.src = reader.result;
         }
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
-        // Event listener for file input change
-        document.getElementById('inputGroupFile').addEventListener('change', previewImage);
-    </script>
+    // Event listener for file input change
+    document.getElementById('inputGroupFile').addEventListener('change', previewImage);
+
+    // JavaScript for Bootstrap form validation
+    (function () {
+        'use strict';
+
+        var forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+    })();
+</script>
 @endsection

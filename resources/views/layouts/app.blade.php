@@ -12,14 +12,15 @@
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="icon" href="{{asset('Logo/Dreamland Theater.jpg')}}">
+    <link rel="icon" href="{{ asset('Logo/Dreamland Theater.jpg') }}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -51,20 +52,23 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('genre') }}">{{ __('Genres') }}</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('detail') }}">{{ __('Details') }}</a>
                         </li>
                         <!-- Button to open offcanvas -->
                         <li class="nav-item">
-                            <button class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Fitur </button>
+                            <button class="nav-link" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Fitur </button>
                         </li>
                     </ul>
 
                     <!-- Center Search Form -->
                     <form class="d-flex mx-auto" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
@@ -97,8 +101,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -115,25 +118,29 @@
     </div>
 
     <!-- Offcanvas Content -->
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Fitur</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body nav nav-underline">
-        <ul class="list-unstyled nav nav-underline">
-          <li>
-            <a class="dropdown-item" href="{{ route('genre') }}">Genres</a></li>
-          <li>
-            <a class="dropdown-item" href="{{ route('time') }}">Time</a></li>
-          <li>
-            <a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
-          <li>
-            <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
-            {{-- <li>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Fitur</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <li>
+                    <a class="dropdown-item" href="{{ route('genre') }}">Genres</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('time') }}">Time</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('detail') }}">Details</a>
+                </li>
+                {{-- <li>
+            <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li> --}}
+                {{-- <li>
              <a href="{{route('f')}}" class="dropdown-item">Film</a></li> --}}
-        </ul>
-      </div>
+            </ul>
+        </div>
     </div>
 
     <!-- SweetAlert -->
@@ -142,22 +149,19 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    {{-- isotop --}}
+    <link rel="stylesheet" href="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.css">
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
     <!-- DataTables -->
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
 
     <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
