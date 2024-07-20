@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-md-6 mt-5 sty">
-            <label class="form-label">Genre:></label>
+            <label class="form-label">Genre:</label>
             @foreach ($genre as $item)
                 <div class="form-check form-check-inline">
                     <input class="form-check-input @error('genres') is-invalid @enderror" type="checkbox" name="genres[]" value="{{ $item->id }}" id="genre-{{ $item->id }}">

@@ -2,106 +2,132 @@
 
 @section('content')
 <div class="container mt-4">
-    <div class="form-container">
-        <h1 class="form-title text-center">Edit Detail Film</h1>
-        <form action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('put')
+    <h1 class="text-center mb-4">Edit Detail Film</h1>
+    <form class="row g-3 needs-validation" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data" novalidate>
+        @csrf
+        @method('put')
+
+        <div class="col-md-6">
+            <label for="judul" class="form-label">Judul</label>
+            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ $detail->judul }}" required>
+            @error('judul')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="tanggalRilis" class="form-label">Tanggal Rilis</label>
+            <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis" name="tanggalRilis" value="{{ $detail->tanggalRilis }}" required>
+            @error('tanggalRilis')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="pemeran" class="form-label">Pemeran</label>
+            <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran" name="pemeran" value="{{ $detail->pemeran }}" required>
+            @error('pemeran')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="penulis" class="form-label">Penulis</label>
+            <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis" name="penulis" value="{{ $detail->penulis }}" required>
+            @error('penulis')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="sutradara" class="form-label">Sutradara</label>
+            <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara" name="sutradara" value="{{ $detail->sutradara }}" required>
+            @error('sutradara')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="perusahaanProduksi" class="form-label">Perusahaan Produksi</label>
+            <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi" name="perusahaanProduksi" value="{{ $detail->perusahaanProduksi }}" required>
+            @error('perusahaanProduksi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-12">
+            <label for="deskripsi" class="form-label">Deskripsi</label>
+            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ $detail->deskripsi }}</textarea>
+            @error('deskripsi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+{{-- 
             <div class="mb-3">
-                <label for="judul" class="form-label">Judul</label>
-                <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                       name="judul" value="{{ $detail->judul }}">
-                @error('judul')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Tanggal Rilis</label>
-
-                <input type="date" class="form-control @error('tanggalTayang') is-invalid @enderror" id="tanggalRilis"
-                name="tanggalRilis" value="{{ $detail->tanggalRilis }}">
-
-                @error('tanggalRilis')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Pemeran</label>
-
-                <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran"
-                name="pemeran" value="{{ $detail->pemeran }}">
-
-                @error('pemeran')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Penulis</label>
-
-                <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis"
-                name="penulis" value="{{ $detail->penulis }}">
-
-                @error('penulis')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Sutradara</label>
-
-                <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara"
-                name="sutradara" value="{{ $detail->sutradara }}">
-
-                @error('sutradara')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Perusahaan Produksi</label>
-
-                <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi"
-                name="perusahaanProduksi" value="{{ $detail->perusahaanProduksi }}">
-
-                @error('perusahaanProduksi')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Deskripsi</label>
-
-                <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="5">{{ $detail->deskripsi }}</textarea>
-
-                @error('deskripsi')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="row col-4 mt-5">
-                <div class="card">
-            <img src="{{ asset('image/' .$detail->foto) }}" class="card-img-top" alt="{{ $detail->judul }}">
-            </div>
-
-            <div class="mb-3">
-                <div class="card-title">Upload Foto</div>
-                <div class="input-group mb-3">
-                    <input type="file" name="foto" class="form-control" id="inputGroupFile">
-                    <label for="" class=" btn btn-success input-group-text">Upload</label>
+                <label class="form-label">Genres</label>
+                <div class="d-flex flex-wrap">
+                    @foreach ($genre as $item)
+                        <div class="form-check me-3">
+                            <input class="form-check-input @error('genres') is-invalid @enderror" type="checkbox" name="genres[]" value="{{ $item->id }}" id="genre-{{ $item->id }}">
+                            <label class="form-check-label" for="genre-{{ $item->id }}">
+                                {{ $item->genre }}
+                            </label>
+                        </div>
+                    @endforeach
+                    @error('genres')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
+            </div> --}}
 
-                @error('deskripsi')
+        <div class="col-12">
+            <div class="mb-3">
+                <label class="form-label">Upload Foto</label>
+                <div class="input-group mb-3">
+                    <input type="file" name="foto" class="form-control" id="inputGroupFile" onchange="previewImage(event)">
+                    <label class="input-group-text" for="inputGroupFile">Upload</label>
+                </div>
+                @error('foto')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <img id="imagePreview" src="{{ asset('image/' .$detail->foto) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
             </div>
+        </div>
 
-            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">
-                Edit Deskripsi
-            </button>
-        </form>
-    </div>
+        <div class="col-12">
+            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Edit Deskripsi</button>
+        </div>
+    </form>
 </div>
+
+<script>
+    // Function to preview image
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('imagePreview');
+            output.style.display = 'block';
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // JavaScript for Bootstrap form validation
+    (function () {
+        'use strict';
+
+        var forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+    })();
+</script>
 @endsection

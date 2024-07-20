@@ -11,9 +11,9 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             cursor: pointer;
-            margin-right: 15px;
-            flex: 0 0 auto;
-            width: 200px; /* Lebar film card */
+            margin: 10px;
+            flex: 0 0 calc(16.66% - 20px); /* Untuk menampilkan 6 kartu per baris dengan jarak */
+            box-sizing: border-box;
         }
 
         .film-card img {
@@ -70,13 +70,9 @@
 
         .film-container {
             display: flex;
-            overflow-x: auto;
+            flex-wrap: wrap; /* Agar kartu film turun ke bawah jika jumlahnya melebihi baris */
+            justify-content: center; /* Pusatkan kartu film */
             padding: 10px;
-            white-space: nowrap;
-        }
-
-        .film-container::-webkit-scrollbar {
-            display: none; /* Sembunyikan scrollbar untuk tampilan lebih bersih */
         }
 
         .poss {
@@ -86,11 +82,19 @@
         .carousel-control-prev, .carousel-control-next {
             width: 5%;
         }
+
+        .back {
+            color: #28a745;
+            object-fit: cover;
+            background-clip: border-box;
+            background: url({{ asset('image/netflix.jpg') }});
+        }
     </style>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card text-center mb-4">
+                <div class="card text-center mb-4 back">
                     <div class="card-header">{{ __('Bioskop') }}</div>
                     <div class="card-body">
                         <p>{{ __('Welcome to Bioskop') }}</p>
@@ -119,14 +123,14 @@
                         </div>
                     </div>
                     {{-- Tombol kontrol carousel --}}
-                    <button class="carousel-control-prev" type="button" data-bs-target="#filmCarousel" data-bs-slide="prev">
+                    {{-- <button class="carousel-control-prev" type="button" data-bs-target="#filmCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#filmCarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -157,7 +161,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#filmCarousel');
             var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 2000,  // Mengatur interval pergeseran otomatis menjadi 3 detik
+                interval: 2000,  // Mengatur interval pergeseran otomatis menjadi 2 detik
                 wrap: true
             });
         });
