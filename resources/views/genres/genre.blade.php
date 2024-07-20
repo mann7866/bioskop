@@ -3,19 +3,61 @@
 @section('content')
 
 @if (session('success'))
-    <div class="alert alert-success mt-3">
+    <div class="alert alert-success mt-3 pos">
         {{ session('success') }}
     </div>
 @endif
+
 <style>
-    .warning{
+    .pos {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .pos:after{
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s;
+    }
+    .pos.warning:hover::after{
+        left: 0;
+        width: 100%;
+    }
+    .warning {
         background-color: blue;
         transition: 2s ease;
+        position: relative;
+        overflow: hidden;
     }
-    .warning:hover{
-        border-radius: 25px 27px ;
+
+    /* .warning:hover {
+        border-radius: 25px 27px;
+    } */
+
+    .warning::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s;
+    }
+
+    .warning:hover::after {
+        left: 0;
+        width: 100%;
     }
 </style>
+
 <div>
     <a class="btn btn-primary mt-5 m-2 warning" href="{{ route('genre.create') }}">
         <i class="fas fa-plus"></i> Tambah Genre
@@ -61,18 +103,7 @@
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#genreTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/Indonesian.json"
-                }
-            });
-        });
-    </script>
 @endpush
 
 @push('styles')

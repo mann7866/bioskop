@@ -10,14 +10,15 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
-            width: calc(33.333% - 10px);
-            margin: 5px;
             cursor: pointer;
+            margin-right: 15px;
+            flex: 0 0 auto;
+            width: 200px; /* Lebar film card */
         }
 
         .film-card img {
             width: 100%;
-            height: 400px;
+            height: 300px; /* Tinggi gambar */
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -28,12 +29,12 @@
 
         .film-description {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             left: 0;
             right: 0;
             background: rgba(0, 0, 0, 0.7);
             color: #fff;
-            padding: 10px;
+            padding: 5px;
             opacity: 0;
             transition: opacity 0.3s ease;
             text-align: center;
@@ -69,12 +70,21 @@
 
         .film-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            overflow-x: auto;
+            padding: 10px;
+            white-space: nowrap;
+        }
+
+        .film-container::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar untuk tampilan lebih bersih */
         }
 
         .poss {
             position: static;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+            width: 5%;
         }
     </style>
     <div class="container">
@@ -90,33 +100,33 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="film-container">
-                                {{-- Film 1 --}}
-                                @foreach ($detail as $item)
-
-                                <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film1Modal">
-                                    <img src="{{ asset('image/'. $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
-                                    <button class="btn-pesan">
-                                        <i class="fa-solid fa-cart-shopping"></i> Pesan
-                                    </button>
-                                    <div class="film-description">
-                                        <h5 class="poss">{{ $item->judul }}</h5>
-                                        <p>{{ $item->deskripsi }}</p>
+                                @forelse ($detail as $item)
+                                    <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                        <button class="btn-pesan">
+                                            <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                        </button>
+                                        <div class="film-description">
+                                            <h5 class="poss">{{ $item->judul }}</h5>
+                                            <p>{{ $item->deskripsi }}</p>
+                                        </div>
+                                        <label class="film-label">{{ $item->judul }}</label>
                                     </div>
-                                    <label class="film-label">
-                                        {{ $item->judul }}
-                                    </label>
-                                </div>
-
-                                @endforeach
-                                {{-- Film 2 --}}
-
-                                {{-- Film 3 (Oshi No Ko) --}}
-
+                                @empty
+                                    <p>Film tidak ada.</p>
+                                @endforelse
                             </div>
                         </div>
-
                     </div>
-                    {{-- Tombol kontrol carousel dihapus karena komentar --}}
+                    {{-- Tombol kontrol carousel --}}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#filmCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#filmCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -124,26 +134,32 @@
 
     {{-- Bootstrap Modals untuk masing-masing film --}}
     @foreach ($detail as $item)
-        <div class="modal fade" id="film1Modal" tabindex="-1" aria-labelledby="film1ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="film1ModalLabel">{{ $item->judul }}</h5>
+                        <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
                         <div class="embed-responsive embed-responsive-16by9">
-
                             <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                             <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
                             <p>{{ $item->deskripsi }}</p>
                         </div>
-                        <h1>Test</h1>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     @endforeach
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var myCarousel = document.querySelector('#filmCarousel');
+            var carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 3000,  // Mengatur interval pergeseran otomatis menjadi 3 detik
+                wrap: true
+            });
+        });
+    </script>
 @endsection

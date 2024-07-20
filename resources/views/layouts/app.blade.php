@@ -12,6 +12,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="icon" href="{{asset('Logo/Dreamland Theater.jpg')}}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -129,6 +130,8 @@
             <a class="dropdown-item" href="{{ route('detail') }}">Details</a></li>
           <li>
             <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li>
+            {{-- <li>
+             <a href="{{route('f')}}" class="dropdown-item">Film</a></li> --}}
         </ul>
       </div>
     </div>

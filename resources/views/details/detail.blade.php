@@ -7,18 +7,16 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             width: calc(50% - 10px);
-            /* Adjust the width to fit two items per row with some margin */
             margin: 5px;
             cursor: pointer;
-            /* Add pointer cursor for clickable effect */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .film-card img {
             width: 100%;
-            height: 150%;
-            /* Reduced height for smaller images */
-            object-fit: cover;
-            /* Ensures the image covers the entire area without stretching */
+            height: 300px; /* Tinggi tetap untuk card */
+            object-fit: cover; /* Menjaga aspek rasio dan memotong jika perlu */
             transition: transform 0.3s ease;
         }
 
@@ -84,8 +82,77 @@
             justify-content: space-between;
         }
 
-        .poss {
-            position: static;
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            border-bottom: none;
+            background-color: #f8f9fa;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-body img {
+            border-radius: 10px;
+            margin-bottom: 15px;
+            max-width: 100%; /* Menyesuaikan gambar agar tidak melewati lebar modal */
+        }
+
+        .modal-footer {
+            border-top: none;
+            background-color: #f8f9fa;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .modal-footer .btn-secondary {
+            border-radius: 20px;
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .modal-footer .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .film-description ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .film-description ul li {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 3px 6px;
+            background: #007bff;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-body ul li {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 3px 6px;
+            background: #007bff;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.9rem;
         }
 
         /* Media queries to ensure responsiveness */
@@ -113,33 +180,17 @@
             <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
                 <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                 <div class="film-description">
-                    <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
-
-                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-
-                    <style>
-                        .genre-item {
-                            display: inline-block;
-                            margin-right: 3px;
-                        }
-                    </style>
-
                     <h1 class="poss">{{ $item->judul }}</h1>
                     <p>{{ $item->deskripsi }}</p>
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
+                    <ul>
+                        @foreach ($item->genres as $genre)
+                            <li>{{ $genre->genre }}</li>
+                        @endforeach
+                    </ul>
                 </div>
 
-                <a href="{{ route('detail.edit', $item->id) }}">
-                    <button type="button" class="btn-edit">
-                        <ion-icon name="create-outline"></ion-icon>
-                    </button>
-                </a>
-
-                <a href="{{ route('detail.delete', $item->id) }}">
-                    <button type="button" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </button>
-                </a>
+               
             </div>
 
             <!-- Modal -->
@@ -152,24 +203,31 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid mb-3"
-                                alt="{{ $item->judul }}">
-
+                            <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                             <h2>Genres:</h2>
-                                <ul>
-                                    @foreach ($item->genres as $genre)
-                                        {{ $genre->genre }}{{ !$loop->last ? ',' : '' }}
-                                    @endforeach
-                                </ul>
-
-
-                                <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-                                <p>Pemeran: {{ $item->pemeran }}</p>
-                                <p>Penulis: {{ $item->penulis }}</p>
-                                <p>Sutradara: {{ $item->sutradara }}</p>
-                                <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
-                                <p>{{ $item->deskripsi }}</p>
+                            <ul>
+                                @foreach ($item->genres as $genre)
+                                    <li>{{ $genre->genre }}</li>
+                                @endforeach
+                            </ul>
+                            <p><strong>Tanggal Rilis:</strong> {{ $item->tanggalRilis }}</p>
+                            <p><strong>Pemeran:</strong> {{ $item->pemeran }}</p>
+                            <p><strong>Penulis:</strong> {{ $item->penulis }}</p>
+                            <p><strong>Sutradara:</strong> {{ $item->sutradara }}</p>
+                            <p><strong>Perusahaan Produksi:</strong> {{ $item->perusahaanProduksi }}</p>
+                            <p><strong>Deskripsi:</strong>{{ $item->deskripsi }}</p>
                         </div>
+                        <a href="{{ route('detail.edit', $item->id) }}">
+                            <button type="button" class="btn-edit">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </button>
+                        </a>
+        
+                        <a href="{{ route('detail.delete', $item->id) }}">
+                            <button type="button" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </button>
+                        </a>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
