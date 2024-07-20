@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('genre_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_genre')->references('id')->on('genre')->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('id_judul')->references('id')->on('Detail')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('id_detail')->references('id')->on('detail');
+            $table->foreignId('id_genre')->references('id')->on('genre');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('genre_detail');
     }
 };

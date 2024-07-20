@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\genre;
 use App\Models\Detail;
-use App\Models\Genres;
+use App\Models\genre;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller
@@ -14,9 +13,10 @@ class DetailController extends Controller
      */
     public function index()
     {
-        $detail = Detail::all();
+        $detail = Detail::with('genres')->get();
         $genres = genre::all();
-        return view("details.detail", compact("detail","genres"));
+        return view("details.detail", compact("detail"));
+
     }
 
     /**
@@ -24,7 +24,8 @@ class DetailController extends Controller
      */
     public function create()
     {
-        return view("details.createDetail");
+        $genre = Genre::all();
+        return view("details.createDetail", compact("genre"));
     }
 
     /**
@@ -41,20 +42,34 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s]+$/|max:20",
             "foto" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "deskripsi" => "required|max:50",
+            "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
         ]);
 
-        $detail = Detail::create($validateData);
-
+        // Upload and save the image
         if ($request->hasFile("foto")) {
             $image = $request->file("foto");
             $imageName = time() . "_" . $image->getClientOriginalName();
             $image->move(public_path("image"), $imageName);
-
-            $detail->foto = $imageName;
-            if ($detail->save()) {
-                return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
-            }
         }
+
+        // Create new Detail instance
+        $detail = Detail::create([
+            'judul' => $validateData['judul'],
+            'pemeran' => $validateData['pemeran'],
+            'tanggalRilis' => $validateData['tanggalRilis'],
+            'penulis' => $validateData['penulis'],
+            'sutradara' => $validateData['sutradara'],
+            'perusahaanProduksi' => $validateData['perusahaanProduksi'],
+            'foto' => $imageName, // Assign the uploaded image name
+            'deskripsi' => $validateData['deskripsi'],
+        ]);
+
+        // Sync genres with the detail using 'sync'
+        if ($request->has('genres')) {
+            $genres = $request->input('genres');
+            $detail->genres()->sync($genres);
+        }
+        return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
     }
 
     /**
@@ -100,25 +115,25 @@ class DetailController extends Controller
 
             $detail->update($validateData);
         }
-            if ($request->hasFile("foto")) {
-                $image = $request->file("foto");
-                $imageName = time() . "_" . $image->getClientOriginalName();
-                $image->move(public_path("image"), $imageName);
+        if ($request->hasFile("foto")) {
+            $image = $request->file("foto");
+            $imageName = time() . "_" . $image->getClientOriginalName();
+            $image->move(public_path("image"), $imageName);
 
 
-                if ($detail->foto) {
-                    $oldImagePath = public_path('image/') . $detail->foto;
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
+            if ($detail->foto) {
+                $oldImagePath = public_path('image/') . $detail->foto;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
                 }
-
-                $detail->foto = $imageName;
             }
 
-            if ($detail->save()) {
-                return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
-            }
+            $detail->foto = $imageName;
+        }
+
+        if ($detail->save()) {
+            return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
+        }
     }
 
     /**

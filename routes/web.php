@@ -5,15 +5,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Route untuk halaman welcome
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 // Route untuk otentikasi, termasuk login, register, dan logout
 Auth::routes();
 
 // Route untuk home
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
 Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create'])->name('genre.create');
@@ -43,9 +43,9 @@ Route::get('/film/{id}/edit', [App\Http\Controllers\FilmController::class,'edit'
 Route::get('/film/{id}/update', [App\Http\Controllers\FilmController::class,'update'])->name('film.update');
 Route::get('/film/{id}/delete', [App\Http\Controllers\FilmController::class,'destroy'])->name('film.delete');
 
-Route::get('/genres', [App\Http\Controllers\GenresController::class,'index'])->name('genres');
-Route::get('/genres/create', [App\Http\Controllers\GenresController::class,'create'])->name('genres.create');
-Route::post('/genres/store', [App\Http\Controllers\GenresController::class,'store'])->name('genres.store');
-Route::get('/genres/{id}/edit', [App\Http\Controllers\GenresController::class,'edit'])->name('genres.edit');
-Route::put('/genres/{id}/update', [App\Http\Controllers\GenresController::class,'update'])->name('genres.update');
-Route::get('genres/{id}/delete', [App\Http\Controllers\GenresController::class,'destroy'])->name('genres.delete');
+Route::get('/genres', [App\Http\Controllers\GenreDetail::class,'index'])->name('genres');
+// Route::get('/genres/create', [App\Http\Controllers\GenresController::class,'create'])->name('genres.create');
+// Route::post('/genres/store', [App\Http\Controllers\GenresController::class,'store'])->name('genres.store');
+// Route::get('/genres/{id}/edit', [App\Http\Controllers\GenresController::class,'edit'])->name('genres.edit');
+// Route::put('/genres/{id}/update', [App\Http\Controllers\GenresController::class,'update'])->name('genres.update');
+// Route::get('genres/{id}/delete', [App\Http\Controllers\GenresController::class,'destroy'])->name('genres.delete');

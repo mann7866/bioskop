@@ -62,8 +62,8 @@
                 <tbody>
                     @foreach ($genres as $item)
                         <tr>
-                            <td class="text-center">{{ $item->id_judul }}</td>
-                            <td class="text-center">{{ $item->id_genre }}</td>
+                            <td class="text-center">{{ $item->genres }}</td>
+                            <td class="text-center">{{ $item->details }}</td>
                             <td class="text-center">
                                 <a href="{{ route('genres.edit', $item->id) }}" class="btn btn-success btn-sm">
                                     <ion-icon name="pencil-outline"></ion-icon>

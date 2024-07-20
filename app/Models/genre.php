@@ -15,6 +15,6 @@ class genre extends Model
 
     public function details()
     {
-        return $this->belongsToMany(Detail::class, 'Genres');
+        return $this->belongsToMany(Detail::class, 'genre_detail','id_genre','id_detail');
     }
 }
