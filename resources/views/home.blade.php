@@ -14,6 +14,8 @@
             margin: 10px;
             flex: 0 0 calc(16.66% - 20px); /* Untuk menampilkan 6 kartu per baris dengan jarak */
             box-sizing: border-box;
+            border-radius: 10px; /* Membuat sudut kartu lebih lembut */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada kartu */
         }
 
         .film-card img {
@@ -21,23 +23,25 @@
             height: 300px; /* Tinggi gambar */
             object-fit: cover;
             transition: transform 0.3s ease;
+            border-radius: 10px 10px 0 0; /* Membuat sudut atas gambar lebih lembut */
         }
 
         .film-card:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05); /* Efek zoom yang lebih halus */
         }
 
         .film-description {
             position: absolute;
-            bottom: 20px;
+            bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
             color: #fff;
-            padding: 5px;
+            padding: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
             text-align: center;
+            border-radius: 0 0 10px 10px; /* Membuat sudut bawah deskripsi lebih lembut */
         }
 
         .film-card:hover .film-description {
@@ -55,24 +59,31 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #28a745;
+            background-color: #ff6b6b;
             color: white;
             border: none;
-            padding: 5px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        .film-card .btn-pesan i {
-            margin-right: 5px;
+        .film-card .btn-pesan:hover {
+            background-color: #ff4757;
+            transform: scale(1.05); /* Efek zoom yang lebih halus pada tombol */
         }
 
         .film-container {
             display: flex;
-            flex-wrap: wrap; /* Agar kartu film turun ke bawah jika jumlahnya melebihi baris */
-            justify-content: center; /* Pusatkan kartu film */
+            flex-wrap: wrap; /* Membungkus baris */
+            justify-content: flex-start; /* Kartu film ke kiri */
             padding: 10px;
+        }
+
+        .film-container::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar untuk tampilan lebih bersih */
         }
 
         .poss {
@@ -84,10 +95,12 @@
         }
 
         .back {
-            color: #28a745;
+            color: #ffffff;
+            background-color: #000;
             object-fit: cover;
             background-clip: border-box;
             background: url({{ asset('image/netflix.jpg') }});
+            border-radius: 10px; /* Membuat sudut kartu lebih lembut */
         }
     </style>
 
@@ -122,15 +135,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Tombol kontrol carousel --}}
-                    {{-- <button class="carousel-control-prev" type="button" data-bs-target="#filmCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#filmCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button> --}}
                 </div>
             </div>
         </div>
