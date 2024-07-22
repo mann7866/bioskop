@@ -62,10 +62,20 @@
             @enderror
         </div>
 
+
+
         <div class="col-md-6">
             <label for="perusahaanProduksi" class="form-label">Perusahaan Produksi</label>
             <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi" name="perusahaanProduksi" value="{{ $detail->perusahaanProduksi }}" required>
             @error('perusahaanProduksi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label for="harga" class="form-label">Harga Tiket</label>
+            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ $detail->harga }}" required>
+            @error('harga')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

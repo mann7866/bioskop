@@ -27,14 +27,16 @@ class OrderController extends Controller
     public function create()
     {
 
+        $kursi = Kursi::all();
 
+        return view('nama_view')->with('kursi', $kursi);
     }
 
     public function order($id)
     {
 
         $detail = Detail::find($id);
-        $kursi = Kursi::all();
+$kursi = Kursi::all();
 
         return view('orders.createOrder', compact('detail','kursi'));
     }
