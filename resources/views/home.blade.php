@@ -115,9 +115,10 @@
             border-radius: 10px;
             /* Membuat sudut kartu lebih lembut */
         }
+
         /* carousel */
         .carousel-inner img {
-        border-radius: 20px;
+            border-radius: 20px;
             width: 100%;
             height: 200px;
             object-fit: cover;
@@ -143,7 +144,7 @@
                     </div>
                 </div>
 
-                <!-- Carousel for large images -->
+                <!-- Carousel untuk gambar besar -->
                 <div class="container mt-4" id="film">
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -164,7 +165,7 @@
                     </div>
                 </div>
 
-                <!-- Carousel for film cards -->
+                <!-- Carousel untuk kartu film -->
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -172,11 +173,9 @@
                                 @forelse ($detail as $item)
                                     <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
-                                        <a href="{{ route('order.create', $item->id ) }}">
-                                        <button class="btn-pesan">
+                                        <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                             <i class="fa-solid fa-cart-shopping"></i> Pesan
                                         </button>
-                                        </a>
                                         <div class="film-description">
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>
@@ -212,15 +211,20 @@
                     </div>
                 </div>
             </div>
-            <script>
+        </div>
+    @endforeach
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#film');
             var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 2000,  // Mengatur interval pergeseran otomatis menjadi 2 detik
+                interval: 2000, // Mengatur interval pergeseran otomatis menjadi 2 detik
                 wrap: true
             });
         });
+
+        function link(url) {
+            window.location.href = url;
+        }
     </script>
-        </div>
-    @endforeach
 @endsection
