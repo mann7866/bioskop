@@ -12,22 +12,28 @@
             transition: transform 0.3s ease;
             cursor: pointer;
             margin: 10px;
-            flex: 0 0 calc(16.66% - 20px); /* Untuk menampilkan 6 kartu per baris dengan jarak */
+            flex: 0 0 calc(16.66% - 20px);
+            /* Untuk menampilkan 6 kartu per baris dengan jarak */
             box-sizing: border-box;
-            border-radius: 10px; /* Membuat sudut kartu lebih lembut */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada kartu */
+            border-radius: 10px;
+            /* Membuat sudut kartu lebih lembut */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Menambahkan bayangan pada kartu */
         }
 
         .film-card img {
             width: 100%;
-            height: 300px; /* Tinggi gambar */
+            height: 300px;
+            /* Tinggi gambar */
             object-fit: cover;
             transition: transform 0.3s ease;
-            border-radius: 10px 10px 0 0; /* Membuat sudut atas gambar lebih lembut */
+            border-radius: 10px 10px 0 0;
+            /* Membuat sudut atas gambar lebih lembut */
         }
 
         .film-card:hover img {
-            transform: scale(1.05); /* Efek zoom yang lebih halus */
+            transform: scale(1.05);
+            /* Efek zoom yang lebih halus */
         }
 
         .film-description {
@@ -41,7 +47,8 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             text-align: center;
-            border-radius: 0 0 10px 10px; /* Membuat sudut bawah deskripsi lebih lembut */
+            border-radius: 0 0 10px 10px;
+            /* Membuat sudut bawah deskripsi lebih lembut */
         }
 
         .film-card:hover .film-description {
@@ -72,25 +79,30 @@
 
         .film-card .btn-pesan:hover {
             background-color: #ff4757;
-            transform: scale(1.05); /* Efek zoom yang lebih halus pada tombol */
+            transform: scale(1.05);
+            /* Efek zoom yang lebih halus pada tombol */
         }
 
         .film-container {
             display: flex;
-            flex-wrap: wrap; /* Membungkus baris */
-            justify-content: flex-start; /* Kartu film ke kiri */
+            flex-wrap: wrap;
+            /* Membungkus baris */
+            justify-content: flex-start;
+            /* Kartu film ke kiri */
             padding: 10px;
         }
 
         .film-container::-webkit-scrollbar {
-            display: none; /* Sembunyikan scrollbar untuk tampilan lebih bersih */
+            display: none;
+            /* Sembunyikan scrollbar untuk tampilan lebih bersih */
         }
 
         .poss {
             position: static;
         }
 
-        .carousel-control-prev, .carousel-control-next {
+        .carousel-control-prev,
+        .carousel-control-next {
             width: 5%;
         }
 
@@ -100,7 +112,24 @@
             object-fit: cover;
             background-clip: border-box;
             background: url({{ asset('image/netflix.jpg') }});
-            border-radius: 10px; /* Membuat sudut kartu lebih lembut */
+            border-radius: 10px;
+            /* Membuat sudut kartu lebih lembut */
+        }
+        /* carousel */
+        .carousel-inner img {
+        border-radius: 20px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+
+        .carousel-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
     </style>
 
@@ -113,6 +142,29 @@
                         <p>{{ __('Welcome to Bioskop') }}</p>
                     </div>
                 </div>
+
+                <!-- Carousel for large images -->
+                <div class="container mt-4" id="film">
+                    <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach ($detail as $key => $item)
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100" alt="{{ $item->judul }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Carousel for film cards -->
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -142,7 +194,7 @@
         </div>
     </div>
 
-    {{-- Bootstrap Modals untuk masing-masing film --}}
+    <!-- Bootstrap Modals untuk masing-masing film -->
     @foreach ($detail as $item)
         <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -160,16 +212,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
-
-    <script>
+            <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var myCarousel = document.querySelector('#filmCarousel');
+            var myCarousel = document.querySelector('#film');
             var carousel = new bootstrap.Carousel(myCarousel, {
                 interval: 2000,  // Mengatur interval pergeseran otomatis menjadi 2 detik
                 wrap: true
             });
         });
     </script>
+        </div>
+    @endforeach
 @endsection

@@ -15,13 +15,10 @@
     <link rel="icon" href="{{ asset('Logo/Dreamland Theater.jpg') }}">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -36,40 +33,57 @@
         .dropdown-item {
             transition: color 0.3s, text-decoration 0.3s;
         }
+
+        .navbar-brand {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link ion-icon {
+            margin-right: 5px;
+        }
+        .size {
+            font-size: 30px; /* Adjust the font size as needed */
+            width: 30px; /* Adjust the width as needed */
+            /* border: 2px solid blue; */
+            height: 30px; /* Adjust the height as needed */
+        }
+        
     </style>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
-                <a class="navbar-brand nav nav-tabs" aria-current="page" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                <button class="nav-link btn" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                    <ion-icon name="menu-outline" class="size" ></ion-icon>
+                </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    {{ config('app.name', 'Bioskop') }}
+                </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('genre') }}">{{ __('Genres') }}</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('film') }}">{{ __('Film') }}</a>
-                        </li>
-                        <!-- Button to open offcanvas -->
-                        <li class="nav-item">
-                            <button class="nav-link" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Fitur </button>
+                            <a class="nav-link" href="{{route('detail')}}">{{ __('Film') }}</a>
                         </li>
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form action="{{ route('search') }}" class="d-flex mx-auto" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="query">
+                    <form action="#" class="d-flex mx-auto" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
@@ -133,17 +147,12 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('time') }}">Time</a>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="dropdown-item" href="{{ route('detail') }}">Details</a>
-                </li>
+                </li> --}}
                 <li>
-                    <a class="dropdown-item" href="{{ route('kursi') }}">Kursi</a>
+                    <a class="dropdown-item" href="{{route('kursi')}}">Kursi</a>
                 </li>
-
-                {{-- <li>
-            <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li> --}}
-                {{-- <li>
-             <a href="{{route('f')}}" class="dropdown-item">Film</a></li> --}}
             </ul>
         </div>
     </div>
@@ -154,7 +163,8 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    {{-- isotop --}}
+
+    <!-- Isotope -->
     <link rel="stylesheet" href="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.css">
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
@@ -164,10 +174,9 @@
 
     <!-- Bootstrap JavaScript and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

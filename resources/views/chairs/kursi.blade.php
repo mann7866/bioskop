@@ -9,11 +9,24 @@
 @endif
 <style>
     .warning{
+        position:relative;
         background-color: blue;
         transition: 2s ease;
+        overflow:hidden;
     }
-    .warning:hover{
-        border-radius: 25px 27px ;
+    .warning::after{
+        content: '';
+        position:absolute;
+        left:50%;                         
+        bottom:0;
+        width:0;
+        height: 2px;
+        background-color:red;
+        transition:all 0.4s;
+    }
+    .warning:hover::after{
+        left: 0;
+        width: 100%;
     }
 </style>
 <div>
