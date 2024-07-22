@@ -226,11 +226,11 @@
                                         </div>
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
-                                            <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
-                                                <i class="fa-solid fa-cart-shopping"></i> Pesan
-                                            </button>
                                         </div>
                                     </div>
+                                    <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
+                                        <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                    </button>
                                 @empty
                                     <p>Film tidak ada.</p>
                                 @endforelse
