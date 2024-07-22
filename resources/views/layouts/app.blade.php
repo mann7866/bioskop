@@ -19,11 +19,8 @@
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-
-<body>
+    
+    <!-- Custom CSS -->
     <style>
         .dropdown-item:hover {
             text-decoration: underline;
@@ -46,20 +43,69 @@
         .nav-link ion-icon {
             margin-right: 5px;
         }
+
         .size {
             font-size: 30px; /* Adjust the font size as needed */
             width: 30px; /* Adjust the width as needed */
-            /* border: 2px solid blue; */
             height: 30px; /* Adjust the height as needed */
         }
-        
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-collapse {
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .size {
+                font-size: 24px; /* Adjust the font size for small screens */
+                width: 24px; /* Adjust the width for small screens */
+                height: 24px; /* Adjust the height for small screens */
+            }
+
+            .film-card {
+                flex: 0 0 calc(50% - 20px);
+            }
+
+            .film-container {
+                padding: 5px;
+            }
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .navbar, .dark-mode .card, .dark-mode .dropdown-menu, .dark-mode .modal-content {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .btn-outline-success {
+            border-color: #e0e0e0;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .btn-outline-success:hover {
+            background-color: #333;
+        }
     </style>
+</head>
+
+<body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <button class="nav-link btn" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                    <ion-icon name="menu-outline" class="size" ></ion-icon>
+                    <ion-icon name="menu-outline" class="size"></ion-icon>
                 </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -77,7 +123,7 @@
                             <a class="nav-link active" aria-current="page" href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('detail')}}">{{ __('Film') }}</a>
+                            <a class="nav-link" href="{{ route('detail') }}">{{ __('Film') }}</a>
                         </li>
                     </ul>
 
@@ -147,11 +193,8 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('time') }}">Time</a>
                 </li>
-                {{-- <li>
-                    <a class="dropdown-item" href="{{ route('detail') }}">Details</a>
-                </li> --}}
                 <li>
-                    <a class="dropdown-item" href="{{route('kursi')}}">Kursi</a>
+                    <a class="dropdown-item" href="{{ route('kursi') }}">Kursi</a>
                 </li>
             </ul>
         </div>
@@ -175,13 +218,24 @@
     <!-- Bootstrap JavaScript and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.createElement('button');
+            darkModeToggle.className = 'btn btn-dark position-fixed bottom-0 end-0 m-3';
+            darkModeToggle.innerHTML = '<ion-icon name="moon-outline" class="size"></ion-icon>';
+            darkModeToggle.onclick = function () {
+                document.body.classList.toggle('dark-mode');
+            };
+            document.body.appendChild(darkModeToggle);
+        });
     </script>
 </body>
 
