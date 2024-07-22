@@ -2,32 +2,35 @@
 
 @section('content')
     <style>
-       .film-card {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    width: calc(50% - 10px);
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    height: 300px; /* Tinggi tetap untuk card */
-    display: flex;
-    flex-direction: column;
-}
+        .film-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            width: calc(50% - 10px);
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 300px;
+            /* Tinggi tetap untuk card */
+            display: flex;
+            flex-direction: column;
+        }
 
-.film-card img {
-    width: 100%;
-    height: 100%; /* Mengisi tinggi kartu */
-    object-fit: cover; /* Memotong gambar jika perlu */
-    transition: transform 0.3s ease;
-}
+        .film-card img {
+            width: 100%;
+            height: 100%;
+            /* Mengisi tinggi kartu */
+            object-fit: cover;
+            /* Memotong gambar jika perlu */
+            transition: transform 0.3s ease;
+        }
 
-.film-card:hover img {
-    transform: scale(1.1);
-}
+        .film-card:hover img {
+            transform: scale(1.1);
+        }
 
-/* Gaya lainnya tetap sama */
+        /* Gaya lainnya tetap sama */
 
 
         .film-description {
@@ -112,7 +115,8 @@
         .modal-body img {
             border-radius: 10px;
             margin-bottom: 15px;
-            max-width: 100%; /* Menyesuaikan gambar agar tidak melewati lebar modal */
+            max-width: 100%;
+            /* Menyesuaikan gambar agar tidak melewati lebar modal */
         }
 
         .modal-footer {
@@ -173,32 +177,41 @@
                 width: 100%;
             }
         }
+
         .warning {
-        background-color: blue;
-        transition: 2s ease;
-        position: relative;
-        overflow: hidden;
-    }
+            background-color: blue;
+            transition: 2s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* .warning:hover {
-        border-radius: 25px 27px;
-    } */
+        /* .warning:hover {
+            border-radius: 25px 27px;
+        } */
 
-    .warning::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        width: 0;
-        height: 2px;
-        background-color: red;
-        transition: all 0.3s;
-    }
+        .warning::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: red;
+            transition: all 0.3s;
+        }
 
-    .warning:hover::after {
-        left: 0;
-        width: 100%;
-    }
+        .warning:hover::after {
+            left: 0;
+            width: 100%;
+        }
+
+        .pos {
+            right: -185px;
+            text-decoration: underline solid blue;
+            /* box-shadow: rgba(0, 0, 0, 0.7) */
+            position: relative;
+            text-align: center;
+        }
     </style>
 
     <div>
@@ -210,16 +223,16 @@
     <div class="film-container">
         @foreach ($detail as $item)
             <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
-                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid text-center" alt="{{ $item->judul }}">
                 <div class="film-description">
                     <h1 class="poss">{{ $item->judul }}</h1>
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
                     <p>Genres:</p>
-                            <ul>
-                                @foreach ($item->genres as $genre)
-                                    <li>{{ $genre->genre }}</li>
-                                @endforeach
-                            </ul>
+                    <ul>
+                        @foreach ($item->genres as $genre)
+                            <li>{{ $genre->genre }}</li>
+                        @endforeach
+                    </ul>
                     <p>{{ $item->deskripsi }}</p>
 
                 </div>
@@ -233,7 +246,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title " id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
+                            <h5 class="modal-title pos" id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body ">

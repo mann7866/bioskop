@@ -13,28 +13,27 @@
             cursor: pointer;
             margin: 10px;
             flex: 0 0 calc(16.66% - 20px);
-            /* Untuk menampilkan 6 kartu per baris dengan jarak */
+            /* For displaying 6 cards per row with spacing */
             box-sizing: border-box;
             border-radius: 10px;
-            /* Membuat sudut kartu lebih lembut */
+            /* Rounded corners for the card */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Menambahkan bayangan pada kartu */
+            /* Shadow for the card */
         }
 
         .film-card img {
-                        
             width: 100%;
             height: 300px;
-            /* Tinggi gambar */
+            /* Height of the image */
             object-fit: cover;
             transition: transform 0.3s ease;
             border-radius: 10px 10px 0 0;
-            /* Membuat sudut atas gambar lebih lembut */
+            /* Rounded top corners of the image */
         }
 
         .film-card:hover img {
             transform: scale(1.05);
-            /* Efek zoom yang lebih halus */
+            /* Smooth zoom effect on hover */
         }
 
         .film-description {
@@ -49,7 +48,7 @@
             transition: opacity 0.3s ease;
             text-align: center;
             border-radius: 0 0 10px 10px;
-            /* Membuat sudut bawah deskripsi lebih lembut */
+            /* Rounded bottom corners for description */
         }
 
         .film-card:hover .film-description {
@@ -81,24 +80,24 @@
         .film-card .btn-pesan:hover {
             background-color: #ff4757;
             transform: scale(1.05);
-            /* Efek zoom yang lebih halus pada tombol */
+            /* Smooth zoom effect on hover */
         }
 
         .film-container {
             display: flex;
             flex-wrap: wrap;
-            /* Membungkus baris */
+            /* Wrapping rows */
             justify-content: flex-start;
-            /* Kartu film ke kiri */
+            /* Align film cards to the left */
             padding: 10px;
         }
 
         .film-container::-webkit-scrollbar {
             display: none;
-            /* Sembunyikan scrollbar untuk tampilan lebih bersih */
+            /* Hide scrollbar for cleaner appearance */
         }
 
-        .poss {
+        .pos {
             position: static;
         }
 
@@ -114,10 +113,10 @@
             background-clip: border-box;
             background: url({{ asset('image/netflix.jpg') }});
             border-radius: 10px;
-            /*  sudut kartu lebih lembut */
+            /* Rounded corners for the card */
         }
 
-        /* carousel */
+        /* Carousel */
         .carousel-inner img {
             border-radius: 20px;
             width: 100%;
@@ -132,6 +131,52 @@
 
         .carousel-item {
             transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1200px) {
+            .film-card {
+                flex: 0 0 calc(20% - 20px);
+                /* For 5 cards per row */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .film-card {
+                flex: 0 0 calc(25% - 20px);
+                /* For 4 cards per row */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .film-card {
+                flex: 0 0 calc(33.33% - 20px);
+                /* For 3 cards per row */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .film-card {
+                flex: 0 0 calc(50% - 20px);
+                /* For 2 cards per row */
+            }
+
+            .carousel-inner img {
+                height: 150px;
+                /* Adjust carousel image height */
+            }
+        }
+
+        @media (max-width: 400px) {
+            .film-card {
+                flex: 0 0 calc(100% - 20px);
+                /* For 1 card per row */
+            }
+
+            .carousel-inner img {
+                height: 120px;
+                /* Further adjust carousel image height */
+            }
         }
     </style>
 
@@ -151,15 +196,18 @@
                         <div class="carousel-inner">
                             @foreach ($detail as $key => $item)
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100" alt="{{ $item->judul }}">
+                                    <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
+                                        alt="{{ $item->judul }}">
                                 </div>
                             @endforeach
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -172,8 +220,10 @@
                         <div class="carousel-item active">
                             <div class="film-container">
                                 @forelse ($detail as $item)
-                                    <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                    <div class="film-card" data-bs-toggle="modal"
+                                        data-bs-target="#filmModal{{ $item->id }}">
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                            alt="{{ $item->judul }}">
                                         <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                             <i class="fa-solid fa-cart-shopping"></i> Pesan
                                         </button>
@@ -196,7 +246,8 @@
 
     <!-- Bootstrap Modals untuk masing-masing film -->
     @foreach ($detail as $item)
-        <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
+        <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
+            aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
