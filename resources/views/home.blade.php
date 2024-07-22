@@ -64,8 +64,8 @@
 
         .film-card .btn-pesan {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -10px;
+            right: -10px;
             background-color: #ff6b6b;
             color: white;
             border: none;
@@ -178,105 +178,130 @@
                 /* Further adjust carousel image height */
             }
         }
+      
     </style>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card text-center mb-4 back">
-                    <div class="card-header">{{ __('Bioskop') }}</div>
-                    <div class="card-body">
-                        <p>{{ __('Welcome to Bioskop') }}</p>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card text-center mb-4 back">
+                <div class="card-header">{{ __('Bioskop') }}</div>
+                <div class="card-body">
+                    <p>{{ __('Welcome to Bioskop') }}</p>
                 </div>
+            </div>
 
-                <!-- Carousel untuk gambar besar -->
-                <div class="container mt-4" id="film">
-                    <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @foreach ($detail as $key => $item)
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
-                                        alt="{{ $item->judul }}">
-                                </div>
-                            @endforeach
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Carousel untuk kartu film -->
-                <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Carousel untuk gambar besar -->
+            <div class="container mt-4" id="film">
+                <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="film-container">
-                                @forelse ($detail as $item)
-                                    <div class="film-card" data-bs-toggle="modal"
-                                        data-bs-target="#filmModal{{ $item->id }}">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                            alt="{{ $item->judul }}">
-                                        <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
-                                            <i class="fa-solid fa-cart-shopping"></i> Pesan
-                                        </button>
-                                        <div class="film-description">
-                                            <h5 class="poss">{{ $item->judul }}</h5>
-                                            <p>{{ $item->deskripsi }}</p>
-                                        </div>
-                                        <label class="film-label">{{ $item->judul }}</label>
-                                    </div>
-                                @empty
-                                    <p>Film tidak ada.</p>
-                                @endforelse
+                        @foreach ($detail as $key => $item)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
+                                    alt="{{ $item->judul }}">
                             </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carousel untuk kartu film -->
+            <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="film-container">
+                            @forelse ($detail as $item)
+                                <div class="film-card" data-bs-toggle="modal"
+                                    data-bs-target="#filmModal{{ $item->id }}">
+                                    <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                        alt="{{ $item->judul }}">
+                                    <button class="btn-pesan pos" data-id="{{ $item->id }}">
+                                        <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                    </button>
+                                    <div class="film-description">
+                                        <h5 class="poss">{{ $item->judul }}</h5>
+                                        <p>{{ $item->deskripsi }}</p>
+                                    </div>
+                                    <label class="film-label">{{ $item->judul }}</label>
+                                </div>
+                            @empty
+                                <p>Film tidak ada.</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap Modals untuk masing-masing film -->
-    @foreach ($detail as $item)
-        <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
-            aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-                            <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
-                            <p>{{ $item->deskripsi }}</p>
-                        </div>
+<!-- Bootstrap Modals untuk masing-masing film -->
+@foreach ($detail as $item)
+    <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
+        aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
+                        <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
+                        <p>{{ $item->deskripsi }}</p>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+@endforeach
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var myCarousel = document.querySelector('#film');
-            var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 2000, // Mengatur interval pergeseran otomatis menjadi 2 detik
-                wrap: true
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myCarousel = document.querySelector('#film');
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 2000, // Mengatur interval pergeseran otomatis menjadi 2 detik
+            wrap: true
         });
 
-        function link(url) {
-            window.location.href = url;
-        }
-    </script>
+        document.querySelectorAll('.btn-pesan').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+
+                var filmId = this.getAttribute('data-id');
+                var url = '{{ route('order.create', ':id') }}'.replace(':id', filmId);
+
+                // Melakukan AJAX request untuk pemesanan
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          alert('Pemesanan berhasil!');
+                      } else {
+                          alert('Pemesanan gagal!');
+                      }
+                  }).catch(error => {
+                      console.error('Error:', error);
+                      alert('Terjadi kesalahan, coba lagi nanti.');
+                  });
+            });
+        });
+    });
+</script>
 @endsection

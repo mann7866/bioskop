@@ -78,6 +78,10 @@
         }
 
         /* Dark Mode Styles */
+        body, .navbar, .card, .dropdown-menu, .modal-content {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
         .dark-mode {
             background-color: #121212;
             color: #e0e0e0;
@@ -233,7 +237,14 @@
             darkModeToggle.innerHTML = '<ion-icon name="moon-outline" class="size"></ion-icon>';
             darkModeToggle.onclick = function () {
                 document.body.classList.toggle('dark-mode');
+                localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
             };
+
+            // Check and apply the saved dark mode preference
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+
             document.body.appendChild(darkModeToggle);
         });
     </script>

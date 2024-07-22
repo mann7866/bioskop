@@ -206,9 +206,10 @@
         }
 
         .pos {
-            right: -185px;
-            text-decoration: underline solid blue;
-            /* box-shadow: rgba(0, 0, 0, 0.7) */
+            right: -350px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: #007bff;
+            text-decoration: underline;
             position: relative;
             text-align: center;
         }
