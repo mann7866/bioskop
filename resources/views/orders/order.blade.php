@@ -112,51 +112,31 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="film-container">
-                                @forelse ($detail as $item)
+                                @forelse ($order as $item)
                                     <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                        <img src="{{ asset('image/' . $item->detail->foto) }}" class="img-fluid" alt="{{ $item->detail->judul }}">
                                         <button class="btn-pesan">
-                                            <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                            <i class="fa-solid fa-cart-shopping"></i> Batal
                                         </button>
                                         <div class="film-description">
-                                            <h5 class="poss">{{ $item->judul }}</h5>
-                                            <p>{{ $item->deskripsi }}</p>
+                                            <h5 class="poss">{{ $item->detail->judul }}</h5>
+                                            <p>{{ $item->detail->genres }}</p>
+                                            <p>{{ $item->detail->deskripsi }}</p>
+                                            
                                         </div>
-                                        <label class="film-label">{{ $item->judul }}</label>
+                                        <label class="film-label">{{ $item->detail->judul }}</label>
                                     </div>
                                 @empty
-                                    <p>Film tidak ada.</p>
+                                    <p>Tidak Ada Order.</p>
                                 @endforelse
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
-
-    {{-- Bootstrap Modals untuk masing-masing film --}}
-    @foreach ($detail as $item)
-        <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-                            <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
-                            <p>{{ $item->deskripsi }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#filmCarousel');

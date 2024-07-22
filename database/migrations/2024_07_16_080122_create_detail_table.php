@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('perusahaanProduksi');
             $table->text('deskripsi');
             $table->string('foto');
+            $table->string('harga');
             $table->timestamps();
         });
     }

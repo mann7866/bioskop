@@ -49,7 +49,7 @@ Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'u
 Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
 
 Route::get('/order', [App\Http\Controllers\OrderController::class,'index'])->name('order');
-Route::get('/order/create', [App\Http\Controllers\OrderController::class,'create'])->name('order.create');
+Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class,'order'])->name('order.create');
 Route::post('/order/store', [App\Http\Controllers\OrderController::class,'store'])->name('order.store');
 Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edit'])->name('order.edit');
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');

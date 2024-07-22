@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->foreignId('id_kursi')->references('id')->on('kursi')->onDelete('restrict')->onUpdate('cascade');
             $table->string('harga');
-            $table->string('kursi');
             $table->timestamps();
         });
     }

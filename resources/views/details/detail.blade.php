@@ -238,6 +238,7 @@
                         </div>
                         <div class="modal-body ">
                             <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                            <p><strong>Harga Tiket:</strong> Rp. {{ number_format($item->harga) }}</p>
                             <h2>Genres:</h2>
                             <ul>
                                 @foreach ($item->genres as $genre)
@@ -249,7 +250,7 @@
                             <p><strong>Penulis:</strong> {{ $item->penulis }}</p>
                             <p><strong>Sutradara:</strong> {{ $item->sutradara }}</p>
                             <p><strong>Perusahaan Produksi:</strong> {{ $item->perusahaanProduksi }}</p>
-                            <p><strong>Deskripsi:</strong>{{ $item->deskripsi }}</p>
+                            <p><strong>Deskripsi:</strong> {{ $item->deskripsi }}</p>
                         </div>
                         <a href="{{ route('detail.edit', $item->id) }}">
                             <button type="button" class="btn-edit">

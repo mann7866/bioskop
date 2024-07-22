@@ -42,6 +42,7 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s]+$/|max:20",
             "foto" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "deskripsi" => "required|max:50",
+            "harga"=> "required|max:10000000000",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
         ]);
 
@@ -50,7 +51,7 @@ class DetailController extends Controller
             $image = $request->file("foto");
             $imageName = time() . "_" . $image->getClientOriginalName();
             $image->move(public_path("image"), $imageName);
-        } 
+        }
 
         // Create new Detail instance
         $detail = Detail::create([
@@ -62,6 +63,7 @@ class DetailController extends Controller
             'perusahaanProduksi' => $validateData['perusahaanProduksi'],
             'foto' => $imageName, // Assign the uploaded image name
             'deskripsi' => $validateData['deskripsi'],
+            'harga'=> $validateData['harga'],
         ]);
 
         // Sync genres with the detail using 'sync'
@@ -109,6 +111,7 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s]+$/|max:20",
             "foto" => "sometimes|required|mimes:jpeg,jpg,png,gif|max:2048",
             "deskripsi" => "required|max:50",
+            "harga"=> "required",
         ]);
 
         // Handle file foto jika ada di request
@@ -137,6 +140,7 @@ class DetailController extends Controller
             'sutradara' => $validatedData['sutradara'],
             'perusahaanProduksi' => $validatedData['perusahaanProduksi'],
             'deskripsi' => $validatedData['deskripsi'],
+            'harga'=> $validatedData['harga'],
         ]);
 
         // Sinkronisasi genres jika ada yang dipilih

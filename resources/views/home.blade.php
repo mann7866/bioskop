@@ -120,9 +120,11 @@
                                 @forelse ($detail as $item)
                                     <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                        <a href="{{ route('order.create', $item->id ) }}">
                                         <button class="btn-pesan">
                                             <i class="fa-solid fa-cart-shopping"></i> Pesan
                                         </button>
+                                        </a>
                                         <div class="film-description">
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>

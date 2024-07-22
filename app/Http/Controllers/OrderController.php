@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kursi;
+use App\Models\Order;
+use App\Models\Detail;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -11,7 +15,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view("order");
+
+        $detail = Detail::all();
+        $kursi =  Kursi::all();
+        return view("orders.order", compact("detail", "kursi"));
     }
 
     /**
@@ -19,15 +26,37 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view("orders.createOrder");
+
+
     }
+
+    public function order($id)
+    {
+
+        $detail = Detail::find($id);
+        $kursi = Kursi::all();
+
+        return view('orders.createOrder', compact('detail','kursi'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        
+
+        $validateData = $request->validate([
+            "judul"=> "required",
+            "genre"=> "required",
+            "id_kursi"=> "required",
+            "harga"=> "required",
+        ]);
+
+        Order::create ([$validateData]);
+        return redirect()->route("order")->with("success","Berhasil Pesan Tiket");
+
+
     }
 
     /**
@@ -59,6 +88,7 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Order::find($id)->delete();
+        return redirect()->route("order")->with("success","Berhasil Membatalkan Pesanan");
     }
 }
