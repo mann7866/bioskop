@@ -213,16 +213,18 @@
                 <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                 <div class="film-description">
                     <h1 class="poss">{{ $item->judul }}</h1>
-                    <p>{{ $item->deskripsi }}</p>
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
-                    <ul>
-                        @foreach ($item->genres as $genre)
-                            <li>{{ $genre->genre }}</li>
-                        @endforeach
-                    </ul>
+                    <h2>Genres:</h2>
+                            <ul>
+                                @foreach ($item->genres as $genre)
+                                    <li>{{ $genre->genre }}</li>
+                                @endforeach
+                            </ul>
+                    <p>{{ $item->deskripsi }}</p>
+
                 </div>
 
-               
+
             </div>
 
             <!-- Modal -->
@@ -231,10 +233,10 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
+                            <h5 class="modal-title " id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body ">
                             <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                             <h2>Genres:</h2>
                             <ul>
@@ -254,7 +256,7 @@
                                 <ion-icon name="create-outline"></ion-icon>
                             </button>
                         </a>
-        
+
                         <a href="{{ route('detail.delete', $item->id) }}">
                             <button type="button" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
                                 <ion-icon name="trash-outline"></ion-icon>

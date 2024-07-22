@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->id();
             $table->string('genre');
-            $table->foreignId('judul');
+            $table->foreignId('judul')->references('id')->on('detail')->onDelete('restrict')->onUpdate('cascade');
             $table->string('deskripsi');
-            $table->foreignId('id_studio')->references('id')->on('lokasi')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('id_kursi')->references('id')->on('kursi')->onDelete('restrict')->onUpdate('cascade');
             $table->string('harga');
             $table->string('kursi');
             $table->timestamps();

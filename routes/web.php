@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\f\FilmController;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {
@@ -14,6 +15,7 @@ Auth::routes();
 
 // Route untuk home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/search', [App\Http\Controllers\SearchController::class,'search'])->name('search');
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
 Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create'])->name('genre.create');
@@ -37,8 +39,18 @@ Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,
 Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
 // Route genres
 Route::get('/genres', [App\Http\Controllers\GenreDetail::class,'index'])->name('genres');
-// Route::get('/genres/create', [App\Http\Controllers\GenresController::class,'create'])->name('genres.create');
-// Route::post('/genres/store', [App\Http\Controllers\GenresController::class,'store'])->name('genres.store');
-// Route::get('/genres/{id}/edit', [App\Http\Controllers\GenresController::class,'edit'])->name('genres.edit');
-// Route::put('/genres/{id}/update', [App\Http\Controllers\GenresController::class,'update'])->name('genres.update');
-// Route::get('genres/{id}/delete', [App\Http\Controllers\GenresController::class,'destroy'])->name('genres.delete');
+Route::get('/film', [App\Http\Controllers\FilmController::class,'index'])->name('film');
+
+Route::get('/kursi', [App\Http\Controllers\KursiController::class,'index'])->name('kursi');
+Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create'])->name('kursi.create');
+Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'])->name('kursi.store');
+Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');
+Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'update'])->name('kursi.update');
+Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
+
+Route::get('/order', [App\Http\Controllers\OrderController::class,'index'])->name('order');
+Route::get('/order/create', [App\Http\Controllers\OrderController::class,'create'])->name('order.create');
+Route::post('/order/store', [App\Http\Controllers\OrderController::class,'store'])->name('order.store');
+Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edit'])->name('order.edit');
+Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
+Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');

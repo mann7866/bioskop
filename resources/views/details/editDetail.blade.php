@@ -15,6 +15,21 @@
             @enderror
         </div>
 
+        <div class="col-md-6 mt-5 sty">
+            <label class="form-label">Genre:</label>
+            @foreach ($genre as $item)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input @error('genres') is-invalid @enderror" type="checkbox" name="genres[]" value="{{ $item->id }}" id="genre-{{ $item->id }}">
+                    <label class="form-check-label" for="genre-{{ $item->id }}">
+                        {{ $item->genre }}
+                    </label>
+                </div>
+            @endforeach
+            @error('genres')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
         <div class="col-md-6">
             <label for="tanggalRilis" class="form-label">Tanggal Rilis</label>
             <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis" name="tanggalRilis" value="{{ $detail->tanggalRilis }}" required>
@@ -62,7 +77,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-{{-- 
+{{--
             <div class="mb-3">
                 <label class="form-label">Genres</label>
                 <div class="d-flex flex-wrap">

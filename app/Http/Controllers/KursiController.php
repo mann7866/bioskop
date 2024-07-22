@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lokasi;
+use App\Models\Kursi;
 use Illuminate\Http\Request;
 
-class LokasiController extends Controller
+class KursiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $lokasi = Lokasi::all();
-        return view("locations.lokasi", compact("lokasi"));
+        $kursi = Kursi::all();
+        return view("chairs.kursi", compact("kursi"));
     }
 
     /**
@@ -21,7 +21,7 @@ class LokasiController extends Controller
      */
     public function create()
     {
-        return view("locations.lokasiCreate");
+        return view("chairs.kursiCreate");
     }
 
     /**
@@ -30,18 +30,17 @@ class LokasiController extends Controller
     public function store(Request $request)
     {
         $vakidateData = $request->validate([
-            "studio"=> "required",
             "kursi"=> "required",
         ]);
 
-        Lokasi::create($vakidateData);
-        return redirect()->route("lokasi")->with("success","Berhasil Tambah Data");
+        Kursi::create($vakidateData);
+        return redirect()->route("kursi")->with("success","Berhasil Tambah Data");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Lokasi $lokasi)
+    public function show(kursi $kursi)
     {
         //
     }
@@ -52,10 +51,10 @@ class LokasiController extends Controller
     public function edit(string $id)
     {
 
-        $lokasi = Lokasi::find($id);
+        $kursi = Kursi::find($id);
 
-        $lokasi = Lokasi::all();
-        return view("locations.lokasiEdit", compact("lokasi"));
+        $kursi = Kursi::all();
+        return view("chairs.kursiEdit", compact("kursi"));
     }
 
     /**
@@ -64,14 +63,13 @@ class LokasiController extends Controller
     public function update(Request $request, string $id)
     {
         $vakidateData = $request->validate([
-            "studio"=> "required",
             "kursi"=> "required",
         ]);
 
-        $lokasi = Lokasi::find($id);
+        $kursi = Kursi::find($id);
 
-        $lokasi->update($vakidateData);
-        return redirect()->route("lokasi")->with("success","Berhasil Edit Data");
+        $kursi->update($vakidateData);
+        return redirect()->route("kursi")->with("success","Berhasil Edit Data");
     }
 
     /**
@@ -79,10 +77,10 @@ class LokasiController extends Controller
      */
     public function destroy(string $id)
     {
-       $lokasi = lokasi::find($id);
+       $kursi = Kursi::find($id);
 
-       $lokasi->delete();
-       return redirect()->route("lokasi")->with("success","Berhasil Delete");
+       $kursi->delete();
+       return redirect()->route("kursi")->with("success","Berhasil Delete");
 
     }
 }

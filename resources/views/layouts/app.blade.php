@@ -16,6 +16,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -56,7 +57,7 @@
                                 href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('detail') }}">{{ __('Details') }}</a>
+                            <a class="nav-link" href="{{ route('film') }}">{{ __('Film') }}</a>
                         </li>
                         <!-- Button to open offcanvas -->
                         <li class="nav-item">
@@ -66,7 +67,7 @@
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form class="d-flex mx-auto" method="GET">
+                    <form action="{{ route('search') }}" class="d-flex mx-auto" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -135,6 +136,10 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('detail') }}">Details</a>
                 </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('kursi') }}">Kursi</a>
+                </li>
+
                 {{-- <li>
             <a class="dropdown-item" href="{{ route('genres') }}">Kumpulan Genre</a></li> --}}
                 {{-- <li>
@@ -162,6 +167,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
