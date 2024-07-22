@@ -13,69 +13,79 @@
         .form-title {
             margin-bottom: 20px;
         }
+
+        .card-img-top {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .btn-submit {
+                margin-top: 15px;
+            }
+        }
     </style>
 
     <form action="{{ route('order.store', $detail->id) }}" method="POST">
         @csrf
 
-    <div class="container mt-4" <div class="form-container">
-        <div class="row">
+        <div class="container mt-4">
+            <div class="form-container">
+                <div class="row">
 
-            <div class="col-4">
-                <div class="card">
-                    <div class="col-12">
-                        <div class="mb-3">
-                            @error('foto')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <img id="imagePreview" src="{{ asset('image/' .$detail->foto) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img id="imagePreview" src="{{ asset('image/' . $detail->foto) }}" class="card-img-top" alt="{{ $detail->judul }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $detail->judul }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Rp. {{ number_format($detail->harga) }}</h6>
+                                <p class="card-text">{{ $detail->deskripsi }}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $detail->judul }}</h5>
-                        <h6 class="">Rp. {{ number_format($detail->harga) }}</h6>
-                        <p class="card-text">{{ $detail->judul }}</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-8">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label class="form-label">Judul</label>
+                            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul', $detail->judul) }}">
+                            @error('judul')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-
-                    <div class="mb-3">
-                        <label class="form-label">judul</label>
-
-                        <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                            name="judul"value="{{ $detail->judul }}">
-                        </select>
-                        @error('id_judul')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    {{--  <div class="mb-3">
+                        {{-- Uncomment if you have "Asal Kota" dropdown
+                        <div class="mb-3">
                             <label class="form-label">Asal Kota</label>
-                            <select class="mt-3 form-select @error('id_hargaOngkir') is-invalid @enderror"
-                                    aria-label="Select Origin City" name="id_hargaOngkir">
+                            <select class="form-select @error('id_hargaOngkir') is-invalid @enderror" name="id_hargaOngkir" aria-label="Select Origin City">
                                 <option selected disabled>Asal Kota</option>
                                 @foreach ($hargaOngkir as $item)
                                     <option value="{{ $item->id }}">{{ $item->kota }}</option>
                                 @endforeach
                             </select>
                             @error('id_hargaOngkir')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>  --}}
+                        </div>
+                        --}}
 
-                    <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit ">
-                        Order
-                    </button>
-
-
+                        <button class="btn btn-primary btn-submit" type="submit" name="submit">Order</button>
+                    </div>
+                </div>
             </div>
         </div>
-
-    </div>
-    </div>
-</form>
+    </form>
 @endsection

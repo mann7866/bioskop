@@ -22,6 +22,7 @@
         }
 
         .film-card img {
+                        
             width: 100%;
             height: 300px;
             /* Tinggi gambar */
@@ -113,7 +114,7 @@
             background-clip: border-box;
             background: url({{ asset('image/netflix.jpg') }});
             border-radius: 10px;
-            /* Membuat sudut kartu lebih lembut */
+            /*  sudut kartu lebih lembut */
         }
 
         /* carousel */

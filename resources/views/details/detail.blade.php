@@ -214,7 +214,7 @@
                 <div class="film-description">
                     <h1 class="poss">{{ $item->judul }}</h1>
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
-                    <h2>Genres:</h2>
+                    <p>Genres:</p>
                             <ul>
                                 @foreach ($item->genres as $genre)
                                     <li>{{ $genre->genre }}</li>
