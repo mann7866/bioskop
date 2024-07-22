@@ -220,13 +220,14 @@
                         <div class="carousel-item active">
                             <div class="film-container">
                                 @forelse ($detail as $item)
-                                    <div class="film-card" data-bs-toggle="modal"
+                                <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
+                                    <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                </button>    
+                                <div class="film-card" data-bs-toggle="modal"
                                         data-bs-target="#filmModal{{ $item->id }}">
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
                                             alt="{{ $item->judul }}">
-                                        <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
-                                            <i class="fa-solid fa-cart-shopping"></i> Pesan
-                                        </button>
+                                       
                                         <div class="film-description">
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>
@@ -265,7 +266,7 @@
             </div>
         </div>
     @endforeach
-
+{{-- film nono ajax --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#film');
