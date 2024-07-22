@@ -13,13 +13,15 @@
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="icon" href="{{ asset('Logo/Dreamland Theater.jpg') }}">
-
+    <!-- link datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    
+
     <!-- Custom CSS -->
     <style>
         .dropdown-item:hover {
@@ -45,9 +47,12 @@
         }
 
         .size {
-            font-size: 30px; /* Adjust the font size as needed */
-            width: 30px; /* Adjust the width as needed */
-            height: 30px; /* Adjust the height as needed */
+            font-size: 30px;
+            /* Adjust the font size as needed */
+            width: 30px;
+            /* Adjust the width as needed */
+            height: 30px;
+            /* Adjust the height as needed */
         }
 
         /* Media Queries for Responsive Design */
@@ -63,9 +68,12 @@
 
         @media (max-width: 576px) {
             .size {
-                font-size: 24px; /* Adjust the font size for small screens */
-                width: 24px; /* Adjust the width for small screens */
-                height: 24px; /* Adjust the height for small screens */
+                font-size: 24px;
+                /* Adjust the font size for small screens */
+                width: 24px;
+                /* Adjust the width for small screens */
+                height: 24px;
+                /* Adjust the height for small screens */
             }
 
             .film-card {
@@ -78,7 +86,11 @@
         }
 
         /* Dark Mode Styles */
-        body, .navbar, .card, .dropdown-menu, .modal-content {
+        body,
+        .navbar,
+        .card,
+        .dropdown-menu,
+        .modal-content {
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -87,7 +99,10 @@
             color: #e0e0e0;
         }
 
-        .dark-mode .navbar, .dark-mode .card, .dark-mode .dropdown-menu, .dark-mode .modal-content {
+        .dark-mode .navbar,
+        .dark-mode .card,
+        .dark-mode .dropdown-menu,
+        .dark-mode .modal-content {
             background-color: #1e1e1e;
             color: #e0e0e0;
         }
@@ -99,6 +114,15 @@
 
         .dark-mode .btn-outline-success:hover {
             background-color: #333;
+        }
+
+        .dark-mode .btn-dark {
+            background-color: #333;
+            border: none;
+        }
+
+        .dark-mode .btn-dark:hover {
+            background-color: #444;
         }
     </style>
 </head>
@@ -124,7 +148,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('genre') }}">{{ __('Genres') }}</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('detail') }}">{{ __('Film') }}</a>
@@ -133,12 +158,20 @@
 
                     <!-- Center Search Form -->
                     <form action="#" class="d-flex mx-auto" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="query">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <!-- Dark Mode Toggle Button -->
+                        <li class="nav-item">
+                            <button id="darkModeToggle" class="nav-link">
+                                <ion-icon name="moon-outline" class="size"></ion-icon>
+                            </button>
+                        </li>
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -216,12 +249,17 @@
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
     <!-- DataTables -->
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -231,11 +269,10 @@
 
     <!-- Dark Mode Toggle Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const darkModeToggle = document.createElement('button');
-            darkModeToggle.className = 'btn btn-dark position-fixed bottom-0 end-0 m-3';
-            darkModeToggle.innerHTML = '<ion-icon name="moon-outline" class="size"></ion-icon>';
-            darkModeToggle.onclick = function () {
+        document.addEventListener('DOMContentLoaded', function() {
+            // di pindah di button 
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            darkModeToggle.onclick = function() {
                 document.body.classList.toggle('dark-mode');
                 localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
             };
@@ -244,8 +281,6 @@
             if (localStorage.getItem('dark-mode') === 'true') {
                 document.body.classList.add('dark-mode');
             }
-
-            document.body.appendChild(darkModeToggle);
         });
     </script>
 </body>

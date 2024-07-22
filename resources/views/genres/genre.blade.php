@@ -30,6 +30,11 @@
         left: 0;
         width: 100%;
     }
+
+
+
+
+
     .warning {
         background-color: blue;
         transition: 2s ease;
@@ -48,11 +53,12 @@
         bottom: 0;
         width: 0;
         height: 2px;
-        background-color: white;
+        background-color: royalblue;
         transition: all 0.3s;
     }
 
     .warning:hover::after {
+        background-color: red;
         left: 0;
         width: 100%;
     }
