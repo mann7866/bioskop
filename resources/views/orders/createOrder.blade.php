@@ -25,15 +25,31 @@
             justify-content: center;
             cursor: pointer;
             border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+            position: relative;
         }
 
         .seat.selected {
             background-color: green;
+            transform: scale(1.2);
         }
 
         .seat.reserved {
             background-color: red;
             cursor: not-allowed;
+        }
+
+        .seat:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
         }
 
         /* Styling khusus untuk form */
@@ -61,6 +77,7 @@
             display: block;
             width: 100%;
             margin-top: 20px;
+            transition: all 0.3s ease;
         }
 
         @media (max-width: 768px) {
@@ -71,6 +88,16 @@
             .btn-submit {
                 margin-top: 15px;
             }
+        }
+
+        .Class {
+            list-style: none;
+        }
+
+        .total-container {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
         }
     </style>
 
@@ -88,7 +115,7 @@
                                 <p> <strong>Genres:</strong> </p>
                                 <ul>
                                     @foreach ($detail->genres as $genre)
-                                        <li>{{ $genre->genre }}</li>
+                                        <li class="Class">{{ $genre->genre }}</li>
                                     @endforeach
                                 </ul>
                                 <h5 class="card-title">{{ $detail->judul }}</h5>
@@ -108,8 +135,7 @@
 
                             <div class="col-md-4" style="margin-top: 30px; margin-bottom:20px;">
                                 <label for="total" class="form-label" style="width: 100px;">Total Harga </label>
-                                <input type="text" class="form-control" id="total"
-                                    value="Rp. {{ number_format($detail->harga) }}" disabled>
+                                <input type="text" class="form-control" id="total" value="Rp. 0" disabled>
                                 <input type="hidden" name="total_harga" id="hiddenTotalHarga" value="0">
                             </div>
 
@@ -125,8 +151,8 @@
                             <div class="seats">
                                 <!-- Generate seats dynamically -->
                             </div>
-                            <div>
-                                <p>Total kursi yang dipilih: <span id="totalKursi">0</span></p>
+                            <div class="total-container">
+                                Total kursi yang dipilih: <span id="totalKursi">0</span>
                             </div>
                         </div>
 
@@ -137,11 +163,13 @@
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const seatsContainer = document.querySelector('.seats');
                 const totalKursiElement = document.getElementById('totalKursi');
                 const jumlahTiketInput = document.getElementById('jumlahTiket');
+                const totalHargaElement = document.getElementById('total');
                 let totalKursiDipilih = 0;
+                const hargaPerKursi = {{ $detail->harga }};
 
                 // Jumlah kursi yang akan ditampilkan
                 const jumlahKursi = 30;
@@ -151,14 +179,16 @@
                     const seat = document.createElement('div');
                     seat.className = 'seat';
                     seat.textContent = i;
+                    seat.setAttribute('data-tooltip', `Kursi No: ${i}`);
                     seatsContainer.appendChild(seat);
 
                     // Handle seat click
-                    seat.addEventListener('click', function () {
+                    seat.addEventListener('click', function() {
                         if (!seat.classList.contains('reserved')) {
                             seat.classList.toggle('selected');
                             updateTotalKursi();
                             updateJumlahTiket();
+                            updateTotalHarga();
                         }
                     });
                 }
@@ -173,9 +203,28 @@
                 // Function untuk mengupdate jumlah tiket berdasarkan kursi yang dipilih
                 function updateJumlahTiket() {
                     jumlahTiketInput.value = totalKursiDipilih;
+                    document.getElementById('hiddenJumlahTiket').value = totalKursiDipilih;
+                }
+
+                // Function untuk mengupdate total harga berdasarkan jumlah kursi yang dipilih
+                function updateTotalHarga() {
+                    const totalHarga = totalKursiDipilih * hargaPerKursi;
+                    totalHargaElement.value = `Rp. ${totalHarga.toLocaleString()}`;
+                    document.getElementById('hiddenTotalHarga').value = totalHarga;
                 }
             });
-
+            // btn btn-submit
+            $(document).ready(function() {
+                $('.btn-submit').hover(
+                    function() { // Mouse enter
+                        $(this).data('Order', $(this).text());
+                        $(this).text('Buy');
+                    },
+                    function() { // Mouse leave
+                        $(this).text($(this).data('Order'));
+                    }
+                );
+            });
         </script>
 
     </form>

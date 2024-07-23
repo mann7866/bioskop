@@ -2,17 +2,19 @@
 
 @section('content')
     @if (session('success'))
-        <div class="alert alert-success pos">
+        <div class="alert alert-success mt-3 pos">
             {{ session('success') }}
         </div>
     @endif
 
     <style>
         .pos {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            margin-top: 10px;
+            text-align: center;
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1)
         }
         .warning {
             background-color: hsl(202, 100%, 50%);

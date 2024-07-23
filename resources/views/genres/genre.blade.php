@@ -10,13 +10,15 @@
 
 <style>
     .pos {
+        text-align: center;
         max-width: 300px;
         margin: 0 auto;
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .pos:after{
+    /* Not Found */
+    /* .pos:after{
         content: '';
         position: absolute;
         left: 50%;
@@ -29,22 +31,19 @@
     .pos.warning:hover::after{
         left: 0;
         width: 100%;
-    }
+    } */
 
 
-
-
-
+    
+        /* .warning:hover {
+            border-radius: 25px 27px;
+        } */
     .warning {
         background-color: blue;
         transition: 2s ease;
         position: relative;
         overflow: hidden;
     }
-
-    /* .warning:hover {
-        border-radius: 25px 27px;
-    } */
 
     .warning::after {
         content: '';

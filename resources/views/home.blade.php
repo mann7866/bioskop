@@ -104,7 +104,7 @@
 
         .carousel-control-prev,
         .carousel-control-next {
-            width: 5%;
+           display:none;
         }
 
         .back {

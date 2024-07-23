@@ -40,14 +40,14 @@ Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,
 // Route genres
 Route::get('/genres', [App\Http\Controllers\GenreDetail::class,'index'])->name('genres');
 Route::get('/film', [App\Http\Controllers\FilmController::class,'index'])->name('film');
-
+// Route Kursi
 Route::get('/kursi', [App\Http\Controllers\KursiController::class,'index'])->name('kursi');
 Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create'])->name('kursi.create');
 Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'])->name('kursi.store');
 Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');
 Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'update'])->name('kursi.update');
 Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
-
+//route Order
 Route::get('/order', [App\Http\Controllers\OrderController::class,'index'])->name('order');
 Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class,'order'])->name('order.create');
 Route::post('/order/store', [App\Http\Controllers\OrderController::class,'store'])->name('order.store');
