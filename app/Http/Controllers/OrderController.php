@@ -18,6 +18,7 @@ class OrderController extends Controller
 
         $detail = Detail::all();
         $kursi =  Kursi::all();
+
         return view("orders.order", compact("detail", "kursi"));
     }
 
@@ -27,9 +28,6 @@ class OrderController extends Controller
     public function create()
     {
 
-        $kursi = Kursi::all();
-
-        return view('nama_view')->with('kursi', $kursi);
     }
 
     public function order($id)
@@ -49,14 +47,16 @@ $kursi = Kursi::all();
     {
 
         $validateData = $request->validate([
-            "judul"=> "required",
-            "genre"=> "required",
-            "id_kursi"=> "required",
-            "harga"=> "required",
+
+            'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
+            'total_harga'=> 'required|min:0',
+
         ]);
 
-        Order::create ([$validateData]);
-        return redirect()->route("order")->with("success","Berhasil Pesan Tiket");
+        Order::create($validateData);
+        return redirect()->route("home")->with("success","Berhasil Pesan Tiket");
+
+
 
 
     }

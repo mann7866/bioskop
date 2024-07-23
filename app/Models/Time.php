@@ -12,4 +12,9 @@ class Time extends Model
     protected $table = 'time';
 
     protected $guarded = [] ;
+
+    public function detail()
+    {
+        return $this->belongsTo(detail::class, 'id_jamTayang','id');
+    }
 }

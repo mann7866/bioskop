@@ -16,5 +16,9 @@ class Detail extends Model
     {
         return $this->belongsToMany(genre::class, 'genre_detail', 'id_detail','id_genre');
     }
+
+    public function time()
+    {
+        return $this->belongsTo(time::class, 'id_jamTayang', 'id');
+    }
 }
-    

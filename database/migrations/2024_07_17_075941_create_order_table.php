@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->string('genre');
-            $table->foreignId('judul')->references('id')->on('detail')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('deskripsi');
-            $table->foreignId('id_kursi')->references('id')->on('kursi')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('harga');
+
+            $table->string('total_harga');
+            $table->string('jumlah_tiket');
             $table->timestamps();
         });
     }

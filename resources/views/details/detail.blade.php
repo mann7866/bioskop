@@ -226,6 +226,10 @@
             <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
                 <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid text-center" alt="{{ $item->judul }}">
                 <div class="film-description">
+                    @if ($item->time)
+                    <P>Jam Tayang : {{ $item->time->jamTayang }}</P>
+                    @endif
+
                     <h1 class="poss">{{ $item->judul }}</h1>
                     <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
                     <p>Genres:</p>

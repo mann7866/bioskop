@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Detail;
+use App\Models\Time;
 use App\Models\genre;
+use App\Models\Kursi;
+use App\Models\Detail;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller
@@ -15,7 +17,8 @@ class DetailController extends Controller
     {
         $detail = Detail::with('genres')->get();
         $genres = genre::all();
-        return view("details.detail", compact("detail"));
+        $time = Time::all();
+        return view("details.detail", compact("detail", "time"     ));
 
     }
 
@@ -25,7 +28,8 @@ class DetailController extends Controller
     public function create()
     {
         $genre = Genre::all();
-        return view("details.createDetail", compact("genre"));
+        $time = Time::all();
+        return view("details.createDetail", compact("genre", "time"));
     }
 
     /**
@@ -44,6 +48,7 @@ class DetailController extends Controller
             "deskripsi" => "required|max:50",
             "harga"=> "required|max:10000000000",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
+            "id_jamTayang" => "required",
         ]);
 
         // Upload and save the image
@@ -64,6 +69,8 @@ class DetailController extends Controller
             'foto' => $imageName, // Assign the uploaded image name
             'deskripsi' => $validateData['deskripsi'],
             'harga'=> $validateData['harga'],
+            "id_jamTayang" => $validateData ["id_jamTayang"],
+
         ]);
 
         // Sync genres with the detail using 'sync'
@@ -112,6 +119,8 @@ class DetailController extends Controller
             "foto" => "sometimes|required|mimes:jpeg,jpg,png,gif|max:2048",
             "deskripsi" => "required|max:50",
             "harga"=> "required",
+            "id_jamTayang" => "required",
+
         ]);
 
         // Handle file foto jika ada di request
@@ -141,6 +150,8 @@ class DetailController extends Controller
             'perusahaanProduksi' => $validatedData['perusahaanProduksi'],
             'deskripsi' => $validatedData['deskripsi'],
             'harga'=> $validatedData['harga'],
+            "id_jamTayang" => $validatedData ["id_jamTayang"],
+
         ]);
 
         // Sinkronisasi genres jika ada yang dipilih

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('genre_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_detail')->references('id')->on('detail');
-            $table->foreignId('id_genre')->references('id')->on('genre');
+            $table->foreignId('id_detail')->references('id')->on('detail')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('id_genre')->references('id')->on('genre')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }
