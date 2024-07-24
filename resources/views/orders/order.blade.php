@@ -30,11 +30,11 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="card">
-                            <img src="{{ asset('storage/' . $item->detail->foto) }}" class="card-img-top" alt="">
+                            <img src="{{ asset('image/' . $item->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->detail->judul }}</h5>
-                                <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
-                                <p class="card-text">{{ $item->detail->deskripsi }}</p>
+                                <h5 class="card-title">{{ $item->judul }}</h5>
+                                <h6 class="">Rp. {{ number_format($item->harga) }}</h6>
+                                <p class="card-text">{{ $item->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                             <div class="card-body">
                                 <div>
                                     <label for="">Total Pembayaran</label>
-                                    <h6 class="">{{ $item->total_harga }}</h6>
+                                    <h6 class="">{{ $detail->total_harga }}</h6>
                                 </div>
 
-                                <a class="btn btn-danger" href="{{ route('delete.order', $item->id) }}"  onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"  onclick="return confirm('yakin ingin Membatalkan Pesanan')">
                                     Batal
                                 </a>
                             </div>

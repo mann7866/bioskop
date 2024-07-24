@@ -159,10 +159,10 @@
             }
         }
 
+        /* bagian card */
         .news-container {
             margin-top: 20px;
         }
-
         .news-card {
             position: relative;
             overflow: hidden;
@@ -204,6 +204,7 @@
         }
 
         .news-text {
+            
             font-size: 1rem;
             color: #333;
             margin-bottom: 10px;
@@ -213,7 +214,7 @@
             font-size: 0.85rem;
             color: #888;
         }
-
+        /* card end */
         @media (max-width: 768px) {
             .news-card {
                 flex: 0 0 calc(50% - 20px);
@@ -272,17 +273,17 @@
                                         <div class="film-description">
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>
-                                        </div>
-                                        
-                                        <div class="film-label-container">
-                                            <label class="film-label">{{ $item->judul }}</label>
                                             <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                                 <i class="fa-solid fa-cart-shopping"></i> Pesan
                                             </button>
                                         </div>
                                         
+                                        <div class="film-label-container">
+                                            <label class="film-label">{{ $item->judul }}</label>
+                                            
+                                        </div>
+                                        
                                     </div>
-                                    
                                 @empty
                                     <p>Film tidak ada.</p>
                                 @endforelse
@@ -315,6 +316,24 @@
                         </div>
                         
                         <!-- Berita 3 -->
+                        <div class="news-card col-md-4">
+                            <img src="https://via.placeholder.com/800x400" alt="Berita 3">
+                            <div class="news-body">
+                                <h5 class="news-title">Judul Berita 3</h5>
+                                <p class="news-text">Deskripsi berita 3. Integer id dolor nec ligula egestas tincidunt. Sed consequat urna et velit elementum consectetur.</p>
+                                <p class="news-time">Jam Tayang: 02:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="news-card col-md-4">
+                            <img src="https://via.placeholder.com/800x400" alt="Berita 3">
+                            <div class="news-body">
+                                <h5 class="news-title">Judul Berita 3</h5>
+                                <p class="news-text">Deskripsi berita 3. Integer id dolor nec ligula egestas tincidunt. Sed consequat urna et velit elementum consectetur.</p>
+                                <p class="news-time">Jam Tayang: 02:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
                         <div class="news-card col-md-4">
                             <img src="https://via.placeholder.com/800x400" alt="Berita 3">
                             <div class="news-body">

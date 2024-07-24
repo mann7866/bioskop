@@ -5,24 +5,20 @@
         .film-card {
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease;
-            width: calc(50% - 10px);
-            margin: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            margin: 10px;
+            flex: 0 0 calc(50% - 20px); /* Adjusted to fit two items side by side */
+            box-sizing: border-box;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            height: 300px;
-            /* Tinggi tetap untuk card */
-            display: flex;
-            flex-direction: column;
+            background-color: #fff;
         }
 
         .film-card img {
             width: 100%;
-            height: 100%;
-            /* Mengisi tinggi kartu */
+            height: auto;
             object-fit: cover;
-            /* Memotong gambar jika perlu */
             transition: transform 0.3s ease;
         }
 
@@ -30,20 +26,18 @@
             transform: scale(1.1);
         }
 
-        /* Gaya lainnya tetap sama */
-
-
         .film-description {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
             color: #fff;
-            padding: 10px;
+            padding: 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
             text-align: center;
+            border-radius: 0 0 10px 10px;
         }
 
         .film-card:hover .film-description {
@@ -80,11 +74,6 @@
             background-color: rgba(0, 0, 0, 0.9);
         }
 
-        .btn-edit ion-icon,
-        .btn-delete ion-icon {
-            font-size: 20px;
-        }
-
         .film-container {
             display: flex;
             flex-wrap: wrap;
@@ -96,15 +85,24 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .modal-header {
-            border-bottom: none;
+        .modal-header,
+        .modal-footer {
             background-color: #f8f9fa;
-            border-radius: 10px 10px 0 0;
+            border-radius: 10px;
         }
 
         .modal-title {
             font-size: 1.5rem;
             font-weight: bold;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            left: 0;
+        }
+
+        .modal-header .btn-close {
+            position: absolute;
+            right: 15px;
         }
 
         .modal-body {
@@ -116,13 +114,6 @@
             border-radius: 10px;
             margin-bottom: 15px;
             max-width: 100%;
-            /* Menyesuaikan gambar agar tidak melewati lebar modal */
-        }
-
-        .modal-footer {
-            border-top: none;
-            background-color: #f8f9fa;
-            border-radius: 0 0 10px 10px;
         }
 
         .modal-footer .btn-secondary {
@@ -135,26 +126,13 @@
             background-color: #5a6268;
         }
 
-        .film-description ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .film-description ul li {
-            display: inline-block;
-            margin: 0 5px;
-            padding: 3px 6px;
-            background: #007bff;
-            color: #fff;
-            border-radius: 12px;
-            font-size: 0.9rem;
-        }
-
+        .film-description ul,
         .modal-body ul {
             list-style: none;
             padding: 0;
         }
 
+        .film-description ul li,
         .modal-body ul li {
             display: inline-block;
             margin: 0 5px;
@@ -165,7 +143,6 @@
             font-size: 0.9rem;
         }
 
-        /* Media queries to ensure responsiveness */
         @media (max-width: 768px) {
             .film-card {
                 width: calc(50% - 10px);
@@ -177,46 +154,10 @@
                 width: 100%;
             }
         }
-
-        .warning {
-            background-color: blue;
-            transition: 2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* .warning:hover {
-                border-radius: 25px 27px;
-            } */
-
-        .warning::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background-color: red;
-            transition: all 0.3s;
-        }
-
-        .warning:hover::after {
-            left: 0;
-            width: 100%;
-        }
-
-        .pos {
-            right: -350px;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            color: #007bff;
-            text-decoration: underline;
-            position: relative;
-            text-align: center;
-        }
     </style>
 
     <div>
-        <a class="btn btn-primary mt-5 m-2 warning" href="{{ route('detail.create') }}">
+        <a class="btn btn-primary mt-5 m-2" href="{{ route('detail.create') }}">
             <i class="fas fa-plus"></i> Tambah Detail
         </a>
     </div>
@@ -224,15 +165,13 @@
     <div class="film-container">
         @foreach ($detail as $item)
             <div class="mb-4 film-card" data-bs-toggle="modal" data-bs-target="#film{{ $item->id }}Modal">
-                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid text-center" alt="{{ $item->judul }}">
+                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                 <div class="film-description">
                     @if ($item->time)
-                    <P>Tayang :  {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }} </P>
-
+                        <p>Tayang: {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }}</p>
                     @endif
-
-                    <h1 class="poss">{{ $item->judul }}</h1>
-                    <p>Tanggal rilis: {{ $item->tanggalRilis }}</p>
+                    <h1>{{ $item->judul }}</h1>
+                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                     <p>Genres:</p>
                     <ul>
                         @foreach ($item->genres as $genre)
@@ -240,24 +179,18 @@
                         @endforeach
                     </ul>
                     <p>{{ $item->deskripsi }}</p>
-                    @if ($item->time)
-                        <P>Jam Tayang : {{ $item->time->jamTayang }}</P>
-                    @endif
                 </div>
-
-
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="film{{ $item->id }}Modal" tabindex="-1"
-                aria-labelledby="film{{ $item->id }}ModalLabel" aria-hidden="true">
+            <div class="modal fade" id="film{{ $item->id }}Modal" tabindex="-1" aria-labelledby="film{{ $item->id }}ModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title pos" id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
+                            <h5 class="modal-title" id="film{{ $item->id }}ModalLabel">{{ $item->judul }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body ">
+                        <div class="modal-body">
                             <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                             <p><strong>Harga Tiket:</strong> Rp. {{ number_format($item->harga) }}</p>
                             <h2>Genres:</h2>
@@ -278,15 +211,12 @@
                                 <ion-icon name="create-outline"></ion-icon>
                             </button>
                         </a>
-
                         <a href="{{ route('detail.delete', $item->id) }}">
                             <button type="button" class="btn-delete" onclick="return confirm('Yakin ingin menghapus?')">
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
                         </a>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
+                      
                     </div>
                 </div>
             </div>

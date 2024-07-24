@@ -37,12 +37,10 @@
             left: 0;
             width: 100%;
         }
-
         .toast-container {
             max-width: 300px;
             /* Adjust width as needed */
         }
-
         .slide-down {
             animation: slide-down 2s ease 0s 1 normal forwards;
         }
@@ -105,16 +103,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
-                var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-                var toastList = toastElList.map(function(toastEl) {
-                    return new bootstrap.Toast(toastEl, {
+                // Ambil semua elemen toast di halaman
+                var toastElList = document.querySelectorAll('.toast');
+                // Iterasi melalui setiap elemen toast dan tampilkan
+                toastElList.forEach(function(toastEl) {
+                    var toast = new bootstrap.Toast(toastEl, {
                         autohide: true,
                         delay: 2000
-                    }).show();
+                    });
+                    toast.show();
+    
+                    // Add fade-out class after showing
+                    setTimeout(function() {
+                        toastEl.classList.add('fade-out');
+                    }, 2000); // Wait until the toast has fully shown before starting fade-out
                 });
-            }, 2000); // Ubah 2000 menjadi waktu delay yang diinginkan dalam milidetik
+            }, 2000); // Tunggu 2 detik sebelum menampilkan toast
         });
     </script>
 @endpush
