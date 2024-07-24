@@ -159,7 +159,10 @@
             background-color: #dc3545 !important;
             color: #ffffff !important;
         }
-        
+        .navbar-primary-rgba{
+            background-color: rgba(31, 172, 171, 0.8);
+            color: aqua;
+        }
     </style>
 </head>
 
@@ -205,14 +208,14 @@
                       </svg></a>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto align-items-center">
+                    <ul class="navbar-nav ms-auto align-items-center ">
                         <!-- Color Change Dropdown -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarColorDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <ion-icon name="color-palette-outline" class="size"></ion-icon>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end posmen" aria-labelledby="navbarColorDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog" aria-labelledby="navbarColorDropdown">
                                 <li><button class="dropdown-item"
                                         onclick="changeNavbarColor('navbar-light')">Light</button></li>
                                 <li><button class="dropdown-item"
@@ -225,6 +228,8 @@
                                         onclick="changeNavbarColor('navbar-success')">Success</button></li>
                                 <li><button class="dropdown-item"
                                         onclick="changeNavbarColor('navbar-danger')">Danger</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-primary-rgba')">Rgba</button></li>
                             </ul>
                         </li>
 
