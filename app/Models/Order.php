@@ -9,7 +9,12 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = [] ;
-
+    protected $table = 'order';
     protected $guarded = [] ;
+
+    public function details()
+    {
+        return $this->belongsTo(Detail::class, 'detail_id');
+    }
+
 }

@@ -100,6 +100,20 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Tanggal Tayang</label>
+            <select class="mt-3 form-select @error('id_tanggalTayang') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_tanggalTayang">
+                <option selected disabled>tanggal Tayang</option>
+                @foreach ($time as $item)
+                    <option value="{{ $item->id }}">{{ $item->tanggalTayang }}</option>
+                @endforeach
+            </select>
+            @error('id_tanggalTayang')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
         <div class="col-12">
             <label for="foto" class="form-label">Upload Foto</label>
             <div class="input-group">

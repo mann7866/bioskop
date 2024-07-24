@@ -17,8 +17,8 @@ class OrderController extends Controller
     {
         $detail = Detail::all();
         $kursi =  Kursi::all();
-
-        return view("orders.order", compact("detail", "kursi"));
+$order = Order::all();
+        return view("orders.order", compact("detail", "kursi", "order"));
     }
 
     /**
@@ -30,12 +30,16 @@ class OrderController extends Controller
 
     public function order($id)
     {
+        $detail = Detail::find($id); // Mengambil detail berdasarkan ID
+       // Mengambil kursi berdasarkan nilai kolom kursi di Detail
 
         $detail = Detail::find($id);
         $kursi = Kursi::all();
 
         return view('orders.createOrder', compact('detail', 'kursi'));
     }
+
+
 
 
     /**
@@ -47,8 +51,9 @@ class OrderController extends Controller
         $validateData = $request->validate([
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga' => 'required|min:0',
-            
+            'total_harga'=> 'required|min:0',
+            'id_detail'=> 'required',
+
         ]);
         
         Order::create($validateData);

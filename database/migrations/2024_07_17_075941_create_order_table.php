@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('total_harga');
             $table->string('jumlah_tiket');
+            $table->foreignId('id_detail')->references('id')->on('detail')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
