@@ -60,24 +60,21 @@
                 <div class="col-8">
                     <form action="{{ route('order.store') }}" method="POST" id="orderForm">
                         @csrf
-
                         <input type="hidden" name="id_detail" value="{{ $detail->id }}">
-                        <input type="hidden" name="harga" value="{{ $detail->harga }}">
-                        <input type="hidden" name="jumlah_tiket" id="jumlah_tiket" value="0">
-                        <input type="hidden" name="total_harga" id="total_harga" value="0">
 
                         <div class="mb-3">
+
                             <div class="col-md-6">
                                 <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
-                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror" id="jumlah_tiket_input" name="jumlah_tiket_input" >
+                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror" id="jumlah_tiket_input" name="jumlah_tiket" >
                                 @error('jumlah_tiket')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <d                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      iv class="invalid-feedback">{{ $message }}</d>
                                 @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label for="total_harga" class="form-label">Total Harga</label>
-                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga_input" name="total_harga_input" >
+                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga_input" name="total_harga" >
                                 @error('total_harga')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

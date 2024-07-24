@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\f\FilmController;
 
 // Route untuk halaman welcome
@@ -47,10 +48,14 @@ Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'
 Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');
 Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'update'])->name('kursi.update');
 Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
-//route Order
-Route::get('/order', [App\Http\Controllers\OrderController::class,'index'])->name('order');
-Route::get('/order/{id}/create', [App\Http\Controllers\OrderController::class,'order'])->name('order.create');
-Route::post('/order/store', [App\Http\Controllers\OrderController::class,'store'])->name('order.store');
+
+
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order.create');
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edit'])->name('order.edit');
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
 Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
+
+
+

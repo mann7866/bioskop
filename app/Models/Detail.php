@@ -21,4 +21,8 @@ class Detail extends Model
     {
         return $this->belongsTo(time::class, 'id_jamTayang', 'id');
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'id_detail','id',);
+    }
 }

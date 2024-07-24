@@ -204,6 +204,9 @@
         <a href="/detail/{{ $film['id'] }}" type="button" class="btn btn-secondary">Cancel</a>
         <button type="submit" class="btn btn-primary">Pesan Tiket</button>
 
+
+
+
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const tiketDropdown = document.getElementById('tiket');

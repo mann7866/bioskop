@@ -87,23 +87,34 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-{{--
-            <div class="mb-3">
-                <label class="form-label">Genres</label>
-                <div class="d-flex flex-wrap">
-                    @foreach ($genre as $item)
-                        <div class="form-check me-3">
-                            <input class="form-check-input @error('genres') is-invalid @enderror" type="checkbox" name="genres[]" value="{{ $item->id }}" id="genre-{{ $item->id }}">
-                            <label class="form-check-label" for="genre-{{ $item->id }}">
-                                {{ $item->genre }}
-                            </label>
-                        </div>
-                    @endforeach
-                    @error('genres')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div> --}}
+
+        <div class="mb-3">
+            <label class="form-label">Jam Tayang</label>
+            <select class="mt-3 form-select @error('id_jamTayang') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_jamTayang">
+                <option selected disabled>Jam Tayang</option>
+                @foreach ($time as $item)
+                    <option value="{{ $item->id }}">{{ $item->jamTayang }}</option>
+                @endforeach
+            </select>
+            @error('id_jamTayang')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tanggal Tayang</label>
+            <select class="mt-3 form-select @error('id_tanggalTayang') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_tanggalTayang">
+                <option selected disabled>tanggal Tayang</option>
+                @foreach ($time as $item)
+                    <option value="{{ $item->id }}">{{ $item->tanggalTayang }}</option>
+                @endforeach
+            </select>
+            @error('id_tanggalTayang')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="col-12">
             <div class="mb-3">
