@@ -17,15 +17,30 @@
             box-shadow: 0 2px 3px rgba(0,0,0,0.1)
         }
         .warning {
-            background-color: hsl(202, 100%, 50%);
-            color: blue;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            transition: 0.3s ease;
+            background-color: aqua;
+            color: white;
+            transition: 2s ease;
+            position: relative;
+            overflow: hidden;
         }
-
-        .warning:hover {
+        /* .warning:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+        } */
+        .warning::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: royalblue;
+        transition: all 0.3s;
+    }
+        .warning:hover::after {
+        background-color: red;
+        left: 0;
+        width: 100%;
+    }
     </style>
 
     <div class="container mt-4">

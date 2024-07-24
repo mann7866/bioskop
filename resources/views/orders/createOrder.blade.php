@@ -151,7 +151,7 @@
                 <div class="col-md-8">
                     <form action="{{ route('order.store') }}" method="POST" id="orderForm">
                         @csrf
-
+                        
                         <input type="hidden" name="id_detail" value="{{ $detail->id }}">
                         <input type="hidden" name="harga" value="{{ $detail->harga }}">
                         <input type="hidden" name="jumlah_tiket" id="jumlah_tiket" value="0">

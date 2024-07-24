@@ -4,17 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{-- twotter --}}
-    <meta name="twitter:card" content="app">
-    <meta name="twitter:app:name:googleplay" content="">
-    <meta name="twitter:app:url:googleplay" content="">
-    <meta name="twitter:app:id:googleplay" content="">
-    <meta name="twitter:app:name:iphone" content="">
-    <meta name="twitter:app:url:iphone" content="">
-    <meta name="twitter:app:id:iphone" content="">
-    <meta name="twitter:app:name:ipad" content="">
-    <meta name="twitter:app:url:ipad" content="">
-    <meta name="twitter:app:id:ipad" content="">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -140,6 +129,37 @@
         .dark-mode .btn-dark:hover {
             background-color: #444;
         }
+
+        /* Custom CSS for Navbar Colors */
+        .navbar-light {
+            background-color: #f8f9fa !important;
+        }
+
+        .navbar-dark {
+            background-color: #343a40 !important;
+            color: #ffffff !important;
+        }
+
+        .navbar-primary {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+        }
+
+        .navbar-secondary {
+            background-color: #6c757d !important;
+            color: #ffffff !important;
+        }
+
+        .navbar-success {
+            background-color: #28a745 !important;
+            color: #ffffff !important;
+        }
+
+        .navbar-danger {
+            background-color: #dc3545 !important;
+            color: #ffffff !important;
+        }
+        
     </style>
 </head>
 
@@ -162,7 +182,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto nav nav-tabs">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page"
                                 href="{{ route('genre') }}">{{ __('Genres') }}</a>
@@ -179,16 +199,31 @@
                     <form action="#" class="d-flex mx-auto" method="GET">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="query">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <button class="btn btn-success" type="submit">Search</button>
                     </form>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
-                        <!-- Dark Mode Toggle Button -->
-                        <li class="nav-item">
-                            <button id="darkModeToggle" class="nav-link">
-                                <ion-icon name="moon-outline" class="size"></ion-icon>
-                            </button>
+                        <!-- Color Change Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarColorDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <ion-icon name="color-palette-outline" class="size"></ion-icon>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end posmen" aria-labelledby="navbarColorDropdown">
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-light')">Light</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-dark')">Dark</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-primary')">Primary</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-secondary')">Secondary</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-success')">Success</button></li>
+                                <li><button class="dropdown-item"
+                                        onclick="changeNavbarColor('navbar-danger')">Danger</button></li>
+                            </ul>
                         </li>
 
                         <!-- Authentication Links -->
@@ -229,6 +264,7 @@
                 </div>
             </div>
         </nav>
+
 
         <main class="py-4">
             @yield('content')
@@ -289,20 +325,20 @@
 
     <!-- Dark Mode Toggle Script -->
     <script>
+        function changeNavbarColor(colorClass) {
+            const navbar = document.querySelector('.navbar');
+            navbar.className = `navbar navbar-expand-md ${colorClass} shadow-sm sticky-top`;
+            localStorage.setItem('navbar-color', colorClass);
+        }
+    
         document.addEventListener('DOMContentLoaded', function() {
-            // di pindah di button 
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            darkModeToggle.onclick = function() {
-                document.body.classList.toggle('dark-mode');
-                localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-            };
-
-            // Check and apply the saved dark mode preference
-            if (localStorage.getItem('dark-mode') === 'true') {
-                document.body.classList.add('dark-mode');
+            const savedColor = localStorage.getItem('navbar-color');
+            if (savedColor) {
+                changeNavbarColor(savedColor);
             }
         });
     </script>
+    
 </body>
 
 </html>

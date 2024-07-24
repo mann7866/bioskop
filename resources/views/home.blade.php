@@ -9,31 +9,31 @@
         .film-card {
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             margin: 10px;
             flex: 0 0 calc(16.66% - 20px);
-            /* Menampilkan 6 kartu per baris dengan jarak */
             box-sizing: border-box;
             border-radius: 10px;
-            /* Sudut yang membulat pada kartu */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Bayangan untuk kartu */
+            background-color: #fff;
+        }
+
+        .film-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .film-card img {
             width: 100%;
             height: 300px;
-            /* Tinggi gambar */
             object-fit: cover;
             transition: transform 0.3s ease;
             border-radius: 10px 10px 0 0;
-            /* Sudut atas gambar membulat */
         }
 
         .film-card:hover img {
             transform: scale(1.05);
-            /* Efek zoom halus saat hover */
         }
 
         .film-description {
@@ -48,7 +48,6 @@
             transition: opacity 0.3s ease;
             text-align: center;
             border-radius: 0 0 10px 10px;
-            /* Sudut bawah deskripsi membulat */
         }
 
         .film-card:hover .film-description {
@@ -59,14 +58,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Pusatkan label dan tombol di tengah */
             margin: 10px;
-            /* Jarak untuk memberi ruang pada elemen lain */
         }
 
         .film-label {
             margin: 0;
-            /* Menghapus margin untuk label */
+            font-size: 1.1rem;
+            font-weight: bold;
         }
 
         .btn-pesan {
@@ -78,33 +76,29 @@
             cursor: pointer;
             font-size: 0.9rem;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            opacity: 0.9; /* Latar belakang semi-transparan */
-            margin-top: 10px; /* Jarak atas dari label */
+            opacity: 0.9;
+            margin-top: 10px;
         }
 
         .btn-pesan:hover {
             background-color: #ff4757;
             transform: scale(1.05);
-            /* Efek zoom halus saat hover */
         }
 
         .film-container {
             display: flex;
             flex-wrap: wrap;
-            /* Membungkus baris */
             justify-content: flex-start;
-            /* Menyelaraskan kartu film ke kiri */
             padding: 10px;
         }
 
         .film-container::-webkit-scrollbar {
             display: none;
-            /* Sembunyikan scrollbar untuk tampilan lebih bersih */
         }
 
         .carousel-control-prev,
         .carousel-control-next {
-           display:none;
+            display: none;
         }
 
         .back {
@@ -114,10 +108,8 @@
             background-clip: border-box;
             background: url({{ asset('image/netflix.jpg') }});
             border-radius: 10px;
-            /* Sudut membulat untuk kartu */
         }
 
-        /* Carousel */
         .carousel-inner img {
             border-radius: 20px;
             width: 100%;
@@ -129,49 +121,41 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        /* Media queries untuk responsivitas */
         @media (max-width: 1200px) {
             .film-card {
                 flex: 0 0 calc(20% - 20px);
-                /* Untuk 5 kartu per baris */
             }
         }
 
         @media (max-width: 992px) {
             .film-card {
                 flex: 0 0 calc(25% - 20px);
-                /* Untuk 4 kartu per baris */
             }
         }
 
         @media (max-width: 768px) {
             .film-card {
                 flex: 0 0 calc(33.33% - 20px);
-                /* Untuk 3 kartu per baris */
             }
         }
 
         @media (max-width: 576px) {
             .film-card {
                 flex: 0 0 calc(50% - 20px);
-                /* Untuk 2 kartu per baris */
             }
 
             .carousel-inner img {
                 height: 150px;
-                /* Menyesuaikan tinggi gambar carousel */
             }
         }
 
         @media (max-width: 400px) {
             .film-card {
                 flex: 0 0 calc(100% - 20px);
-                /* Untuk 1 kartu per baris */
             }
 
             .carousel-inner img {
                 height: 120px;
-                /* Menyesuaikan lebih tinggi gambar carousel */
             }
         }
     </style>
@@ -185,8 +169,7 @@
                         <p>{{ __('Welcome to Bioskop') }}</p>
                     </div>
                 </div>
-                
-                <!-- Carousel untuk gambar besar -->
+
                 <div class="container mt-4" id="film">
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -210,7 +193,6 @@
                     </div>
                 </div>
 
-                <!-- Carousel untuk kartu film -->
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -224,13 +206,16 @@
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>
                                         </div>
+                                        
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
                                             <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                                 <i class="fa-solid fa-cart-shopping"></i> Pesan
                                             </button>
                                         </div>
+                                        
                                     </div>
+                                    
                                 @empty
                                     <p>Film tidak ada.</p>
                                 @endforelse
@@ -242,7 +227,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap Modals untuk masing-masing film -->
     @foreach ($detail as $item)
         <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
             aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
@@ -257,6 +241,7 @@
                             <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                             <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
                             <p>{{ $item->deskripsi }}</p>
+                           
                         </div>
                     </div>
                 </div>
@@ -268,7 +253,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#film');
             var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 2000, // Mengatur interval pergeseran otomatis menjadi 2 detik
+                interval: 2000,
                 wrap: true
             });
         });
