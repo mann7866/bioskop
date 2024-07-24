@@ -185,7 +185,7 @@
                         <p>{{ __('Welcome to Bioskop') }}</p>
                     </div>
                 </div>
-
+                
                 <!-- Carousel untuk gambar besar -->
                 <div class="container mt-4" id="film">
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">

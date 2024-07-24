@@ -170,6 +170,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('detail') }}">{{ __('Film') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order') }}">{{ __('Orders') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Center Search Form -->

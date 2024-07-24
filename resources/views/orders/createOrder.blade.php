@@ -1,54 +1,145 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
     <style>
-        /* Styling khusus untuk form */
-        .form-container {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    /* Styling umum untuk form */
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+    }
 
-        .form-title {
-            margin-bottom: 20px;
-        }
+    .form-title {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
 
-        .seats {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
+    .card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        .seat {
-            width: 40px;
-            height: 40px;
-            background-color: lightblue;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    .card img {
+        border-bottom: 2px solid #ddd;
+    }
 
-        .seat.selected {
-            background-color: green;
-        }
+    .card-body {
+        padding: 15px;
+    }
 
-        .seat.reserved {
-            background-color: red;
-            cursor: not-allowed;
-        }
-    </style>
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
 
+    .card-text {
+        color: #555;
+    }
+
+    .seats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .seat {
+        width: 50px;
+        height: 50px;
+        background-color: #e0f7fa;
+        margin: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.3s;
+        position: relative;
+    }
+
+    .seat:hover {
+        transform: scale(1.1);
+    }
+
+    .seat::after {
+        content: attr(data-seat);
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .seat:hover::after {
+        opacity: 1;
+    }
+
+    .seat.selected {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .seat.reserved {
+        background-color: #f44336;
+        cursor: not-allowed;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ced4da;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .total-seats {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+
+</style>
     <div class="container mt-4">
         <div class="form-container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid text-center" alt="{{ $detail->judul }}">
+                        <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
                             <h6 class="">Rp. {{ number_format($detail->harga) }}</h6>
@@ -57,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="col-8">
+                <div class="col-md-8">
                     <form action="{{ route('order.store') }}" method="POST" id="orderForm">
                         @csrf
 
@@ -66,31 +157,31 @@
                         <input type="hidden" name="jumlah_tiket" id="jumlah_tiket" value="0">
                         <input type="hidden" name="total_harga" id="total_harga" value="0">
 
-                        <div class="mb-3">
-                            <div class="col-md-6">
-                                <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
-                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror" id="jumlah_tiket_input" name="jumlah_tiket_input" >
-                                @error('jumlah_tiket')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="form-group mb-4">
+                            <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
+                            <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror"
+                                id="jumlah_tiket_input" name="jumlah_tiket_input">
+                            @error('jumlah_tiket')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                            <div class="col-md-6">
-                                <label for="total_harga" class="form-label">Total Harga</label>
-                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga_input" name="total_harga_input" >
-                                @error('total_harga')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="form-group mb-4">
+                            <label for="total_harga" class="form-label">Total Harga</label>
+                            <input type="text" class="form-control @error('total_harga') is-invalid @enderror"
+                                id="total_harga_input" name="total_harga_input">
+                            @error('total_harga')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="container">
-                            <h2>Pilih Kursi</h2>
+                            <h2 class="form-title">Pilih Kursi</h2>
                             <div class="seats" id="seatsContainer">
                                 <!-- Kursi akan ditampilkan di sini -->
                             </div>
-                            <div>
-                                <p>Total kursi yang dipilih: <span id="totalKursi">0</span></p>
+                            <div class="total-seats">
+                                Total kursi yang dipilih: <span id="totalKursi">0</span>
                             </div>
                         </div>
 
@@ -118,6 +209,7 @@
                 const seat = document.createElement('div');
                 seat.className = 'seat';
                 seat.textContent = i;
+                seat.setAttribute('data-seat', i); // Set data-seat attribute
                 seatsContainer.appendChild(seat);
 
                 // Handle seat click
@@ -139,17 +231,9 @@
             }
 
             // Function untuk mengupdate jumlah tiket berdasarkan kursi yang dipilih
-          // Function untuk mengupdate jumlah tiket berdasarkan kursi yang dipilih
-function updateJumlahTiket() {
-    jumlahTiketInput.value = totalKursiDipilih;
-}
-
-// Function untuk mengupdate total harga berdasarkan kursi yang dipilih
-function updateTotalHarga() {
-    const selectedSeats = document.querySelectorAll('.seat.selected');
-    const totalHarga = hargaPerKursi * selectedSeats.length;
-    totalHargaInput.value = totalHarga;
-}
+            function updateJumlahTiket() {
+                jumlahTiketInput.value = totalKursiDipilih;
+            }
 
             // Function untuk mengupdate total harga berdasarkan kursi yang dipilih
             function updateTotalHarga() {

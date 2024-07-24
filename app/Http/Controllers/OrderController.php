@@ -15,7 +15,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-
         $detail = Detail::all();
         $kursi =  Kursi::all();
 
@@ -27,16 +26,15 @@ class OrderController extends Controller
      */
     public function create()
     {
-
     }
 
     public function order($id)
     {
 
         $detail = Detail::find($id);
-$kursi = Kursi::all();
+        $kursi = Kursi::all();
 
-        return view('orders.createOrder', compact('detail','kursi'));
+        return view('orders.createOrder', compact('detail', 'kursi'));
     }
 
 
@@ -49,16 +47,12 @@ $kursi = Kursi::all();
         $validateData = $request->validate([
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga'=> 'required|min:0',
-
+            'total_harga' => 'required|min:0',
+            
         ]);
-
+        
         Order::create($validateData);
-        return redirect()->route("home")->with("success","Berhasil Pesan Tiket");
-
-
-
-
+        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
 
     /**
@@ -91,6 +85,6 @@ $kursi = Kursi::all();
     public function destroy(string $id)
     {
         Order::find($id)->delete();
-        return redirect()->route("order")->with("success","Berhasil Membatalkan Pesanan");
+        return redirect()->route("order")->with("success", "Berhasil Membatalkan Pesanan");
     }
 }
