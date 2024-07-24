@@ -206,18 +206,18 @@
                                             <h5 class="poss">{{ $item->judul }}</h5>
                                             <p>{{ $item->deskripsi }}</p>
                                         </div>
-                                        
+
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
                                             <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                                 <i class="fa-solid fa-cart-shopping"></i> Pesan
                                             </button>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 @empty
-                                    <p>Film tidak ada.</p>
+                                <p class="center-text">Belum Ada Film Yang diUpload.</p>
                                 @endforelse
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                             <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                             <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
                             <p>{{ $item->deskripsi }}</p>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -250,6 +250,10 @@
     @endforeach
 
     <script>
+        .center-text {
+            text-align: center;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var myCarousel = document.querySelector('#film');
             var carousel = new bootstrap.Carousel(myCarousel, {

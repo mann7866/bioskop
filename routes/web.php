@@ -57,5 +57,11 @@ Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edi
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
 Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
 
+Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'create'])->name('berita.create');
+Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
+Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
+Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
+Route::get('/berita/{id}delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+
 
 
