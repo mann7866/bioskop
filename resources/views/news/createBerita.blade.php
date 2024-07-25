@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <div class="col-md-6">
+                                <div class="">
                                     <label for="foto_deskripsi" class="form-label">Upload Foto </label>
                                     <div class="input-group">
                                         <input type="file"

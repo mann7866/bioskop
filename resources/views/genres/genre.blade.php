@@ -86,7 +86,7 @@
     </style>
 
     <div class="container mt-4">
-        <div class="d-flex justify-content-end">
+        <div class="">
             <a class="btn btn-outline-primary warning" href="{{ route('genre.create') }}">
                 <i class="fas fa-plus"></i> Tambah Genre
             </a>

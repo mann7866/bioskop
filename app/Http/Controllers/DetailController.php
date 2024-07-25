@@ -88,7 +88,10 @@ class DetailController extends Controller
      */
     public function show(Detail $detail)
     {
-        //
+        $detail = Detail::with('genres')->get();
+        $genres = genre::all();
+        $time = Time::all();
+        return view("details.detail", compact("detail","time"));
     }
 
     /**

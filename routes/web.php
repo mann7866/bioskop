@@ -16,6 +16,7 @@ Auth::routes();
 
 // Route untuk home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
 Route::get('/search', [App\Http\Controllers\SearchController::class,'search'])->name('search');
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
@@ -33,6 +34,7 @@ Route::put('/time/{id}/update', [App\Http\Controllers\timeController::class,'upd
 Route::get('/time/{id}/delete', [App\Http\Controllers\timeController::class,'destroy'])->name('time.delete');
 // Route Detail
 Route::get('/detail', [App\Http\Controllers\DetailController::class,'index'])->name('detail');
+Route::get('/film', [App\Http\Controllers\DetailController::class,'show'])->name('film');
 Route::get('/detail/create', [App\Http\Controllers\DetailController::class,'create'])->name('detail.create');
 Route::post('/detail/store', [App\Http\Controllers\DetailController::class,'store'])->name('detail.store');
 Route::get('/detail/{id}/edit', [App\Http\Controllers\DetailController::class,'edit'])->name('detail.edit');
@@ -61,7 +63,7 @@ Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'crea
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
-Route::get('/berita/{id}delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+Route::get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
 
 

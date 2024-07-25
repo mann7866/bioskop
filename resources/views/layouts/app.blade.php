@@ -192,9 +192,9 @@
                                 href="{{ route('genre') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('detail') }}">{{ __('Film') }}</a>
+                            <a class="nav-link" href="{{ route('film') }}">{{ __('Film') }}</a>
                         </li>
-        
+
                     </ul>
 
                     <!-- Center Search Form -->
@@ -300,8 +300,13 @@
                     <a class="dropdown-item" href="{{ route('time') }}">Time</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('kursi') }}">Kursi</a>
+                    <a class="dropdown-item" href="{{ route('detail') }}">Add Film</a>
                 </li>
+
+                <li>
+                    <a class="dropdown-item" href="{{ route('berita') }}">Add Berita</a>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -343,7 +348,7 @@
             navbar.className = `navbar navbar-expand-md ${colorClass} shadow-sm sticky-top`;
             localStorage.setItem('navbar-color', colorClass);
         }
-    
+
         document.addEventListener('DOMContentLoaded', function() {
             const savedColor = localStorage.getItem('navbar-color');
             if (savedColor) {
@@ -351,7 +356,7 @@
             }
         });
     </script>
-    
+
 </body>
 
 </html>

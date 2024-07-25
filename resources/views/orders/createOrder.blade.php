@@ -141,6 +141,12 @@
                     <div class="card">
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
+                            <h2>Genres:</h2>
+                            <ul>
+                                @foreach ($detail->genres as $genre)
+                                    <li>{{ $genre->genre }}</li>
+                                @endforeach
+                            </ul>
                             <h5 class="card-title">{{ $detail->judul }}</h5>
                             <h6 class="">Rp. {{ number_format($detail->harga) }}</h6>
                             <p class="card-text">{{ $detail->deskripsi }}</p>

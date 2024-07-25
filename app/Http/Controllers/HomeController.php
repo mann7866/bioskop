@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\Detail;
 use Illuminate\Http\Request;
 
@@ -24,12 +25,17 @@ class HomeController extends Controller
      */
 
     //  me
-  
+
     public function index()
     {
-        $detail = Detail::all();
+        $detail = Detail::paginate(12);
+        $berita = Berita::paginate(3);
 
-        return view('home', compact('detail'));
+        return view('home', compact('detail', 'berita'));
     }
+
+
+
+    
 }
 

@@ -10,7 +10,7 @@ class FilmController extends Controller
 {
     public function index()
     {
-        $detail = Detail::with('genres')->get();
+        $detail = Detail::all();
         $genres = genre::all();
         return view("details.film", compact("detail"));
     }

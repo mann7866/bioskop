@@ -55,7 +55,7 @@ $order = Order::all();
             'id_detail'=> 'required',
 
         ]);
-        
+
         Order::create($validateData);
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
@@ -90,6 +90,6 @@ $order = Order::all();
     public function destroy(string $id)
     {
         Order::find($id)->delete();
-        return redirect()->route("order")->with("success", "Berhasil Membatalkan Pesanan");
+        return redirect()->route("order.index")->with("success", "Berhasil Membatalkan Pesanan");
     }
 }

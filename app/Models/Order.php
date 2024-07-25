@@ -12,9 +12,9 @@ class Order extends Model
     protected $table = 'order';
     protected $guarded = [] ;
 
-    public function details()
+    public function detail()
     {
-        return $this->belongsTo(Detail::class, 'detail_id');
+        return $this->belongsTo(Detail::class, 'id_detail', 'id');
     }
 
 }

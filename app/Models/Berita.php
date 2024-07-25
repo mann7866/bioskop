@@ -11,4 +11,6 @@ class Berita extends Model
 
     protected $table = 'berita';
     protected $guarded = [];
+
+    
 }

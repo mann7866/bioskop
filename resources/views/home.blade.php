@@ -159,10 +159,10 @@
             }
         }
 
-        /* bagian card */
         .news-container {
             margin-top: 20px;
         }
+
         .news-card {
             position: relative;
             overflow: hidden;
@@ -204,7 +204,6 @@
         }
 
         .news-text {
-            
             font-size: 1rem;
             color: #333;
             margin-bottom: 10px;
@@ -214,7 +213,7 @@
             font-size: 0.85rem;
             color: #888;
         }
-        /* card end */
+
         @media (max-width: 768px) {
             .news-card {
                 flex: 0 0 calc(50% - 20px);
@@ -271,21 +270,19 @@
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
-                                            <h5 class="poss">{{ $item->judul }}</h5>
-                                            <p>{{ $item->deskripsi }}</p>
                                             <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
                                                 <i class="fa-solid fa-cart-shopping"></i> Pesan
                                             </button>
                                         </div>
+
                                         
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
-                                            
                                         </div>
-                                        
                                     </div>
+
                                 @empty
-                                    <p>Film tidak ada.</p>
+                                  <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
                                 @endforelse
                             </div>
                         </div>
@@ -296,82 +293,31 @@
                     <h2>Berita</h2>
                     <div class="row">
                         <!-- Berita 1 -->
+                        @foreach ($berita as $item)
+
                         <div class="news-card col-md-4">
-                            <img src="https://via.placeholder.com/800x400" alt="Berita 1">
+                            <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid" alt="{{ $item->judul }}">
                             <div class="news-body">
-                                <h5 class="news-title">Judul Berita 1</h5>
-                                <p class="news-text">Deskripsi berita 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
-                                <p class="news-time">Jam Tayang: 10:00 AM</p>
+                                <h5 class="news-title">{{ $item->judul }}</h5>
+                                <p class="news-text">{{ $item->deskripsi }}</p>
+                                <p class="news-time">Tanggal Tayang: {{ $item->tanggal }}</p>
                             </div>
                         </div>
-                        
+                        @endforeach
                         <!-- Berita 2 -->
-                        <div class="news-card col-md-4">
-                            <img src="https://via.placeholder.com/800x400" alt="Berita 2">
-                            <div class="news-body">
-                                <h5 class="news-title">Judul Berita 2</h5>
-                                <p class="news-text">Deskripsi berita 2. Donec vel sapien quis massa dictum consequat. Nullam at lacus a dolor facilisis malesuada.</p>
-                                <p class="news-time">Jam Tayang: 12:00 PM</p>
-                            </div>
-                        </div>
-                        
+
+
                         <!-- Berita 3 -->
-                        <div class="news-card col-md-4">
-                            <img src="https://via.placeholder.com/800x400" alt="Berita 3">
-                            <div class="news-body">
-                                <h5 class="news-title">Judul Berita 3</h5>
-                                <p class="news-text">Deskripsi berita 3. Integer id dolor nec ligula egestas tincidunt. Sed consequat urna et velit elementum consectetur.</p>
-                                <p class="news-time">Jam Tayang: 02:00 PM</p>
-                            </div>
-                        </div>
+
                     </div>
-                        <div class="news-card col-md-4">
-                            <img src="https://via.placeholder.com/800x400" alt="Berita 3">
-                            <div class="news-body">
-                                <h5 class="news-title">Judul Berita 3</h5>
-                                <p class="news-text">Deskripsi berita 3. Integer id dolor nec ligula egestas tincidunt. Sed consequat urna et velit elementum consectetur.</p>
-                                <p class="news-time">Jam Tayang: 02:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="news-card col-md-4">
-                            <img src="https://via.placeholder.com/800x400" alt="Berita 3">
-                            <div class="news-body">
-                                <h5 class="news-title">Judul Berita 3</h5>
-                                <p class="news-text">Deskripsi berita 3. Integer id dolor nec ligula egestas tincidunt. Sed consequat urna et velit elementum consectetur.</p>
-                                <p class="news-time">Jam Tayang: 02:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                    
+
                     <!-- Placeholder jika tidak ada berita -->
-                    {{-- @if ($news->isEmpty())
+                    @if ($berita->isEmpty())
                         <div class="alert alert-info" role="alert">
                             Tidak ada berita saat ini.
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
-
-                @foreach ($detail as $item)
-                    <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
-                        aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-                                        <p>Perusahaan Produksi: {{ $item->perusahaanProduksi }}</p>
-                                        <p>{{ $item->deskripsi }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {

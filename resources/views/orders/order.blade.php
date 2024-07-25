@@ -26,15 +26,21 @@
 
     <div class="container mt-4">
         <div class="form-container">
-            @foreach ($order as $item)
+            @forelse ($order as $item)
                 <div class="row">
                     <div class="col-4">
                         <div class="card">
-                            <img src="{{ asset('image/' . $item->foto) }}" class="card-img-top" alt="">
+                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->judul }}</h5>
-                                <h6 class="">Rp. {{ number_format($item->harga) }}</h6>
-                                <p class="card-text">{{ $item->deskripsi }}</p>
+                                <h2>Genres:</h2>
+                                <ul>
+                                    @foreach ($item->detail->genres as $genre)
+                                        <li>{{ $genre->genre }}</li>
+                                    @endforeach
+                                </ul>
+                                <h5 class="card-title">{{ $item->detail->judul }}</h5>
+                                <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
+                                <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
@@ -44,18 +50,24 @@
                             <div class="card-body">
                                 <div>
                                     <label for="">Total Pembayaran</label>
-                                    <h6 class="">{{ $detail->total_harga }}</h6>
+                                    <h6 class="">Rp. {{ number_format ($item->total_harga) }}</h6>
                                 </div>
 
                                 <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"  onclick="return confirm('yakin ingin Membatalkan Pesanan')">
                                     Batal
+                                </a>
+
+                                <a class="btn btn-success" href="{{ route('order.delete', $item->id) }}"  onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                    Bayar
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr> <!-- Tambahkan garis pemisah antar pesanan -->
-            @endforeach
+                @empty
+                <h1 class="text-center text-secondary">Tidak Ada Film Yang di Order</h1>
+            @endforelse
         </div>
     </div>
 @endsection

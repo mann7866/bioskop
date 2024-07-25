@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Detail;
 use Illuminate\Http\Request;
 
 class BeritaController extends Controller
@@ -12,7 +13,10 @@ class BeritaController extends Controller
      */
     public function index()
     {
+        $detail = Detail::paginate(12);
+        $berita = Berita::paginate(30);
 
+        return view('berita', compact('detail', 'berita'));
     }
 
     /**
@@ -29,20 +33,23 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            "foto_deskripsi"=> "required|mimes:jpeg,jpg,png,gif|max:2048",
-            "judul"=> "required",
-            "tanggal"=> "required",
-            "deskripsi"=> "required",
+            "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
+            "judul" => "required",
+            "tanggal" => "required",
+            "deskripsi" => "required",
         ]);
 
         if ($request->hasFile("foto_deskripsi")) {
-            $image = $request->file("foto_deskripsi");
-            $imageName = time() . "_" . $image->getClientOriginalName();
-            $image->move(public_path("image"), $imageName);
+            $imageBerita = $request->file("foto_deskripsi");
+            $imageName = time() . "_" . $imageBerita->getClientOriginalName();
+            $imageBerita->move(public_path("imageBerita"), $imageName);
+
+            // Menambahkan nama file gambar yang baru ke dalam data yang akan disimpan
+            $validateData['foto_deskripsi'] = $imageName;
         }
 
         Berita::create($validateData);
-        return redirect()->route("home")->with("success","Berhasil Tambah Berita");
+        return redirect()->route("berita")->with("success", "Berhasil Tambah Berita");
     }
 
     /**
@@ -58,7 +65,9 @@ class BeritaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $berita = Berita::find($id);
+
+        return view('news.editberita', compact('berita'));
     }
 
     /**
@@ -66,14 +75,69 @@ class BeritaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $berita = Berita::find($id);
+
+        // Handle upload file gambar baru jika ada
+        if ($request->hasFile("foto_deskripsi")) {
+            $imageBerita = $request->file("foto_deskripsi");
+            $imageName = time() . "_" . $imageBerita->getClientOriginalName();
+            $imageBerita->move(public_path("imageBerita"), $imageName);
+
+            // Hapus foto_deskripsi lama jika ada dan perbarui nama foto_deskripsi baru
+            if ($berita->foto_deskripsi) {
+                $oldImagePath = public_path('imageBerita/') . $berita->foto_deskripsi;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $berita->foto_deskripsi = $imageName;
+        }
+
+        // Validasi data hanya jika judul berubah
+        if ($request->input('judul') !== $berita->judul) {
+            $request->validate([
+                "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
+                "judul" => "required|unique:berita,judul",
+                "tanggal" => "required",
+                "deskripsi" => "required",
+            ]);
+        } else {
+            // Jika judul tidak berubah, hanya validasi tanggal dan deskripsi
+            $request->validate([
+                "tanggal" => "required",
+                "deskripsi" => "required",
+
+            ]);
+        }
+
+        // Update data berita setelah validasi berhasil
+        $berita->update([
+            'judul' => $request->input('judul'),
+            'tanggal' => $request->input('tanggal'),
+            'deskripsi' => $request->input('deskripsi'),
+            // foto_deskripsi sudah diupdate jika ada file baru
+        ]);
+
+        return redirect()->route("berita")->with("success", "Berhasil Update berita");
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $berita =  Berita::findOrFail($id);
+
+        if ($berita->foto_deskripsi) {
+            $imagePath = public_path('imageBerita') . '/' . $berita->foto_deskripsi;
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+        $berita->delete();
+        return redirect()->route("berita")->with("success", "Berhasil Update berita");
     }
 }
