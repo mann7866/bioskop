@@ -19,13 +19,13 @@ Bioskop Premini adalah aplikasi web yang memungkinkan pengguna untuk melihat daf
 1. Clone repositori ini:
 
     ```bash
-    git clone https://github.com/username/bioskop-premini.git
+    git clone https://github.com/mann7866/bioskop.git
     ```
 
 2. Masuk ke direktori proyek:
 
     ```bash
-    cd bioskop-premini
+    cd bioskop
     ```
 
 3. Install dependencies menggunakan Composer:
