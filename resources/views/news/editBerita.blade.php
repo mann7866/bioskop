@@ -35,7 +35,7 @@
                                         @error('foto_deskripsi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                        <img id="imagePreview" src="{{ asset('image/' .$berita->foto_deskripsi) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
+                                        <img id="imagePreview" src="{{ asset('imageBerita/' .$berita->foto_deskripsi) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
                                     </div>
                                 </div>
                             </div>
