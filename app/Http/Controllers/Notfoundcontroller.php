@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Detail; // Pastikan model Detail sudah dibuat
-
-class SearchController extends Controller
+use App\Models\Detail;
+class Notfoundcontroller extends Controller
 {
-    
+    //
     public function search(Request $request)
     {
         $query = $request->input('query');

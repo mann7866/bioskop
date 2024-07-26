@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
 Route::get('/search', [App\Http\Controllers\SearchController::class,'search'])->name('search');
+Route::get('/errors', [App\Http\Controllers\Notfoundcontroller::class, 'errors'])->name('errors.notfound');
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
 Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create'])->name('genre.create');
