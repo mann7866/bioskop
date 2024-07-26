@@ -6,7 +6,6 @@
     <form class="row g-3 needs-validation" action="{{ route('detail.update', $detail->id) }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('put')
-
         <div class="col-md-6">
             <label for="judul" class="form-label">Judul</label>
             <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ $detail->judul }}" required>
