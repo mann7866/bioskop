@@ -105,4 +105,4 @@ Untuk informasi lebih lanjut atau pertanyaan, silakan hubungi [rtxalham@example.
 
 ---
 
-Pastikan untuk mengganti `mann7866` dan `rtxalham@example.com` dengan informasi yang sesuai dari proyek Anda.
+username `mann7866` dan `rtxalham@example.com` 
