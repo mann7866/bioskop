@@ -230,11 +230,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-               
-
+                <h1 class="text-center text-secondary">Daftar FIlm</h1>
                 <div class="container mt-4" id="film">
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
-                       
                         <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -258,11 +256,11 @@
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
-                                            <h5 class="poss">{{ $item->judul }}</h5>
+                                            <p class="poss">{{ $item->judul }}</p>
                                             <p>{{ $item->deskripsi }}</p>
                                         </div>
 
-                                        
+
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
                                         </div>
@@ -270,7 +268,7 @@
                                     </div>
 
                                 @empty
-                                  <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
+                                    <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
                                 @endforelse
                             </div>
                         </div>
@@ -284,17 +282,19 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <p> <strong> Genre:</strong></p>
                                         <ul>
                                             @foreach ($item->genres as $genre)
-                                                <li class="text-secondary">{{ $genre->genre }}</li>
+                                                <li class="text-secondary" style="list-style: none;">{{ $genre->genre }}
+                                                </li>
                                             @endforeach
                                         </ul>
-                                        <p> <strong> Tanggal Rilis:</strong></p>
+                                        <p> <strong>Tanggal Rilis:</strong></p>
                                         <p class="text-muted"> {{ $item->tanggalRilis }}</p>
                                         <p> <strong> Perusahaan Produksi:</strong></p>
                                         <p> {{ $item->perusahaanProduksi }}</p>

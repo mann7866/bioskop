@@ -309,7 +309,9 @@
             </ul>
         </div>
     </div>
-
+    <footer>
+        @include('footer.footer')
+    </footer>
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

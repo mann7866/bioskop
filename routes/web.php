@@ -63,10 +63,8 @@ Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'crea
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
-Route::get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
 use App\Http\Controllers\SearchController;
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
-
-

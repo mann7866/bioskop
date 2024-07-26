@@ -195,17 +195,17 @@
                 <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                 <div class="film-description">
                     @if ($item->time)
-                        <p>Tayang: {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }}</p>
                     @endif
                     <h1>{{ $item->judul }}</h1>
-                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                     <p>Genres:</p>
                     <ul>
                         @foreach ($item->genres as $genre)
-                            <li>{{ $genre->genre }}</li>
+                        <li>{{ $genre->genre }}</li>
                         @endforeach
                     </ul>
-                    <p>{{ $item->deskripsi }}</p>
+                    <p>{{ $item->deskripsi }}</p>   
+                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
+                    <p>Tayang: {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }}</p>
                 </div>
             </div>
 
@@ -226,12 +226,12 @@
                                     <li>{{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
-                            <p><strong>Tanggal Rilis:</strong> {{ $item->tanggalRilis }}</p>
                             <p><strong>Pemeran:</strong> {{ $item->pemeran }}</p>
                             <p><strong>Penulis:</strong> {{ $item->penulis }}</p>
                             <p><strong>Sutradara:</strong> {{ $item->sutradara }}</p>
                             <p><strong>Perusahaan Produksi:</strong> {{ $item->perusahaanProduksi }}</p>
                             <p><strong>Deskripsi:</strong> {{ $item->deskripsi }}</p>
+                            <p><strong>Tanggal Rilis:</strong> {{ $item->tanggalRilis }}</p>
                         </div>
                         <a href="{{ route('detail.edit', $item->id) }}">
                             <button type="button" class="btn-edit">

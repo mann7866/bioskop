@@ -8,83 +8,87 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
         .form-title {
             margin-bottom: 20px;
         }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            display: none;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004b9b;
+        }
     </style>
-    <form class="row g-3 needs-validation" action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data"
-        novalidate>
-        @csrf
-        <div class="container mt-4">
+    <div class="container">
+        <form class="row g-3 needs-validation" action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data"
+            novalidate>
+            @csrf
             <div class="form-container">
+                <h2 class="form-title text-center text-secondary">Tambah Berita Film</h2>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-
-                                <div class="">
-                                    <label for="foto_deskripsi" class="form-label">Upload Foto </label>
+                                <div class="mb-3">
+                                    <label for="foto_deskripsi" class="form-label">Upload Foto</label>
                                     <div class="input-group">
-                                        <input type="file"
-                                            class="form-control @error('foto_deskripsi') is-invalid @enderror"
-                                            id="inputGroupFile" name="foto_deskripsi" required>
+                                        <input type="file" class="form-control @error('foto_deskripsi') is-invalid @enderror" id="inputGroupFile" name="foto_deskripsi" required>
                                         <label class="input-group-text" for="inputGroupFile">Upload</label>
                                     </div>
-                                    <img id="imagePreview" class="mt-2"
-                                        style="max-width: 200px; max-height: 200px; display: none;">
+                                    <img id="imagePreview" class="image-preview" alt="Preview Gambar">
                                     @error('foto_deskripsi')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="col-md-6">
+                                <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal Rilis</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                        id="tanggalRilis" name="tanggal" required>
+                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggalRilis" name="tanggal" required>
                                     @error('tanggal')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-8">
-
-                        <div class="col-md-6">
+                    <div class="col-md-8">
+                        <div class="mb-3">
                             <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                                name="judul" required>
+                            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required>
                             @error('judul')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-12">
+                        <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5"
-                                required></textarea>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit ">
-                            Order
-                        </button>
-
+                        <button class="btn btn-primary mt-3" type="submit">Order</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-
+        </form>
+    </div>
 
     <script>
         // Function to preview image

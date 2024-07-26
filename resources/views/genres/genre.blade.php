@@ -37,8 +37,7 @@
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1)
         }
 
-        .warning {
-            background-color: aqua;
+        .warning {  
             color: white;
             transition: 2s ease;
             position: relative;
@@ -52,7 +51,6 @@
             bottom: 0;
             width: 0;
             height: 2px;
-            background-color: royalblue;
             transition: all 0.3s;
         }
 
@@ -100,7 +98,7 @@
 
     <div class="container mt-4">
         <div class="">
-            <a class="btn btn-outline-primary warning" href="{{ route('genre.create') }}">
+            <a class="btn btn-primary warning" href="{{ route('genre.create') }}">
                 <i class="fas fa-plus"></i> Tambah Genre
             </a>
         </div>
