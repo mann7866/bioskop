@@ -82,9 +82,16 @@ class genreController extends Controller
     public function destroy(string $id)
     {
         $genre = genre::find($id);
-         if ($genre->delete()){
+
+        $genreCount = $genre->details()->count();
+
+        if ($genreCount > 0) {
+            return redirect()->route("genre")->with('delete','Genre Tidak Dapat diHapus Karena Masih Berkaitan Dengan Film.');
+        }
+
+         $genre->delete();
          return redirect()->route("genre")->with('delete','genre berhasil diHapus.');
-    }
-    
+
+
     }
 }

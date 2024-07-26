@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if (session('success'))
+<div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+    <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if (session('delete'))
+<div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+    <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('delete') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
     <style>
         .film-card {
             position: relative;
@@ -216,7 +243,7 @@
                                 <ion-icon name="trash-outline"></ion-icon>
                             </button>
                         </a>
-                      
+
                     </div>
                 </div>
             </div>

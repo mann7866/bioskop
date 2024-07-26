@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Bioskop') }}</title>
+    <title>{{ config('app.name', 'NihonFlix') }}</title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -198,9 +198,8 @@
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form action="#" class="d-flex mx-auto" method="GET">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            name="query">
+                    <form action="{{ route('search') }}" class="d-flex mx-auto" method="GET">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
                         <button class="btn btn-success" type="submit">Search</button>
                     </form>
 

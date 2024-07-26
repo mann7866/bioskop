@@ -275,9 +275,10 @@
                                             </button>
                                         </div>
 
-                                        
+
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
+
                                         </div>
                                     </div>
 

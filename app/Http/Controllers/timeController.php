@@ -31,7 +31,7 @@ class timeController extends Controller
     {
         $validateData = $request->validate([
             "jamTayang"=> "required",
-            "tanggalTayang"=> "required",
+            "tanggalTayang"=> "required|unique:time,tanggalTayang",
         ]) ;
 
         Time::create($validateData);
@@ -64,13 +64,18 @@ class timeController extends Controller
 
         $time = Time::find($id);
 
+        $validateData = $request;
+
+        if ($validateData['tanggalTayang'] !== $time->tanggalTayang) {
         $validateData = $request->validate([
             "jamTayang"=> "required",
-            "tanggalTayang"=> "required",
-        ]) ;
+            "tanggalTayang"=> "required|unique:time,tanggalTayang",
+            ]) ;
         $time->update($validateData);
-        return redirect()->route("time")->with("success","Berhasil Tambah waktu");
-       
+            return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
+        }else{
+            return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
+        }
 
     }
 
@@ -80,6 +85,13 @@ class timeController extends Controller
     public function destroy(string $id)
     {
         $time = Time::find($id);
+
+        $timeCount = $time->detail->count();
+
+        if ($timeCount > 0) {
+            return redirect()->route("time")->with("delete","Gagal Menghapus waktu Karena Masih Bersangkutan Dengan Film");
+        }
+
         if($time->delete()){
             return redirect()->route("time")->with("delete","Berhasil Menghapus waktu");
         }

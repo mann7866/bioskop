@@ -10,15 +10,14 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'query'=> 'required|min:3',
+            'query' => 'required|min:3',
         ]);
 
         $query = $request->input('query');
 
         $items = Detail::where('judul', 'like', "%$query%")
-                      ->orWhere('deskripsi', 'like', "%$query%")
                       ->get();
 
-        return view('home', ['items' => $items, 'query' => $query]);
+        return view('details.detail', ['items' => $items, 'query' => $query]);
     }
 }

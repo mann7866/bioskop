@@ -15,6 +15,15 @@ class DetailController extends Controller
      */
     public function index()
     {
+
+        // $request->validate([
+        //     'query' => 'required|min:3',
+        // ]);
+
+        // $query = $request->input('query');
+
+        // $detail = Detail::where('judul', 'like', "%$query%");
+
         $detail = Detail::with('genres')->get();
         $genres = genre::all();
         $time = Time::all();
@@ -38,15 +47,15 @@ class DetailController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            "judul" => "required|max:20|unique:detail,judul|regex:/^[a-zA-Z\s]+$/",
-            "pemeran" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "tanggalRilis" => "required",
-            "penulis" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "sutradara" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s]+$/|max:20",
-            "foto" => "required|mimes:jpeg,jpg,png,gif|max:2048",
-            "deskripsi" => "required|max:50",
-            "harga"=> "required|max:10000000000",
+            "judul" => "required|max:100",
+            "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
+            "tanggalRilis" => "required|date",
+            "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
+            "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
+            "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
+            "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
+            "deskripsi" => "required|max:300",
+            "harga"=> "required|numeric",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
             "id_jamTayang" => "required",
             "id_tanggalTayang"=> "required",
@@ -116,16 +125,17 @@ class DetailController extends Controller
 
         // Validasi data dari request
         $validatedData = $request->validate([
-            "judul" => "required|max:20|unique:detail,judul,$id|regex:/^[a-zA-Z\s]+$/",
-            "pemeran" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "tanggalRilis" => "required",
-            "penulis" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "sutradara" => "required|max:20|regex:/^[a-zA-Z\s]+$/",
-            "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s]+$/|max:20",
-            "foto" => "sometimes|required|mimes:jpeg,jpg,png,gif|max:2048",
-            "deskripsi" => "required|max:50",
-            "harga"=> "required",
-            "id_jamTayang"=> "required",
+            "judul" => "required|max:100",
+            "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
+            "tanggalRilis" => "required|date",
+            "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
+            "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
+            "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
+            "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
+            "deskripsi" => "required|max:300",
+            "harga"=> "required|numeric",
+            "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
+            "id_jamTayang" => "required",
             "id_tanggalTayang"=> "required",
         ]);
 
@@ -177,6 +187,12 @@ class DetailController extends Controller
     public function destroy(string $id)
     {
         $detail = Detail::findOrFail($id);
+
+        $detailCount = $detail->orders->count();
+
+        if ($detailCount > 0) {
+            return redirect()->route("detail")->with("delete", "Gagal Menghapus Film Karena Masih Berkaitan Dengan Order ");
+        }
 
         if ($detail->foto) {
             $imagePath = public_path('image') . '/' . $detail->foto;

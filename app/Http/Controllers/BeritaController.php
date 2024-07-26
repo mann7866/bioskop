@@ -14,9 +14,9 @@ class BeritaController extends Controller
     public function index()
     {
         $detail = Detail::paginate(12);
-        $berita = Berita::paginate(30);
+        $berita = Berita::paginate(6);
 
-        return view('berita', compact('detail', 'berita'));
+        return view('news.berita', compact('detail', 'berita'));
     }
 
     /**
@@ -44,7 +44,7 @@ class BeritaController extends Controller
             $imageName = time() . "_" . $imageBerita->getClientOriginalName();
             $imageBerita->move(public_path("imageBerita"), $imageName);
 
-            // Menambahkan nama file gambar yang baru ke dalam data yang akan disimpan
+
             $validateData['foto_deskripsi'] = $imageName;
         }
 
@@ -98,7 +98,7 @@ class BeritaController extends Controller
         if ($request->input('judul') !== $berita->judul) {
             $request->validate([
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
-                "judul" => "required|unique:berita,judul",
+                "judul" => "required",
                 "tanggal" => "required",
                 "deskripsi" => "required",
             ]);

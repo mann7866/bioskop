@@ -65,5 +65,8 @@ Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'e
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
 Route::get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
+use App\Http\Controllers\SearchController;
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
