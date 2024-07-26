@@ -319,7 +319,7 @@
                         </div>
                     @endif
                 </div>
-
+                
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         var myCarousel = document.querySelector('#film');

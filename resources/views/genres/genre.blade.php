@@ -3,8 +3,7 @@
 @section('content')
     @if (session('success'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
-                aria-atomic="true">
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
@@ -16,8 +15,7 @@
 
     @if (session('delete'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert"
-                aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('delete') }}
@@ -34,10 +32,10 @@
             margin: 0 auto;
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1)
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .warning {  
+        .warning {
             color: white;
             transition: 2s ease;
             position: relative;
@@ -102,13 +100,13 @@
                 <i class="fas fa-plus"></i> Tambah Genre
             </a>
         </div>
-        <div class="card text-center mt-4">
+        <div class="card mt-4">
             <div class="card-header">
                 <h3>{{ __('Daftar Genre') }}</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
                                 <th class="text-center">Genre</th>
@@ -123,8 +121,7 @@
                                         <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
-                                        <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger"
-                                            onclick="return confirm('Yakin ingin menghapus?')">
+                                        <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">
                                             <ion-icon name="trash-outline"></ion-icon>
                                         </a>
                                     </td>
@@ -137,7 +134,11 @@
         </div>
     </div>
 
+    @push('style')
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css">
+    @endpush
     @push('script')
+        <script src="https://cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
@@ -145,6 +146,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let table = new DataTable('#GO');
             setTimeout(function() {
                 var toastElList = document.querySelectorAll('.toast');
                 toastElList.forEach(function(toastEl) {

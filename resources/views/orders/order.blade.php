@@ -29,9 +29,6 @@
     </div>
 @endif
 
-
-    @endif
-
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)

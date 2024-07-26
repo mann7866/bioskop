@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +8,8 @@ class Film extends Model
 {
     use HasFactory;
 
-    protected $table = 'film';
+    // Tambahkan ini jika nama tabel tidak sesuai konvensi jamak
+    protected $table = 'films';
 
-    protected $guarded = [];
+    protected $fillable = ['judul', 'deskripsi', 'gambar'];
 }

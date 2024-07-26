@@ -276,7 +276,9 @@
             left: 0;
             width: 100%;
         }
-
+        .sok{
+            border-radius: 20px;
+        }
     </style>
 
     <div class="container">
@@ -320,8 +322,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="embed-responsive embed-responsive-16by9">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid sok"
                                         alt="{{ $item->judul }}">
+                                        <hr>
                                         <p> <strong> Genre:</strong></p>
                                         <ul>
                                             @foreach ($item->genres as $genre)
@@ -344,7 +347,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
                         aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog">
