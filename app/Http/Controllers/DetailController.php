@@ -16,18 +16,13 @@ class DetailController extends Controller
     public function index()
     {
 
-        // $request->validate([
-        //     'query' => 'required|min:3',
-        // ]);
 
-        // $query = $request->input('query');
-
-        // $detail = Detail::where('judul', 'like', "%$query%");
 
         $detail = Detail::with('genres')->get();
+        $details = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         $genres = genre::all();
         $time = Time::all();
-        return view("details.detail", compact("detail","time"));
+        return view("details.detail", compact("detail","time", "details"));
 
     }
 
@@ -131,7 +126,7 @@ class DetailController extends Controller
             "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
             "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
-            "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
+            "foto" => "mimes:jpeg,jpg,png,gif|max:4096|nullable",
             "deskripsi" => "required|max:300",
             "harga"=> "required|numeric",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs

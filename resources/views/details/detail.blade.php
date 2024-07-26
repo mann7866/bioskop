@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('serch')
+<form action="{{ route('detail') }}" class="d-flex mx-auto" method="get">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ request('search') }}">
+    <button class="btn btn-success" type="submit">Search</button>
+</form>
+@endsection
 @section('content')
 
 @if (session('success'))
@@ -183,6 +189,8 @@
         }
     </style>
 
+
+
     <div>
         <a class="btn btn-primary mt-5 m-2" href="{{ route('detail.create') }}">
             <i class="fas fa-plus"></i> Tambah Detail
@@ -195,17 +203,17 @@
                 <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
                 <div class="film-description">
                     @if ($item->time)
+                        <p>Tayang: {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }}</p>
                     @endif
                     <h1>{{ $item->judul }}</h1>
+                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
                     <p>Genres:</p>
                     <ul>
                         @foreach ($item->genres as $genre)
-                        <li>{{ $genre->genre }}</li>
+                            <li>{{ $genre->genre }}</li>
                         @endforeach
                     </ul>
-                    <p>{{ $item->deskripsi }}</p>   
-                    <p>Tanggal Rilis: {{ $item->tanggalRilis }}</p>
-                    <p>Tayang: {{ $item->time->tanggalTayang }} | {{ $item->time->jamTayang }}</p>
+                    <p>{{ $item->deskripsi }}</p>
                 </div>
             </div>
 
@@ -226,12 +234,12 @@
                                     <li>{{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
+                            <p><strong>Tanggal Rilis:</strong> {{ $item->tanggalRilis }}</p>
                             <p><strong>Pemeran:</strong> {{ $item->pemeran }}</p>
                             <p><strong>Penulis:</strong> {{ $item->penulis }}</p>
                             <p><strong>Sutradara:</strong> {{ $item->sutradara }}</p>
                             <p><strong>Perusahaan Produksi:</strong> {{ $item->perusahaanProduksi }}</p>
                             <p><strong>Deskripsi:</strong> {{ $item->deskripsi }}</p>
-                            <p><strong>Tanggal Rilis:</strong> {{ $item->tanggalRilis }}</p>
                         </div>
                         <a href="{{ route('detail.edit', $item->id) }}">
                             <button type="button" class="btn-edit">
