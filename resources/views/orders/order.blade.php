@@ -13,44 +13,136 @@
         .form-title {
             margin-bottom: 20px;
         }
+
+        .card-category {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 5px;
+            right: 0;
+            padding: 20px;
+            z-index: 11;
+        }
+
+        .toast-body {
+            font-size: 1rem;
+        }
+
+        .card-title, .card-text {
+            margin-bottom: 10px;
+        }
+
+        .btn-danger, .btn-success {
+            margin-top: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn-danger:hover, .btn-success:hover {
+            transform: scale(1.05);
+        }
+
+        .separator {
+            margin: 40px 0;
+        }
+
+        .total-payment-label {
+            font-weight: bold;
+        }
+
+        .total-payment-amount {
+            font-size: 1.2rem;
+            color: #000;
+        }
+
+        .no-order-message {
+            margin-top: 50px;
+            font-size: 1.5rem;
+        }
+
+        .card-category {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .badge-genre {
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .toast-container {
+            max-width: 300px;
+        }
+
+        .slide-down {
+            animation: slide-down 2s ease 0s 1 normal forwards;
+        }
+
+        @keyframes slide-down {
+            from {
+                transform: translateZ(-9.7rem);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-out {
+            animation: fade-out 1s ease forwards;
+        }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
     </style>
 
-
-    @if (session('delete'))
-        <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-denger  border-0 show slide-down" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('delete') }}
-                    </div>
-                </div>
+@if (session('success'))
+<div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+    <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
             </div>
         </div>
-    @endif
-
+    </div>
+</div>
+@endif
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-4">
                         <div class="card">
                             <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->detail->judul }}</h5>
-                                <h2 class="card-category">Genres:</h2>
-                                <ul>
+                                <div class="card-category">Genres:</div>
+                                <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
-                                        <li>{{ $genre->genre }}</li>
+                                        <li class="list-inline-item"><span class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
-
                                 <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
                                 <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
@@ -58,43 +150,56 @@
                                     <p class="text-danger">{{ $item->status }}</p>
                                 </div>
                                 <div>
-                                    <label for="">Total Pembayaran</label>
-                                    <h6 class="">Rp. {{ number_format($item->total_harga) }}</h6>
+                                    <label for="" class="total-payment-label">Total Pembayaran</label>
+                                    <h6 class="total-payment-amount">Rp. {{ number_format($item->total_harga) }}</h6>
                                 </div>
-
                                 @if($item->status !== 'paid')
-                                <div>
-                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                       Delete
-                                    </a>
-                                </div>
-
-                                <form action="{{ route('paid', $item->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('put')
-                                    <button type="submit" class="btn btn-success">Bayar</button>
-                                </form>
+                                    <div class="button-container">
+                                        <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                            onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                           Delete
+                                        </a>
+                                        <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('put')
+                                            <button type="submit" class="btn btn-success">Bayar</button>
+                                        </form>
+                                    </div>
                                 @endif
-
                                 @if($item->status == 'paid')
-                                <form action="{{ route('cancel', $item->id) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('put')
-                                    <button type="submit" class="btn btn-danger">Cancel</button>
-                                </form>
+                                    <form action="{{ route('cancel', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('put')
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                    </form>
                                 @endif
-
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr> <!-- Tambahkan garis pemisah antar pesanan -->
+                <hr class="separator">
             @empty
-                <h1 class="text-center text-secondary">Tidak Ada Film Yang di Order</h1>
+                <h1 class="text-center text-secondary no-order-message">Tidak Ada Film Yang di Order</h1>
             @endforelse
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let table = new DataTable('#GO');
+            setTimeout(function() {
+                var toastElList = document.querySelectorAll('.toast');
+                toastElList.forEach(function(toastEl) {
+                    var toast = new bootstrap.Toast(toastEl, {
+                        autohide: true,
+                        delay: 2000
+                    });
+                    toast.show();
+
+                    setTimeout(function() {
+                        toastEl.classList.add('fade-out');
+                    }, 2000);
+                });
+            }, 2000);
+        });
+    </script>
 @endsection
