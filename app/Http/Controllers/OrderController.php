@@ -131,7 +131,7 @@ class OrderController extends Controller
             'status' => 'cancel'
         ]);
 
-        return redirect()->route("order.index");
+        return redirect()->route("order.index")->with('cancel',"Berhail Cancel Pesanan");
     }
 
     /**

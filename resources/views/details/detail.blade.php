@@ -381,7 +381,7 @@
                                     Are you sure you want to delete this film?
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{{ route('detail.delete', $item->id) }}" method="POST">
+                                    <form action="{{ route('detail.delete', $item->id) }}" method="GET">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>

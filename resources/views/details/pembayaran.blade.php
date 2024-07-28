@@ -14,6 +14,34 @@
     </div>
 </div>
 @endif
+@if (session('success'))
+<div class="toast-container position-fixed top-5 end-0 p-3" style="z-index: 11">
+    <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if (session('success'))
+<div class="toast-container position-fixed top-5 end-0 p-3" style="z-index: 11">
+    <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.992 10.936l6.518-6.518-1.415-1.414-5.1 5.1-2.1-2.1-1.415 1.415 3.536 3.536z"/>
+                </svg>
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +50,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Pembayaran</title>
     <style>
-
-
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -87,6 +113,4 @@
 </body>
 </html>
 
-
 @endsection
-

@@ -77,7 +77,7 @@
             justify-content: space-between;
         }
         .toast-container {
-            max-width: 300px;
+            max-width: 200px;
         }
 
         .slide-down {
@@ -112,12 +112,23 @@
         }
     </style>
 
-@if (session('success'))
+@if (session('gagal'))
 <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+    <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('gagal') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@if (session('cancel'))
+<div class="toast-container position-fixed text-center top-5 end-0 p-2" style="z-index: 11">
     <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                {{ session('success') }}
+                {{ session('cancel') }}
             </div>
         </div>
     </div>
@@ -185,7 +196,6 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#GO');
             setTimeout(function() {
                 var toastElList = document.querySelectorAll('.toast');
                 toastElList.forEach(function(toastEl) {
