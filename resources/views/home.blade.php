@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('search')
-    <form action="{{ route('home') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
-        <a class="btn btn-outline-success" href="{{ route('detail') }}">Cari</a>
-    </form>
+<form action="{{ route('home') }}" method="GET" class="d-flex">
+    <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film"
+        aria-label="Search" required>
+    <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
+</form>
 @endsection
 
 @section('content')

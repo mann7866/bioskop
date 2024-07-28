@@ -20,7 +20,7 @@ class DetailController extends Controller
 
         // $detail = Detail::with('genres')->get();
         $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
-  
+
         $genres = genre::all();
         $time = Time::all();
         return view("details.detail", compact("time", "detail"));

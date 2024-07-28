@@ -16,9 +16,9 @@ class OrderController extends Controller
     public function index()
     {
         $detail = Detail::all();
-        $kursi =  Kursi::all();
-$order = Order::all();
-        return view("orders.order", compact("detail", "kursi", "order"));
+
+        $order = Order::all();
+        return view("orders.order", compact("detail",  "order"));
     }
 
     /**
@@ -30,12 +30,13 @@ $order = Order::all();
 
     public function order($id)
     {
-        $detail = Detail::find($id); // Mengambil detail berdasarkan ID
-       // Mengambil kursi berdasarkan nilai kolom kursi di Detail
-
+        // Mengambil detail berdasarkan ID
         $detail = Detail::find($id);
-        $kursi = Kursi::all();
 
+        // Mengambil semua nilai dari kolom 'kursi' dari tabel 'Kursi'
+        $kursi = Kursi::pluck('kursi'); // Ambil semua nilai dari kolom 'kursi' dalam bentuk koleksi
+
+        // Kirim data ke view
         return view('orders.createOrder', compact('detail', 'kursi'));
     }
 
@@ -51,8 +52,10 @@ $order = Order::all();
         $validateData = $request->validate([
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga'=> 'required|min:0',
-            'id_detail'=> 'required',
+            'total_harga' => 'required|min:0',
+            'id_detail' => '',
+            'pembayaran' => '',
+
 
         ]);
 
@@ -73,7 +76,10 @@ $order = Order::all();
      */
     public function edit(string $id)
     {
-        //
+        $detail = Detail::find($id);
+        $order = Order::find($id);
+
+        return view("details.pembayaran", compact("order", "detail"));
     }
 
     /**
@@ -81,7 +87,51 @@ $order = Order::all();
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $order = Order::find($id);
+        $validateData = $request->validate([
+
+            'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
+            'total_harga' => 'required|min:0',
+            'id_detail' => '',
+            'pembayaran' => 'required',
+        ]);
+
+        if ($validateData['pembayaran'] >= $order->total_harga) {
+
+            $order->update($validateData);
+            return redirect()->route("order.index")->with("success", "Berhasil Pesan Tiket");
+
+        }
+        // if ($validateData['pembayaran'] > $order->total_harga) {
+
+        //     $order->update($validateData);
+        //     return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
+
+        // }
+        return redirect()->route("pembayaran", $order->id)->with("gagal", "Pembayaran Tidak Boleh Kurang Dari Total Bayar");
+    }
+
+    public function paid(string $id)
+    {
+        $order = Order::find($id);
+
+        $order->update([
+            'status' => 'paid'
+        ]);
+
+        return redirect()->route("pembayaran", $order->id);
+    }
+
+    public function cancel(string $id)
+    {
+        $order = Order::find($id);
+
+        $order->update([
+            'status' => 'cancel'
+        ]);
+
+        return redirect()->route("order.index");
     }
 
     /**

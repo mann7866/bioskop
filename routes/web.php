@@ -55,9 +55,12 @@ Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'d
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edit'])->name('order.edit');
+Route::get('/order/{id}/pembayaran', [App\Http\Controllers\OrderController::class,'edit'])->name('pembayaran');
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
 Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
+Route::put('/paid/{id}/order', [App\Http\Controllers\OrderController::class,'paid'])->name('paid');
+Route::put('/cancel/{id}/order', [App\Http\Controllers\OrderController::class,'cancel'])->name('cancel');
+
 
 Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
 Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'create'])->name('berita.create');
