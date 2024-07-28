@@ -303,7 +303,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Detail Film</h1>
-               <a href="{{route('detail.create')}}" class="btn btn-primary warning">Tambah Berita</a>
+               <a href="{{route('detail.create')}}" class="btn btn-primary warning"><i class="fas fa-plus"></i>Tambah Berita</a>
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -323,9 +323,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                <div class="alert alert-info" role="alert">
-                                    Film Not Found
-                                </div>
+                                    <p class="text-secondary underline" >FIlm Tidak ada</p>
                                 @endforelse
                             </div>
                         </div>

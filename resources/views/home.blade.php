@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('search')
-<form action="{{ route('home') }}" method="GET" class="d-flex">
-    <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film"
-        aria-label="Search" required>
-    <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
-</form>
+    <form action="{{ route('home') }}" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
+        <a class="btn btn-outline-success" href="{{ route('detail') }}">Cari</a>
+    </form>
 @endsection
 
 @section('content')
@@ -233,13 +233,10 @@
                 flex: 0 0 calc(100% - 20px);
             }
         }
+        .warna{
+            
+        }
     </style>
-
-
-      {{--  tampilan untuk search  --}}
-
-    {{--  end tampilan searc  --}}
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -257,6 +254,10 @@
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
                                         alt="{{ $item->judul }}">
+                                        {{-- <div class="carousel-caption d-none d-md-block mb-3 warna">
+                                            <h5><strong>{{$item->judul}} </strong></h5>
+                                            <p><strong>{{$item->deskripsi}}</strong> </p>
+                                        </div> --}}
                                 </div>
                             @endforeach
                         </div>
@@ -283,20 +284,18 @@
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
-                                            <button class="btn-pesan" onclick="link('{{ route('order.create', $item->id) }}')">
+                                            <button class="btn-pesan"
+                                                onclick="link('{{ route('order.create', $item->id) }}')">
                                                 <i class="fa-solid fa-cart-shopping"></i> Pesan
                                             </button>
                                         </div>
-
-
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
-
                                         </div>
                                     </div>
 
                                 @empty
-                                  <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
+                                    <p class="text-center text-secondary">Tidak Ada Film Yang di Upload</p>
                                 @endforelse
                             </div>
                         </div>
@@ -308,28 +307,21 @@
                     <div class="row">
                         <!-- Berita 1 -->
                         @foreach ($berita as $item)
-
-                        <div class="news-card col-md-4">
-                            <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid" alt="{{ $item->judul }}">
-                            <div class="news-body">
-                                <h5 class="news-title">{{ $item->judul }}</h5>
-                                <p class="news-text">{{ $item->deskripsi }}</p>
-                                <p class="news-time">Tanggal Tayang: {{ $item->tanggal }}</p>
+                            <div class="news-card col-md-4">
+                                <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid"
+                                    alt="{{ $item->judul }}">
+                                <div class="news-body">
+                                    <h5 class="news-title">{{ $item->judul }}</h5>
+                                    <p class="news-text">{{ $item->deskripsi }}</p>
+                                    <p class="news-time">Tanggal Tayang: {{ $item->tanggal }}</p>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
-                        <!-- Berita 2 -->
-
-
-                        <!-- Berita 3 -->
-
                     </div>
 
                     <!-- Placeholder jika tidak ada berita -->
                     @if ($berita->isEmpty())
-                        <div class="alert alert-info" role="alert">
-                            Tidak ada berita saat ini.
-                        </div>
+                        <p class=" text-secondary text-center">Tidak Ada Berita Hari Ini</p>
                     @endif
                 </div>
 
@@ -341,7 +333,9 @@
                             wrap: true
                         });
                     });
-
+                    // function oke() {
+                    //     do
+                    // }
                     function link(url) {
                         window.location.href = url;
                     }
