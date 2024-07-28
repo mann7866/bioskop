@@ -54,15 +54,24 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
+
                                 <div>
+                                    @if($item->status == 'paid')
+                                    <p class="text-success">{{ $item->status }}</p>
+                                    @endif
+                                    @if($item->status == 'pending')
+                                    <p class="text-warning">{{ $item->status }}</p>
+                                    @endif
+                                    @if($item->status == 'cancel')
                                     <p class="text-danger">{{ $item->status }}</p>
+                                    @endif
                                 </div>
                                 <div>
                                     <label for="">Total Pembayaran</label>
                                     <h6 class="">Rp. {{ number_format($item->total_harga) }}</h6>
                                 </div>
 
-                                @if($item->status !== 'paid')
+                                @if($item->status != 'paid'  && $item->status != 'cancel')
                                 <div>
                                     <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                         onclick="return confirm('yakin ingin Membatalkan Pesanan')">
@@ -75,6 +84,15 @@
                                     @csrf
                                     @method('put')
                                     <button type="submit" class="btn btn-success">Bayar</button>
+                                </form>
+                                @endif
+
+                                @if($item->status == 'cancel')
+                                <form action="{{ route('cancel', $item->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('put')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                                 @endif
 
