@@ -16,6 +16,10 @@ class genreController extends Controller
         return view("genres.genre", compact("genre"));
     }
 
+    public function tampilan(){
+        $genre =genre::all();
+        return view("genres.index", compact("genre"));
+    }
     /**
      * Show the form for creating a new resource.
      */

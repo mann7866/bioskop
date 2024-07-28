@@ -1,139 +1,140 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
     <style>
-    /* Styling umum untuk form */
-    .form-container {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin-top: 20px;
-    }
+        <style>
 
-    .form-title {
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-    }
+        /* Styling umum untuk form */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
 
-    .card {
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
 
-    .card img {
-        border-bottom: 2px solid #ddd;
-    }
+        .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-    .card-body {
-        padding: 15px;
-    }
+        .card img {
+            border-bottom: 2px solid #ddd;
+        }
 
-    .card-title {
-        font-size: 20px;
-        font-weight: bold;
-    }
+        .card-body {
+            padding: 15px;
+        }
 
-    .card-text {
-        color: #555;
-    }
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
 
-    .seats {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 20px;
-    }
+        .card-text {
+            color: #555;
+        }
 
-    .seat {
-        width: 50px;
-        height: 50px;
-        background-color: #e0f7fa;
-        margin: 5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s, transform 0.3s;
-        position: relative;
-    }
+        .seats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-    .seat:hover {
-        transform: scale(1.1);
-    }
+        .seat {
+            width: 50px;
+            height: 50px;
+            background-color: #e0f7fa;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+        }
 
-    .seat::after {
-        content: attr(data-seat);
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #333;
-        color: white;
-        padding: 2px 5px;
-        border-radius: 4px;
-        font-size: 12px;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
+        .seat:hover {
+            transform: scale(1.1);
+        }
 
-    .seat:hover::after {
-        opacity: 1;
-    }
+        .seat::after {
+            content: attr(data-seat);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-    .seat.selected {
-        background-color: #4caf50;
-        color: white;
-    }
+        .seat:hover::after {
+            opacity: 1;
+        }
 
-    .seat.reserved {
-        background-color: #f44336 ;
-        cursor: not-allowed;
-    }
+        .seat.selected {
+            background-color: #4caf50;
+            color: white;
+        }
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+        .seat.reserved {
+            background-color: #f44336;
+            cursor: not-allowed;
+        }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
-    .form-group {
-        margin-bottom: 1rem;
-    }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
 
-    .form-control {
-        border-radius: 8px;
-        box-shadow: none;
-        border: 1px solid #ced4da;
-    }
+        .form-group {
+            margin-bottom: 1rem;
+        }
 
-    .form-control:focus {
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-    }
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+            border: 1px solid #ced4da;
+        }
 
-    .form-label {
-        font-weight: bold;
-    }
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
 
-    .total-seats {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-</style>
+        .form-label {
+            font-weight: bold;
+        }
 
-</style>
+        .total-seats {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+
+    </style>
     <div class="container mt-4">
         <div class="form-container">
             <div class="row">
@@ -163,15 +164,17 @@
 
                             <div class="col-md-6">
                                 <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
-                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror" id="jumlah_tiket_input" name="jumlah_tiket" >
+                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror"
+                                    id="jumlah_tiket_input" name="jumlah_tiket">
                                 @error('jumlah_tiket')
-                                    <d                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      iv class="invalid-feedback">{{ $message }}</d>
+                                    <d iv class="invalid-feedback">{{ $message }}</d>
                                 @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label for="total_harga" class="form-label">Total Harga</label>
-                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror" id="total_harga_input" name="total_harga" >
+                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror"
+                                    id="total_harga_input" name="total_harga">
                                 @error('total_harga')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -184,7 +187,7 @@
                                 <!-- Kursi akan ditampilkan di sini -->
                             </div>
                             <div class="total-seats">
-                                Total kursi yang dipilih: <span id="totalKursi">0</span>
+                                <p id="kursiCount">Jumlah kursi: </p>
                             </div>
                         </div>
 
@@ -197,53 +200,38 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const seatsContainer = document.getElementById('seatsContainer');
-            const totalKursiElement = document.getElementById('totalKursi');
-            const jumlahTiketInput = document.getElementById('jumlah_tiket_input');
-            const totalHargaInput = document.getElementById('total_harga_input');
-            let totalKursiDipilih = 0;
-            const hargaPerKursi = {{ $detail->harga }}; // Ambil harga per kursi dari PHP
+          const kursiData = @json($kursi);
+          const jumlahKursi = kursiData.length;
+          const hargaPerKursi = {{ $detail->harga }};
 
-            // Jumlah kursi yang akan ditampilkan
-            const jumlahKursi = 30;
+          console.log("Jumlah kursi: ", jumlahKursi);
 
-            // Generate seats dynamically
-            for (let i = 1; i <= jumlahKursi; i++) {
-                const seat = document.createElement('div');
-                seat.className = 'seat';
-                seat.textContent = i;
-                seat.setAttribute('data-seat', i); // Set data-seat attribute
-                seatsContainer.appendChild(seat);
+          document.getElementById('kursiCount').innerText = jumlahKursi;
 
-                // Handle seat click
-                seat.addEventListener('click', function() {
-                    if (!seat.classList.contains('reserved')) {
-                        seat.classList.toggle('selected');
-                        updateTotalKursi();
-                        updateJumlahTiket();
-                        updateTotalHarga(); // Panggil fungsi updateTotalHarga setiap kali kursi dipilih
-                    }
-                });
-            }
+          // Generate seats dynamically
+          for (let i = 1; i <= jumlahKursi; i++) {
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.textContent = i;
+            seat.setAttribute('data-seat', i); // Set data-seat attribute
+            seatsContainer.appendChild(seat);
 
-            // Function untuk mengupdate total kursi yang dipilih
-            function updateTotalKursi() {
-                const selectedSeats = document.querySelectorAll('.seat.selected');
-                totalKursiDipilih = selectedSeats.length;
-                totalKursiElement.textContent = totalKursiDipilih;
-            }
+            // Handle seat click (unchanged)
+            seat.addEventListener('click', function() {
+              if (!seat.classList.contains('reserved')) {
+                seat.classList.toggle('selected');
+                updateTotalHarga();
+              }
+            });
+          }
 
-            // Function untuk mengupdate jumlah tiket berdasarkan kursi yang dipilih
-            function updateJumlahTiket() {
-                jumlahTiketInput.value = totalKursiDipilih;
-            }
-
-            // Function untuk mengupdate total harga berdasarkan kursi yang dipilih
-            function updateTotalHarga() {
-                const selectedSeats = document.querySelectorAll('.seat.selected');
-                const totalHarga = hargaPerKursi * selectedSeats.length;
-                totalHargaInput.value = totalHarga;
-            }
+          // Function to update total price
+          function updateTotalHarga() {
+            const selectedSeats = document.querySelectorAll('.seat.selected').length;
+            const totalHarga = selectedSeats * hargaPerKursi;
+            document.getElementById('jumlah_tiket_input').value = selectedSeats;
+            document.getElementById('total_harga_input').value = totalHarga;
+          }
         });
-    </script>
+        </script>
 @endsection

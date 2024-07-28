@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('search')
+<form action="{{ route('detail') }}" method="GET" class="d-flex">
+    <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film"
+        aria-label="Search" required>
+    <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
+</form>
+@endsection
+
 @section('content')
     <style>
         * {
@@ -254,7 +262,7 @@
         .btn-delete:hover {
             background-color: #c82333;
         }
-        .warning {  
+        .warning {
             color: white;
             transition: 2s ease;
             position: relative;
@@ -281,6 +289,16 @@
         }
     </style>
 
+
+    {{--  tampilan untuk search  --}}
+
+    {{--  <a href="{{route('home')}}" class="btn btn-outline-danger m-3">Back</a>  --}}
+
+    @push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    @endpush
+    {{--  end tampilan searc  --}}
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -305,7 +323,9 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
+                                <div class="alert alert-info" role="alert">
+                                    Film Not Found
+                                </div>
                                 @endforelse
                             </div>
                         </div>
@@ -347,7 +367,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
                         aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog">

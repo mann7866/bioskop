@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('search')
+<form action="{{ route('home') }}" method="GET" class="d-flex">
+    <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film"
+        aria-label="Search" required>
+    <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
+</form>
+@endsection
+
 @section('content')
     <style>
         * {
@@ -227,6 +235,11 @@
         }
     </style>
 
+
+      {{--  tampilan untuk search  --}}
+
+    {{--  end tampilan searc  --}}
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -319,7 +332,7 @@
                         </div>
                     @endif
                 </div>
-                
+
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         var myCarousel = document.querySelector('#film');

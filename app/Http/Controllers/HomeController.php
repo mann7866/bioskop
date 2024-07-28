@@ -28,7 +28,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $detail = Detail::paginate(12);
+
+        $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         $berita = Berita::paginate(3);
 
         return view('home', compact('detail', 'berita'));

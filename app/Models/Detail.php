@@ -29,15 +29,21 @@ class Detail extends Model
     public function scopeFilter($query, array $filters)
     {
 
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where(function ($query) use ($search) {
-                $query->where('judul', 'like', '%' . $search . '%')
-                    ->orWhere('penulis', 'like', '%' . $search . '%')
-                    ->orWhere('pemeran', 'like', '%' . $search . '%')
-                    ->orWhereHas('genres', function ($query) use ($search) {
-                        $query->Where('genre', 'like', '%' . $search . $search . '%');
-                    });
+
+            $query->when($filters['search'] ?? false, function ($query, $search) {
+
+
+                return $query->where(function ($query) use ($search) {
+                    $query->where('judul', 'like', '%' . $search . '%')
+                        ->orWhere('penulis', 'like', '%' . $search . '%')
+                        ->orWhere('pemeran', 'like', '%' . $search . '%')
+                        ->orWhereHas('genres', function ($query) use ($search) {
+                            $query->Where('genre', 'like', '%' . $search . '%');
+                        });
+                });
             });
-        });
+
+
+      
     }
 }

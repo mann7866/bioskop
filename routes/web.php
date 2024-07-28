@@ -16,16 +16,17 @@ Auth::routes();
 
 // Route untuk home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
-Route::get('/search', [App\Http\Controllers\SearchController::class,'search'])->name('search');
+
 Route::get('/errors', [App\Http\Controllers\Notfoundcontroller::class, 'errors'])->name('errors.notfound');
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
+Route::get('/genre/index', [App\Http\Controllers\genreController::class,'tampilan'])->name('genre.tampilan');
 Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create'])->name('genre.create');
 Route::post('/genre/store', [App\Http\Controllers\genreController::class,'store'])->name('genre.store');
 Route::get('/genre/{id}/edit', [App\Http\Controllers\genreController::class,'edit'])->name('genre.edit');
 Route::put('/genre/{id}/update', [App\Http\Controllers\genreController::class,'update'])->name('genre.update');
 Route::get('/genre/{id}/delete', [App\Http\Controllers\genreController::class,'destroy'])->name('genre.delete');
+
 // Route Time
 Route::get('/time', [App\Http\Controllers\timeController::class,'index'])->name('time');
 Route::get('/time/create', [App\Http\Controllers\timeController::class,'create'])->name('time.create');
@@ -41,9 +42,7 @@ Route::post('/detail/store', [App\Http\Controllers\DetailController::class,'stor
 Route::get('/detail/{id}/edit', [App\Http\Controllers\DetailController::class,'edit'])->name('detail.edit');
 Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,'update'])->name('detail.update');
 Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
-// Route genres
-Route::get('/genres', [App\Http\Controllers\GenreDetail::class,'index'])->name('genres');
-Route::get('/film', [App\Http\Controllers\FilmController::class,'index'])->name('film');
+
 // Route Kursi
 Route::get('/kursi', [App\Http\Controllers\KursiController::class,'index'])->name('kursi');
 Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create'])->name('kursi.create');
@@ -60,12 +59,10 @@ Route::get('/order/{id}/edit', [App\Http\Controllers\OrderController::class,'edi
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
 Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
 
+Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
 Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'create'])->name('berita.create');
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
 Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
-use App\Http\Controllers\SearchController;
-
-Route::get('/search', [SearchController::class, 'search'])->name('search');

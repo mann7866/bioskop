@@ -190,7 +190,7 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page"
-                                href="{{ route('genre') }}">{{ __('Genres') }}</a>
+                                href="{{ route('genre.tampilan') }}">{{ __('Genres') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('film') }}">{{ __('Film') }}</a>
@@ -199,12 +199,7 @@
                     </ul>
 
                     <!-- Center Search Form -->
-                    <form action="{{ route('search') }}" method="GET" class="d-flex">
-                        <input class="form-control me-2" type="search" name="query" placeholder="Cari judul film"
-                            aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Cari</button>
-                    </form>
-
+                   @yield('search')
 
                     <a href="{{ route('order.index') }}" style="color: black"><svg xmlns="http://www.w3.org/2000/svg"
                             width="20" height="20" fill="currentColor" class="bi bi-cart-check-fill"
@@ -305,6 +300,9 @@
                 </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('detail') }}">Add Film</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('kursi') }}">Add Kursi</a>
                 </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('berita') }}">Add Berita</a>
