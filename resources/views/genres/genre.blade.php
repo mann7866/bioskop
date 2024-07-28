@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
     @if (session('success'))
@@ -12,7 +12,8 @@
             </div>
         </div>
     @endif
-
+@include('Componen.css')
+@include('Componen.script');
     @if (session('delete'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
             <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
@@ -93,18 +94,19 @@
             }
         }
     </style>
-
-    <div class="container mt-4">
-        <div class="">
-            <a class="btn btn-primary warning" href="{{ route('genre.create') }}">
-                <i class="fas fa-plus"></i> Tambah Genre
-            </a>
+    <section>
+        <div class="card-header">
+            <h3>{{ __('Daftar Genre') }}</h3>
         </div>
+    </section>
+    <div class="container mt-5">
         <div class="card mt-4">
-            <div class="card-header">
-                <h3>{{ __('Daftar Genre') }}</h3>
+            <div class="">
+                <a class="btn btn-primary warning" href="{{ route('genre.create') }}">
+                    <i class="fas fa-plus"></i> Tambah Genre
+                </a>
             </div>
-            <div class="card-body">
+            <div class="card">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
                         <thead class="table-primary">
