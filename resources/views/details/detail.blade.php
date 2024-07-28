@@ -9,6 +9,9 @@
 @endsection
 
 @section('content')
+
+
+
     <style>
         * {
             scroll-behavior: smooth;

@@ -78,19 +78,11 @@
             @enderror
         </div>
 
-        <div class="col-12">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
-            @error('deskripsi')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
+        <div class="col-md-6">
             <label class="form-label">Jam Tayang</label>
             <select class="mt-3 form-select @error('id_jamTayang') is-invalid @enderror"
                     aria-label="Select Payment Method" name="id_jamTayang">
-                <option selected disabled>Jam Tayang</option>
+                <option selected disabled>00:00:00</option>
                 @foreach ($time as $item)
                     <option value="{{ $item->id }}">{{ $item->jamTayang }}</option>
                 @endforeach
@@ -100,11 +92,11 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6">
             <label class="form-label">Tanggal Tayang</label>
             <select class="mt-3 form-select @error('id_tanggalTayang') is-invalid @enderror"
                     aria-label="Select Payment Method" name="id_tanggalTayang">
-                <option selected disabled>tanggal Tayang</option>
+                <option selected disabled>0000-00-00</option>
                 @foreach ($time as $item)
                     <option value="{{ $item->id }}">{{ $item->tanggalTayang }}</option>
                 @endforeach
@@ -113,6 +105,16 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="col-12">
+            <label for="deskripsi" class="form-label">Deskripsi</label>
+            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+            @error('deskripsi')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
 
         <div class="col-12">
             <label for="foto" class="form-label">Upload Foto</label>

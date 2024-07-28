@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
-
             $table->string('total_harga');
             $table->string('jumlah_tiket');
+            $table->string('pembayaran')->nullable();
+            $table->enum('status',['pending','paid','cancel'])->default('pending');
             $table->foreignId('id_detail')->references('id')->on('detail')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
