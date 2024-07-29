@@ -45,6 +45,47 @@
             animation: slide-down 2s ease 0s 1 normal forwards;
         }
 
+        .btn-create,
+        .btn-edit,
+        .btn-delete {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-create:hover,
+        .btn-edit:hover,
+        .btn-delete:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-create {
+            margin-bottom: 20px;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+        }
+
+        .btn-edit:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
         @keyframes slide-down {
             from {
                 transform: translateZ(-9.7rem);
@@ -59,8 +100,8 @@
     </style>
 
     <div>
-        <a class="btn btn-primary mt-5 m-2 warning" href="{{ route('kursi.create') }}">
-            <i class="fas fa-plus"></i> Tambah kursi
+        <a  class="btn btn-primary btn-create mt-5 m-2 " href="{{ route('kursi.create') }}">
+             Tambah kursi
         </a>
     </div>
 
@@ -83,6 +124,9 @@
                             <tr>
                                 <td class="text-center">{{ $item->kursi }}</td>
                                 <td class="text-center">
+                                    <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-success btn-sm">
+                                        <ion-icon name="pencil-outline"></ion-icon>
+                                    </a>
                                     <a href="{{ route('kursi.delete', $item->id) }}">
                                         <button type="button" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Yakin ingin menghapus?')">
@@ -114,7 +158,7 @@
                         delay: 2000
                     });
                     toast.show();
-    
+
                     // Add fade-out class after showing
                     setTimeout(function() {
                         toastEl.classList.add('fade-out');

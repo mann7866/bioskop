@@ -52,7 +52,7 @@ class OrderController extends Controller
         $validateData = $request->validate([
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga' => 'required|min:0',
+            'total_harga' => 'required|min:0|numeric',
             'id_detail' => '',
             'pembayaran' => '',
 
@@ -60,7 +60,7 @@ class OrderController extends Controller
         ]);
 
         Order::create($validateData);
-        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket\nSilakan Cek Icon DI Atas");
+        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
 
     /**
@@ -92,7 +92,7 @@ class OrderController extends Controller
         $validateData = $request->validate([
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga' => 'required|min:0',
+            'total_harga' => 'required|min:0|numeric',
             'id_detail' => '',
             'pembayaran' => 'required',
 
@@ -152,7 +152,7 @@ class OrderController extends Controller
         }
     }
 
-    
+
     /**
      * Remove the specified resource from storage.
      */

@@ -242,24 +242,41 @@
             justify-content: space-between;
         }
 
-        .btn-edit, .btn-delete {
-            font-size: 0.9rem;
+        .btn-create,
+        .btn-edit,
+        .btn-delete {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
             border-radius: 20px;
-            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-create:hover,
+        .btn-edit:hover,
+        .btn-delete:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-create {
+            margin-bottom: 20px;
         }
 
         .btn-edit {
-            background-color: #ffc107;
-            color: #fff;
+            background-color: #28a745;
         }
 
         .btn-edit:hover {
-            background-color: #e0a800;
+            background-color: #218838;
         }
 
         .btn-delete {
             background-color: #dc3545;
-            color: #fff;
         }
 
         .btn-delete:hover {
@@ -306,7 +323,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Detail Film</h1>
-               <a href="{{route('detail.create')}}" class="btn btn-primary warning"><i class="fas fa-plus"></i>Tambah Berita</a>
+
+               <a href="{{route('detail.create')}}" class="btn btn-primary btn-create ">Tambah Film</a>
+
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -318,7 +337,9 @@
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <p class="poss">{{ $item->judul }}</p>
-                                            <p>{{ $item->deskripsi }}</p>
+                                            <p> <strong>Tanggal Rilis:</strong></p>
+                                            <p class="">{{ $item->tanggalRilis }}</p>
+                                       
                                         </div>
 
                                         <div class="film-label-container">
@@ -361,8 +382,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-edit">Edit</a>
-                                    <button type="button" class="btn btn-delete" data-bs-toggle="modal"
+                                    <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-edit ">Edit</a>
+                                    <button type="button" class="btn btn-delete " data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
                                 </div>
                             </div>

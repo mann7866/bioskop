@@ -53,7 +53,6 @@ class KursiController extends Controller
 
         $kursi = Kursi::find($id);
 
-        $kursi = Kursi::all();
         return view("chairs.kursiEdit", compact("kursi"));
     }
 

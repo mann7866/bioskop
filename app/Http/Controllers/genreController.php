@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\genre;
+use App\Models\Detail;
 use Illuminate\Http\Request;
 
 class genreController extends Controller
@@ -13,14 +14,15 @@ class genreController extends Controller
     public function index()
     {
         $genre = genre::all();
+        $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         return view("genres.genre", compact("genre"));
     }
 
 
-    public function tampilan(){
-        $genre =genre::all();
+    public function tampilan()
+    {
+        $genre = genre::all();
         return view("genres.index", compact("genre"));
-
     }
     /**
      * Show the form for creating a new resource.

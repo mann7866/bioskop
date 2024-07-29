@@ -87,7 +87,7 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
             "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
             "deskripsi" => "required|max:300",
-            "harga" => "required|numeric",
+            "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
             "id_jamTayang" => "required",
             "id_tanggalTayang" => "required",
@@ -166,7 +166,7 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
             "foto" => "mimes:jpeg,jpg,png,gif|max:4096|nullable",
             "deskripsi" => "required|max:300",
-            "harga" => "required|numeric",
+            "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
             "id_jamTayang" => "required",
             "id_tanggalTayang" => "required",

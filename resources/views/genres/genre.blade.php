@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('search')
-<form action="{{ route('search.genre') }}" class="d-flex mx-auto" method="get">
-    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="query" name="query">
-    <button class="btn btn-success" type="submit">Search</button>
+<form action="{{ route('genre') }}" class="d-flex mx-auto" method="get">
+       <form action="{{ route('home') }}" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
+            <a class="btn btn-outline-success" href="{{ route('genre') }}">Refresh</a>
+    </form>
+
 </form>
 @endsection
 
@@ -72,6 +76,47 @@
         .slide-down {
             animation: slide-down 2s ease 0s 1 normal forwards;
         }
+        .btn-create,
+        .btn-edit,
+        .btn-delete {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-create:hover,
+        .btn-edit:hover,
+        .btn-delete:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-create {
+            margin-bottom: 20px;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+        }
+
+        .btn-edit:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
 
         @keyframes slide-down {
             from {
@@ -103,8 +148,8 @@
 
     <div class="container mt-4">
         <div class="">
-            <a class="btn btn-primary warning" href="{{ route('genre.create') }}">
-                <i class="fas fa-plus"></i> Tambah Genre
+            <a class="btn btn-primary btn-create" href="{{ route('genre.create') }}">
+               Tambah Genre
             </a>
         </div>
         <div class="card mt-4">
@@ -125,10 +170,10 @@
                                 <tr>
                                     <td class="text-center">{{ $item->genre }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success">
+                                        <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
-                                        <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">
+                                        <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
                                             <ion-icon name="trash-outline"></ion-icon>
                                         </a>
                                     </td>
