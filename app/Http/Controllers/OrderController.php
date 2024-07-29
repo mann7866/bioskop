@@ -60,7 +60,7 @@ class OrderController extends Controller
         ]);
 
         Order::create($validateData);
-        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
+        return redirect()->route("home")->with("success", "Berhasil Order Tiket");
     }
 
     /**
@@ -100,7 +100,7 @@ class OrderController extends Controller
         if ($validateData['pembayaran'] >= $order->total_harga) {
 
             $order->update($validateData);
-            return redirect()->route("order.index")->with("success", "Berhasil Pesan Tiket");
+            return redirect()->route("order.index")->with("success", "Pembayaran Berhasil");
 
         }
         // if ($validateData['pembayaran'] > $order->total_harga) {
@@ -120,7 +120,7 @@ class OrderController extends Controller
             'status' => 'paid'
         ]);
 
-        return redirect()->route("pembayaran", $order->id);
+        return redirect()->route("pembayaran", $order->id)->with("success","Pembayaran Berhasil");
     }
 
     public function cancel(string $id)
@@ -131,7 +131,7 @@ class OrderController extends Controller
             'status' => 'cancel'
         ]);
 
-        return redirect()->route("order.index");
+        return redirect()->route("order.index")->with("gagal","Pesanan Berhasil diBatalkan");
     }
 
     /**
@@ -140,6 +140,6 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         Order::find($id)->delete();
-        return redirect()->route("order.index")->with("success", "Berhasil Membatalkan Pesanan");
+        return redirect()->route("order.index")->with("gagal", "Berhasil Menghapus Pesanan");
     }
 }

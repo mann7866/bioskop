@@ -2,7 +2,6 @@
 
 @section('content')
     <style>
-  
         /* Styling umum untuk form */
         .form-container {
             background-color: #ffffff;
@@ -131,8 +130,6 @@
             font-weight: bold;
             margin-top: 10px;
         }
-
-
     </style>
     <div class="container mt-4">
         <div class="form-container">
@@ -145,10 +142,10 @@
                             <h5 class="card-categori">Genres:</h5>
                             <ul>
                                 @foreach ($detail->genres as $genre)
-                                    <li class="badge text-bg-info"style="list-style:none;" > {{ $genre->genre }}</li>
+                                    <li class="badge text-bg-info"style="list-style:none;"> {{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
-                           
+
                             <h6 class="card-">Rp. {{ number_format($detail->harga) }}</h6>
                             <p class="card-text">{{ $detail->deskripsi }}</p>
                         </div>
@@ -187,7 +184,7 @@
                                 <!-- Kursi akan ditampilkan di sini -->
                             </div>
                             <div id="seats-container"></div>
-    <div>Jumlah Kursi: <span id="kursiCount"></span></div>
+                            <div>Jumlah Kursi: <span id="kursiCount"></span></div>
                         </div>
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Order</button>
@@ -233,5 +230,5 @@
                 document.getElementById('total_harga_input').value = totalHarga;
             }
         });
-        </script>
+    </script>
 @endsection

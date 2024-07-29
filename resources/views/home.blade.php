@@ -8,11 +8,26 @@
     </form>
 @endsection
 
+@if (session('success'))
+<div class="toast-container mt-5  position-fixed top-5 end-0 p-3" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 @section('content')
     <style>
         * {
             scroll-behavior: smooth;
         }
+
+
 
         .film-card {
             position: relative;
@@ -233,9 +248,8 @@
                 flex: 0 0 calc(100% - 20px);
             }
         }
-        .warna{
-            
-        }
+
+        .warna {}
     </style>
     <div class="container">
         <div class="row justify-content-center">
@@ -254,7 +268,7 @@
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
                                         alt="{{ $item->judul }}">
-                                        {{-- <div class="carousel-caption d-none d-md-block mb-3 warna">
+                                    {{-- <div class="carousel-caption d-none d-md-block mb-3 warna">
                                             <h5><strong>{{$item->judul}} </strong></h5>
                                             <p><strong>{{$item->deskripsi}}</strong> </p>
                                         </div> --}}
