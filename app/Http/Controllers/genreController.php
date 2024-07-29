@@ -12,13 +12,15 @@ class genreController extends Controller
      */
     public function index()
     {
-        $genre = genre ::all();
+        $genre = genre::all();
         return view("genres.genre", compact("genre"));
     }
+
 
     public function tampilan(){
         $genre =genre::all();
         return view("genres.index", compact("genre"));
+
     }
     /**
      * Show the form for creating a new resource.
@@ -65,19 +67,17 @@ class genreController extends Controller
     {
         $genre = genre::find($id);
 
-        $validateData = $request ;
+        $validateData = $request;
 
         if ($validateData['genre'] !== $genre->genre) {
-        $validateData = $request->validate([
-            "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
-        ]);
+            $validateData = $request->validate([
+                "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
+            ]);
             $genre->update($validateData);
             return redirect()->route("genre")->with("success", "Berhasil Update Genre");
         } else {
             return redirect()->route("genre")->with("success", "Berhasil Update Genre");
         }
-
-
     }
 
     /**
@@ -90,12 +90,10 @@ class genreController extends Controller
         $genreCount = $genre->details()->count();
 
         if ($genreCount > 0) {
-            return redirect()->route("genre")->with('delete','Genre Tidak Dapat diHapus Karena Masih Berkaitan Dengan Film.');
+            return redirect()->route("genre")->with('delete', 'Genre Tidak Dapat diHapus Karena Masih Berkaitan Dengan Film.');
         }
 
-         $genre->delete();
-         return redirect()->route("genre")->with('delete','genre berhasil diHapus.');
-
-
+        $genre->delete();
+        return redirect()->route("genre")->with('delete', 'genre berhasil diHapus.');
     }
 }

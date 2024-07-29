@@ -1,10 +1,12 @@
 <?php
 // routes/web.php
 
+use App\Http\Controllers\DetailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\f\FilmController;
+use App\Http\Controllers\genreController;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {
@@ -16,8 +18,15 @@ Auth::routes();
 
 // Route untuk home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+<<<<<<< Updated upstream
 
 Route::get('/errors', [App\Http\Controllers\Notfoundcontroller::class, 'errors'])->name('errors.notfound');
+=======
+Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
+Route::get('/search', [App\Http\Controllers\SearchController::class,'search'])->name('search');
+
+Route::get('/cari', [App\Http\Controllers\DetailController::class,'cari'])->name('cari');
+>>>>>>> Stashed changes
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
 Route::get('/genre/index', [App\Http\Controllers\genreController::class,'tampilan'])->name('genre.tampilan');
@@ -69,3 +78,9 @@ Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'e
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
 Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
+<<<<<<< Updated upstream
+=======
+Route::get('/details', [DetailController::class, 'index'])->name('details.index');
+
+
+>>>>>>> Stashed changes

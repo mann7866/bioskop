@@ -13,9 +13,25 @@ class DetailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    // app/Http/Controllers/DetailController.php
 
+    public function index(request $request)
+    {
+        // Mengambil data dengan filter dan paginasi
+        $details = Detail::with('genres')->get();
+
+        $genres = Genre::all(); // Jika perlu
+        $time = Time::all(); // Jika perlu
+
+        $searchQuery = $request->input('query', '');
+
+
+        // Mengambil data detail sesuai query pencarian
+        $details = Detail::where('judul', 'like', "%{$searchQuery}%")
+            ->orWhere('pemeran', 'like', "%{$searchQuery}%")
+            ->orWhere('penulis', 'like', "%{$searchQuery}%")
+            ->orWhere('sutradara', 'like', "%{$searchQuery}%")
+            ->paginate(10); // Sesuaikan pagination jika perlu
 
 
         // $detail = Detail::with('genres')->get();
@@ -24,8 +40,28 @@ class DetailController extends Controller
         $genres = genre::all();
         $time = Time::all();
         return view("details.detail", compact("time", "detail"));
+            }
 
-    }
+
+    // public function search(Request $request)
+    // {
+    //     // Mendapatkan query pencarian dari request
+    //     $searchQuery = $request->input('query', '');
+
+    //     // Mengambil data detail sesuai query pencarian
+    //     $details = Detail::where('judul', 'like', "%{$searchQuery}%")
+    //         ->orWhere('pemeran', 'like', "%{$searchQuery}%")
+    //         ->orWhere('penulis', 'like', "%{$searchQuery}%")
+    //         ->orWhere('sutradara', 'like', "%{$searchQuery}%")
+    //         ->paginate(10); // Sesuaikan pagination jika perlu
+
+    //     return view('details.index', [
+    //         'details' => $details,
+    //         'searchQuery' => $searchQuery // Kirim query pencarian kembali ke view
+    //     ]);
+    // }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,10 +87,10 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
             "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
             "deskripsi" => "required|max:300",
-            "harga"=> "required|numeric",
+            "harga" => "required|numeric",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
             "id_jamTayang" => "required",
-            "id_tanggalTayang"=> "required",
+            "id_tanggalTayang" => "required",
         ]);
 
         // Upload and save the image
@@ -74,9 +110,9 @@ class DetailController extends Controller
             'perusahaanProduksi' => $validateData['perusahaanProduksi'],
             'foto' => $imageName, // Assign the uploaded image name
             'deskripsi' => $validateData['deskripsi'],
-            'harga'=> $validateData['harga'],
-            'id_jamTayang'=> $validateData['id_jamTayang'],
-            'id_tanggalTayang'=> $validateData['id_tanggalTayang'],
+            'harga' => $validateData['harga'],
+            'id_jamTayang' => $validateData['id_jamTayang'],
+            'id_tanggalTayang' => $validateData['id_tanggalTayang'],
 
         ]);
 
@@ -96,6 +132,7 @@ class DetailController extends Controller
         $detail = Detail::with('genres')->get();
         $genres = genre::all();
         $time = Time::all();
+
         return view("details.film", compact("detail","time"));
     }
 
@@ -129,10 +166,10 @@ class DetailController extends Controller
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
             "foto" => "mimes:jpeg,jpg,png,gif|max:4096|nullable",
             "deskripsi" => "required|max:300",
-            "harga"=> "required|numeric",
+            "harga" => "required|numeric",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
             "id_jamTayang" => "required",
-            "id_tanggalTayang"=> "required",
+            "id_tanggalTayang" => "required",
         ]);
 
         // Handle file foto jika ada di request
@@ -161,9 +198,9 @@ class DetailController extends Controller
             'sutradara' => $validatedData['sutradara'],
             'perusahaanProduksi' => $validatedData['perusahaanProduksi'],
             'deskripsi' => $validatedData['deskripsi'],
-            'harga'=> $validatedData['harga'],
-            'id_jamTayang'=> $validatedData['id_jamTayang'],
-            'id_tanggalTayang'=> $validatedData['id_tanggalTayang'],
+            'harga' => $validatedData['harga'],
+            'id_jamTayang' => $validatedData['id_jamTayang'],
+            'id_tanggalTayang' => $validatedData['id_tanggalTayang'],
         ]);
 
         // Sinkronisasi genres jika ada yang dipilih

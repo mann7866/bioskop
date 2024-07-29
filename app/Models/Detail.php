@@ -26,9 +26,10 @@ class Detail extends Model
         return $this->hasMany(Order::class, 'id_detail', 'id',);
     }
 
-    public function scopeFilter($query, array $filters)
-    {
+    // app/Models/Detail.php
 
+
+<<<<<<< Updated upstream
 
             $query->when($filters['search'] ?? false, function ($query, $search) {
 
@@ -44,6 +45,8 @@ class Detail extends Model
             });
 
 
-      
+
     }
+=======
+>>>>>>> Stashed changes
 }

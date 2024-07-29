@@ -151,18 +151,8 @@ class OrderController extends Controller
                 return 'badge badge-bg-secondary';
         }
     }
-    // private function getBadgeClass($status)
-    // {
-    //     switch ($status) {
-    //         case 'paid':
-    //             return 'badge badge-success';
-    //         case 'cancel':
-    //             return 'badge badge-danger';
-    //         default:
-    //             return 'badge badge-default';
-    //     }
-    // }
 
+    
     /**
      * Remove the specified resource from storage.
      */
