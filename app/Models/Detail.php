@@ -26,10 +26,11 @@ class Detail extends Model
         return $this->hasMany(Order::class, 'id_detail', 'id',);
     }
 
+    // app/Models/Detail.php
+
+
     public function scopeFilter($query, array $filters)
     {
-
-
             $query->when($filters['search'] ?? false, function ($query, $search) {
 
 
@@ -44,6 +45,6 @@ class Detail extends Model
             });
 
 
-      
+
     }
 }

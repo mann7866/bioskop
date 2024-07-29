@@ -131,7 +131,7 @@
             </div>
             <div class="form-group">
                 <label for="kembalian_display">Kembalian: </label>
-                <input type="text" id="kembalian_display" name="kembalian_display" placeholder="0" readonly>
+                <input type="text" id="kembalian_display" name="kembalian_display" placeholder="Rp. 0" readonly>
             </div>
             <input type="hidden" id="hidden_kembalian" name="kembalian">
             <button type="submit" class="btn-submit">Bayar</button>

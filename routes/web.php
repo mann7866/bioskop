@@ -1,10 +1,12 @@
 <?php
 // routes/web.php
 
+use App\Http\Controllers\DetailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\f\FilmController;
+use App\Http\Controllers\genreController;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {

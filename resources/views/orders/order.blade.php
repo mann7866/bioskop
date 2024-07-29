@@ -197,13 +197,22 @@
                                 </div>
                                 <div>
                                     <label for="" class="total-payment-label">Total Pembayaran</label>
-                                    <h6 class="total-payment-amount">Rp. {{ number_format($item->total_harga) }}</h6>
+                                    <h6 class="text-danger total-payment-amount">Rp. {{ number_format($item->total_harga) }}</h6>
+                                </div>
+
+                                @if ($item->status !== 'pending' && $item->status !== 'cancel')
+                                <div>
+                                    <label for="" class="total-payment-label">Total Bayar</label>
+                                    <h6 class="text-success total-payment-amount">Rp. {{ number_format($item->pembayaran) }}</h6>
                                 </div>
                                 <div>
                                     <label for="" class="total-payment-label">Kembalian</label>
-                                    <h6 class="total-payment-amount">Rp. {{ number_format($item->kembalian) }}</h6>
+                                    <h6 class="text-primary total-payment-amount">Rp. {{ number_format($item->kembalian) }}</h6>
                                 </div>
-                                @if ($item->status !== 'paid')
+                                @endif
+
+                                @if ($item->status !== 'paid' && $item->status !== 'cancel')
+
                                     <div class="button-container">
                                         <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                             onclick="return confirm('yakin ingin Membatalkan Pesanan')">
@@ -216,6 +225,12 @@
                                         </form>
                                     </div>
                                 @endif
+                                @if ($item->status == 'cancel')
+                                <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                    onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                    Delete
+                                </a>
+                            @endif
                                 @if ($item->status == 'paid')
                                     <form action="{{ route('cancel', $item->id) }}" method="POST">
                                         @csrf

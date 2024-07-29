@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('search')
+<form action="{{ route('search.genre') }}" class="d-flex mx-auto" method="get">
+    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="query" name="query">
+    <button class="btn btn-success" type="submit">Search</button>
+</form>
+@endsection
+
 @section('content')
     @if (session('success'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
