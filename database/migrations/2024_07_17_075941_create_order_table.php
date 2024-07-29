@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('pembayaran')->nullable();
             $table->enum('status',['pending','paid','cancel'])->default('pending');
             $table->foreignId('id_detail')->references('id')->on('detail')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('kembalian')->default(0);
             $table->timestamps();
         });
     }

@@ -31,16 +31,19 @@
             font-size: 1rem;
         }
 
-        .card-title, .card-text {
+        .card-title,
+        .card-text {
             margin-bottom: 10px;
         }
 
-        .btn-danger, .btn-success {
+        .btn-danger,
+        .btn-success {
             margin-top: 10px;
             transition: transform 0.3s ease-in-out;
         }
 
-        .btn-danger:hover, .btn-success:hover {
+        .btn-danger:hover,
+        .btn-success:hover {
             transform: scale(1.05);
         }
 
@@ -76,8 +79,10 @@
             display: flex;
             justify-content: space-between;
         }
+
         .toast-container {
-            max-width: 200px;
+            position: fixed;
+            max-width: 300px;
         }
 
         .slide-down {
@@ -111,29 +116,57 @@
             }
         }
     </style>
+        {{-- data yang ambil dari ordercontroller --}}
 
-@if (session('gagal'))
-<div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-    <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                {{ session('gagal') }}
+        @php
+        function getBadgeClass($status)
+        {
+            switch ($status) {
+                case 'paid':
+                    return 'badge rounded-pill text-bg-success';
+                case 'cancel':
+                    return 'badge rounded-pill text-bg-danger';
+                default:
+                    return 'badge rounded-pill text-bg-secondary';
+            }
+        }
+    @endphp
+    @if (session('canceli'))
+        <div class="toast-container mt-5 position-fixed top-0 end-0 p-2" style="z-index: 11">
+            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('canceli') }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-@endif
-@if (session('cancel'))
-<div class="toast-container position-fixed text-center top-5 end-0 p-2" style="z-index: 11">
-    <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                {{ session('cancel') }}
+    @endif
+    @if (session('cancel'))
+        <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('cancel') }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-@endif
+    @endif
+    @if (session('success'))
+        <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)
@@ -146,7 +179,8 @@
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
-                                        <li class="list-inline-item"><span class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
+                                        <li class="list-inline-item"><span
+                                                class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
                                 <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
@@ -158,17 +192,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div>
-                                    <p class="text-danger">{{ $item->status }}</p>
+                                    <span class="{{ getBadgeClass($item->status) }}">{{ ucfirst($item->status) }}</span>
                                 </div>
                                 <div>
                                     <label for="" class="total-payment-label">Total Pembayaran</label>
                                     <h6 class="total-payment-amount">Rp. {{ number_format($item->total_harga) }}</h6>
                                 </div>
-                                @if($item->status !== 'paid')
+                                <div>
+                                    <label for="" class="total-payment-label">Kembalian</label>
+                                    <h6 class="total-payment-amount">Rp. {{ number_format($item->kembalian) }}</h6>
+                                </div>
+                                @if ($item->status !== 'paid')
                                     <div class="button-container">
                                         <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                             onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                           Delete
+                                            Delete
                                         </a>
                                         <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
@@ -177,7 +215,7 @@
                                         </form>
                                     </div>
                                 @endif
-                                @if($item->status == 'paid')
+                                @if ($item->status == 'paid')
                                     <form action="{{ route('cancel', $item->id) }}" method="POST">
                                         @csrf
                                         @method('put')
@@ -209,7 +247,7 @@
                         toastEl.classList.add('fade-out');
                     }, 2000);
                 });
-            }, 2000);
+            }, 1000);
         });
     </script>
 @endsection

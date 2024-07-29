@@ -60,7 +60,7 @@ class OrderController extends Controller
         ]);
 
         Order::create($validateData);
-        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
+        return redirect()->route("home")->with("success", "Berhasil Pesan Tiket\nSilakan Cek Icon DI Atas");
     }
 
     /**
@@ -95,23 +95,29 @@ class OrderController extends Controller
             'total_harga' => 'required|min:0',
             'id_detail' => '',
             'pembayaran' => 'required',
+
         ]);
 
         if ($validateData['pembayaran'] >= $order->total_harga) {
 
+            $kembalian = $validateData['pembayaran'] - $order->total_harga;
+
+            // Simpan kembalian ke dalam database
+            $validateData['kembalian'] = $kembalian;
+
             $order->update($validateData);
             return redirect()->route("order.index")->with("success", "Berhasil Pesan Tiket");
-
         }
+        return redirect()->route("pembayaran", $order->id)->with("gagal", "Pembayaran Tidak Boleh Kurang Dari Total Bayar");
         // if ($validateData['pembayaran'] > $order->total_harga) {
 
         //     $order->update($validateData);
         //     return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
 
         // }
-        return redirect()->route("pembayaran", $order->id)->with("gagal", "Pembayaran Tidak Boleh Kurang Dari Total Bayar");
     }
 
+    // OrderController.php
     public function paid(string $id)
     {
         $order = Order::find($id);
@@ -131,8 +137,31 @@ class OrderController extends Controller
             'status' => 'cancel'
         ]);
 
-        return redirect()->route("order.index")->with('cancel',"Berhail Cancel Pesanan");
+        return redirect()->route("order.index")->with('cancel', "Berhasil Cancel Pesanan");
     }
+
+    private function getBadgeClass($status)
+    {
+        switch ($status) {
+            case 'paid':
+                return 'badge text-bg-success';
+            case 'cancel':
+                return 'badge text-bg-danger';
+            default:
+                return 'badge badge-bg-secondary';
+        }
+    }
+    // private function getBadgeClass($status)
+    // {
+    //     switch ($status) {
+    //         case 'paid':
+    //             return 'badge badge-success';
+    //         case 'cancel':
+    //             return 'badge badge-danger';
+    //         default:
+    //             return 'badge badge-default';
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -1,5 +1,0 @@
-Sitemap: Copyring @2024-2025 Webiste Bioskop Group
-
-User-agent: *
-Allow: /
-Disallow: as  Jika anda Ingin Copy Webiste Me anda harus Hubungi Kami Di Github
