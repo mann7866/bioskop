@@ -61,12 +61,8 @@
                     </ul>
 
                     <!-- Center Search Form -->
-<<<<<<< Updated upstream
                     @yield('search')
 
-=======
-                  @yield('serch')
->>>>>>> Stashed changes
 
 
                     <!-- Right Side Of Navbar -->

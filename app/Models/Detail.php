@@ -29,8 +29,8 @@ class Detail extends Model
     // app/Models/Detail.php
 
 
-<<<<<<< Updated upstream
-
+    public function scopeFilter($query, array $filters)
+    {
             $query->when($filters['search'] ?? false, function ($query, $search) {
 
 
@@ -47,6 +47,4 @@ class Detail extends Model
 
 
     }
-=======
->>>>>>> Stashed changes
 }

@@ -47,14 +47,48 @@
         font-size: 1.2em;
         color: green;
     }
+
+    .toast-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 11;
+        width: 300px;
+        animation: slideUp 0.5s ease-in-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .toast-body svg {
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .toast-body {
+        display: flex;
+        align-items: center;
+    }
 </style>
 @section('content')
     @if (session('gagal'))
-        <div class="toast-container position-fixed top-2 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+        <div class="toast-container">
+            <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.707 9.707a1 1 0 0 1-1.414 0L8 9.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L6.586 8 4.293 5.707a1 1 0 0 1 1.414-1.414L8 6.586l2.293-2.293a1 1 0 0 1 1.414 1.414L9.414 8l2.293 2.293a1 1 0 0 1 0 1.414z"/>
+                        </svg>
                         {{ session('gagal') }}
                     </div>
                 </div>
@@ -62,11 +96,15 @@
         </div>
     @endif
     @if (session('success'))
-        <div class="toast-container position-fixed top-5 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
-                aria-live="assertive" aria-atomic="true">
+        <div class="toast-container">
+            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+                aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.97 4.97a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 0 1 1.06-1.06L7.25 9.94l4.47-4.47a.75.75 0 0 1 1.06 0z"/>
+                        </svg>
                         {{ session('success') }}
                     </div>
                 </div>
