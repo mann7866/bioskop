@@ -142,12 +142,12 @@
         function formatRupiah(angka) {
             return "Rp. " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
-
+    // menghitung data2
         function calculateChange() {
             var totalBayar = parseFloat(document.querySelector('input[name="total_harga"]').value);
             var pembayaran = parseFloat(document.getElementById('pembayaran').value);
             var kembalian = pembayaran - totalBayar;
-
+    // menghitung pembayaran
             if (pembayaran > 0) {
                 if (kembalian >= 0) {
                     document.getElementById('kembalian_display').value = formatRupiah(kembalian);
