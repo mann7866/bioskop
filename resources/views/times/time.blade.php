@@ -45,8 +45,8 @@
         }
 
         .warning:hover {
-            background-color: #ffcccc;
-            border-color: #ff6666;
+            /* background-color: #ffcccc;
+            border-color: #ff6666; */
         }
 
         .warning::after {

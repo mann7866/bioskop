@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'NihonFlix') }}</title>
-
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="icon" href="{{ asset('Logo/Dreamland Theater.jpg') }}">
@@ -18,7 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     {{-- toaster --}}
-
+        {{-- @include('Componen.css')
+        @include('Componen.script') --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Sebelum penutup </body> -->
@@ -26,146 +26,8 @@
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <!-- Custom CSS -->
-    <style>
-        .dropdown-item:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
-
-        .dropdown-item {
-            transition: color 0.3s, text-decoration 0.3s;
-        }
-
-        .navbar-brand {
-            margin-right: 20px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-link ion-icon {
-            margin-right: 5px;
-        }
-
-        .size {
-            font-size: 30px;
-            /* Adjust the font size as needed */
-            width: 30px;
-            /* Adjust the width as needed */
-            height: 30px;
-            /* Adjust the height as needed */
-        }
-
-        /* Media Queries for Responsive Design */
-        @media (max-width: 768px) {
-            .navbar-nav {
-                text-align: center;
-            }
-
-            .navbar-collapse {
-                margin-top: 10px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .size {
-                font-size: 24px;
-                /* Adjust the font size for small screens */
-                width: 24px;
-                /* Adjust the width for small screens */
-                height: 24px;
-                /* Adjust the height for small screens */
-            }
-
-            .film-card {
-                flex: 0 0 calc(50% - 20px);
-            }
-
-            .film-container {
-                padding: 5px;
-            }
-        }
-
-        /* Dark Mode Styles */
-        body,
-        .navbar,
-        .card,
-        .dropdown-menu,
-        .modal-content {
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .navbar,
-        .dark-mode .card,
-        .dark-mode .dropdown-menu,
-        .dark-mode .modal-content {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .btn-outline-success {
-            border-color: #e0e0e0;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .btn-outline-success:hover {
-            background-color: #333;
-        }
-
-        .dark-mode .btn-dark {
-            background-color: #333;
-            border: none;
-        }
-
-        .dark-mode .btn-dark:hover {
-            background-color: #444;
-        }
-
-        /* Custom CSS for Navbar Colors */
-        .navbar-light {
-            background-color: #f8f9fa !important;
-            color: blue;
-        }
-
-        .navbar-dark {
-            background-color: #343a40 !important;
-            color: #ffffff !important;
-        }
-
-        .navbar-primary {
-            background-color: #007bff !important;
-            color: #ffffff !important;
-        }
-
-        .navbar-secondary {
-            background-color: #6c757d !important;
-            color: #ffffff !important;
-        }
-
-        .navbar-success {
-            background-color: #28a745 !important;
-            color: #ffffff !important;
-        }
-
-        .navbar-danger {
-            background-color: #dc3545 !important;
-            color: #ffffff !important;
-        }
-
-        .navbar-primary-rgba {
-            background-color: rgba(31, 172, 171, 0.8);
-            color: aqua;
-        }
-    </style>
+    {{-- css --}}
+    @include('Componen.main')
 </head>
 
 <body>
@@ -182,7 +44,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Bioskop') }}
+                    {{ config('app.name', 'NihonFlix') }}
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -199,17 +61,20 @@
                     </ul>
 
                     <!-- Center Search Form -->
-                   @yield('search')
+                    @yield('search')
 
-                    <a href="{{ route('order.index') }}" style="color: black"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="20" height="20" fill="currentColor" class="bi bi-cart-check-fill"
-                            viewBox="0 0 16 16">
-                            <path
-                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
-                        </svg></a>
+
 
                     <!-- Right Side Of Navbar -->
+
+
                     <ul class="navbar-nav ms-auto align-items-center ">
+                        <a href="{{ route('order.index') }}" style="color: black"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                            </svg></a>
                         <!-- Color Change Dropdown -->
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarColorDropdown" role="button"
@@ -287,11 +152,11 @@
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Fitur</h5>
+            <h5 class="offcanvas-title text-center" id="offcanvasScrollingLabel">Option</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <ul class="list-unstyled">
+            <ul>
                 <li>
                     <a class="dropdown-item" href="{{ route('genre') }}">Genres</a>
                 </li>
@@ -307,7 +172,6 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('berita') }}">Add Berita</a>
                 </li>
-
             </ul>
         </div>
     </div>

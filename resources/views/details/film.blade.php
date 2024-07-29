@@ -232,6 +232,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Daftar FIlm</h1>
                 <div class="container mt-4" id="film">
+                    
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
                         <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
                             data-bs-slide="prev">

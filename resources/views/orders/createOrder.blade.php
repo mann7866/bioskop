@@ -2,8 +2,7 @@
 
 @section('content')
     <style>
-        <style>
-
+  
         /* Styling umum untuk form */
         .form-container {
             background-color: #ffffff;
@@ -132,7 +131,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-    </style>
+
 
     </style>
     <div class="container mt-4">
@@ -146,7 +145,7 @@
                             <h5 class="card-categori">Genres:</h5>
                             <ul>
                                 @foreach ($detail->genres as $genre)
-                                    <li>{{ $genre->genre }}</li>
+                                    <li class="badge text-bg-info"style="list-style:none;" > {{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
                            
