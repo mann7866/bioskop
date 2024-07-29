@@ -191,6 +191,7 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
+                                {{-- data di ambil dari atas dan kirim kan ke bawah --}}
                                 <div>
                                     <span class="{{ getBadgeClass($item->status) }}">{{ ucfirst($item->status) }}</span>
                                 </div>
