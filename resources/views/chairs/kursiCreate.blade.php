@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="form-container">
-            <h1 class="form-title text-center">Tambah kursi</h1>
+            <h1 class="form-title text-center text-secondary">Tambah kursi</h1>
             <form action="{{ route('kursi.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">

@@ -75,7 +75,7 @@
         }
 
         .kursi-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.07);
         }
 
         .kursi-actions {
@@ -122,14 +122,14 @@
     </style>
 
     <div>
-        <a class="btn btn-primary btn-create mt-5 m-2" href="{{ route('kursi.create') }}">
+        <a class="btn btn-primary btn-create" href="{{ route('kursi.create') }}">
             Tambah kursi
         </a>
     </div>
 
     <div class="card mt-3">
         <div class="card-header">
-            <h4 class="card-title text-center"><i class="fas fa-chair"></i> Daftar kursi</h4>
+            <h4 class="card-title text-center "><i class="fas fa-chair"></i> Daftar kursi</h4>
         </div>
         <div class="card-body">
             <div class="kursi-container">
