@@ -69,13 +69,7 @@
             width: 100%;
         }
 
-        .toast-container {
-            max-width: 300px;
-        }
-
-        .slide-down {
-            animation: slide-down 2s ease 0s 1 normal forwards;
-        }
+       
         .btn-create,
         .btn-edit,
         .btn-delete {
@@ -117,7 +111,13 @@
             background-color: #c82333;
         }
 
+        .toast-container {
+            max-width: 300px;
+        }
 
+        .slide-down {
+            animation: slide-down 2s ease 0s 1 normal forwards;
+        }
         @keyframes slide-down {
             from {
                 transform: translateZ(-9.7rem);
@@ -152,35 +152,37 @@
                Tambah Genre
             </a>
         </div>
-        <div class="card mt-4">
-            <div class="card-header">
-                <h3>{{ __('Daftar Genre') }}</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
-                        <thead class="table-primary">
-                            <tr>
-                                <th class="text-center">Genre</th>
-                                <th class="text-center">Opsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($genre as $item)
+        <div class="contain er mt-4">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>{{ __('Daftar Genre') }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
+                            <thead class="table-primary">
                                 <tr>
-                                    <td class="text-center">{{ $item->genre }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                        </a>
-                                        <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </a>
-                                    </td>
+                                    <th class="text-center">Genre</th>
+                                    <th class="text-center">Opsi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($genre as $item)
+                                    <tr>
+                                        <td class="col">{{ $item->genre }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
+                                                <ion-icon name="pencil-outline"></ion-icon>
+                                            </a>
+                                            <a href="{{ route('genre.delete', $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
             <form action="{{ route('kursi.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label">kursi</label>
+                    <label class="form-label">kursi:</label>
                     <input type="text" class="form-control @error('kursi') is-invalid @enderror" id="kursi"
                         name="kursi" placeholder="Tambahkan kursi">
                     @error('kursi')
@@ -26,7 +26,7 @@
         .hover:hover {
             cursor: pointer;
             text-decoration: underline;
-            border-radius: 20px 27px;
+            /* border-radius: 20px 27px; */
         }
     </style>
 @endsection

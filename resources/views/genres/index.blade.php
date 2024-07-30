@@ -96,23 +96,21 @@
 
     <div class="container mt-4">
         <div class="card mt-4">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h3>{{ __('Daftar Genre') }}</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
-                        <thead class="table-primary">
+                        <thead class="table  table-striped table-primary">
                             <tr>
-                                <th class="text-center">Genre</th>
-
+                                <th class="text-center ">Genre</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($genre as $item)
                                 <tr>
-                                    <td class="text-center">{{ $item->genre }}</td>
-
+                                    <td class="col">{{ $item->genre }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

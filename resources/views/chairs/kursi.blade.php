@@ -2,7 +2,7 @@
 
 @section('content')
     @if (session('success'))
-        <div class="toast-container position-fixed top-5 end-0 p-3" style="z-index: 11">
+        <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
             <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
@@ -15,36 +15,6 @@
     @endif
 
     <style>
-        .warning {
-            position: relative;
-            background-color: blue;
-            transition: 2s ease;
-            overflow: hidden;
-        }
-
-        .warning::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background-color: red;
-            transition: all 0.4s;
-        }
-
-        .warning:hover::after {
-            left: 0;
-            width: 100%;
-        }
-        .toast-container {
-            max-width: 300px;
-            /* Adjust width as needed */
-        }
-        .slide-down {
-            animation: slide-down 2s ease 0s 1 normal forwards;
-        }
-
         .btn-create,
         .btn-edit,
         .btn-delete {
@@ -86,9 +56,46 @@
             background-color: #c82333;
         }
 
+
+        .kursi-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .kursi-item {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .kursi-item:hover {
+            transform: scale(1.05);
+        }
+
+        .kursi-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .toast-container {
+            max-width: 300px;
+        }
+
+        .slide-down {
+            animation: slide-down 0.5s ease 0s 1 normal forwards;
+        }
+
         @keyframes slide-down {
             from {
-                transform: translateZ(-9.7rem);
+                transform: translateY(-50px);
                 opacity: 0;
             }
 
@@ -97,11 +104,26 @@
                 opacity: 1;
             }
         }
+
+        .fade-out {
+            animation: fade-out 1s ease forwards;
+        }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
     </style>
 
     <div>
-        <a  class="btn btn-primary btn-create mt-5 m-2 " href="{{ route('kursi.create') }}">
-             Tambah kursi
+        <a class="btn btn-primary btn-create mt-5 m-2" href="{{ route('kursi.create') }}">
+            Tambah kursi
         </a>
     </div>
 
@@ -110,65 +132,48 @@
             <h4 class="card-title text-center"><i class="fas fa-chair"></i> Daftar kursi</h4>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered" id="kursiTable" width="100%"
-                    cellspacing="0">
-                    <thead class="table-primary">
-                        <tr>
-                            <th class="text-center">Kursi</th>
-                            <th class="text-center">Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($kursi as $item)
-                            <tr>
-                                <td class="text-center">{{ $item->kursi }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-success btn-sm">
-                                        <ion-icon name="pencil-outline"></ion-icon>
-                                    </a>
-                                    <a href="{{ route('kursi.delete', $item->id) }}">
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Yakin ingin menghapus?')">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="kursi-container">
+                @foreach ($kursi as $item)
+                    <div class="kursi-item">
+                        <div>{{ $item->kursi }}</div>
+                        <div class="kursi-actions">
+                            <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-success btn-sm">
+                                <ion-icon name="pencil-outline"></ion-icon>
+                            </a>
+                            <a href="{{ route('kursi.delete', $item->id) }}">
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Yakin ingin menghapus?')">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 @endsection
 
-@push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                // Ambil semua elemen toast di halaman
-                var toastElList = document.querySelectorAll('.toast');
-                // Iterasi melalui setiap elemen toast dan tampilkan
-                toastElList.forEach(function(toastEl) {
-                    var toast = new bootstrap.Toast(toastEl, {
-                        autohide: true,
-                        delay: 2000
-                    });
-                    toast.show();
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+@endpush
 
-                    // Add fade-out class after showing
-                    setTimeout(function() {
-                        toastEl.classList.add('fade-out');
-                    }, 2000); // Wait until the toast has fully shown before starting fade-out
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var toastElList = document.querySelectorAll('.toast');
+            toastElList.forEach(function(toastEl) {
+                var toast = new bootstrap.Toast(toastEl, {
+                    autohide: true,
+                    delay: 2000
                 });
-            }, 2000); // Tunggu 2 detik sebelum menampilkan toast
-        });
-    </script>
-@endpush
-
-@push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-@endpush
+                toast.show();
+                setTimeout(function() {
+                    toastEl.classList.add('fade-out');
+                }, 2000);
+            });
+        }, 2000);
+    });
+</script>

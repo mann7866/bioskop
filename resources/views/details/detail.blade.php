@@ -1,17 +1,14 @@
 @extends('layouts.app')
 
 @section('search')
-<form action="{{ route('detail') }}" method="GET" class="d-flex">
-    <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film"
-        aria-label="Search" required>
-    <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
-</form>
+    <form action="{{ route('detail') }}" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
+        <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
+    </form>
 @endsection
 
 @section('content')
-
-
-
     <style>
         * {
             scroll-behavior: smooth;
@@ -282,6 +279,7 @@
         .btn-delete:hover {
             background-color: #c82333;
         }
+
         .warning {
             color: white;
             transition: 2s ease;
@@ -304,7 +302,8 @@
             left: 0;
             width: 100%;
         }
-        .sok{
+
+        .sok {
             border-radius: 20px;
         }
     </style>
@@ -315,7 +314,7 @@
     {{--  <a href="{{route('home')}}" class="btn btn-outline-danger m-3">Back</a>  --}}
 
     @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     @endpush
     {{--  end tampilan searc  --}}
 
@@ -324,7 +323,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Detail Film</h1>
 
-               <a href="{{route('detail.create')}}" class="btn btn-primary btn-create ">Tambah Film</a>
+                <a href="{{ route('detail.create') }}" class="btn btn-primary btn-create ">Tambah Film</a>
 
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -337,9 +336,9 @@
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <p class="poss">{{ $item->judul }}</p>
-                                            <p> <strong>Tanggal Rilis:</strong></p>
+                                            <p> <strong>Tanggal Tayang:</strong></p>
                                             <p class="">{{ $item->tanggalRilis }}</p>
-                                       
+
                                         </div>
 
                                         <div class="film-label-container">
@@ -347,7 +346,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <p class="text-secondary underline" >FIlm Tidak ada</p>
+                                    <p class="text-secondary underline">FIlm Tidak ada</p>
                                 @endforelse
                             </div>
                         </div>
@@ -355,64 +354,80 @@
                 </div>
 
                 @foreach ($detail as $item)
+                    <!-- Film Modal -->
                     <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
                         aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
+                                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid sok"
-                                        alt="{{ $item->judul }}">
-                                        <hr>
-                                        <p> <strong> Genre:</strong></p>
-                                        <ul>
+                                    <div class="embed-responsive embed-responsive-16by9 mb-3">
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                            alt="{{ $item->judul }}">
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <h6><strong>Genre:</strong></h6>
+                                        <ul class="list-unstyled">
                                             @foreach ($item->genres as $genre)
-                                                <li class="text-secondary" style="list-style: none;">{{ $genre->genre }}</li>
+                                                <li class="text-secondary">{{ $genre->genre }}</li>
                                             @endforeach
                                         </ul>
-                                        <p> <strong>Tanggal Rilis:</strong></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h6><strong>Tanggal Tayang:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
-                                        <p> <strong>Perusahaan Produksi:</strong></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h6><strong>Perusahaan Produksi:</strong></h6>
                                         <p>{{ $item->perusahaanProduksi }}</p>
-                                        <p> <strong>Deskripsi:</strong></p>
-                                        <p class="text-dark">{{ $item->deskripsi }}</p>
+                                    </div>
+                                    <div>
+                                        <h6><strong>Deskripsi:</strong></h6>
+                                        <p>{{ $item->deskripsi }}</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-edit ">Edit</a>
-                                    <button type="button" class="btn btn-delete " data-bs-toggle="modal"
+                                    <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Delete Confirmation Modal -->
                     <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
                         aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Confirm Delete</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     Are you sure you want to delete this film?
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{{ route('detail.delete', $item->id) }}" method="GET">
+                                    <form action="{{ route('detail.delete', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {

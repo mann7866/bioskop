@@ -9,24 +9,30 @@
         .card-header {
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
+            background-color: #17a2b8;
         }
 
         .form-group {
             margin-bottom: 1rem;
+            position: relative;
         }
 
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
+        .btn-cyan {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
         }
 
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
+        .btn-cyan:hover {
+            background-color: #138496;
+            border-color: #117a8b;
         }
 
-        .bi {
-            margin-right: 8px;
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
     </style>
 
@@ -34,7 +40,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-lg">
-                    <div class="card-header bg-success text-white text-center">
+                    <div class="card-header text-white text-center">
                         {{ __('Register') }}
                     </div>
 
@@ -44,7 +50,7 @@
 
                             <div class="form-group row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">
-                                    <i class="bi bi-person-fill"></i> {{ __('Name') }}
+                                    <ion-icon name="person-outline"></ion-icon> {{ __('Name') }}
                                 </label>
 
                                 <div class="col-md-8">
@@ -61,7 +67,7 @@
 
                             <div class="form-group row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">
-                                    <i class="bi bi-envelope-fill"></i> {{ __('Email Address') }}
+                                    <ion-icon name="mail-outline"></ion-icon> {{ __('Email Address') }}
                                 </label>
 
                                 <div class="col-md-8">
@@ -78,13 +84,14 @@
 
                             <div class="form-group row mb-3">
                                 <label for="password" class="col-md-4 col-form-label text-md-end">
-                                    <i class="bi bi-lock-fill"></i> {{ __('Password') }}
+                                    <ion-icon name="lock-closed-outline"></ion-icon> {{ __('Password') }}
                                 </label>
 
                                 <div class="col-md-8">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="new-password">
+                                    <ion-icon name="eye-outline" class="toggle-password" onclick="togglePassword('password')"></ion-icon>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -95,18 +102,19 @@
 
                             <div class="form-group row mb-3">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-end">
-                                    <i class="bi bi-lock-fill"></i> {{ __('Confirm Password') }}
+                                    <ion-icon name="lock-closed-outline"></ion-icon> {{ __('Confirm Password') }}
                                 </label>
 
                                 <div class="col-md-8">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
+                                    {{-- <ion-icon name="eye-outline" class="toggle-password" onclick="togglePassword('password-confirm')"></ion-icon> --}}
                                 </div>
                             </div>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-cyan">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -117,4 +125,20 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        function togglePassword(id) {
+            var input = document.getElementById(id);
+            var icon = input.nextElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('name', 'eye-off-outline');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('name', 'eye-outline');
+            }
+        }
+        
+    </script>
 @endsection

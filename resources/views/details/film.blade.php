@@ -232,7 +232,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Daftar FIlm</h1>
                 <div class="container mt-4" id="film">
-                    
+
                     <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
                         <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
                             data-bs-slide="prev">
@@ -287,41 +287,47 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <p> <strong> Genre:</strong></p>
-                                        <ul>
+                                    <div class="mb-3">
+                                        <h6><strong>Genre:</strong></h6>
+                                        <ul class="list-unstyled">
                                             @foreach ($item->genres as $genre)
-                                                <li class="text-secondary" style="list-style: none;">{{ $genre->genre }}
-                                                </li>
+                                                <li class="text-secondary">{{ $genre->genre }}</li>
                                             @endforeach
                                         </ul>
-                                        <p> <strong>Tanggal Rilis:</strong></p>
-                                        <p class="text-muted"> {{ $item->tanggalRilis }}</p>
-                                        <p> <strong> Perusahaan Produksi:</strong></p>
-                                        <p> {{ $item->perusahaanProduksi }}</p>
-                                        <p> <strong> Deskripsi:</strong></p>
-                                        <p class="text-dark">{{ $item->deskripsi }}</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h6><strong>Tanggal Tayang:</strong></h6>
+                                        <p class="text-muted">{{ $item->tanggalRilis }}</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h6><strong>Perusahaan Produksi:</strong></h6>
+                                        <p>{{ $item->perusahaanProduksi }}</p>
+                                    </div>
+                                    <div>
+                                        <h6><strong>Deskripsi:</strong></h6>
+                                        <p>{{ $item->deskripsi }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        var myCarousel = document.querySelector('#film');
-                        var carousel = new bootstrap.Carousel(myCarousel, {
-                            interval: 2000,
-                            wrap: true
-                        });
-                    });
-
-                    function link(url) {
-                        window.location.href = url;
-                    }
-                </script>
             </div>
+            @endforeach
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var myCarousel = document.querySelector('#film');
+                    var carousel = new bootstrap.Carousel(myCarousel, {
+                        interval: 2000,
+                        wrap: true
+                    });
+                });
+
+                function link(url) {
+                    window.location.href = url;
+                }
+            </script>
         </div>
+    </div>
     </div>
 @endsection

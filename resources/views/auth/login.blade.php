@@ -26,6 +26,13 @@
     .btn-link {
         font-weight: bold;
     }
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 </style>
 
 <div class="container">
@@ -55,7 +62,14 @@
                         <div class="form-group row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                             <div class="col-md-8">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <div class="input-group">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text toggle-password">
+                                            <ion-icon name="eye-outline" onclick="togglePassword('password', this)"></ion-icon>
+                                        </span>
+                                    </div>
+                                </div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -94,4 +108,21 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+    function togglePassword(inputId, icon) {
+        var input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('name', 'eye-off-outline');
+        } else {
+            input.type = 'password';
+            icon.setAttribute('name', 'eye-outline');
+        }
+        
+    }                                                                                                                                                                                                                                                                                                                     
+</script>
+@endpush
 @endsection
