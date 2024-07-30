@@ -18,7 +18,6 @@ Auth::routes();
 
 // Route untuk home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/errors', [App\Http\Controllers\Notfoundcontroller::class, 'errors'])->name('errors.notfound');
 // Route Genre
 Route::get('/genre', [App\Http\Controllers\genreController::class,'index'])->name('genre');
@@ -70,4 +69,3 @@ Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'stor
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
 Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
-

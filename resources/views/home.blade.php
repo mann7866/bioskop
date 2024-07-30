@@ -62,8 +62,8 @@
         }
 
         .film-card img {
-            width: 100%;
-            height: 300px;
+            width: 150%;
+            height: 400px;
             object-fit: cover;
             transition: transform 0.3s ease;
             border-radius: 10px 10px 0 0;

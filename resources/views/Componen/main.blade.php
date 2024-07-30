@@ -1,5 +1,4 @@
 <style>
-    
     .dropdown-item:hover {
         text-decoration: underline;
         color: #0056b3;
@@ -29,6 +28,17 @@
         /* Adjust the width as needed */
         height: 30px;
         /* Adjust the height as needed */
+    }
+
+    .size-icon {
+        margin-top: 10px;
+        font-size: 30px;
+        /* Adjust the font size as needed */
+        width: 30px;
+        /* Adjust the width as needed */
+        height: 30px;
+        /* Adjust the height as needed */
+        ;
     }
 
     /* Media Queries for Responsive Design */
@@ -112,10 +122,10 @@
         color: #ffffff !important;
     }
 
-    .navbar-primary {
+    /* .navbar-primary {
         background-color: #007bff !important;
         color: #ffffff !important;
-    }
+    } */
 
     .navbar-secondary {
         background-color: #6c757d !important;
@@ -143,12 +153,17 @@
     }
 
     .offcanvas-header {
+        text-align: center; 
         background-color: #343a40;
         /* Dark background color */
         color: #ffffff;
         /* White text color */
     }
-
+    .text{
+        text-align: center;
+        justify-content: center;
+        
+    }
     .offcanvas-body {
         padding: 20px;
     }
