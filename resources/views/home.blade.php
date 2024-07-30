@@ -353,7 +353,7 @@
                                     </div>
 
                                 @empty
-                                    <p class="text-center text-secondary">Tidak Ada Film</p>
+                                    <p class="text-secondary text-center ">Tidak Ada Film</p>
                                 @endforelse
                             </div>
                         </div>

@@ -39,7 +39,7 @@ class DetailController extends Controller
 
         $genres = genre::all();
       
-dd($detail);
+// dd($detail);
         return view("details.detail", compact( "detail"));
             }
 
