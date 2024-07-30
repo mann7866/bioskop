@@ -35,8 +35,15 @@ class BeritaController extends Controller
         $validateData = $request->validate([
             "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "judul" => "required",
-
             "deskripsi" => "required",
+        ],[
+            "foto_deskripsi.required"=> "Foto Harus diIsi",
+            "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
+            "foto_deskripsi.max"=> "Maksimal Foto 2Mb",
+            "deskripsi.required"=> "Deskripsi Harus diIsi",
+            "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+            "judul.required"=> "Judul Harus diIsi",
+            "judul.max"=> "Judul Maksimal 100 karakter",
         ]);
 
         if ($request->hasFile("foto_deskripsi")) {
@@ -98,9 +105,16 @@ class BeritaController extends Controller
         if ($request->input('judul') !== $berita->judul) {
             $request->validate([
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
-                "judul" => "required",
-
-                "deskripsi" => "required",
+                "judul" => "required|max:100",
+                "deskripsi" => "required|max:200",
+            ],[
+                "foto_deskripsi.required"=> "Foto Harus diIsi",
+                "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
+                "foto_deskripsi.max"=> "Makimal Foto 2Mb",
+                "deskripsi.required"=> "Deskripsi Harus diIsi",
+                "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+                "judul.required"=> "Judul Harus diIsi",
+                "judul.max"=> "Judul Maksimal 100 karakter",
             ]);
         } else {
             // Jika judul tidak berubah, hanya validasi tanggal dan deskripsi
@@ -114,7 +128,7 @@ class BeritaController extends Controller
         // Update data berita setelah validasi berhasil
         $berita->update([
             'judul' => $request->input('judul'),
-            
+
             'deskripsi' => $request->input('deskripsi'),
             // foto_deskripsi sudah diupdate jika ada file baru
         ]);

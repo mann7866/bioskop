@@ -57,6 +57,12 @@ class OrderController extends Controller
             'pembayaran' => '',
 
 
+        ],[
+            'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
+            'jumlah_tiket.min'=> 'Jumlah Tiket Minimal 1',
+            'total_harga.min'=> 'Jumlah Tiket Minimal 0',
+            'total_harga.required'=> 'Total Harga Harus Diisi',
+            'total_harga.numeric'=> 'Total Harga Harus Abjad',
         ]);
 
         Order::create($validateData);
@@ -94,8 +100,16 @@ class OrderController extends Controller
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
             'total_harga' => 'required|min:0|numeric',
             'id_detail' => '',
-            'pembayaran' => 'required',
+            'pembayaran' => 'required|numeric',
 
+        ],[
+            'pembayaran.required'=> 'Pembauyaran Tidak Boleh Kosong',
+            'pembayaran.numeric'=> 'Pembauyaran Harus Angka',
+            'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
+            'jumlah_tiket.min'=> 'Jumlah Tiket Minimal 1',
+            'total_harga.min'=> 'Jumlah Tiket Minimal 0',
+            'total_harga.required'=> 'Total Harga Harus Diisi',
+            'total_harga.numeric'=> 'Total Harga Harus Abjad',
         ]);
 
         if ($validateData['pembayaran'] >= $order->total_harga) {

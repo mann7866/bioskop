@@ -42,7 +42,7 @@ class KursiController extends Controller
         ]);
 
         Kursi::create($vakidateData);
-        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
+        return redirect()->route("kursi.")->with("success","Berhasil Tambah Data");
     }
 
     /**
