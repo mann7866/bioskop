@@ -12,7 +12,7 @@
             </div>
         </div>
     @endif
-    @if (session('delete'))
+    {{-- @if (session('delete'))
         <div class="toast-container position-fixed top-3 end-0 p-2" style="z-index: 11">
             <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     <style>
         .pos {

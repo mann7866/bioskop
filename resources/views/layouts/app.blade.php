@@ -69,7 +69,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <ion-icon name="color-palette-outline" class="size"></ion-icon>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog mt-5"
+                            <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog"
                                 aria-labelledby="navbarColorDropdown">
                                 <li><button class="dropdown-item"
                                         onclick="changeNavbarColor('navbar-light')"><ion-icon name="caret-forward"></ion-icon>Light</button></li>
@@ -140,13 +140,13 @@
                     <a class="dropdown-item" href="{{ route('time') }}">Time</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('detail') }}">Add Film</a>
+                    <a class="dropdown-item" href="{{ route('detail') }}">Tambah Film</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('kursi') }}">Add Kursi</a>
+                    <a class="dropdown-item" href="{{ route('kursi') }}">Tambah Kursi</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('berita') }}">Add Berita</a>
+                    <a class="dropdown-item" href="{{ route('berita') }}">Tambah Berita</a>
                 </li>
             </ul>
         </div>

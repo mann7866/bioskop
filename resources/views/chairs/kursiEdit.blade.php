@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="form-container">
-            <h1 class="form-title text-center">Edit kursi</h1>
+            <h1 class="form-title text-center text-secondary">Edit kursi</h1>
             <form action="{{ route('kursi.update', $kursi->id) }}" method="POST">
                 @csrf
                 @method('put')
@@ -24,9 +24,5 @@
             </form>
         </div>
     </div>
-    <style>
-        .hover:hover {
-            border-radius: 20px 30px;
-        }
-    </style>
+
 @endsection
