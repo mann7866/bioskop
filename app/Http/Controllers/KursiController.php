@@ -36,19 +36,35 @@ class KursiController extends Controller
      */
     public function store(Request $request)
     {
-        $vakidateData = $request->validate([
-            "kursi"=> "required",
-            "studio"=> "required|unique:kursi,studio",
-        ],[
-            "kursi.required"=> "Kursi Harus Diisi",
-            "studio.required"=> "Studio Harus Diisi",
-            "studio.unique"=> "Studio Sudah Ada",
-
+        $validatedData = $request->validate([
+            "kursi" => "required|integer|min:1|max:26", // Assuming A-Z seats
+            "studio" => "required|unique:kursi,studio",
+        ], [
+            "kursi.required" => "Kursi Harus Diisi",
+            "studio.required" => "Studio Harus Diisi",
+            "studio.unique" => "Studio Sudah Ada",
         ]);
 
-        Kursi::create($vakidateData);
-        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
+        $kursiBaru = [];
+        $alphabet = range('A', 'Z');
+        for ($i = 0; $i < $validatedData['kursi']; $i++) {
+            $kursiBaru[] = [
+                'studio' => $validatedData['studio'],
+                'kursi' => $alphabet[$i],
+            ];
+        }
+
+        // Save each seat to the database
+        foreach ($kursiBaru as $data) {
+            Kursi::create($data);
+        }
+
+        return redirect()->route("kursi.index")->with([
+            "success" => "Berhasil Tambah Data",
+            'kursiBaru' => $kursiBaru
+        ]);
     }
+
 
     /**
      * Display the specified resource.
@@ -80,21 +96,21 @@ class KursiController extends Controller
         $validateData = $request;
 
         if ($validateData['studio'] !== $kursi->studio) {
-        $vakidateData = $request->validate([
-            "kursi"=> "required",
-            "studio"=> "required|unique:kursi,studio",
-        ],[
-            "kursi.required"=> "Kursi Harus Diisi",
-            "studio.required"=> "Studio Harus Diisi",
-            "studio.unique"=> "Studio Sudah Ada",
+            $vakidateData = $request->validate([
+                "kursi" => "required",
+                "studio" => "required|unique:kursi,studio",
+            ], [
+                "kursi.required" => "Kursi Harus Diisi",
+                "studio.required" => "Studio Harus Diisi",
+                "studio.unique" => "Studio Sudah Ada",
 
-        ]);
+            ]);
 
-        $kursi->update($vakidateData);
-        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
-     }else{
-        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
-     }
+            $kursi->update($vakidateData);
+            return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
+        } else {
+            return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
+        }
     }
 
     /**
@@ -102,10 +118,9 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-       $kursi = Kursi::find($id);
+        $kursi = Kursi::find($id);
 
-       $kursi->delete();
-       return redirect()->route("kursi.index")->with("success","Berhasil Delete");
-
+        $kursi->delete();
+        return redirect()->route("kursi.index")->with("success", "Berhasil Delete");
     }
 }

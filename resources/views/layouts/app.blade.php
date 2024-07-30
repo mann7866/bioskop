@@ -16,7 +16,6 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 
@@ -157,41 +156,41 @@
     </div>
     <!-- Offcanvas Content -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title text" id="offcanvasScrollingLabel">Option</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text" id="offcanvasScrollingLabel">Option</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                <li>
+                    <a class="dropdown-item" href="{{ route('genre') }}">
+                        <ion-icon name="albums-outline"></ion-icon>Tambah Genre
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('time') }}">
+                        <ion-icon name="time-outline"></ion-icon>Tambah Time
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('detail') }}">
+                        <ion-icon name="film-outline"></ion-icon>Tambah Film
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('kursi.index') }}">
+                        <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('berita') }}">
+                        <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="offcanvas-body">
-        <ul>
-            <li>
-                <a class="dropdown-item" href="{{ route('genre') }}">
-                    <ion-icon name="albums-outline"></ion-icon>Tambah Genre
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('time') }}">
-                    <ion-icon name="time-outline"></ion-icon>Tambah Time
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('detail') }}">
-                    <ion-icon name="film-outline"></ion-icon>Tambah Film
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('kursi.index') }}">
-                    <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('berita') }}">
-                    <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
 
     <footer>
         @include('footer.footer')
@@ -213,12 +212,9 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
