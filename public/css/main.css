@@ -1,5 +1,5 @@
-<style>
-    .dropdown-item:hover {
+
+  .dropdown-item:hover {
         text-decoration: underline;
         color: #0056b3;
     }
@@ -146,6 +146,11 @@
         background-color: rgba(31, 172, 171, 0.8);
         color: aqua;
     }
+    /* coba variabel */
+    /* .navbar-primary-info {
+      background-color: #dc3545;
+      color: #ffffff;
+    } */
 
     .offcanvas {
         background-color: #f8f9fa;
@@ -188,4 +193,3 @@
     .offcanvas-body a:hover {
         text-decoration: underline;
     }
-</style>

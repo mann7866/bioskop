@@ -27,7 +27,7 @@
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     {{-- css --}}
-    @include('Componen.main')
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 
 <body>
@@ -69,20 +69,20 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <ion-icon name="color-palette-outline" class="size"></ion-icon>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog"
+                            <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog mt-5"
                                 aria-labelledby="navbarColorDropdown">
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-light')">Light</button></li>
+                                        onclick="changeNavbarColor('navbar-light')"><ion-icon name="caret-forward"></ion-icon>Light</button></li>
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-dark')">Dark</button></li>
+                                        onclick="changeNavbarColor('navbar-dark')"><ion-icon name="caret-forward"></ion-icon>Dark</button></li>
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-secondary')">Secondary</button></li>
+                                        onclick="changeNavbarColor('navbar-secondary')"><ion-icon name="caret-forward"></ion-icon>Secondary</button></li>
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-success')">Success</button></li>
+                                        onclick="changeNavbarColor('navbar-success')"><ion-icon name="caret-forward"></ion-icon>Success</button></li>
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-danger')">Danger</button></li>
+                                        onclick="changeNavbarColor('navbar-danger')"><ion-icon name="caret-forward"></ion-icon>Danger</button></li>
                                 <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-primary-rgba')">Rgba</button></li>
+                                        onclick="changeNavbarColor('navbar-primary-rgba')"><ion-icon name="caret-forward"></ion-icon>Rgba</button></li>
                             </ul>
                         </li>
                         <!-- Authentication Links -->
