@@ -115,6 +115,7 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
+                                <th class="text-center">Judul Film</th>
                                 <th class="text-center">Jam Tayang</th>
                                 <th class="text-center">Tanggal Tayang</th>
                                 <th class="text-center">Opsi</th>
@@ -123,6 +124,7 @@
                         <tbody>
                             @foreach ($time as $item)
                                 <tr>
+                                    <td class="text-center card-title">{{ $item->detail->judul }}</td>
                                     <td class="text-center">{{ date('H:i', strtotime($item->jamTayang)) }}</td>
                                     <td class="text-center">{{ date('d-m-Y', strtotime($item->tanggalTayang)) }}</td>
                                     <td class="text-center">

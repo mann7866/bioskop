@@ -30,7 +30,8 @@ class KursiController extends Controller
     public function store(Request $request)
     {
         $vakidateData = $request->validate([
-            "kursi"=> "required",
+            "kursi"=> "required|unique:kursi,kursi",
+            "studio"=> "required|unique:kursi,studio",
         ]);
 
         Kursi::create($vakidateData);
@@ -62,7 +63,8 @@ class KursiController extends Controller
     public function update(Request $request, string $id)
     {
         $vakidateData = $request->validate([
-            "kursi"=> "required",
+            "kursi"=> "required|unique:kursi,kursi",
+            "studio"=> "required|unique:kursi,studio",
         ]);
 
         $kursi = Kursi::find($id);

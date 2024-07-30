@@ -27,11 +27,11 @@ class DetailController extends Controller
 
 
         // Mengambil data detail sesuai query pencarian
-        $details = Detail::where('judul', 'like', "%{$searchQuery}%")
-            ->orWhere('pemeran', 'like', "%{$searchQuery}%")
-            ->orWhere('penulis', 'like', "%{$searchQuery}%")
-            ->orWhere('sutradara', 'like', "%{$searchQuery}%")
-            ->paginate(10); // Sesuaikan pagination jika perlu
+        // $details = Detail::where('judul', 'like', "%{$searchQuery}%")
+        //     ->orWhere('pemeran', 'like', "%{$searchQuery}%")
+        //     ->orWhere('penulis', 'like', "%{$searchQuery}%")
+        //     ->orWhere('sutradara', 'like', "%{$searchQuery}%")
+        //     ->paginate(10); // Sesuaikan pagination jika perlu
 
 
         // $detail = Detail::with('genres')->get();
@@ -39,6 +39,7 @@ class DetailController extends Controller
 
         $genres = genre::all();
         $time = Time::all();
+
         return view("details.detail", compact("time", "detail"));
             }
 
@@ -89,8 +90,7 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
-            "id_jamTayang" => "nullable",
-            "id_tanggalTayang" => "nullable",
+          
         ]);
 
         // Upload and save the image
@@ -111,7 +111,7 @@ class DetailController extends Controller
             'foto' => $imageName, // Assign the uploaded image name
             'deskripsi' => $validateData['deskripsi'],
             'harga' => $validateData['harga'],
-          
+
         ]);
 
         // Sync genres with the detail using 'sync'
@@ -166,8 +166,8 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
-            "id_jamTayang" => "nullable",
-            "id_tanggalTayang" => "nullable",
+
+
         ]);
 
         // Handle file foto jika ada di request

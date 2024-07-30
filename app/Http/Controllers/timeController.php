@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Time;
+use App\Models\Detail;
 use Illuminate\Http\Request;
 
 class timeController extends Controller
@@ -13,7 +14,9 @@ class timeController extends Controller
     public function index()
     {
         $time = Time::all();
-        return view("times.time", compact("time"));
+        $detail = Detail::all();
+        // dd("", $detail);
+        return view("times.time", compact("time", "detail"));
     }
 
     /**
@@ -21,7 +24,8 @@ class timeController extends Controller
      */
     public function create()
     {
-        return view("times.createTime");
+        $detail = Detail::all();
+        return view("times.createTime", compact("detail"));
     }
 
     /**
@@ -31,7 +35,7 @@ class timeController extends Controller
     {
         $validateData = $request->validate([
             "id_judul"=>"required",
-            "jamTayang"=> "required|unique:time,jamlTayang",
+            "jamTayang"=> "required|unique:time,jamTayang",
             "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
         ]) ;
 
@@ -87,16 +91,9 @@ class timeController extends Controller
     public function destroy(string $id)
     {
         $time = Time::find($id);
-
-        $timeCount = $time->detail->count();
-
-        if ($timeCount > 0) {
-            return redirect()->route("time")->with("delete","Gagal Menghapus waktu Karena Masih Bersangkutan Dengan Film");
-        }
-
-        if($time->delete()){
+$time->delete();
             return redirect()->route("time")->with("delete","Berhasil Menghapus waktu");
-        }
+
 
     }
 }

@@ -19,9 +19,9 @@ class Detail extends Model
 
     public function time()
     {
-        return $this->belongsTo(time::class, 'id_jamTayang', 'id');
+        return $this->belongsTo(time::class, 'id_judul', 'id');
     }
-    public function ordeqrs()
+    public function orders()
     {
         return $this->hasMany(Order::class, 'id_detail', 'id',);
     }

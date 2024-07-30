@@ -78,7 +78,7 @@
             @enderror
         </div>
 
-       
+
 
         <div class="col-12">
             <label for="deskripsi" class="form-label">Deskripsi</label>

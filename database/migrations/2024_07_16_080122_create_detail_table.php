@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('foto');
             $table->string('harga');
-           
+      
             $table->timestamps();
         });
     }

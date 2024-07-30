@@ -135,6 +135,7 @@
             <div class="kursi-container">
                 @foreach ($kursi as $item)
                     <div class="kursi-item">
+                        <div>{{ $item->studio }}</div>
                         <div>{{ $item->kursi }}</div>
                         <div class="kursi-actions">
                             <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-success btn-sm">

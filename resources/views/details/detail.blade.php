@@ -382,6 +382,10 @@
                                     <div class="mb-3">
                                         <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
+                                        {{--  <h6><strong>Tanggal Tayang:</strong></h6>
+                                        <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+                                        <h6><strong>Jam Tayang:</strong></h6>
+                                        <p class="text-muted">{{ $item->time->jamTayang }}</p>  --}}
                                     </div>
                                     <div class="mb-3">
                                         <h6><strong>Perusahaan Produksi:</strong></h6>

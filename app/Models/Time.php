@@ -15,6 +15,6 @@ class Time extends Model
 
     public function detail()
     {
-        return $this->belongsTo(Detail::class, 'id_jamTayang','id');
+        return $this->belongsTo(Detail::class, 'id_judul','id');
     }
 }
