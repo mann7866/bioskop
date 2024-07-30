@@ -14,12 +14,12 @@ class KursiController extends Controller
     {
         $kursi = Kursi::all();
         // $studios = Kursi::select('studio')->distinct()->get();
-    
+
         return view("chairs.kursi", compact("kursi"));
     }
 
     // app/Http/Controllers/KursiController.php
-   
+
 
 
 
@@ -37,12 +37,17 @@ class KursiController extends Controller
     public function store(Request $request)
     {
         $vakidateData = $request->validate([
-            "kursi"=> "required|unique:kursi,kursi",
+            "kursi"=> "required",
             "studio"=> "required|unique:kursi,studio",
+        ],[
+            "kursi.required"=> "Kursi Harus Diisi",
+            "studio.required"=> "Studio Harus Diisi",
+            "studio.unique"=> "Studio Sudah Ada",
+
         ]);
 
         Kursi::create($vakidateData);
-        return redirect()->route("kursi.")->with("success","Berhasil Tambah Data");
+        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
     }
 
     /**
@@ -69,15 +74,27 @@ class KursiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $vakidateData = $request->validate([
-            "kursi"=> "required|unique:kursi,kursi",
-            "studio"=> "required|unique:kursi,studio",
-        ]);
 
         $kursi = Kursi::find($id);
 
+        $validateData = $request;
+
+        if ($validateData['studio'] !== $kursi->studio) {
+        $vakidateData = $request->validate([
+            "kursi"=> "required",
+            "studio"=> "required|unique:kursi,studio",
+        ],[
+            "kursi.required"=> "Kursi Harus Diisi",
+            "studio.required"=> "Studio Harus Diisi",
+            "studio.unique"=> "Studio Sudah Ada",
+
+        ]);
+
         $kursi->update($vakidateData);
-        return redirect()->route("chairs.index")->with("success","Berhasil Edit Data");
+        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
+     }else{
+        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
+     }
     }
 
     /**
@@ -85,14 +102,10 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-        $kursi = Kursi::find($id);
-    
-        if (!$kursi) {
-            return redirect()->route("kursi.index")->with("error", "Kursi tidak ditemukan.");
-        }
-    
-        $kursi->delete();
-        return redirect()->route("kursi.index")->with("success", "Berhasil Delete");
+       $kursi = Kursi::find($id);
+
+       $kursi->delete();
+       return redirect()->route("kursi.index")->with("success","Berhasil Delete");
+
     }
-    
 }

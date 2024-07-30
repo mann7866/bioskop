@@ -213,6 +213,7 @@ class DetailController extends Controller
             "perusahaanProduksi.required"=> "Perusahaan Harus diIsi",
             "perusahaanProduksi.regex"=>"Perusahaan Produksi Hanya Boleh Abjad",
             "perusahaanProduksi.max"=>"Perusahaan Produksi Maksimal 20",
+
             "foto.mimes"=>"Foto Harus Berupa jpeg,jpg,png,gif",
             "foto.max"=>"Foto Maksimal 4Mb",
             "harga.required"=> "Harga Harus Diisi",

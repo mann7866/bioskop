@@ -201,7 +201,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Kursi Film</h1>
 
-                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create">Tambah Film</a>
+                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create">Tambah Kursi</a>
 
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">

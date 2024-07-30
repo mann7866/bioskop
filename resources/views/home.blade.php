@@ -353,7 +353,9 @@
                                     </div>
 
                                 @empty
-                                    <p class="text-secondary text-center ">Tidak Ada Film</p>
+                                <div class="empty-message-container">
+                                    <p class="empty-message">Tidak Ada Film</p>
+                                </div>
                                 @endforelse
                             </div>
                         </div>
@@ -369,7 +371,7 @@
                                 <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid"
                                     alt="{{ $item->judul }}">
                                 <div class="news-body">
-                                    
+
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
 

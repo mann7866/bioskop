@@ -166,12 +166,12 @@
         <ul>
             <li>
                 <a class="dropdown-item" href="{{ route('genre') }}">
-                    <ion-icon name="albums-outline"></ion-icon>Genres
+                    <ion-icon name="albums-outline"></ion-icon>Tambah Genre
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('time') }}">
-                    <ion-icon name="time-outline"></ion-icon>Time
+                    <ion-icon name="time-outline"></ion-icon>Tambah Time
                 </a>
             </li>
             <li>
