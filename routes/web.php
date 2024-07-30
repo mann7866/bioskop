@@ -43,10 +43,10 @@ Route::get('/detail/create', [App\Http\Controllers\DetailController::class,'crea
 Route::post('/detail/store', [App\Http\Controllers\DetailController::class,'store'])->name('detail.store');
 Route::get('/detail/{id}/edit', [App\Http\Controllers\DetailController::class,'edit'])->name('detail.edit');
 Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,'update'])->name('detail.update');
-Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
+Route::delete('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
 
 // Route Kursi
-
+Route::get('/kursi', [App\Http\Controllers\KursiController::class,'index'])->name('kursi');
 Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create'])->name('kursi.create');
 Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'])->name('kursi.store');
 Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');

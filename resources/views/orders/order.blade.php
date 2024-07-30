@@ -175,7 +175,8 @@
                         <div class="card">
                             <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->detail->judul }}</h5>
+                                <h4 class="card-category ">Judul:</h4>
+                                <h5 class="">{{ $item->detail->judul }}</h5>
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
@@ -183,7 +184,9 @@
                                                 class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
+                                <h4 class="card-category ">Harga:</h4>
                                 <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
+                                <h4 class="card-category ">Deskripsi:</h4>
                                 <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
@@ -199,6 +202,11 @@
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
+                                </div>
+                                <label for="" class="total-payment-label">Total Tiket:</label>
+                                <div>
+                                    <h6 class="badge border border-primary text-primary">Rp.
+                                        {{ $item->jumlah_tiket}}</h6>
                                 </div>
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
