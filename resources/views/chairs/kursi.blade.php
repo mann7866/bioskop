@@ -333,7 +333,7 @@
                                     <div class="film-card text-center" data-bs-toggle="modal"
                                         data-bs-target="#filmModal{{ $item->id }}">
                                         <p> <strong>{{ $item->studio }}</strong></p>
-                                
+
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
                                         </div>
@@ -353,10 +353,9 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                
+
                                     <div class="mb-3">
                                         <h6><strong>{{ $item->kursi }}</strong></h6>
-    
                                     </div>
                                 </div>
                                 <div class="modal-footer">

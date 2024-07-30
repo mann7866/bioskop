@@ -13,9 +13,26 @@
         .form-title {
             margin-bottom: 20px;
         }
+
+        /* Styles for validation */
+        .was-validated .form-control:valid {
+            border-color: #28a745; /* Green for valid */
+        }
+
+        .was-validated .form-control:invalid {
+            border-color: #dc3545; /* Red for invalid */
+        }
+
+        .was-validated .input-group-text:valid {
+            border-color: #28a745; /* Green for valid */
+        }
+
+        .was-validated .input-group-text:invalid {
+            border-color: #dc3545; /* Red for invalid */
+        }
     </style>
-    <form class="row g-3 needs-validation" action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data"
-        novalidate>
+
+    <form class="row g-3 needs-validation" action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('put')
         <div class="container mt-4">
@@ -24,18 +41,17 @@
                     <div class="col-4">
                         <div class="card">
                             <div class="card-body">
-
                                 <div class="">
                                     <div class="mb-3">
                                         <label class="form-label">Upload Foto</label>
                                         <div class="input-group mb-3">
-                                            <input type="file" name="foto_deskripsi" class="form-control" id="inputGroupFile" onchange="previewImage(event)">
+                                            <input type="file" name="foto_deskripsi" class="form-control @error('foto_deskripsi') is-invalid @enderror" id="inputGroupFile" onchange="previewImage(event)" required>
                                             <label class="input-group-text" for="inputGroupFile">Upload</label>
+                                            @error('foto_deskripsi')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        @error('foto_deskripsi')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                        <img id="imagePreview" src="{{ asset('imageBerita/' .$berita->foto_deskripsi) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
+                                        <img id="imagePreview" src="{{ asset('imageBerita/' . $berita->foto_deskripsi) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
                                     </div>
                                 </div>
                             </div>
@@ -43,11 +59,9 @@
                     </div>
 
                     <div class="col-8">
-
                         <div class="col-md-6">
                             <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                                name="judul" value="{{ $berita->judul }}">
+                            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ $berita->judul }}" required>
                             @error('judul')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -55,23 +69,20 @@
 
                         <div class="col-12">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5"
-                               >{{ $berita->deskripsi }}</textarea>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ $berita->deskripsi }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit ">
+                        <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">
                             Order
                         </button>
-
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
 
     <script>
         // Function to preview image
@@ -86,7 +97,14 @@
         }
 
         // Event listener for file input change
-        document.getElementById('inputGroupFile').addEventListener('change', previewImage);
+        document.getElementById('inputGroupFile').addEventListener('change', function(event) {
+            previewImage(event);
+            var input = event.target;
+            if (input.files && input.files.length > 0) {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            }
+        });
 
         // JavaScript for Bootstrap form validation
         (function() {
