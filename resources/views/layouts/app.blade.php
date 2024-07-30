@@ -80,9 +80,9 @@
                             <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog"
                                 aria-labelledby="navbarColorDropdown">
                                 <li>
-                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-light')">
+                                    <buttoFn class="dropdown-item" onclick="changeNavbarColor('navbar-light')">
                                         <ion-icon name="caret-forward"></ion-icon>Light
-                                    </button>
+                                    </buttoFn>
                                 </li>
                                 <li>
                                     <button class="dropdown-item" onclick="changeNavbarColor('navbar-dark')">
@@ -180,7 +180,7 @@
                 </a>
             </li>
             <li>
-                <a class="dropdown-item" href="{{ route('kursi') }}">
+                <a class="dropdown-item" href="{{ route('kursi.index') }}">
                     <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
                 </a>
             </li>

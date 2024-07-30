@@ -1,12 +1,13 @@
 <?php
 // routes/web.php
 
-use App\Http\Controllers\DetailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\f\FilmController;
 use App\Http\Controllers\genreController;
+use App\Http\Controllers\KursiController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DetailController;
+use App\Http\Controllers\f\FilmController;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {
@@ -45,7 +46,7 @@ Route::put('/detail/{id}/update', [App\Http\Controllers\DetailController::class,
 Route::get('/detail/{id}/delete', [App\Http\Controllers\DetailController::class,'destroy'])->name('detail.delete');
 
 // Route Kursi
-Route::get('/kursi', [App\Http\Controllers\KursiController::class,'index'])->name('kursi');
+
 Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create'])->name('kursi.create');
 Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'])->name('kursi.store');
 Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');
@@ -69,3 +70,6 @@ Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'stor
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
 Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+
+Route::get('/kursi', [KursiController::class, 'index'])->name('kursi.index');
+Route::get('/kursi/studio', [KursiController::class, 'getKursiByStudio']);

@@ -9,7 +9,7 @@ class Kursi extends Model
 {
     use HasFactory;
     protected $table = 'kursi';
-    protected $guarded = [];
+    protected $fillable = ['studio', 'kursi'];
 
   
 }

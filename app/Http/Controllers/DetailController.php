@@ -21,9 +21,9 @@ class DetailController extends Controller
         $details = Detail::with('genres')->get();
 
         $genres = Genre::all(); // Jika perlu
-        $time = Time::all(); // Jika perlu
+        // Jika perlu
 
-        $searchQuery = $request->input('query', '');
+        $searchQuery = $request->input('query');
 
 
         // Mengambil data detail sesuai query pencarian
@@ -38,9 +38,9 @@ class DetailController extends Controller
         $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
 
         $genres = genre::all();
-        $time = Time::all();
-
-        return view("details.detail", compact("time", "detail"));
+      
+dd($detail);
+        return view("details.detail", compact( "detail"));
             }
 
 

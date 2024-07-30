@@ -13,8 +13,15 @@ class KursiController extends Controller
     public function index()
     {
         $kursi = Kursi::all();
+        // $studios = Kursi::select('studio')->distinct()->get();
+    
         return view("chairs.kursi", compact("kursi"));
     }
+
+    // app/Http/Controllers/KursiController.php
+   
+
+
 
     /**
      * Show the form for creating a new resource.
