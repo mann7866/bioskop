@@ -133,7 +133,7 @@
     @endphp
     @if (session('canceli'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
@@ -145,7 +145,7 @@
     @endif
     @if (session('cancel'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert"
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
                 aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">

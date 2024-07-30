@@ -32,6 +32,7 @@ class HomeController extends Controller
         $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         $berita = Berita::paginate(3);
 
-        return view('home', compact('detail', 'berita'))->with('berhasil','Welcome');
+        return view('home', compact('detail', 'berita'));
+        // return redirect()->route('home', compact('detail', 'berita'))->with('berhasil','Welcome');
     }
 }

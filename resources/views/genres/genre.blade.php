@@ -26,7 +26,7 @@
 
     @if (session('delete'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center bg-success text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('delete') }}

@@ -7,7 +7,33 @@
             <a class="btn btn-outline-primary" href="{{ route('home') }}">Refresh</a>
     </form>
 @endsection
+{{-- @if ('berhasil')
+    <div class="toast-con mt-5 position-fixed" style="top: 100px; right: 0; z-index: 20">
+        <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('berhasil') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var toastList = toastElList.map(function(toastEl) {
+                return new bootstrap.Toast(toastEl, {
+                    delay: 3000
+                });
+            });
+            toastList.forEach(toast => toast.show());
+        });
+    </script>
+@endif --}}
 
+{{-- order --}}
 @if (session('success'))
     <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
         <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
@@ -37,6 +63,10 @@
 
 @section('content')
     <style>
+        .toast-con {
+            max-width: 300px;
+        }
+
         * {
             scroll-behavior: smooth;
         }
@@ -341,7 +371,7 @@
                                 <div class="news-body">
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
-                                  
+
                                 </div>
                             </div>
                         @endforeach
