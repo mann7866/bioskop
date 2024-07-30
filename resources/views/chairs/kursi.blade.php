@@ -2,8 +2,7 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
@@ -20,11 +19,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             margin: 10px;
-            flex: 0 0 calc(16.66% - 20px);
+            /* flex: 0 0 calc(16.66% - 20px); */
             box-sizing: border-box;
             border-radius: 10px;
+            width: 100px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
+            background-color: #0056b3;
         }
 
         .film-card:hover {
@@ -33,10 +33,10 @@
         }
 
         .film-card img {
-            width: 100%;
-            height: 300px;
+            width: 50px;
+            /* height: 300px; */
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-out;
             border-radius: 10px 10px 0 0;
         }
 
@@ -100,138 +100,9 @@
             padding: 10px;
         }
 
-        .film-container::-webkit-scrollbar {
-            display: none;
-        }
-
         .carousel-control-prev,
         .carousel-control-next {
             display: none;
-        }
-
-        .back {
-            color: #ffffff;
-            background-color: #000;
-            object-fit: cover;
-            background-clip: border-box;
-            background: url({{ asset('Logo/1721275807_netflix.jpg') }});
-            border-radius: 10px;
-        }
-
-        .carousel-inner img {
-            border-radius: 20px;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .carousel-item {
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        @media (max-width: 1200px) {
-            .film-card {
-                flex: 0 0 calc(20% - 20px);
-            }
-        }
-
-        @media (max-width: 992px) {
-            .film-card {
-                flex: 0 0 calc(25% - 20px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .film-card {
-                flex: 0 0 calc(33.33% - 20px);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .film-card {
-                flex: 0 0 calc(50% - 20px);
-            }
-
-            .carousel-inner img {
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .film-card {
-                flex: 0 0 calc(100% - 20px);
-            }
-
-            .carousel-inner img {
-                height: 120px;
-            }
-        }
-
-        .news-container {
-            margin-top: 20px;
-        }
-
-        .news-card {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            margin: 10px;
-            flex: 0 0 calc(33.33% - 20px);
-            box-sizing: border-box;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-        }
-
-        .news-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .news-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .news-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .news-body {
-            padding: 15px;
-        }
-
-        .news-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .news-text {
-            font-size: 1rem;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .news-time {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        @media (max-width: 768px) {
-            .news-card {
-                flex: 0 0 calc(50% - 20px);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .news-card {
-                flex: 0 0 calc(100% - 20px);
-            }
         }
 
         .modal-footer {
@@ -280,66 +151,71 @@
             background-color: #c82333;
         }
 
-        .warning {
-            color: white;
-            transition: 2s ease;
-            position: relative;
-            overflow: hidden;
+        /* Animasi Modal */
+        .modal.fade .modal-dialog {
+            transform: translate(0, -100%);
+            transition: transform 0.3s ease-out;
         }
 
-        .warning::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            transition: all 0.3s;
+        .modal.fade.show .modal-dialog {
+            transform: translate(0, 0);
         }
 
-        .warning:hover::after {
-            background-color: red;
-            left: 0;
-            width: 100%;
-        }
-
-        .sok {
+        .modal-content {
             border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header,
+        .modal-footer {
+            border: none;
+        }
+
+        .modal-footer {
+            padding: 10px;
+            justify-content: space-between;
+        }
+
+        .modal-footer .btn {
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-footer .btn:hover {
+            transform: scale(1.05);
+        }
+        .oke{
+            width: 39px;
+        }
+        .text-center1{
+            text-align: center;
+            justify-content: space-between;
+            position: absolute;
+            left: 40%;
         }
     </style>
-
-
-    {{--  tampilan untuk search  --}}
-
-    {{--  <a href="{{route('home')}}" class="btn btn-outline-danger m-3">Back</a>  --}}
-
-    @push('css')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    @endpush
-    {{--  end tampilan searc  --}}
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Kursi Film</h1>
 
-                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create ">Tambah Film</a>
+                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create">Tambah Film</a>
 
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="film-container">
                                 @forelse ($kursi as $item)
-                                    <div class="film-card text-center" data-bs-toggle="modal"
-                                        data-bs-target="#filmModal{{ $item->id }}">
-                                        <p> <strong>{{ $item->studio }}</strong></p>
-
+                                    <div class="film-card text-center" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
+                                        <p class="mt-4"><strong>{{ $item->studio }}</strong></p>
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
                                         </div>
                                     </div>
                                 @empty
-                                    <p class="text-secondary underline">FIlm Tidak ada</p>
+                                    <p class="text-secondary underline">Film Tidak ada</p>
                                 @endforelse
                             </div>
                         </div>
@@ -348,45 +224,45 @@
 
                 @foreach ($kursi as $item)
                     <!-- Film Modal -->
-                    <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
-                        aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
+                    <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-center1" id="filmModalLabel{{ $item->id }}">Detail Film</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                                 <div class="modal-body">
-
                                     <div class="mb-3">
-                                        <h6><strong>{{ $item->kursi }}</strong></h6>
+                                        <h6 class="oke" style="background-color: #007bff; color: #fff; padding: 10px; border-radius: 5px;">
+                                            <strong>{{ $item->kursi }}</strong>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Delete Confirmation Modal -->
-                    <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
-                        aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                    <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Confirm Delete</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     Are you sure you want to delete this film?
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{{ route('kursi.delete', $item->id) }}" method="POST">
+                                    <form action="{{ route('kursi.delete', $item->id) }}" method="GET">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                             </div>
@@ -394,10 +270,9 @@
                     </div>
                 @endforeach
 
-
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        var myCarousel = document.querySelector('#film');
+                        var myCarousel = document.querySelector('#filmCarousel');
                         var carousel = new bootstrap.Carousel(myCarousel, {
                             interval: 2000,
                             wrap: true

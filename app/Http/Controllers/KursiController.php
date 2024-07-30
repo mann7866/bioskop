@@ -42,7 +42,7 @@ class KursiController extends Controller
         ]);
 
         Kursi::create($vakidateData);
-        return redirect()->route("kursi")->with("success","Berhasil Tambah Data");
+        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
     }
 
     /**
@@ -77,7 +77,7 @@ class KursiController extends Controller
         $kursi = Kursi::find($id);
 
         $kursi->update($vakidateData);
-        return redirect()->route("kursi")->with("success","Berhasil Edit Data");
+        return redirect()->route("chairs.index")->with("success","Berhasil Edit Data");
     }
 
     /**
@@ -85,10 +85,14 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-       $kursi = Kursi::find($id);
-
-       $kursi->delete();
-       return redirect()->route("kursi")->with("success","Berhasil Delete");
-
+        $kursi = Kursi::find($id);
+    
+        if (!$kursi) {
+            return redirect()->route("kursi.index")->with("error", "Kursi tidak ditemukan.");
+        }
+    
+        $kursi->delete();
+        return redirect()->route("kursi.index")->with("success", "Berhasil Delete");
     }
+    
 }
