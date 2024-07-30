@@ -323,7 +323,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Kursi Film</h1>
 
-                <a href="{{ route('detail.create') }}" class="btn btn-primary btn-create ">Tambah Film</a>
+                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create ">Tambah Film</a>
 
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -360,7 +360,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
                                 </div>

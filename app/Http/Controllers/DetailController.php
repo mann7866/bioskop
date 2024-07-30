@@ -18,12 +18,12 @@ class DetailController extends Controller
     public function index(request $request)
     {
         // Mengambil data dengan filter dan paginasi
-        $details = Detail::with('genres')->get();
+        // $details = Detail::with('genres')->get();
 
         $genres = Genre::all(); // Jika perlu
         // Jika perlu
 
-        $searchQuery = $request->input('query');
+        // $searchQuery = $request->input('query');
 
 
         // Mengambil data detail sesuai query pencarian
@@ -35,11 +35,11 @@ class DetailController extends Controller
 
 
         // $detail = Detail::with('genres')->get();
-        $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        $detail = Detail::latest()->filter(request(['search']))->with('time')->paginate(10)->withQueryString();
 
         $genres = genre::all();
       
-dd($detail);
+// dd($detail);
         return view("details.detail", compact( "detail"));
             }
 

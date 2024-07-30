@@ -19,7 +19,7 @@ class Detail extends Model
 
     public function time()
     {
-        return $this->belongsTo(time::class, 'id_judul', 'id');
+        return $this->hasOne(time::class, 'id_judul', 'id');
     }
     public function orders()
     {

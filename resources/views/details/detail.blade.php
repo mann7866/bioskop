@@ -7,7 +7,18 @@
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
-
+@if (session('delete'))
+<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('delete') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @section('content')
     <style>
         * {
@@ -383,9 +394,9 @@
                                         <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
                                         <h6><strong>Tanggal Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->time }}</p>
+                                        <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
                                         <h6><strong>Jam Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->time }}</p>
+                                        <p class="text-muted">{{ $item->time->jamTayang }}</p>
                                     </div>
                                     <div class="mb-3">
                                         <h6><strong>Perusahaan Produksi:</strong></h6>
