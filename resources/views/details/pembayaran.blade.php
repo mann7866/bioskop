@@ -50,7 +50,7 @@
 
     .toast-container {
         position: fixed;
-        bottom: 2rem;
+        /* bottom: 2rem; */
         right: 2rem;
         z-index: 11;
         width: 300px;

@@ -16,8 +16,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+
     {{-- toaster --}}
-        {{-- @include('Componen.css')
+    {{-- @include('Componen.css')
         @include('Componen.script') --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -27,7 +31,7 @@
     <!-- AOS CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     {{-- css --}}
-    <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 
 <body>
@@ -50,64 +54,90 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('genre.tampilan') }}">{{ __('Genres') }}</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('genre.tampilan') }}">
+                                <ion-icon name="albums-outline"></ion-icon>{{ __('Genres') }}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('film') }}">{{ __('Film') }}</a>
+                            <a class="nav-link" href="{{ route('film') }}">
+                                <ion-icon name="film-outline"></ion-icon>{{ __('Film') }}
+                            </a>
                         </li>
-                        
                     </ul>
                     <!-- Center Search Form -->
                     @yield('search')
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto align-items-center ">
-                        <a href="{{ route('order.index') }}"><ion-icon name="cart" class="size-icon"></ion-icon></a>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <a href="{{ route('order.index') }}">
+                            <ion-icon name="cart" class="size-icon"></ion-icon>
+                        </a>
                         <!-- Color Change Dropdown -->
-                        <li class="nav-item dropdown ">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarColorDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <ion-icon name="color-palette-outline" class="size"></ion-icon>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog"
                                 aria-labelledby="navbarColorDropdown">
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-light')"><ion-icon name="caret-forward"></ion-icon>Light</button></li>
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-dark')"><ion-icon name="caret-forward"></ion-icon>Dark</button></li>
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-secondary')"><ion-icon name="caret-forward"></ion-icon>Secondary</button></li>
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-success')"><ion-icon name="caret-forward"></ion-icon>Success</button></li>
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-danger')"><ion-icon name="caret-forward"></ion-icon>Danger</button></li>
-                                <li><button class="dropdown-item"
-                                        onclick="changeNavbarColor('navbar-primary-rgba')"><ion-icon name="caret-forward"></ion-icon>Rgba</button></li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-light')">
+                                        <ion-icon name="caret-forward"></ion-icon>Light
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-dark')">
+                                        <ion-icon name="caret-forward"></ion-icon>Dark
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-secondary')">
+                                        <ion-icon name="caret-forward"></ion-icon>Secondary
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-success')">
+                                        <ion-icon name="caret-forward"></ion-icon>Success
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-danger')">
+                                        <ion-icon name="caret-forward"></ion-icon>Danger
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-primary-rgba')">
+                                        <ion-icon name="caret-forward"></ion-icon>Rgba
+                                    </button>
+                                </li>
                             </ul>
                         </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">
+                                        <ion-icon name="log-in-outline"></ion-icon>{{ __('Login') }}
+                                    </a>
                                 </li>
                             @endif
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">
+                                        <ion-icon name="person-add-outline"></ion-icon>{{ __('Register') }}
+                                    </a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    <ion-icon name="person-outline"></ion-icon>{{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <ion-icon name="log-out-outline"></ion-icon>{{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         class="d-none">
@@ -120,37 +150,49 @@
                 </div>
             </div>
         </nav>
+
         <main class="py-4">
             @yield('content')
         </main>
     </div>
     <!-- Offcanvas Content -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title text" id="offcanvasScrollingLabel">Option</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul>
-                <li>
-                    <a class="dropdown-item" href="{{ route('genre') }}">Genres</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('time') }}">Time</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('detail') }}">Tambah Film</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('kursi') }}">Tambah Kursi</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('berita') }}">Tambah Berita</a>
-                </li>
-            </ul>
-        </div>
+    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title text" id="offcanvasScrollingLabel">Option</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body">
+        <ul>
+            <li>
+                <a class="dropdown-item" href="{{ route('genre') }}">
+                    <ion-icon name="albums-outline"></ion-icon>Genres
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('time') }}">
+                    <ion-icon name="time-outline"></ion-icon>Time
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('detail') }}">
+                    <ion-icon name="film-outline"></ion-icon>Tambah Film
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('kursi') }}">
+                    <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('berita') }}">
+                    <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
     <footer>
         @include('footer.footer')
     </footer>
