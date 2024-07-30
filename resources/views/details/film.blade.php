@@ -295,6 +295,10 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <div class="embed-responsive embed-responsive-16by9 mb-3">
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                            alt="{{ $item->judul }}">
+                                    </div>
                                     <div class="mb-3">
                                         <h6><strong>Genre:</strong></h6>
                                         <ul class="list-unstyled">
@@ -304,8 +308,14 @@
                                         </ul>
                                     </div>
                                     <div class="mb-3">
-                                        <h6><strong>Tanggal Tayang:</strong></h6>
+                                        <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
+                                        @if ($timeCount > 0)
+                                        <h6><strong>Tanggal Tayang:</strong></h6>
+                                        <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+                                        <h6><strong>Jam Tayang:</strong></h6>
+                                        <p class="text-muted">{{ $item->time->jamTayang }}</p>
+                                        @endif
                                     </div>
                                     <div class="mb-3">
                                         <h6><strong>Perusahaan Produksi:</strong></h6>

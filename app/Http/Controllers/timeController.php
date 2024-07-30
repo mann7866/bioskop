@@ -37,6 +37,13 @@ class timeController extends Controller
             "id_judul"=>"required",
             "jamTayang"=> "required|unique:time,jamTayang",
             "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
+        ],[
+            "id_judul.required"=> "Judul Harus Diisi",
+            "jamTayang.required"=> "Jam Tayang Harus Diisi",
+            "jamTayang.unique"=> "Jam Tayang Sudah Ada",
+            "tanggalTayang.required"=> "Tanggal Tayang Harus Diisi",
+            "tanggalTayang.after"=> "Tanggal Tayang Tidak Boleh Kurang Dari Hari Imi",
+            "tanggalTayang.date_format"=> "Tanggal Tayang Harus Y-m-d",
         ]) ;
 
         Time::create($validateData);
@@ -76,6 +83,13 @@ class timeController extends Controller
             "id_judul"=>"required",
             "jamTayang"=> "required|unique:time,jamlTayang",
             "tanggalTayang"=> "required",
+            ],[
+                "id_judul.required"=> "Judul Harus Diisi",
+                "jamTayang.required"=> "Jam Tayang Harus Diisi",
+                "jamTayang.unique"=> "Jam Tayang Sudah Ada",
+                "tanggalTayang.required"=> "Tanggal Tayang Harus Diisi",
+                "tanggalTayang.after"=> "Tanggal Tayang Tidak Boleh Kurang Dari Hari Imi",
+                "tanggalTayang.date_format"=> "Tanggal Tayang Harus Y-m-d",
             ]) ;
         $time->update($validateData);
             return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");

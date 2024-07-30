@@ -145,8 +145,9 @@
                                     <li class="badge text-bg-info"style="list-style:none;"> {{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
-
+                            <h6 >Harga Tiket Film :</h6>
                             <h6 class="card-">Rp. {{ number_format($detail->harga) }}</h6>
+                            <h6 >Deskripsi :</h6>
                             <p class="card-text">{{ $detail->deskripsi }}</p>
                         </div>
                     </div>

@@ -39,6 +39,12 @@ class genreController extends Controller
     {
         $validateData = $request->validate([
             "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
+        ],[
+            "genre.required"=> "Genre Harus Diisi",
+            "genre.max"=> "Genre Harus Diisi",
+            "genre.regex"=> "Genre Hanya Boleh Abjad",
+            "genre.unique"=> "Genre Tidak Boleh Sama",
+
         ]);
 
         genre::create($validateData);
@@ -74,6 +80,12 @@ class genreController extends Controller
         if ($validateData['genre'] !== $genre->genre) {
             $validateData = $request->validate([
                 "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
+            ],[
+                "genre.required"=> "Genre Harus Diisi",
+                "genre.max"=> "Genre Harus Diisi",
+                "genre.regex"=> "Genre Hanya Boleh Abjad",
+                "genre.unique"=> "Genre Tidak Boleh Sama",
+
             ]);
             $genre->update($validateData);
             return redirect()->route("genre")->with("success", "Berhasil Update Genre");

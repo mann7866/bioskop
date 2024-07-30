@@ -25,7 +25,7 @@
                 <button class="btn btn-outline-primary mt-3 col-md-2 hover" type="submit" name="submit">
                     <ion-icon name="add-circle-outline"></ion-icon>
                 </button>
-                <a href="{{ route('kursi') }}" class="btn btn-outline-danger  mt-3 col-md-2 hover"><ion-icon
+                <a href="{{ route('kursi.index') }}" class="btn btn-outline-danger  mt-3 col-md-2 hover"><ion-icon
                         name="arrow-back-outline"></ion-icon></a>
             </form>
         </div>

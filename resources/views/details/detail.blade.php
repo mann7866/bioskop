@@ -7,7 +7,7 @@
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
-@if (session('delete'))
+{{--  @if (session('delete'))
 <div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
     <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
         aria-atomic="true">
@@ -19,6 +19,18 @@
     </div>
 </div>
 @endif
+@if (session('success'))
+<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif  --}}
 @section('content')
     <style>
         * {
@@ -347,13 +359,23 @@
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <p class="poss">{{ $item->judul }}</p>
-                                            <p> <strong>Tanggal Rilis:</strong></p>
-                                            <p class="">{{ $item->tanggalRilis }}</p>
+
+                                            @if ($timeCount > 0)
+                                            <h6><strong>Tanggal Tayang:</strong></h6>
+                                            <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+
+                                            @endif
 
                                         </div>
 
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
+                                            @if ($timeCount > 0)
+                                            <h6><strong>Tanggal Tayang:</strong></h6>
+                                            <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+
+                                            @endif
+
                                         </div>
                                     </div>
                                 @empty
@@ -393,10 +415,13 @@
                                     <div class="mb-3">
                                         <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
+                                        @if ($timeCount > 0)
                                         <h6><strong>Tanggal Tayang:</strong></h6>
                                         <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
                                         <h6><strong>Jam Tayang:</strong></h6>
                                         <p class="text-muted">{{ $item->time->jamTayang }}</p>
+                                        @endif
+
                                     </div>
                                     <div class="mb-3">
                                         <h6><strong>Perusahaan Produksi:</strong></h6>

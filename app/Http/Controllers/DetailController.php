@@ -38,9 +38,9 @@ class DetailController extends Controller
         $detail = Detail::latest()->filter(request(['search']))->with('time')->paginate(10)->withQueryString();
 
         $genres = genre::all();
-      
-// dd($detail);
-        return view("details.detail", compact( "detail"));
+
+        $timeCount = Time::all()->count();
+        return view("details.detail", compact( "detail","timeCount"));
             }
 
 
@@ -90,7 +90,33 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
-          
+
+        ],[
+            "judul.required"=> "Judul Harus diIsi",
+            "judul.max"=> "Judul Maksimal 100 karakter",
+            "deskripsi.required"=> "Deskripsi Harus diIsi",
+            "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+            "pemeran.required"=> "Pemeran Harus diIsi",
+            "pemeran.max"=> "Pemeran Maksimal 300 karakter",
+            "pemeran.regex"=> "Pemeran Hanya Boleh Abjad",
+            "tanggalRilis.required"=> "Tanggal Rilis Harus diIsi",
+            "tanggalRilis.date_format"=> "Tanggal Rilis Y-m-d",
+            "penulis.required"=> "Penulis Harus diIsi",
+            "penulis.max"=> "Penulis Maksimal 200 Karakter",
+            "penulis.regex"=>"Penulis Hanya Boleh Abjad",
+            "sutradara.required"=> "Sutradara Harus diIsi",
+            "sutradara.max"=> "Sutradara Maksimal 100 Karakter",
+            "sutradara.regex"=>"Sutradara Hanya Boleh Abjad",
+            "perusahaanProduksi.required"=> "Perusahaan Harus diIsi",
+            "perusahaanProduksi.regex"=>"Perusahaan Produksi Hanya Boleh Abjad",
+            "perusahaanProduksi.max"=>"Perusahaan Produksi Maksimal 20",
+            "foto.required"=> "Foto Harus Diisi",
+            "foto.mimes"=>"Foto Harus Berupa jpeg,jpg,png,gif",
+            "foto.max"=>"Foto Maksimal 4Mb",
+            "harga.required"=> "Harga Harus Diisi",
+            "harga.numeric"=> "Harga Harus Berupa Angka",
+            "harga.min"=> "Harga Minimal 0",
+            "genre.required"=> "Genre Harus Diisi",
         ]);
 
         // Upload and save the image
@@ -127,11 +153,11 @@ class DetailController extends Controller
      */
     public function show(Detail $detail)
     {
-        $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
+        $detail = Detail::latest()->filter(request(['search']))->with('time')->paginate(10)->withQueryString();
         $genres = genre::all();
-        $time = Time::all();
+        $timeCount = Time::all()->count();
 
-        return view("details.film", compact("detail","time"));
+        return view("details.film", compact("detail","timeCount"));
     }
 
     /**
@@ -168,6 +194,31 @@ class DetailController extends Controller
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
 
 
+        ],[
+            "judul.required"=> "Judul Harus diIsi",
+            "judul.max"=> "Judul Maksimal 100 karakter",
+            "deskripsi.required"=> "Deskripsi Harus diIsi",
+            "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+            "pemeran.required"=> "Pemeran Harus diIsi",
+            "pemeran.max"=> "Pemeran Maksimal 300 karakter",
+            "pemeran.regex"=> "Pemeran Hanya Boleh Abjad",
+            "tanggalRilis.required"=> "Tanggal Rilis Harus diIsi",
+            "tanggalRilis.date_format"=> "Tanggal Rilis Y-m-d",
+            "penulis.required"=> "Penulis Harus diIsi",
+            "penulis.max"=> "Penulis Maksimal 200 Karakter",
+            "penulis.regex"=>"Penulis Hanya Boleh Abjad",
+            "sutradara.required"=> "Sutradara Harus diIsi",
+            "sutradara.max"=> "Sutradara Maksimal 100 Karakter",
+            "sutradara.regex"=>"Sutradara Hanya Boleh Abjad",
+            "perusahaanProduksi.required"=> "Perusahaan Harus diIsi",
+            "perusahaanProduksi.regex"=>"Perusahaan Produksi Hanya Boleh Abjad",
+            "perusahaanProduksi.max"=>"Perusahaan Produksi Maksimal 20",
+            "foto.mimes"=>"Foto Harus Berupa jpeg,jpg,png,gif",
+            "foto.max"=>"Foto Maksimal 4Mb",
+            "harga.required"=> "Harga Harus Diisi",
+            "harga.numeric"=> "Harga Harus Berupa Angka",
+            "harga.min"=> "Harga Minimal 0",
+            "genre.required"=> "Genre Harus Diisi",
         ]);
 
         // Handle file foto jika ada di request
