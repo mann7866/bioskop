@@ -116,9 +116,9 @@
             }
         }
     </style>
-        {{-- data yang ambil dari ordercontroller --}}
+    {{-- data yang ambil dari ordercontroller --}}
 
-        @php
+    @php
         function getBadgeClass($status)
         {
             switch ($status) {
@@ -193,27 +193,31 @@
                             <div class="card-body">
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
                                 <div>
-                                    <span class="{{ getBadgeClass($item->status) }}">{{ ucfirst($item->status) }}</span>
+                                    <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
+                                <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
-                                    <label for="" class="total-payment-label">Total Pembayaran</label>
-                                    <h6 class="text-danger total-payment-amount">Rp. {{ number_format($item->total_harga) }}</h6>
+                                    <h6 class="badge border border-primary text-primary">Rp.
+                                        {{ number_format($item->total_harga) }}</h6>
                                 </div>
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
-                                <div>
-                                    <label for="" class="total-payment-label">Total Bayar</label>
-                                    <h6 class="text-success total-payment-amount">Rp. {{ number_format($item->pembayaran) }}</h6>
-                                </div>
-                                <div>
-                                    <label for="" class="total-payment-label">Kembalian</label>
-                                    <h6 class="text-primary total-payment-amount">Rp. {{ number_format($item->kembalian) }}</h6>
-                                </div>
+                                    <div>
+                                        <label for="" class="total-payment-label">Total Bayar:</label>
+                                        <div>
+                                            <h6 class="badge border border-success text-success">Rp.
+                                                {{ number_format($item->pembayaran) }}</h6>
+                                        </div>
+                                    </div>
+                                    <label for="" class="total-payment-label">Kembalian:</label>
+                                    <div>
+                                        <h6 class="badge border border-warning text-warning">Rp.
+                                            {{ number_format($item->kembalian) }}</h6>
+                                    </div>
                                 @endif
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
-
-                                    <div class="button-container">
+                                    {{-- <div class="button-container d-flex justify-content-between"> --}}
                                         <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                             onclick="return confirm('yakin ingin Membatalkan Pesanan')">
                                             Delete
@@ -223,14 +227,16 @@
                                             @method('put')
                                             <button type="submit" class="btn btn-success">Bayar</button>
                                         </form>
-                                    </div>
+                                    {{-- </div> --}}
                                 @endif
+
                                 @if ($item->status == 'cancel')
-                                <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                    onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                    Delete
-                                </a>
-                            @endif
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Delete
+                                    </a>
+                                @endif
+
                                 @if ($item->status == 'paid')
                                     <form action="{{ route('cancel', $item->id) }}" method="POST">
                                         @csrf
@@ -241,6 +247,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <hr class="separator">
             @empty
