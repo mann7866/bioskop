@@ -22,8 +22,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('foto');
             $table->string('harga');
-            $table->foreignId('id_jamTayang')->references('id')->on('time')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('id_tanggalTayang');
+           
             $table->timestamps();
         });
     }

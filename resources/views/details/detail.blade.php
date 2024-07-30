@@ -4,7 +4,7 @@
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
             required>
-        <a class="btn btn-outline-success" href="{{ route('detail') }}">Refresh</a>
+        <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
 
@@ -336,7 +336,7 @@
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <p class="poss">{{ $item->judul }}</p>
-                                            <p> <strong>Tanggal Tayang:</strong></p>
+                                            <p> <strong>Tanggal Rilis:</strong></p>
                                             <p class="">{{ $item->tanggalRilis }}</p>
 
                                         </div>
@@ -380,7 +380,7 @@
                                         </ul>
                                     </div>
                                     <div class="mb-3">
-                                        <h6><strong>Tanggal Tayang:</strong></h6>
+                                        <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
                                     </div>
                                     <div class="mb-3">

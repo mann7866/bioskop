@@ -79,34 +79,6 @@
             @enderror
         </div>
 
-        <div class="col-md-6">
-            <label class="form-label">Jam Tayang</label>
-            <select class="mt-3 form-select @error('id_jamTayang') is-invalid @enderror"
-                    aria-label="Select Payment Method" name="id_jamTayang">
-                <option selected disabled>Jam Tayang</option>
-                @foreach ($time as $item)
-                    <option value="{{ $item->id }}" @if ($item->id == $detail->id_jamTayang) selected @endif>{{ $item->jamTayang }}</option>
-                @endforeach
-            </select>
-            @error('id_jamTayang')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="col-md-6">
-            <label class="form-label">Tanggal Tayang</label>
-            <select class="mt-3 form-select @error('id_tanggalTayang') is-invalid @enderror"
-                    aria-label="Select Payment Method" name="id_tanggalTayang">
-                <option selected disabled>tanggal Tayang</option>
-                @foreach ($time as $item)
-                    <option value="{{ $item->id }}" @if ($item->id == $detail->id_tanggalTayang) selected @endif >{{ $item->tanggalTayang }}</option>
-                @endforeach
-            </select>
-            @error('id_tanggalTayang')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-
         <div class="col-12">
             <label for="deskripsi" class="form-label">Deskripsi</label>
             <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ $detail->deskripsi }}</textarea>

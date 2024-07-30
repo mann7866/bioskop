@@ -4,7 +4,7 @@
     <form action="{{ route('home') }}" method="GET" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
             required>
-            <a class="btn btn-outline-success" href="{{ route('home') }}">Refresh</a>
+            <a class="btn btn-outline-primary" href="{{ route('home') }}">Refresh</a>
     </form>
 @endsection
 
@@ -323,7 +323,7 @@
                                     </div>
 
                                 @empty
-                                    <p class="text-center text-secondary">Tidak Ada Film Yang di Upload</p>
+                                    <p class="text-center text-secondary">Tidak Ada Film</p>
                                 @endforelse
                             </div>
                         </div>
@@ -341,7 +341,7 @@
                                 <div class="news-body">
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
-                                    <p class="news-time">Tanggal Tayang: {{ $item->tanggal }}</p>
+                                  
                                 </div>
                             </div>
                         @endforeach

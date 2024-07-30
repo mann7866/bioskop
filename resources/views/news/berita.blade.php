@@ -189,7 +189,7 @@
                     <div class="news-body">
                         <h5 class="news-title">{{ $item->judul }}</h5>
                         <p class="news-text">{{ $item->deskripsi }}</p>
-                        <p class="news-time">Tanggal Tayang: {{ $item->tanggal }}</p>
+                     
                     </div>
                     <div class="film-label-container">
                         <a href="{{ route('berita.edit', $item->id) }}">

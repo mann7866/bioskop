@@ -81,7 +81,7 @@ class DetailController extends Controller
         $validateData = $request->validate([
             "judul" => "required|max:100",
             "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
-            "tanggalRilis" => "required|date",
+            "tanggalRilis" => "required|date_format:Y-m-d",
             "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
             "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
@@ -89,8 +89,8 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
-            "id_jamTayang" => "required",
-            "id_tanggalTayang" => "required",
+            "id_jamTayang" => "nullable",
+            "id_tanggalTayang" => "nullable",
         ]);
 
         // Upload and save the image
@@ -111,9 +111,7 @@ class DetailController extends Controller
             'foto' => $imageName, // Assign the uploaded image name
             'deskripsi' => $validateData['deskripsi'],
             'harga' => $validateData['harga'],
-            'id_jamTayang' => $validateData['id_jamTayang'],
-            'id_tanggalTayang' => $validateData['id_tanggalTayang'],
-
+          
         ]);
 
         // Sync genres with the detail using 'sync'
@@ -129,7 +127,7 @@ class DetailController extends Controller
      */
     public function show(Detail $detail)
     {
-        $detail = Detail::with('genres')->get();
+        $detail = Detail::latest()->filter(request(['search']))->paginate(10)->withQueryString();
         $genres = genre::all();
         $time = Time::all();
 
@@ -160,7 +158,7 @@ class DetailController extends Controller
         $validatedData = $request->validate([
             "judul" => "required|max:100",
             "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
-            "tanggalRilis" => "required|date",
+            "tanggalRilis" => "required|date_format:Y-m-d",
             "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
             "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
             "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
@@ -168,8 +166,8 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
-            "id_jamTayang" => "required",
-            "id_tanggalTayang" => "required",
+            "id_jamTayang" => "nullable",
+            "id_tanggalTayang" => "nullable",
         ]);
 
         // Handle file foto jika ada di request
@@ -199,8 +197,7 @@ class DetailController extends Controller
             'perusahaanProduksi' => $validatedData['perusahaanProduksi'],
             'deskripsi' => $validatedData['deskripsi'],
             'harga' => $validatedData['harga'],
-            'id_jamTayang' => $validatedData['id_jamTayang'],
-            'id_tanggalTayang' => $validatedData['id_tanggalTayang'],
+
         ]);
 
         // Sinkronisasi genres jika ada yang dipilih

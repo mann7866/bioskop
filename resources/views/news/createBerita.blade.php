@@ -55,13 +55,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
-                                    <label for="tanggal" class="form-label">Tanggal Rilis</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggalRilis" name="tanggal" required>
-                                    @error('tanggal')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                              
                             </div>
                         </div>
                     </div>

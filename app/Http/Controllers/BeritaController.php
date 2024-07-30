@@ -35,7 +35,7 @@ class BeritaController extends Controller
         $validateData = $request->validate([
             "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "judul" => "required",
-            "tanggal" => "required",
+
             "deskripsi" => "required",
         ]);
 
@@ -99,13 +99,13 @@ class BeritaController extends Controller
             $request->validate([
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "judul" => "required",
-                "tanggal" => "required",
+
                 "deskripsi" => "required",
             ]);
         } else {
             // Jika judul tidak berubah, hanya validasi tanggal dan deskripsi
             $request->validate([
-                "tanggal" => "required",
+
                 "deskripsi" => "required",
 
             ]);
@@ -114,7 +114,7 @@ class BeritaController extends Controller
         // Update data berita setelah validasi berhasil
         $berita->update([
             'judul' => $request->input('judul'),
-            'tanggal' => $request->input('tanggal'),
+            
             'deskripsi' => $request->input('deskripsi'),
             // foto_deskripsi sudah diupdate jika ada file baru
         ]);

@@ -30,8 +30,9 @@ class timeController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            "jamTayang"=> "required",
-            "tanggalTayang"=> "required|unique:time,tanggalTayang",
+            "id_judul"=>"required",
+            "jamTayang"=> "required|unique:time,jamlTayang",
+            "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
         ]) ;
 
         Time::create($validateData);
@@ -68,8 +69,9 @@ class timeController extends Controller
 
         if ($validateData['tanggalTayang'] !== $time->tanggalTayang) {
         $validateData = $request->validate([
-            "jamTayang"=> "required",
-            "tanggalTayang"=> "required|unique:time,tanggalTayang",
+            "id_judul"=>"required",
+            "jamTayang"=> "required|unique:time,jamlTayang",
+            "tanggalTayang"=> "required",
             ]) ;
         $time->update($validateData);
             return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");

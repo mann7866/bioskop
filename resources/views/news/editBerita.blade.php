@@ -39,19 +39,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-
-                                <div class="col-md-6">
-                                    <label for="tanggal" class="form-label">Tanggal Rilis</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                        id="tanggalRilis" name="tanggal" value="{{ $berita->tanggal }}">
-                                    @error('tanggal')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-
-                            </div>
                         </div>
                     </div>
 

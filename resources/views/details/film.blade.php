@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+@section('search')
+    <form action="{{ route('detail') }}" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
+        <a class="btn btn-outline-primary" href="{{ route('film') }}">Refresh</a>
+    </form>
+@endsection
     <style>
         * {
             scroll-behavior: smooth;

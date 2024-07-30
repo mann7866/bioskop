@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('time', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_judul')->references('id')->on('detail')->onDelete('restrict')->onUpdate('cascade');
             $table->time('jamTayang');
             $table->date('tanggalTayang');
             $table->timestamps();
