@@ -184,6 +184,130 @@
         position: absolute;
         left: 40%;
     }
+    /* Mengatur .film-container untuk menampilkan kursi dalam baris horizontal */
+.film-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+    gap: 10px; /* Menambahkan jarak antara kursi */
+}
+
+/* Gaya untuk setiap kursi */
+.film-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 60px; /* Ukuran kursi */
+    height: 60px; /* Ukuran kursi */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #007bff; /* Warna latar belakang kursi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* Gaya saat hover pada kursi */
+.film-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Mengatur gambar jika ada */
+.film-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Mengatur deskripsi film */
+.film-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+    color: #fff;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+}
+
+.film-card:hover .film-description {
+    opacity: 1;
+}
+
+/* Menyusun label */
+.film-label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.film-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+}
+/* Gaya untuk kursi dalam modal */
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Gaya untuk setiap baris kursi */
+.kursi-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Gaya untuk kursi individual */
+.kursi-item {
+    width: 60px; /* Ukuran kursi */
+    height: 60px; /* Ukuran kursi */
+    display: ;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff; /* Warna latar belakang kursi */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 5px; /* Jarak antar kursi */
+    text-align: center;
+    line-height: 60px; /* Menyelaraskan teks secara vertikal */
+}
+
+/* Gaya saat hover pada kursi */
+.kursi-item:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+.btn-edit {
+    background-color: #ffc107; /* Warna kuning untuk tombol edit */
+    color: black;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}
+
 </style>
 @extends('layouts.app')
 
@@ -229,17 +353,20 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    @foreach ($kursis as $item)
-                                        <div class="mb-3">
-                                            <h6 class="oke" style="background-color: #007bff; color: #fff; padding: 10px; border-radius: 5px;">
-                                                <strong>{{ $item->kursi }}</strong>
-                                            </h6>
+                                    @foreach ($kursis->chunk(10) as $chunk) <!-- Mengatur kursi dalam chunk, misalnya 10 kursi per baris -->
+                                        <div class="kursi-row">
+                                            @foreach ($chunk as $item)
+                                                <div class="kursi-item">
+                                                    <strong>{{ $item->kursi }}</strong>
+                                                    <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-sm btn-edit"><i class="bi bi-pen"></i></a>
+                                                    <a href="{{ route('kursi.delete', $item->id) }}" class="btn btn-sm btn-delete"><i class="bi bi-backspace-reverse"></i></a>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     @endforeach
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{ route('kursi.edit', $kursis->first()->id) }}" class="btn btn-primary">Edit</a>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $studioId }}">Delete</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $studioId }}">Kembali</button>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +381,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                   Apa Kamu Yakin Mau Menghapus Kursi?
+                                    Apa Kamu Yakin Mau Menghapus Kursi?
                                 </div>
                                 <div class="modal-footer">
                                     <form action="{{ route('kursi.delete', $studioId) }}" method="POST">

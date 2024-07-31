@@ -2,8 +2,7 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
@@ -64,6 +63,31 @@
         }
     </style>
 
+
+@if (session('eror'))
+<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('eror') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@if (session('success'))
+<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+</div>
+@endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -71,15 +95,46 @@
 
                 <a href="{{ route('studio.create') }}" class="btn btn-primary mb-4">Tambah Studio</a>
 
-                                @forelse ($studio as $item)
+                @forelse ($studio as $item)
+                    <div class="film-card" data-bs-toggle="modal" data-bs-target="#studioModal{{ $item->id }}">
+                        <p>{{ $item->studio }}</p>
+                    </div>
 
-               <div>
-                <p>{{ $item->studio }}</p>
-               </div>
+                    <!-- Studio Modal -->
+                    <div class="modal fade" id="studioModal{{ $item->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $item->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="studioModalLabel{{ $item->id }}">Detail Studio</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form Update Studio -->
+                                    <form action="{{ route('studio.update', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="mb-3">
+                                            <label for="studioName" class="form-label">Nama Studio</label>
+                                            <input type="text" class="form-control" id="studioName" name="studio" value="{{ $item->studio }}" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Edit Studio</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="{{ route('studio.delete', $item->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 @empty
-                <p>tidak ada studio</p>
+                    <p>tidak ada studio</p>
                 @endforelse
-
             </div>
         </div>
     </div>

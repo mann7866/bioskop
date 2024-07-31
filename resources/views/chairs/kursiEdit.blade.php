@@ -14,7 +14,7 @@
                             aria-label="Select Payment Method" name="id_studio">
                         <option selected disabled>Pilih Studio</option>
                         @foreach ($studio as $item)
-                            <option value="{{ $item->id }}">{{ $item->studio }}</option>
+                            <option value="{{ $item->id }} "@if ($item->id == $kursi->id_studio) selected @endif>{{ $item->studio }}</option>
                         @endforeach
                     </select>
                     @error('id_studio')

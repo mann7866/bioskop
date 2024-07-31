@@ -30,7 +30,10 @@ class StudioController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            "studio" => "required",
+            "studio" => "required|unique:studio,studio",
+        ],[
+            "studio.required"=> "Studio Harus Diisi",
+            "studio.unique"=> "Studio Sudaj Ada",
         ]);
 
         Studio::create($validateData);
@@ -65,7 +68,10 @@ class StudioController extends Controller
         if ($validateData['studio'] !== $studio->studio) {
 
             $validateData = $request->validate([
-                "studio" => "required",
+                "studio" => "required|unique:studio,studio",
+            ],[
+                "studio.required"=> "Studio Harus Diisi",
+                "studio.unique"=> "Studio Sudaj Ada",
             ]);
 
             $studio->update($validateData);
@@ -81,6 +87,10 @@ class StudioController extends Controller
     public function destroy(string $id)
     {
         $studio = Studio::find($id);
+        $studioCount =$studio->kursi->count();
+        if ($studioCount > 0) {
+            return redirect()->route("studio")->with("eror", "Gagal Menghapus Studio Karena Masih Berkaitan Dengan Kursi");
+        }
         $studio->delete();
         return redirect()->route("studio")->with("success", "Berhasil Menghapus Studio");
     }
