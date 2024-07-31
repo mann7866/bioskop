@@ -44,7 +44,7 @@
                                 <div class="kursi-row">
                                     @foreach ($chunk as $item)
                                         <div class="kursi-item">
-                                            <strong>{{ $item->kursis }}</strong>
+                                            <strong>{{ $item->kursi }}</strong>
                                             <div class="button-group">
                                                 <button class="btn btn-sm btn-edit">
                                                     <a href="{{ route('kursi.edit', $item->id) }}"><i

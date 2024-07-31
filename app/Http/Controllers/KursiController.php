@@ -15,10 +15,19 @@ class KursiController extends Controller
     {
         $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
         $studio = Studio::all();
-        // $studios = Kursi::select('studio')->distinct()->get();
-
-        return view("chairs.kursi", compact("kursi","studio"));
+    
+        // dd($kursi, $studio); // Cek data yang dikirim ke view
+    
+        return view("chairs.kursi", compact("kursi", "studio"));
     }
+    
+
+    // public function getKursiByStudio($id)
+    // {
+    //     $kursi = Kursi::where('id_studio', $id)->pluck('kursi');
+    //     return response()->json(['kursi' => $kursi]);
+    // }
+
 
     // app/Http/Controllers/KursiController.php
 
