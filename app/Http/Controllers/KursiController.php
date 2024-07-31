@@ -92,7 +92,6 @@ class KursiController extends Controller
     public function destroy(string $id)
     {
        $kursi = Kursi::find($id);
-
        $kursi->delete();
        return redirect()->route("kursi.index")->with("success","Berhasil Delete");
 

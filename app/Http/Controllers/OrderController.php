@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kursi;
 use App\Models\Order;
 use App\Models\Detail;
+use App\Models\Studio;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -30,15 +31,14 @@ class OrderController extends Controller
 
     public function order($id)
     {
-        // Mengambil detail berdasarkan ID
         $detail = Detail::find($id);
+        $kursi = Kursi::pluck('kursi');
+        $studio = Studio::pluck('studio');
 
-        // Mengambil semua nilai dari kolom 'kursi' dari tabel 'Kursi'
-        $kursi = Kursi::pluck('kursi'); // Ambil semua nilai dari kolom 'kursi' dalam bentuk koleksi
-
-        // Kirim data ke view
-        return view('orders.createOrder', compact('detail', 'kursi'));
+        // dd($studio);
+            return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
     }
+    
 
 
 

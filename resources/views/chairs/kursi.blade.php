@@ -1,325 +1,16 @@
-<style>
-    * {
-        scroll-behavior: smooth;
-    }
-
-    .film-card {
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-        margin: 10px;
-        /* flex: 0 0 calc(16.66% - 20px); */
-        box-sizing: border-box;
-        border-radius: 10px;
-        width: 100px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        background-color: #0056b3;
-    }
-
-    .film-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .film-card img {
-        width: 50px;
-        /* height: 300px; */
-        object-fit: cover;
-        transition: transform 0.3s ease-out;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .film-card:hover img {
-        transform: scale(1.05);
-    }
-
-    .film-description {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-        color: #fff;
-        padding: 20px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        text-align: center;
-        border-radius: 0 0 10px 10px;
-    }
-
-    .film-card:hover .film-description {
-        opacity: 1;
-    }
-
-    .film-label-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-    }
-
-    .film-label {
-        margin: 0;
-        font-size: 1.1rem;
-        font-weight: bold;
-    }
-
-    .btn-pesan {
-        background-color: #ff6b6b;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        opacity: 0.9;
-        margin-top: 10px;
-    }
-
-    .btn-pesan:hover {
-        background-color: #ff4757;
-        transform: scale(1.05);
-    }
-
-    .film-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        padding: 10px;
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-        display: none;
-    }
-
-    .modal-footer {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .btn-create,
-    .btn-edit,
-    .btn-delete {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 10px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-create:hover,
-    .btn-edit:hover,
-    .btn-delete:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-
-    .btn-create {
-        margin-bottom: 20px;
-    }
-
-    .btn-edit {
-        background-color: #28a745;
-    }
-
-    .btn-edit:hover {
-        background-color: #218838;
-    }
-
-    .btn-delete {
-        background-color: #dc3545;
-    }
-
-    .btn-delete:hover {
-        background-color: #c82333;
-    }
-
-    /* Animasi Modal */
-    .modal.fade .modal-dialog {
-        transform: translate(0, -100%);
-        transition: transform 0.3s ease-out;
-    }
-
-    .modal.fade.show .modal-dialog {
-        transform: translate(0, 0);
-    }
-
-    .modal-content {
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-header,
-    .modal-footer {
-        border: none;
-    }
-
-    .modal-footer {
-        padding: 10px;
-        justify-content: space-between;
-    }
-
-    .modal-footer .btn {
-        border-radius: 20px;
-        transition: all 0.3s ease;
-    }
-
-    .modal-footer .btn:hover {
-        transform: scale(1.05);
-    }
-    .oke{
-        width: 39px;
-    }
-    .text-center1{
-        text-align: center;
-        justify-content: space-between;
-        position: absolute;
-        left: 40%;
-    }
-    /* Mengatur .film-container untuk menampilkan kursi dalam baris horizontal */
-.film-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 10px;
-    gap: 10px; /* Menambahkan jarak antara kursi */
-}
-
-/* Gaya untuk setiap kursi */
-.film-card {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 60px; /* Ukuran kursi */
-    height: 60px; /* Ukuran kursi */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: #007bff; /* Warna latar belakang kursi */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-}
-
-/* Gaya saat hover pada kursi */
-.film-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Mengatur gambar jika ada */
-.film-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-/* Mengatur deskripsi film */
-.film-description {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-    color: #fff;
-    padding: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    text-align: center;
-    border-radius: 0 0 5px 5px;
-}
-
-.film-card:hover .film-description {
-    opacity: 1;
-}
-
-/* Menyusun label */
-.film-label-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.film-label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-}
-/* Gaya untuk kursi dalam modal */
-.modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
-
-/* Gaya untuk setiap baris kursi */
-.kursi-row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-/* Gaya untuk kursi individual */
-.kursi-item {
-    width: 60px; /* Ukuran kursi */
-    height: 60px; /* Ukuran kursi */
-    display: ;
-    align-items: center;
-    justify-content: center;
-    background-color: #007bff; /* Warna latar belakang kursi */
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 0 5px; /* Jarak antar kursi */
-    text-align: center;
-    line-height: 60px; /* Menyelaraskan teks secara vertikal */
-}
-
-/* Gaya saat hover pada kursi */
-.kursi-item:hover {
-    background-color: #0056b3;
-    cursor: pointer;
-}
-.btn-edit {
-    background-color: #ffc107; /* Warna kuning untuk tombol edit */
-    color: black;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.btn-edit:hover {
-    background-color: #e0a800;
-    transform: scale(1.05);
-}
-
-</style>
 @extends('layouts.app')
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
 
-@section('content')
+<link rel="stylesheet" href="{{ asset('css/kursi.css') }}">
 
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -327,89 +18,57 @@
 
                 <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create">Tambah Kursi</a>
 
-                <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        @foreach ($kursi as $studioId => $kursis)
-                            <div class="carousel-item @if ($loop->first) active @endif">
-                                <div class="film-container">
-                                    <div class="film-card text-center" data-bs-toggle="modal" data-bs-target="#filmModal{{ $studioId }}">
-                                        <div class="film-label-container">
-                                            <label class="film-label">{{ $kursis->first()->studio->studio }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                <div class="film-container">
+                    @foreach ($kursi as $studioId => $kursis)
+                        <div class="film-card text-center" data-bs-toggle="modal"
+                            data-bs-target="#filmModal{{ $studioId }}">
+                            <label class="film-label">{{ $kursis->first()->studio->studio }}</label>
+                        </div>
+                    @endforeach
                 </div>
+            </div>
+        </div>
 
-                @foreach ($kursi as $studioId => $kursis)
-                    <!-- Film Modal -->
-                    <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-center1" id="filmModalLabel{{ $studioId }}">Detail Film</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    @foreach ($kursis->chunk(10) as $chunk) <!-- Mengatur kursi dalam chunk, misalnya 10 kursi per baris -->
-                                        <div class="kursi-row">
-                                            @foreach ($chunk as $item)
-                                                <div class="kursi-item">
-                                                    <strong>{{ $item->kursi }}</strong>
-                                                    <a href="{{ route('kursi.edit', $item->id) }}" class="btn btn-sm btn-edit"><i class="bi bi-pen"></i></a>
-                                                    <a href="{{ route('kursi.delete', $item->id) }}" class="btn btn-sm btn-delete"><i class="bi bi-backspace-reverse"></i></a>
-                                                </div>
-                                            @endforeach
+        @foreach ($kursi as $studioId => $kursis)
+            <!-- Film Modal -->
+            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
+                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Detail Film</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @foreach ($kursis->chunk(10) as $chunk)
+                                <div class="kursi-row">
+                                    @foreach ($chunk as $item)
+                                        <div class="kursi-item">
+                                            <strong>{{ $item->kursis }}</strong>
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-edit">
+                                                    <a href="{{ route('kursi.edit', $item->id) }}"><i
+                                                            class="bi bi-pen"></i></a>
+                                                </button>
+                                                <button class="btn btn-sm btn-delete">
+                                                    <a href="{{ route('kursi.delete', $item->id) }}"><i
+                                                            class="bi bi-backspace-reverse"></i></a>
+                                                </button>
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $studioId }}">Kembali</button>
-                                </div>
-                            </div>
+                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{ $studioId }}">Hapus Studio</button>
                         </div>
                     </div>
-
-                    <!-- Delete Confirmation Modal -->
-                    <div class="modal fade" id="deleteModal{{ $studioId }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $studioId }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $studioId }}">Confirm Delete</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Apa Kamu Yakin Mau Menghapus Kursi?
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('kursi.delete', $studioId) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete All</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        var myCarousel = document.querySelector('#filmCarousel');
-                        var carousel = new bootstrap.Carousel(myCarousel, {
-                            interval: 2000,
-                            wrap: true
-                        });
-                    });
-
-                    function link(url) {
-                        window.location.href = url;
-                    }
-                </script>
+                </div>
             </div>
-        </div>
+        @endforeach
+
     </div>
 @endsection

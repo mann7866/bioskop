@@ -18,12 +18,12 @@
             border-radius: 10px;
             width: 150px;
             height: 150px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #007bff;
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #007bff;
+            color: white;
             font-size: 1.2rem;
         }
 
@@ -35,7 +35,7 @@
         .film-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 10px;
         }
 
@@ -95,46 +95,48 @@
 
                 <a href="{{ route('studio.create') }}" class="btn btn-primary mb-4">Tambah Studio</a>
 
-                @forelse ($studio as $item)
-                    <div class="film-card" data-bs-toggle="modal" data-bs-target="#studioModal{{ $item->id }}">
-                        <p>{{ $item->studio }}</p>
-                    </div>
+                <div class="film-container">
+                    @forelse ($studio as $item)
+                        <div class="film-card" data-bs-toggle="modal" data-bs-target="#studioModal{{ $item->id }}">
+                            <p>{{ $item->studio }}</p>
+                        </div>
 
-                    <!-- Studio Modal -->
-                    <div class="modal fade" id="studioModal{{ $item->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $item->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="studioModalLabel{{ $item->id }}">Detail Studio</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Form Update Studio -->
-                                    <form action="{{ route('studio.update', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="mb-3">
-                                            <label for="studioName" class="form-label">Nama Studio</label>
-                                            <input type="text" class="form-control" id="studioName" name="studio" value="{{ $item->studio }}" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Edit Studio</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('studio.delete', $item->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- Studio Modal -->
+                        <div class="modal fade" id="studioModal{{ $item->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $item->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="studioModalLabel{{ $item->id }}">Detail Studio</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form Update Studio -->
+                                        <form action="{{ route('studio.update', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="mb-3">
+                                                <label for="studioName" class="form-label">Nama Studio</label>
+                                                <input type="text" class="form-control" id="studioName" name="studio" value="{{ $item->studio }}" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Edit Studio</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{ route('studio.delete', $item->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                @empty
-                    <p>tidak ada studio</p>
-                @endforelse
+                    @empty
+                        <p>Tidak ada studio</p>
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
