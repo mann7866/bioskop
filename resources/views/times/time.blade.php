@@ -12,17 +12,6 @@
             </div>
         </div>
     @endif
-    {{-- @if (session('delete'))
-        <div class="toast-container position-fixed top-3 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('delete') }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif --}}
 
     <style>
         .pos {
@@ -42,22 +31,6 @@
             cursor: pointer;
             border-radius: 5px;
             transition: all 0.3s ease;
-        }
-
-        .warning:hover {
-            /* background-color: #ffcccc;
-            border-color: #ff6666; */
-        }
-
-        .warning::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background-color: royalblue;
-            transition: all 0.3s;
         }
 
         .warning:hover::after {
@@ -131,11 +104,34 @@
                                         <a href="{{ route('time.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
-                                        <a href="{{ route('time.delete', $item->id) }}" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus?')">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                             <ion-icon name="trash-outline"></ion-icon>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Apa Kamu Mau Hapus Waktu Film ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <form action="{{ route('time.delete', $item->id) }}" method="GET">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon> Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Delete Modal -->
                             @endforeach
                         </tbody>
                     </table>

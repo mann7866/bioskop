@@ -15,8 +15,8 @@
     @endif
     @if (session('delete'))
         <div class="toast-container position-fixed top-3 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
-                aria-atomic="true">
+            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert"
+                aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('delete') }}
@@ -26,7 +26,8 @@
         </div>
     @endif
     <style>
-        .toast-container {
+
+.toast-container {
             max-width: 300px;
         }
 
@@ -60,7 +61,6 @@
                 transform: translateY(-10px);
             }
         }
-
         .news-container {
             margin-top: 20px;
         }
@@ -187,9 +187,8 @@
                     <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid"
                         alt="{{ $item->judul }}">
                     <div class="news-body">
-                        <h5 class="news-title">{{ $item->judul }}</h5>
-                        <p class="news-text">{{ $item->deskripsi }}</p>
-                     
+                        <h5 class="news-title">Judul:{{ $item->judul }}</h5>
+                        <p class="news-text">Deskripsi:{{ $item->deskripsi }}</p>
                     </div>
                     <div class="film-label-container">
                         <a href="{{ route('berita.edit', $item->id) }}">
@@ -197,38 +196,50 @@
                                 <ion-icon name="create-outline"></ion-icon>
                             </button>
                         </a>
-                        <form action="{{ route('berita.delete', $item->id) }}" method="GET"
-                            onsubmit="return confirm('Yakin ingin menghapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-delete">
-                                <ion-icon name="trash-outline"></ion-icon>
-                            </button>
-                        </form>
+                        <button type="button" class="btn-delete" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ $item->id }}">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Delete Confirmation Modal -->
+                <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
+                    aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah Anda yakin ingin menghapus berita ini?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <form action="{{ route('berita.delete', $item->id) }}" method="GET">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                // Ambil semua elemen toast di halaman
-                var toastElList = document.querySelectorAll('.toast');
-                // Iterasi melalui setiap elemen toast dan tampilkan
-                toastElList.forEach(function(toastEl) {
-                    var toast = new bootstrap.Toast(toastEl, {
-                        autohide: true,
-                        delay: 2000
-                    });
-                    toast.show();
-
-                    // Add fade-out class after showing
-                    setTimeout(function() {
-                        toastEl.classList.add('fade-out');
-                    }, 2000); // Wait until the toast has fully shown before starting fade-out
+            var modalList = document.querySelectorAll('.modal');
+            modalList.forEach(function(modal) {
+                modal.addEventListener('hidden.bs.modal', function(event) {
+                    var form = modal.querySelector('form');
+                    form.reset();
                 });
-            }, 2000); // Tunggu 2 detik sebelum menampilkan toast
+            });
         });
     </script>
 @endsection
