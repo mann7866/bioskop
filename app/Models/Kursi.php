@@ -9,7 +9,11 @@ class Kursi extends Model
 {
     use HasFactory;
     protected $table = 'kursi';
-    protected $fillable = ['studio', 'kursi'];
+    protected $fillable = ['id_studio', 'kursi'];
 
-  
+    public function studio()
+    {
+        return $this->belongsTo(Studio::class,'id_studio','id');
+    }
+
 }

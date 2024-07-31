@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kursi;
+use App\Models\Studio;
 use Illuminate\Http\Request;
 
 class KursiController extends Controller
@@ -12,16 +13,25 @@ class KursiController extends Controller
      */
     public function index()
     {
-        $kursi = Kursi::all();
-        return view("chairs.kursi", compact("kursi"));
+        $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
+        $studio = Studio::all();
+        // $studios = Kursi::select('studio')->distinct()->get();
+
+        return view("chairs.kursi", compact("kursi","studio"));
     }
+
+    // app/Http/Controllers/KursiController.php
+
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view("chairs.kursiCreate");
+        $studio = Studio::all();
+        return view("chairs.kursiCreate", compact("studio"));
     }
 
     /**
@@ -29,40 +39,22 @@ class KursiController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            "kursi" => "required|integer|min:1|max:26", // Assuming A-Z seats
-            "studio" => "required",
-        ], [
-            "kursi.required" => "Kursi Harus Diisi",
-            "studio.required" => "Studio Harus Diisi",
+        $vakidateData = $request->validate([
+            "kursi"=> "required",
+            "id_studio"=> "required",
+
         ]);
 
-        // Check if the studio already has seats and delete them
-        $existingSeats = Kursi::where('studio', $validatedData['studio'])->get();
-        if ($existingSeats->isNotEmpty()) {
-            foreach ($existingSeats as $seat) {
-                $seat->delete();
-            }
-        }
+        Kursi::create($vakidateData);
+        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
+    }
 
-        $kursiBaru = [];
-        $alphabet = range('A', 'Z');
-        for ($i = 0; $i < $validatedData['kursi']; $i++) {
-            $kursiBaru[] = [
-                'studio' => $validatedData['studio'],
-                'kursi' => $alphabet[$i],
-            ];
-        }
-
-        // Save each seat to the database
-        foreach ($kursiBaru as $data) {
-            Kursi::create($data);
-        }
-
-        return redirect()->route("kursi.index")->with([
-            "success" => "Berhasil Tambah Data",
-            'kursiBaru' => $kursiBaru
-        ]);
+    /**
+     * Display the specified resource.
+     */
+    public function show(kursi $kursi)
+    {
+        //
     }
 
     /**
@@ -70,48 +62,28 @@ class KursiController extends Controller
      */
     public function edit(string $id)
     {
+
         $kursi = Kursi::find($id);
-        $studio = $kursi->studio;
-        $kursiStudio = Kursi::where('studio', $studio)->get();
-    
-        return view("chairs.kursiEdit", compact("kursi", "kursiStudio", "studio"));
+        $studio = Studio::all();
+        return view("chairs.kursiEdit", compact("kursi","studio"));
     }
-    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        $kursi = Kursi::find($id);
-        $studio = $kursi->studio;
 
-        $validateData = $request->validate([
-            "kursi" => "required|integer|min:1|max:26", // Assuming A-Z seats
-            "studio" => "required|unique:kursi,studio," . $studio . ",studio",
-        ], [
-            "kursi.required" => "Kursi Harus Diisi",
-            "studio.required" => "Studio Harus Diisi",
-            "studio.unique" => "Studio Sudah Ada",
+        $kursi = Kursi::find($id);
+
+        $vakidateData = $request->validate([
+            "kursi"=> "required",
+            "id_studio"=> "required",
         ]);
 
-        // Update kursi
-        Kursi::where('studio', $studio)->delete();
+        $kursi->update($vakidateData);
+        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
 
-        $kursiBaru = [];
-        $alphabet = range('A', 'Z');
-        for ($i = 0; $i < $validateData['kursi']; $i++) {
-            $kursiBaru[] = [
-                'studio' => $validateData['studio'],
-                'kursi' => $alphabet[$i],
-            ];
-        }
-
-        foreach ($kursiBaru as $data) {
-            Kursi::create($data);
-        }
-        
-        return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
     }
 
     /**
@@ -119,10 +91,10 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-        $kursi = Kursi::findOrFail($id);
-        $studio = $kursi->studio;
-        Kursi::where('studio', $studio)->delete();
-        
-        return redirect()->route("kursi.index")->with("success", "Berhasil Delete");
+       $kursi = Kursi::find($id);
+
+       $kursi->delete();
+       return redirect()->route("kursi.index")->with("success","Berhasil Delete");
+
     }
 }

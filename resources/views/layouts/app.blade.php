@@ -179,6 +179,11 @@
                     </a>
                 </li>
                 <li>
+                    <a class="dropdown-item" href="{{ route('studio') }}">
+                        <ion-icon name="ticket-outline"></ion-icon>Tambah Studio
+                    </a>
+                </li>
+                <li>
                     <a class="dropdown-item" href="{{ route('kursi.index') }}">
                         <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
                     </a>

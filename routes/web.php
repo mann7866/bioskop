@@ -53,6 +53,14 @@ Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edi
 Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'update'])->name('kursi.update');
 Route::delete('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
 
+Route::get('/studio', [App\Http\Controllers\StudioController::class,'index'])->name('studio');
+Route::get('/studio/create', [App\Http\Controllers\StudioController::class,'create'])->name('studio.create');
+Route::post('/studio/store', [App\Http\Controllers\StudioController::class,'store'])->name('studio.store');
+Route::get('/studio/{id}/edit', [App\Http\Controllers\StudioController::class,'edit'])->name('studio.edit');
+Route::put('/studio/{id}/update', [App\Http\Controllers\StudioController::class,'update'])->name('studio.update');
+Route::delete('/studio/{id}/delete', [App\Http\Controllers\StudioController::class,'destroy'])->name('studio.delete');
+
+
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order.create');

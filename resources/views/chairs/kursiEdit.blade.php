@@ -8,18 +8,23 @@
                 @csrf
                 @method('put')
 
-                <div class="mb-3">
-                    <label class="form-label">Studio:</label>
-                    <input type="text" class="form-control @error('studio') is-invalid @enderror" id="studio"
-                        name="studio" value="{{ $kursi->studio }}">
-                    @error('studio')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                <div class="col-md-6">
+                    <label class="form-label">Studio</label>
+                    <select class="mt-3 form-select @error('id_studio') is-invalid @enderror"
+                            aria-label="Select Payment Method" name="id_studio">
+                        <option selected disabled>Pilih Studio</option>
+                        @foreach ($studio as $item)
+                            <option value="{{ $item->id }}">{{ $item->studio }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_studio')
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Jumlah Kursi</label>
                     <input type="number" class="form-control @error('kursi') is-invalid @enderror" id="kursi"
-                        name="kursi" value="{{ count($kursiStudio) }}">
+                        name="kursi" value="{{ ($kursi->kursi) }}">
                     @error('kursi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
