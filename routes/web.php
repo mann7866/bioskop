@@ -27,7 +27,7 @@ Route::get('/genre/create', [App\Http\Controllers\genreController::class,'create
 Route::post('/genre/store', [App\Http\Controllers\genreController::class,'store'])->name('genre.store');
 Route::get('/genre/{id}/edit', [App\Http\Controllers\genreController::class,'edit'])->name('genre.edit');
 Route::put('/genre/{id}/update', [App\Http\Controllers\genreController::class,'update'])->name('genre.update');
-Route::get('/genre/{id}/delete', [App\Http\Controllers\genreController::class,'destroy'])->name('genre.delete');
+Route::delete('/genre/{id}/delete', [App\Http\Controllers\genreController::class,'destroy'])->name('genre.delete');
 
 // Route Time
 Route::get('/time', [App\Http\Controllers\timeController::class,'index'])->name('time');
@@ -69,7 +69,7 @@ Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'crea
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
-Route::Get('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+Route::delete('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
 
 Route::get('/kursi', [KursiController::class, 'index'])->name('kursi.index');
 Route::get('/kursi/studio', [KursiController::class, 'getKursiByStudio']);

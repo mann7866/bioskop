@@ -16,8 +16,8 @@
             cursor: pointer;
             margin: 10px;
             border-radius: 10px;
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             background-color: #007bff;
             color: white;
@@ -35,8 +35,8 @@
         .film-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
+            /* justify-content: center; */
+            padding: 5px;
         }
 
         .modal-footer {
@@ -69,7 +69,6 @@
                 <h1 class="text-center text-secondary">Kursi Film</h1>
 
                 <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4">Tambah Kursi</a>
-
                 <div class="film-container">
                     @php
                         $studios = $kursi->groupBy('studio');
@@ -121,7 +120,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure you want to delete this item?
+                                   Apa Kamu Yakin Mau Menghapus Kursi?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
