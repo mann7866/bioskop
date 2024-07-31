@@ -9,7 +9,7 @@
                 @method('put')
 
                 <div class="mb-3">
-                    <label class="form-label">studio:</label>
+                    <label class="form-label">Studio:</label>
                     <input type="text" class="form-control @error('studio') is-invalid @enderror" id="studio"
                         name="studio" value="{{ $kursi->studio }}">
                     @error('studio')
@@ -17,20 +17,20 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">kursi</label>
-                    <input type="text" class="form-control @error('kursi') is-invalid @enderror" id="kursi"
-                        name="kursi" value="{{ $kursi->kursi }}">
+                    <label class="form-label">Jumlah Kursi</label>
+                    <input type="number" class="form-control @error('kursi') is-invalid @enderror" id="kursi"
+                        name="kursi" value="{{ count($kursiStudio) }}">
                     @error('kursi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-                <button class="btn btn-outline-primary mt-3 col-md-2  hover" type="submit" name="submit">
+                <button class="btn btn-outline-primary mt-3 col-md-2 hover" type="submit" name="submit">
                     <ion-icon name="add-circle-outline"></ion-icon>
                 </button>
-                <a href="{{ route('kursi.index') }}" class="btn btn-outline-danger mt-3 col-md-2 hover"><ion-icon
-                        name="arrow-back-outline"></ion-icon></a>
+                <a href="{{ route('kursi.index') }}" class="btn btn-outline-danger mt-3 col-md-2 hover">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </a>
             </form>
         </div>
     </div>
-
 @endsection

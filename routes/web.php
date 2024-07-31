@@ -51,7 +51,7 @@ Route::get('/kursi/create', [App\Http\Controllers\KursiController::class,'create
 Route::post('/kursi/store', [App\Http\Controllers\KursiController::class,'store'])->name('kursi.store');
 Route::get('/kursi/{id}/edit', [App\Http\Controllers\KursiController::class,'edit'])->name('kursi.edit');
 Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'update'])->name('kursi.update');
-Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
+Route::delete('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
 
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');

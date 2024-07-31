@@ -13,15 +13,8 @@ class KursiController extends Controller
     public function index()
     {
         $kursi = Kursi::all();
-        // $studios = Kursi::select('studio')->distinct()->get();
-
         return view("chairs.kursi", compact("kursi"));
     }
-
-    // app/Http/Controllers/KursiController.php
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -38,12 +31,19 @@ class KursiController extends Controller
     {
         $validatedData = $request->validate([
             "kursi" => "required|integer|min:1|max:26", // Assuming A-Z seats
-            "studio" => "required|unique:kursi,studio",
+            "studio" => "required",
         ], [
             "kursi.required" => "Kursi Harus Diisi",
             "studio.required" => "Studio Harus Diisi",
-            "studio.unique" => "Studio Sudah Ada",
         ]);
+
+        // Check if the studio already has seats and delete them
+        $existingSeats = Kursi::where('studio', $validatedData['studio'])->get();
+        if ($existingSeats->isNotEmpty()) {
+            foreach ($existingSeats as $seat) {
+                $seat->delete();
+            }
+        }
 
         $kursiBaru = [];
         $alphabet = range('A', 'Z');
@@ -65,52 +65,53 @@ class KursiController extends Controller
         ]);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(kursi $kursi)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-
         $kursi = Kursi::find($id);
-
-        return view("chairs.kursiEdit", compact("kursi"));
+        $studio = $kursi->studio;
+        $kursiStudio = Kursi::where('studio', $studio)->get();
+    
+        return view("chairs.kursiEdit", compact("kursi", "kursiStudio", "studio"));
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-
         $kursi = Kursi::find($id);
+        $studio = $kursi->studio;
 
-        $validateData = $request;
+        $validateData = $request->validate([
+            "kursi" => "required|integer|min:1|max:26", // Assuming A-Z seats
+            "studio" => "required|unique:kursi,studio," . $studio . ",studio",
+        ], [
+            "kursi.required" => "Kursi Harus Diisi",
+            "studio.required" => "Studio Harus Diisi",
+            "studio.unique" => "Studio Sudah Ada",
+        ]);
 
-        if ($validateData['studio'] !== $kursi->studio) {
-            $vakidateData = $request->validate([
-                "kursi" => "required",
-                "studio" => "required|unique:kursi,studio",
-            ], [
-                "kursi.required" => "Kursi Harus Diisi",
-                "studio.required" => "Studio Harus Diisi",
-                "studio.unique" => "Studio Sudah Ada",
+        // Update kursi
+        Kursi::where('studio', $studio)->delete();
 
-            ]);
-
-            $kursi->update($vakidateData);
-            return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
-        } else {
-            return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
+        $kursiBaru = [];
+        $alphabet = range('A', 'Z');
+        for ($i = 0; $i < $validateData['kursi']; $i++) {
+            $kursiBaru[] = [
+                'studio' => $validateData['studio'],
+                'kursi' => $alphabet[$i],
+            ];
         }
+
+        foreach ($kursiBaru as $data) {
+            Kursi::create($data);
+        }
+        
+        return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
     }
 
     /**
@@ -118,9 +119,10 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-        $kursi = Kursi::find($id);
-
-        $kursi->delete();
+        $kursi = Kursi::findOrFail($id);
+        $studio = $kursi->studio;
+        Kursi::where('studio', $studio)->delete();
+        
         return redirect()->route("kursi.index")->with("success", "Berhasil Delete");
     }
 }
