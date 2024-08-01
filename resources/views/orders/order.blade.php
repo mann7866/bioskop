@@ -196,16 +196,29 @@
                             <div class="card-body">
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
                                 <div>
-                                    <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
+                                    <span
+                                        class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
                                 <label for="" class="total-payment-label">Studio:</label>
-                                @if($item->studio)
+                                @if ($item->studio)
+                                    <h6 class="badge border border-primary text-primary">
+                                        {{ $item->studio->studio }}
+                                    </h6>
+                                @else
+                                    <p> studio sedang error dan tidak bisa tampil</p>
+                                @endif
+                                <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
+                                @if ($item->kursi)
+                                
+                                @foreach ($kursi as $item)
                                 <h6 class="badge border border-primary text-primary">
-                                    {{ $item->studio->studio }}
+                                    {{ $item->kursi}}
                                 </h6>
-                            @else
-                                <p>No studio sedang eror dan tidak bisa tampil</p>
-                            @endif
+                                @endforeach
+
+                                @else
+                                    <p> kursi sedang error dan tidak bisa tampil</p>
+                                @endif
 
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
@@ -215,7 +228,7 @@
                                 <label for="" class="total-payment-label">Total Tiket:</label>
                                 <div>
                                     <h6 class="badge border border-secondary text-secondary">
-                                        {{ $item->jumlah_tiket}}</h6>
+                                        {{ $item->jumlah_tiket }}</h6>
                                 </div>
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
@@ -235,15 +248,15 @@
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
                                     {{-- <div class="button-container d-flex justify-content-between"> --}}
-                                        <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                            onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                            Hapus
-                                        </a>
-                                        <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('put')
-                                            <button type="submit" class="btn btn-success">Bayar</button>
-                                        </form>
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Hapus
+                                    </a>
+                                    <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('put')
+                                        <button type="submit" class="btn btn-success">Bayar</button>
+                                    </form>
                                     {{-- </div> --}}
                                 @endif
 
