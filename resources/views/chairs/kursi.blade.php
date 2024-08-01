@@ -188,6 +188,47 @@
                 </div>
             </div>
         </div>
+
+        @foreach ($kursi as $studioId => $kursis)
+            <!-- Film Modal -->
+            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
+                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Detail Film</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @foreach ($kursis->chunk(10) as $chunk)
+                                <div class="kursi-row">
+                                    @foreach ($chunk as $item)
+                                        <div class="kursi-item">
+                                            <strong>{{ $item->kursi }}</strong>
+                                            <div class="button-group">
+                                                <button class="btn btn-sm btn-edit">
+                                                    <a href="{{ route('kursi.edit', $item->id) }}"><i
+                                                            class="bi bi-pen"></i></a>
+                                                </button>
+                                                <button class="btn btn-sm btn-delete">
+                                                    <a href="{{ route('kursi.delete', $item->id) }}"><i
+                                                            class="bi bi-backspace-reverse"></i></a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
     </div>
 
     @push('style')
