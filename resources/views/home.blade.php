@@ -344,7 +344,7 @@
                                         <div class="film-description">
                                             <button class="btn-pesan"
                                                 onclick="link('{{ route('order.create', $item->id) }}')">
-                                                <i class="fa-solid fa-cart-shopping"></i> Pesan
+                                                <ion-icon name="cart-outline"></ion-icon> Pesan
                                             </button>
                                         </div>
                                         <div class="film-label-container">

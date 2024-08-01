@@ -116,7 +116,6 @@
             }
         }
     </style>
-    {{-- data yang ambil dari ordercontroller --}}
 
     @php
         function getBadgeClass($status)
@@ -131,6 +130,7 @@
             }
         }
     @endphp
+
     @if (session('canceli'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-2" style="z-index: 11">
             <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
@@ -143,6 +143,7 @@
             </div>
         </div>
     @endif
+
     @if (session('cancel'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
             <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
@@ -155,6 +156,7 @@
             </div>
         </div>
     @endif
+
     @if (session('success'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
             <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
@@ -167,6 +169,7 @@
             </div>
         </div>
     @endif
+
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)
@@ -175,8 +178,8 @@
                         <div class="card">
                             <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h4 class="card-category ">Judul:</h4>
-                                <h5 class="">{{ $item->detail->judul }}</h5>
+                                <h4 class="card-category">Judul:</h4>
+                                <h5>{{ $item->detail->judul }}</h5>
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
@@ -184,9 +187,9 @@
                                                 class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
-                                <h4 class="card-category ">Harga:</h4>
-                                <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
-                                <h4 class="card-category ">Deskripsi:</h4>
+                                <h4 class="card-category">Harga:</h4>
+                                <h6>Rp. {{ number_format($item->detail->harga) }}</h6>
+                                <h4 class="card-category">Deskripsi:</h4>
                                 <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
@@ -194,28 +197,30 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
-                                {{-- data di ambil dari atas dan kirim kan ke bawah --}}
                                 <div>
                                     <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
+
                                 <label for="" class="total-payment-label">Studio:</label>
-                                @if($item->$studio)
-                                <h6 class="badge border border-primary text-primary">
-                                    {{ $item->studio->studio }}
-                                </h6>
-                            @else
-                                <p>No studio information available.</p>
-                            @endif
+                                @if ($item->studio)
+                                    <h6 class="badge border border-primary text-primary">
+                                        {{ $item->studio->studio }}
+                                    </h6>
+                                @else
+                                    <p>No studio information available.</p>
+                                @endif
 
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
                                 </div>
+
                                 <label for="" class="total-payment-label">Total Tiket:</label>
                                 <div>
-                                    <h6 class="badge border border-primary text-primary">Rp.
-                                        {{ $item->jumlah_tiket}}</h6>
+                                    <h6 class="badge border border-primary text-primary">
+                                        {{ $item->jumlah_tiket }}
+                                    </h6>
                                 </div>
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
@@ -234,17 +239,15 @@
                                 @endif
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
-                                    {{-- <div class="button-container d-flex justify-content-between"> --}}
-                                        <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                            onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                            Delete
-                                        </a>
-                                        <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('put')
-                                            <button type="submit" class="btn btn-success">Bayar</button>
-                                        </form>
-                                    {{-- </div> --}}
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Delete
+                                    </a>
+                                    <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('put')
+                                        <button type="submit" class="btn btn-success">Bayar</button>
+                                    </form>
                                 @endif
 
                                 @if ($item->status == 'cancel')
@@ -264,7 +267,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <hr class="separator">
             @empty
@@ -272,6 +274,7 @@
             @endforelse
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {

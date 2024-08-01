@@ -18,7 +18,8 @@ class OrderController extends Controller
     {
         $detail = Detail::all();
         $studio = Studio::all();
-        $order = Order::all();
+        $order = Order::with('studio', 'detail.genres')->get();
+        // $order = Order::all();
         return view("orders.order", compact("detail",  "order", "studio"));
     }
 
@@ -32,10 +33,10 @@ class OrderController extends Controller
     public function order($id)
     {
         $detail = Detail::find($id);
-        $kursi = Kursi::pluck('id_studio');
         $studio = Studio::pluck('studio');
+        $kursi = Kursi::pluck('id_studio');
 
-            return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
+        return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
     }
 
 
@@ -47,27 +48,33 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
+        // Validasi data
         $validateData = $request->validate([
-
-            'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
-            'total_harga' => 'required|min:0|numeric',
-            'id_detail' => '',
+            'jumlah_tiket' => 'required|integer|min:1',
+            'total_harga' => 'required|numeric|min:0',
+            'id_detail' => 'required', // Pastikan ini sesuai dengan form
+            'id_studio' => 'required',
             'pembayaran' => '',
-            'id_studios' => 'required',
-
-        ],[
-            'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
-            'jumlah_tiket.min'=> 'Jumlah Tiket Minimal 1',
-            'total_harga.min'=> 'Jumlah Tiket Minimal 0',
-            'total_harga.required'=> 'Total Harga Harus Diisi',
-            'total_harga.numeric'=> 'Total Harga Harus Abjad',
-            'id_studios.required' => 'Studio Harus Dipilih',
+        ], [
+            'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
+            'jumlah_tiket.min' => 'Jumlah Tiket Minimal 1',
+            'total_harga.min' => 'Total Harga Minimal 0',
+            'total_harga.required' => 'Total Harga Harus Diisi',
+            'total_harga.numeric' => 'Total Harga Harus Angka',
+            'id_studio.required' => 'Studio Harus Dipilih',
+            'id_detail.required' => 'Detail ID Harus Diisi', // Tambahkan pesan error jika perlu
         ]);
 
+        // Debug: cek isi data yang valid
+        // dd($validateData);
+
+        // Simpan data ke dalam tabel 'orders'
         Order::create($validateData);
+
+        // Redirect ke halaman home dengan pesan sukses
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
+
 
     /**
      * Display the specified resource.
@@ -102,14 +109,14 @@ class OrderController extends Controller
             'id_detail' => '',
             'pembayaran' => 'required|numeric',
 
-        ],[
-            'pembayaran.required'=> 'Pembauyaran Tidak Boleh Kosong',
-            'pembayaran.numeric'=> 'Pembauyaran Harus Angka',
-            'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
-            'jumlah_tiket.min'=> 'Jumlah Tiket Minimal 1',
-            'total_harga.min'=> 'Jumlah Tiket Minimal 0',
-            'total_harga.required'=> 'Total Harga Harus Diisi',
-            'total_harga.numeric'=> 'Total Harga Harus Abjad',
+        ], [
+            'pembayaran.required' => 'Pembauyaran Tidak Boleh Kosong',
+            'pembayaran.numeric' => 'Pembauyaran Harus Angka',
+            'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
+            'jumlah_tiket.min' => 'Jumlah Tiket Minimal 1',
+            'total_harga.min' => 'Jumlah Tiket Minimal 0',
+            'total_harga.required' => 'Total Harga Harus Diisi',
+            'total_harga.numeric' => 'Total Harga Harus Abjad',
         ]);
 
         if ($validateData['pembayaran'] >= $order->total_harga) {
@@ -158,7 +165,7 @@ class OrderController extends Controller
     {
         switch ($status) {
             case 'paid':
-                return 'badge text-bg-success';
+                return 'badge text-bg-success' + '<ion-icon name="checkmark-done-outline"></ion-icon>';
             case 'cancel':
                 return 'badge text-bg-danger';
             default:
