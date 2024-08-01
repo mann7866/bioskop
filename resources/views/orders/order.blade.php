@@ -204,7 +204,7 @@
                                     {{ $item->studio->studio }}
                                 </h6>
                             @else
-                                <p>No studio information available.</p>
+                                <p>No studio sedang eror dan tidak bisa tampil</p>
                             @endif
 
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
@@ -214,7 +214,7 @@
                                 </div>
                                 <label for="" class="total-payment-label">Total Tiket:</label>
                                 <div>
-                                    <h6 class="badge border border-primary text-primary">Rp.
+                                    <h6 class="badge border border-secondary text-secondary">
                                         {{ $item->jumlah_tiket}}</h6>
                                 </div>
 
@@ -237,7 +237,7 @@
                                     {{-- <div class="button-container d-flex justify-content-between"> --}}
                                         <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                             onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                            Delete
+                                            Hapus
                                         </a>
                                         <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
@@ -250,7 +250,7 @@
                                 @if ($item->status == 'cancel')
                                     <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
                                         onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                        Delete
+                                        Hapus
                                     </a>
                                 @endif
 
