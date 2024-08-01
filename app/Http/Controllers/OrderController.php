@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function index()
     {
         $detail = Detail::all();
-        $studio = Studio::all();
+         $studio = Studio::all();
         $order = Order::all();
         return view("orders.order", compact("detail",  "order", "studio"));
     }
@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function order($id)
     {
         $detail = Detail::find($id);
-        $kursi = Kursi::pluck('id_studio');
+        $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
         $studio = Studio::pluck('studio');
 
             return view('orders.createOrder', compact('detail', 'kursi', 'studio'));

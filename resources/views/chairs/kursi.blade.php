@@ -1,5 +1,136 @@
 @extends('layouts.app')
 
+<style>
+    /* Styling umum untuk form */
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+    }
+
+    .form-title {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        border-bottom: 2px solid #ddd;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .card-text {
+        color: #555;
+    }
+
+    .seats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .seat {
+        width: 50px;
+        height: 50px;
+        background-color: #e0f7fa;
+        margin: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.3s;
+        position: relative;
+    }
+
+    .seat:hover {
+        transform: scale(1.1);
+    }
+
+    .seat::after {
+        content: attr(data-seat);
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .seat:hover::after {
+        opacity: 1;
+    }
+
+    .seat.selected {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .seat.reserved {
+        background-color: #f44336;
+        cursor: not-allowed;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ced4da;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .total-seats {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
+
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"

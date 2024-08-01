@@ -199,7 +199,7 @@
                                     <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
                                 <label for="" class="total-payment-label">Studio:</label>
-                                @if($item->$studio)
+                                @if($item->studio)
                                 <h6 class="badge border border-primary text-primary">
                                     {{ $item->studio->studio }}
                                 </h6>
