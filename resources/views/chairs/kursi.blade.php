@@ -193,8 +193,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal{{ $studioId }}">Hapus Studio</button>
+                           
                         </div>
                     </div>
                 </div>
