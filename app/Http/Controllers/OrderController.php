@@ -17,11 +17,12 @@ class OrderController extends Controller
     public function index()
     {
         $detail = Detail::all();
-         $studio = Studio::all();
-        $order = Order::all();
-        return view("orders.order", compact("detail",  "order", "studio"));
+        $studio = Studio::all();
+        $kursi = Kursi::all();
+        $order = Order::with('studio', 'detail','kursi')->get();
+        // dd($kursi);
+        return view("orders.order", compact("detail",  "order", "studio","kursi"));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -34,8 +35,6 @@ class OrderController extends Controller
         $detail = Detail::find($id);
         $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
         $studio = Studio::pluck('studio');
-        $kursi = Kursi::pluck('id_studio');
-
         return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
     }
 
@@ -53,7 +52,7 @@ class OrderController extends Controller
             'jumlah_tiket' => 'required|integer|min:1',
             'total_harga' => 'required|numeric|min:0',
             'id_detail' => 'required', // Pastikan ini sesuai dengan form
-            'id_studio' => 'required',
+            'id_studios' => 'required',
             'pembayaran' => '',
         ], [
             'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
@@ -61,7 +60,7 @@ class OrderController extends Controller
             'total_harga.min' => 'Total Harga Minimal 0',
             'total_harga.required' => 'Total Harga Harus Diisi',
             'total_harga.numeric' => 'Total Harga Harus Angka',
-            'id_studio.required' => 'Studio Harus Dipilih',
+            'id_studios.required' => 'Studio Harus Dipilih',
             'id_detail.required' => 'Detail ID Harus Diisi', // Tambahkan pesan error jika perlu
         ]);
 
@@ -180,6 +179,7 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         Order::find($id)->delete();
+        // dd($id);
         return redirect()->route("order.index")->with("success", "Berhasil Membatalkan Pesanan");
     }
 }

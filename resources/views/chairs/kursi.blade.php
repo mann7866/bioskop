@@ -133,7 +133,8 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
@@ -142,13 +143,13 @@
 @section('content')
     {{-- alert --}}
     @if (session('success'))
-        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
+                aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
                     </div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
         </div>
@@ -173,7 +174,8 @@
                                                 <a href="{{ route('kursi.edit', $item->id) }}"><i class="bi bi-pen"></i></a>
                                             </button>
                                             <button class="btn btn-sm btn-delete">
-                                                <a href="{{ route('kursi.delete', $item->id) }}"><i class="bi bi-backspace-reverse"></i></a>
+                                                <a href="{{ route('kursi.delete', $item->id) }}"><i
+                                                        class="bi bi-backspace-reverse"></i></a>
                                             </button>
                                         </div>
                                     </div>
@@ -222,7 +224,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                           
+
                         </div>
                     </div>
                 </div>

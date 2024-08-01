@@ -25,11 +25,6 @@ class StudioTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'studio' => 'Studio 3',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
             // Tambahkan data studio lainnya jika diperlukan
         ]);
     }

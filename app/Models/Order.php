@@ -20,5 +20,9 @@ class Order extends Model
     {
         return $this->belongsTo(Studio::class,'id_studio','id');
     }
+    public function kursi()
+    {
+        return $this->belongsTo(Kursi::class, 'id_kursi', 'id');
+    }
 
 }

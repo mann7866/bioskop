@@ -183,8 +183,9 @@
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
-                                        <li class="list-inline-item"><span
-                                                class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
+                                        <li class="list-inline-item">
+                                            <span class="badge text-bg-info badge-genre">{{ $genre->genre }}</span>
+                                        </li>
                                     @endforeach
                                 </ul>
                                 <h4 class="card-category">Harga:</h4>
@@ -201,7 +202,6 @@
                                     <span
                                         class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
-
                                 <label for="" class="total-payment-label">Studio:</label>
                                 @if ($item->studio)
                                     <h6 class="badge border border-primary text-primary">
@@ -210,19 +210,18 @@
                                 @else
                                     <p> studio sedang error dan tidak bisa tampil</p>
                                 @endif
+
                                 <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
-                                @if ($item->kursi)
-                                
-                                @foreach ($kursi as $item)
-                                <h6 class="badge border border-primary text-primary">
-                                    {{ $item->kursi}}
-                                </h6>
-                                @endforeach
-
-                                @else
-                                    <p> kursi sedang error dan tidak bisa tampil</p>
+                                @if ($kursi)
+                                    @forelse ($kursi as $item)
+                                        <h6 class="badge border border-primary text-primary">
+                                            {{ $item->kursi }}
+                                        </h6>
+                                    @empty
+                                        <p> Kursi sedang error dan tidak bisa tampil</p>
+                                    @endforelse
                                 @endif
-
+                                
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
@@ -232,7 +231,8 @@
                                 <label for="" class="total-payment-label">Total Tiket:</label>
                                 <div>
                                     <h6 class="badge border border-secondary text-secondary">
-                                        {{ $item->jumlah_tiket }}</h6>
+                                        {{ $item->jumlah_tiket }}
+                                    </h6>
                                 </div>
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
@@ -251,24 +251,18 @@
                                 @endif
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
-                                    {{-- <div class="button-container d-flex justify-content-between"> --}}
                                     <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                        Hapus
-                                    </a>
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">Hapus</a>
                                     <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('put')
                                         <button type="submit" class="btn btn-success">Bayar</button>
                                     </form>
-                                    {{-- </div> --}}
                                 @endif
 
                                 @if ($item->status == 'cancel')
                                     <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                        Hapus
-                                    </a>
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">Hapus</a>
                                 @endif
 
                                 @if ($item->status == 'paid')
