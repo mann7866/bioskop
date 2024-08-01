@@ -22,7 +22,7 @@ class Order extends Model
     }
     public function kursi()
     {
-        return $this->belongsTo(Kursi::class, 'id_kursi', 'id');
+        return $this->belongsTo(Kursi::class, 'id_studios', 'id');
     }
 
 }
