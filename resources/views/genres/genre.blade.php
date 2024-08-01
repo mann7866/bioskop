@@ -22,7 +22,7 @@
 
 @if (session('delete'))
     <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-        <div class="toast align-items-center bg-success text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast align-items-center bg-danger text-white border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('delete') }}
@@ -179,19 +179,20 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Confirm Delete</h5>
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                       Apa Kamu Yakin Menghapus Genre?
+                                                       Apa Kamu Yakin Ingin Menghapus Genre?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <form action="{{ route('genre.delete', $item->id) }}" method="GET">
+                                                        <a href="{{ route('genre') }}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button></a>
+
+                                                        <form action="{{ route('genre.delete', $item->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">
-                                                                <ion-icon name="trash-outline"></ion-icon> Delete
+                                                                <ion-icon name="trash-outline"></ion-icon> Hapus
                                                             </button>
                                                         </form>
                                                     </div>
