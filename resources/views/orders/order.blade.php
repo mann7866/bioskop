@@ -202,19 +202,19 @@
                                         class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
 
-                                <label for="" class="total-payment-label">Studio:</label>
+ <label for="" class="total-payment-label">Studio:</label>
 
-                                <h6 class="badge border border-primary text-primary">
-                                    {{ $item->kursi->studio->studio }}
-                                </h6>
+                                    <h6 class="badge border border-primary text-primary">
+                                        {{ $item->kursi->studio->studio }}
+                                    </h6>
+
+                               
                                 <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
 
-                                <h6 class="badge border border-secondary text-secondary">
-                                    {{ $item->kursi->kursi }}
-                                </h6>
+                                        <h6 class="badge border border-secondary text-secondary">
+                                            {{ $item->kursi->kursi }}
+                                        </h6>
 
-                               
-                               
                                 {{-- @dd($item) --}}
                                 {{-- <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
                                 @if ($item->kursi)
@@ -231,12 +231,12 @@
                                     <h6 class="badge border border-secondary text-secondary">
                                         {{ $item->jumlah_tiket }}</h6>
                                 </div>
-                                
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
                                 </div>
+
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
                                     <div>
