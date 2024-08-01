@@ -36,7 +36,7 @@ class OrderController extends Controller
         $studio = Studio::pluck('studio','id');
 
         // dd($id);
-            return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
+         return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
     }
     
 
@@ -53,9 +53,9 @@ class OrderController extends Controller
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
             'total_harga' => 'required|min:0|numeric',
-            'id_detail' => '',
             'pembayaran' => '',
-            'id_studio' => 'required',
+            'id_detail' => '',
+            'id_studio' => '',
 
         ],[
             'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
@@ -64,7 +64,7 @@ class OrderController extends Controller
             'total_harga.required'=> 'Total Harga Harus Diisi',
             'total_harga.numeric'=> 'Total Harga Harus Abjad',
             'id_studio.required' => 'Studio Harus Dipilih',
-        ]);
+        ]); 
 
         Order::create($validateData);
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");

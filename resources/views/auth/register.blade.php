@@ -90,7 +90,7 @@
                                 <div class="col-md-8">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password">
+                                        required autocomplete="new-password" autocomplete="new-password">
                                     <ion-icon name="eye-outline" class="toggle-password" onclick="togglePassword('password')"></ion-icon>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">

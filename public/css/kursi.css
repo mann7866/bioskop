@@ -3,45 +3,42 @@
 }
 
 .film-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
 }
 
 .film-card {
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  margin: 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  width: 100px; /* Adjusted for better alignment */
-  height: 100px; /* Adjusted for better alignment */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: #0056b3;
-  color: white;
-  font-size: 1.2rem;
-  text-align: center; /* Ensure text is centered */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100px; /* Adjusted for better alignment */
+    height: 100px; /* Adjusted for better alignment */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #0056b3;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center; /* Ensure text is centered */
 }
 
 .film-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .film-label {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: bold;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
-
-/* Other styles remain unchanged */
-
 
 .film-card img {
     width: 50px;
@@ -79,7 +76,6 @@
     margin: 10px;
 }
 
-
 .btn-pesan {
     background-color: #ff6b6b;
     color: white;
@@ -97,7 +93,6 @@
     background-color: #ff4757;
     transform: scale(1.05);
 }
-
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -184,7 +179,6 @@
     transform: scale(1.05);
 }
 
-
 .button-group {
     display: flex;
     justify-content: center;
@@ -256,7 +250,7 @@
     color: white;
     font-weight: bold;
     border-radius: 5px;
-    margin: 40px;
+    margin: 20px; /* Mengatur margin antara kursi-item */
     transition: background-color 0.3s ease, transform 0.3s ease;
     position: relative; /* Agar button bisa diposisikan absolut di dalam kursi-item */
 }
@@ -281,7 +275,4 @@
 .btn-edit:hover {
     background-color: #e0a800;
     transform: scale(1.05);
-}
-.modal-title{
-    
 }

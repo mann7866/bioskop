@@ -1,6 +1,6 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
-@section('content')
+@section('content') 
     {{-- style --}}
     <style>
         .card {

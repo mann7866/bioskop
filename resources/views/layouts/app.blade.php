@@ -19,9 +19,6 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 
-    {{-- toaster --}}
-    {{-- @include('Componen.css')
-        @include('Componen.script') --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Sebelum penutup </body> -->
@@ -31,14 +28,72 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     {{-- css --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+    <!-- Custom CSS untuk Sidebar dan Overlay -->
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+            z-index: 1000;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-close {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
-                <button class="nav-link btn" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <button class="nav-link btn" type="button" onclick="toggleSidebar()">
                     <ion-icon name="menu-outline" class="size"></ion-icon>
                 </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -79,9 +134,9 @@
                             <ul class="dropdown-menu dropdown-menu-end posmen navbar-tog"
                                 aria-labelledby="navbarColorDropdown">
                                 <li>
-                                    <buttoFn class="dropdown-item" onclick="changeNavbarColor('navbar-light')">
+                                    <button class="dropdown-item" onclick="changeNavbarColor('navbar-light')">
                                         <ion-icon name="caret-forward"></ion-icon>Light
-                                    </buttoFn>
+                                    </button>
                                 </li>
                                 <li>
                                     <button class="dropdown-item" onclick="changeNavbarColor('navbar-dark')">
@@ -154,53 +209,46 @@
             @yield('content')
         </main>
     </div>
-    <!-- Offcanvas Content -->
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title text" id="offcanvasScrollingLabel">Option</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul>
-                <li>
-                    <a class="dropdown-item" href="{{ route('genre') }}">
-                        <ion-icon name="albums-outline"></ion-icon>Tambah Genre
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('time') }}">
-                        <ion-icon name="time-outline"></ion-icon>Tambah Time
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('detail') }}">
-                        <ion-icon name="film-outline"></ion-icon>Tambah Film
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('studio') }}">
-                        <ion-icon name="ticket-outline"></ion-icon>Tambah Studio
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('kursi.index') }}">
-                        <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('berita') }}">
-                        <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <!-- Sidebar Content -->
+    <div class="sidebar">
+        <button class="btn-close" onclick="toggleSidebar()">Option&times;</button>
+        <ul>
+            <li>
+                <a class="dropdown-item" href="{{ route('genre') }}">
+                    <ion-icon name="albums-outline"></ion-icon>Tambah Genre
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('time') }}">
+                    <ion-icon name="time-outline"></ion-icon>Tambah Time
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('detail') }}">
+                    <ion-icon name="film-outline"></ion-icon>Tambah Film
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('studio') }}">
+                    <ion-icon name="ticket-outline"></ion-icon>Tambah Studio
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('kursi.index') }}">
+                    <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('berita') }}">
+                    <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
+                </a>
+            </li>
+        </ul>
     </div>
+    <!-- Overlay -->
+    <div class="overlay" onclick="toggleSidebar()"></div>
 
-    <footer>
-        @include('footer.footer')
-    </footer>
-    <!-- SweetAlert -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Ionicons -->
@@ -217,34 +265,43 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
     <!-- AOS JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
-
-    <!-- Dark Mode Toggle Script -->
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        function changeNavbarColor(colorClass) {
-            const navbar = document.querySelector('.navbar');
-            navbar.className = `navbar navbar-expand-md ${colorClass} shadow-sm sticky-top`;
-            localStorage.setItem('navbar-color', colorClass);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedColor = localStorage.getItem('navbar-color');
-            if (savedColor) {
-                changeNavbarColor(savedColor);
-            }
-        });
+        AOS.init();
     </script>
 
+    <!-- Custom JS untuk Toggle Sidebar -->
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+    </script>
+    <!-- Ionicons -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

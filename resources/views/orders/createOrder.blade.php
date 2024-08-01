@@ -217,7 +217,7 @@
                             function handleStudioChange(select) {
                                 const studioId = select.value;
                                 if (studioId) {
-                                    fetch(`/api/kursi/${studioId}`)
+                                    fetch(`kursi/${studioId}`)
                                         .then(response => response.json())
                                         .then(data => {
                                             const seatsContainer = document.getElementById('seatsContainer');

@@ -20,7 +20,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="kursi" class="form-label">Jumlah Kursi:</label>
+                    <label for="kursi" class="form-label">Masukan Jumlah Kursi:</label>
                     <input type="number" inputmode="numeric" class="form-control @error('kursi') is-invalid @enderror" id="kursi" name="kursi" placeholder="Tambahkan jumlah kursi (1-26)" value="{{ old('kursi') }}">
                     @error('kursi')
                         <div class="invalid-feedback">{{ $message }}</div>

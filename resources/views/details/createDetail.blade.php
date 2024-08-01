@@ -3,7 +3,7 @@
 @section('content')
 {{-- syle --}}
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Tambah Detail Film</h1>
+    <h1 class="text-center mb-4 text-secondary  ">Tambah  Film</h1>
     <form class="row g-3 needs-validation" action="{{ route('detail.store') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
 
@@ -103,7 +103,7 @@
         </div>
 
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Tambah Deskripsi</button>
+            <button class="btn btn-primary" type="submit">Tambah Film</button>
         </div>
     </form>
 </div>
