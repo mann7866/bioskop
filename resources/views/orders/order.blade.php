@@ -211,7 +211,7 @@
                                     </h6>
                                 <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
 
-                                        <h6 class="badge border border-warning text-primary">
+                                        <h6 class="badge border border-secondary text-secondary">
                                             {{ $item->kursi->kursi }}
                                         </h6>
 
@@ -226,16 +226,17 @@
                                         <p> Kursi sedang error dan tidak bisa tampil</p>
                                     @endforelse
                                 @endif --}}
-                                <label for="" class="total-payment-label">Total Pembayaran:</label>
-                                <div>
-                                    <h6 class="badge border border-primary text-primary">Rp.
-                                        {{ number_format($item->total_harga) }}</h6>
-                                </div>
                                 <label for="" class="total-payment-label">Total Tiket:</label>
                                 <div>
                                     <h6 class="badge border border-secondary text-secondary">
                                         {{ $item->jumlah_tiket }}</h6>
                                 </div>
+                                <label for="" class="total-payment-label">Total Pembayaran:</label>
+                                <div>
+                                    <h6 class="badge border border-primary text-primary">Rp.
+                                        {{ number_format($item->total_harga) }}</h6>
+                                </div>
+
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
                                     <div>

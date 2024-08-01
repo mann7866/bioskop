@@ -106,7 +106,7 @@
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Studio dan Kursi</h1>
 
-                <a href="{{ route('studio.create') }}" class="btn btn-primary mb-4">Tambah Studio</a>
+                <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4">Tambah Kursi</a>
 
                 <div class="film-container">
                     @forelse ($studio as $studio)
