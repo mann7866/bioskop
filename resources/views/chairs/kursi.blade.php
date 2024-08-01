@@ -11,8 +11,14 @@
 @section('content')
     <style>
         /* Styling untuk modal dan kursi */
+        *{
+            scroll-behavior: smooth;
+            font-family: Arial, sans-serif;
+        }
         .modal-content {
-            border-radius: 12px;
+            border-radius: 25px;
+            padding: 27px;
+
         }
 
         .kursi-container {
@@ -23,15 +29,16 @@
         }
 
         .kursi-card {
-            width: 50px;
-            height: 50px;
+            margin: 25px;
+            width: 80px;
+            height: 80px;
             background-color: #1a8bb8;
             color: #333;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            cursor: pointer;
+            cursor: progress;
             transition: background-color 0.3s, transform 0.3s;
             position: relative;
             text-align: center;
@@ -61,9 +68,9 @@
 
         .film-card {
             background-color: #0d3e83;
-            border: 1px solid #0f0303;
+            /* border: 1px solid #0f0303;    */
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
@@ -71,6 +78,70 @@
 
         .film-card:hover {
             background-color: #147dc8;
+            transform: scale(1.05);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+        }
+
+        .button-group .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border: none;
+            background: none;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .button-group .btn-edit {
+            position: relative;
+            padding: 10%;
+            margin: 15px;
+            background-color: #14c14b;
+            color: black;
+            top: 17px;
+            left: -10px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button-group .btn-edit a {
+            color: black;
+        }
+
+        .button-group .btn-edit:hover {
+            background-color: #e0a800;
+            transform: scale(1.05);
+        }
+
+        .button-group .btn-delete {
+            position: relative;
+            padding: 10%;
+            margin: 15px;
+            background-color: #dc3545;
+            color: white;
+            top: 17px;
+            left: 12px;
+            border-radius: 20px;
+            /* border-radius: 20px; */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button-group .btn-delete a {
+            color: white;
+        }
+
+        .button-group .btn-delete:hover {
+            background-color: #c82333;
             transform: scale(1.05);
         }
 
@@ -115,7 +186,8 @@
                         </div>
 
                         <!-- Studio Modal -->
-                        <div class="modal fade" id="studioModal{{ $studio->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $studio->id }}" aria-hidden="true">
+                        <div class="modal fade" id="studioModal{{ $studio->id }}" tabindex="-1"
+                            aria-labelledby="studioModalLabel{{ $studio->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -125,8 +197,22 @@
                                     <div class="modal-body">
                                         <div class="kursi-container">
                                             @forelse ($studio->kursi as $kursi)
-                                                <div class="kursi-card @if($kursi->is_reserved) reserved @endif" data-seat="{{ $kursi->studio }}">
+                                                <div class="kursi-card @if ($kursi->is_reserved) reserved @endif" data-seat="{{ $kursi->studio }}">
                                                     {{ $kursi->kursi }}
+                                                    <div class="button-group">
+                                                        <button class="btn btn-sm btn-edit">
+                                                            <a href="{{ route('kursi.edit', $kursi->id) }}"><i class="bi bi-pen"></i></a>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-delete">
+                                                            <a href="{{ route('kursi.delete', $kursi->id) }}"
+                                                                onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $kursi->id }}').submit(); }">
+                                                                <i class="bi bi-backspace-reverse"></i>
+                                                            </a>
+                                                        </button>
+                                                        <form id="delete-form-{{ $kursi->id }}" action="{{ route('kursi.delete', $kursi->id) }}" method="GET" style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             @empty
                                                 <p class="text-center">Tidak ada kursi untuk studio ini</p>
@@ -139,7 +225,6 @@
                                 </div>
                             </div>
                         </div>
-
                     @empty
                         <p class="text-center text-secondary">Tidak ada studio</p>
                     @endforelse
