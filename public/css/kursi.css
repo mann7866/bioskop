@@ -239,7 +239,7 @@
     margin-bottom: 40px; /* Menambahkan margin untuk ruang button */
     position: relative; /* Agar button bisa diposisikan absolut di dalam kursi-item */
 }
-
+/* kursi */
 .kursi-item {
     width: 90px;
     height: 90px;

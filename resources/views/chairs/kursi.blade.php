@@ -113,7 +113,7 @@
             border-radius: 20px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
-
+        /* button ya  */
         .button-group .btn-edit a {
             color: black;
         }
