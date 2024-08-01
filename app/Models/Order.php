@@ -18,11 +18,12 @@ class Order extends Model
     }
     public function studio()
     {
-        return $this->belongsTo(Studio::class,'id_studio','id');
+        return $this->belongsTo(Studio::class,'id_studios','id');
     }
     public function kursi()
     {
-        return $this->belongsTo(Kursi::class, 'id_studios', 'id');
+        return $this->belongsToMany(Kursi::class, 'order_kursi', 'id_order', 'id_kursi');
     }
+
 
 }

@@ -169,6 +169,7 @@
             </div>
         </div>
     @endif
+
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)
@@ -204,17 +205,24 @@
 
                                 <label for="" class="total-payment-label">Studio:</label>
 
-                                <h6 class="badge border border-primary text-primary">
-                                    {{ $item->kursi->studio->studio }}
-                                </h6>
-                                <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
-
                                 <h6 class="badge border border-secondary text-secondary">
-                                    {{ $item->kursi->kursi }}
+                                    {{ $item->studio->studio }}
                                 </h6>
+                                <div class="mb-3">
+                                    <h6><strong>kursi:</strong></h6>
+                                    <ul class="list-unstyled">
+                                        @foreach ($item->kursi as $kursi)
+                                        <h6 class="badge border border-secondary text-secondary">
+                                            {{ $kursi->kursi }}
+                                        </h6>
+                                            {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
+                                        @endforeach
 
-                               
-                               
+                                    </ul>
+                                </div>
+
+
+
                                 {{-- @dd($item) --}}
                                 {{-- <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
                                 @if ($item->kursi)
@@ -231,7 +239,7 @@
                                     <h6 class="badge border border-secondary text-secondary">
                                         {{ $item->jumlah_tiket }}</h6>
                                 </div>
-                                
+
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.

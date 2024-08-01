@@ -131,17 +131,18 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach ($kursis->chunk(10) as $chunk)
-                                                <div class="kursi-row">
-                                                    @foreach ($chunk as $item)
-                                                        <div class="kursi-item @if($item->is_reserved) reserved @endif"
-                                                            data-seat-id="{{ $item->id }}"
+                                            <div class="kursi-row">
+                                                @foreach ($chunk as $item)
+                                                <div class="kursi-item"
+                                                    data-seat-id="{{ $item->id }}"
+                                                    data-seat-number="{{ $item->kursi }}">
+                                                   <input class="form-check-input @error('kursis') is-invalid @enderror" type="checkbox" name="kursis[]" value="{{ $item->id }}">
+                                                   <strong>{{ $item->kursi }}</strong>
+                                               </div>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
 
-                                                            data-seat-number="{{ $item->kursi }}">
-                                                            <strong>{{ $item->kursi }}</strong>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            @endforeach
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -169,17 +170,21 @@
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    if (!item.classList.contains('reserved')) {
+                if (!item.classList.contains('reserved')) { // Hanya tambahkan event listener untuk kursi yang belum dipesan
+                    item.addEventListener('click', function() {
+                        const checkbox = item.querySelector('input[type="checkbox"]');
+                        checkbox.checked = !checkbox.checked; // Toggle checkbox status
                         item.classList.toggle('selected');
                         updateTotalHarga();
-                    }
-                });
+                    });
+                }
             });
         });
+
     </script>
 
     <style>
+
         .film-container {
             display: flex;
             flex-wrap: wrap;
@@ -207,28 +212,34 @@
             color: #333;
         }
 
-        .kursi-item {
-            width: 50px;
-            height: 50px;
-            background-color: #e0f7fa;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
+       /* Sembunyikan checkbox tetapi tetap bisa diakses secara programatik */
+.kursi-item input[type="checkbox"] {
+    display: none;
+}
 
-        .kursi-item.selected {
-            background-color: #4caf50;
-            color: white;
-        }
+.kursi-item {
+    width: 50px;
+    height: 50px;
+    background-color: #e0f7fa;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
-        .kursi-item.reserved {
-            background-color: #f44336;
-            cursor: not-allowed;
-        }
+.kursi-item.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.kursi-item.reserved {
+    background-color: #f44336;
+    cursor: not-allowed;
+}
+
 
         .kursi-row {
             margin-bottom: 10px;

@@ -171,6 +171,17 @@
             </div>
         </div>
     @endif
+    @if (session('gagal'))
+    <div class="toast-container position-fixed top-5 end-0 p-2">
+        <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('gagal') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 {{-- kursi Semua  --}}
     <div class="container">
         <div class="row justify-content-center">

@@ -15,9 +15,9 @@ class Kursi extends Model
     {
         return $this->belongsTo(Studio::class,'id_studio','id');
     }
-    public function kursi()
+    public function order()
     {
-        return $this->hasMany(Kursi::class);
+        return $this->belongsToMany(Order::class, 'order_kursi', 'id_order','id_kursi');
     }
-    
+
 }
