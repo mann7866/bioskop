@@ -52,6 +52,8 @@
         }
 
         .total-payment-label {
+            position: relative;
+            display: flex;
             font-weight: bold;
         }
 
@@ -203,25 +205,27 @@
 
 
                                 <label for="" class="total-payment-label">Studio:</label>
-                                @if ($item->studio)
+
                                     <h6 class="badge border border-primary text-primary">
-                                        {{ $item->studio->studio }}
+                                        {{ $item->kursi->studio->studio }}
                                     </h6>
-                                @else
-                                    <p> studio sedang error dan tidak bisa tampil</p>
-                                @endif
                                 <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
+
+                                        <h6 class="badge border border-warning text-primary">
+                                            {{ $item->kursi->kursi }}
+                                        </h6>
+
+                                {{-- @dd($item) --}}
+                                {{-- <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
                                 @if ($item->kursi)
-                                @foreach ($kursi as $item)
-                                <h6 class="badge border border-primary text-primary">
-                                    {{ $item->kursi}}
-                                </h6>
-                                @endforeach
-
-                                @else
-                                    <p> kursi sedang error dan tidak bisa tampil</p>
-                                @endif
-
+                                    @forelse ($item->kursi as $kursi)
+                                        <h6 class="badge border border-primary text-primary">
+                                            {{ $kursi->kursi }}
+                                        </h6>
+                                    @empty
+                                        <p> Kursi sedang error dan tidak bisa tampil</p>
+                                    @endforelse
+                                @endif --}}
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
@@ -304,5 +308,17 @@
                 });
             }, 1000);
         });
+
+        // document.addEventListener('contextmenu', function(event) {
+        //     event.preventDefault(); // Mencegah menu konteks muncul
+        //     alert('Maaf Alat Pengembag Kami Blokir')
+
+        // });
+        // document.addEventListener('keydown', function(event) {
+        //     if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+        //         event.preventDefault();
+        //     alert('Maaf Alat Pengembag Kami Blokir')
+        //     }
+        // });
     </script>
 @endsection

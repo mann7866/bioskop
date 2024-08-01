@@ -20,7 +20,7 @@ class OrderController extends Controller
         $studio = Studio::all();
         $kursi = Kursi::all();
         $order = Order::with('studio', 'detail','kursi')->get();
-        // dd($kursi);
+        // dd($order); 
         return view("orders.order", compact("detail",  "order", "studio","kursi"));
     }
     /**
