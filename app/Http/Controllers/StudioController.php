@@ -89,7 +89,7 @@ class StudioController extends Controller
         $studio = Studio::find($id);
         $studioCount =$studio->kursi->count();
         if ($studioCount > 0) {
-            return redirect()->route("studio")->with("eror", "Gagal Menghapus Studio Karena Masih Berkaitan Dengan Kursi");
+            return redirect()->route("studio")->with("gagal", "Gagal Menghapus Studio Karena Masih Berkaitan Dengan Kursi");
         }
         $studio->delete();
         return redirect()->route("studio")->with("success", "Berhasil Menghapus Studio");

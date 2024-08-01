@@ -101,8 +101,12 @@ class KursiController extends Controller
     public function destroy(string $id)
     {
        $kursi = Kursi::find($id);
+       $kursiCount = $kursi->studio->count();
+       if ($kursiCount > 0) {
+        return redirect()->route("kursi.index")->with("gagal","Gagal Menghapus Karena Maih Berkaitan Dengan Order");
+    }
        $kursi->delete();
-       return redirect()->route("kursi.index")->with("success","Berhasil Delete");
+       return redirect()->route("kursi.index")->with("success","Berhasil Menghapus");
 
     }
 }

@@ -11,18 +11,17 @@ use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $detail = Detail::all();
-        $studio = Studio::all();
-        $kursi = Kursi::all();
-        $order = Order::with('studio', 'detail','kursi')->get();
-        // dd($order); 
-        return view("orders.order", compact("detail",  "order", "studio","kursi"));
-    }
+public function index()
+{
+    $detail = Detail::all();
+    $studio = Studio::all();
+    $kursi = Kursi::all();
+    $order = Order::with('studio', 'detail', 'kursi')->get();
+// dd($order);
+
+    return view("orders.order", compact("detail", "order", "studio", "kursi"));
+}
+
     /**
      * Show the form for creating a new resource.
      */
@@ -54,7 +53,8 @@ class OrderController extends Controller
             'id_detail' => 'required', // Pastikan ini sesuai dengan form
             'id_studios' => 'required',
             'pembayaran' => '',
-           
+            'kursis'=> 'required|array',
+
 
         ], [
             'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
@@ -79,7 +79,10 @@ class OrderController extends Controller
 
 
        ]);
-
+       if ($request->has('kursis')) {
+        $kursis = $request->input('kursis');
+        $order->kursi()->sync($kursis);
+    }
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
 

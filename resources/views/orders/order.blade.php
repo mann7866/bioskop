@@ -169,6 +169,7 @@
             </div>
         </div>
     @endif
+
     <div class="container mt-4">
         <div class="form-container">
             @forelse ($order as $item)
@@ -202,18 +203,25 @@
                                         class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
 
- <label for="" class="total-payment-label">Studio:</label>
+                                <label for="" class="total-payment-label">Studio:</label>
 
-                                    <h6 class="badge border border-primary text-primary">
-                                        {{ $item->kursi->studio->studio }}
-                                    </h6>
-
-                               
-                                <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
-
+                                <h6 class="badge border border-secondary text-secondary">
+                                    {{ $item->studio->studio }}
+                                </h6>
+                                <div class="mb-3">
+                                    <h6><strong>kursi:</strong></h6>
+                                    <ul class="list-unstyled">
+                                        @foreach ($item->kursi as $kursi)
                                         <h6 class="badge border border-secondary text-secondary">
-                                            {{ $item->kursi->kursi }}
+                                            {{ $kursi->kursi }}
                                         </h6>
+                                            {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
+                                        @endforeach
+
+                                    </ul>
+                                </div>
+
+
 
                                 {{-- @dd($item) --}}
                                 {{-- <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
@@ -231,12 +239,12 @@
                                     <h6 class="badge border border-secondary text-secondary">
                                         {{ $item->jumlah_tiket }}</h6>
                                 </div>
+
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
                                 </div>
-
 
                                 @if ($item->status !== 'pending' && $item->status !== 'cancel')
                                     <div>
