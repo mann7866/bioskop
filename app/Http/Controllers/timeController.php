@@ -76,10 +76,9 @@ class timeController extends Controller
     {
 
         $time = Time::find($id);
-
         // $validateData = $request;
         $validateData = $request->validate([
-          "id_judul"=>"required",
+            "id_judul"=>"required",
             "jamTayang"=> "required|unique:time,jamTayang",
             "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
         ],[

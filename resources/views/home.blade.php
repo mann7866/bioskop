@@ -36,7 +36,7 @@
 {{-- order --}}
 @if (session('success'))
     <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
-        <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+        <div class="toast mt-3 align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
             aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('id_detail')->references('id')->on('detail')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('id_studios')->references('id')->on('kursi')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('kembalian')->default(0);
-
             $table->timestamps();
         });
     }

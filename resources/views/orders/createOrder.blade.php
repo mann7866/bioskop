@@ -1,136 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        /* Styling umum untuk form */
-        .form-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
-        }
-
-        .form-title {
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .card img {
-            border-bottom: 2px solid #ddd;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .card-text {
-            color: #555;
-        }
-
-        .seats {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .seat {
-            width: 50px;
-            height: 50px;
-            background-color: #e0f7fa;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.3s;
-            position: relative;
-        }
-
-        .seat:hover {
-            transform: scale(1.1);
-        }
-
-        .seat::after {
-            content: attr(data-seat);
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .seat:hover::after {
-            opacity: 1;
-        }
-
-        .seat.selected {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        .seat.reserved {
-            background-color: #f44336;
-            cursor: not-allowed;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-control {
-            border-radius: 8px;
-            box-shadow: none;
-            border: 1px solid #ced4da;
-        }
-
-        .form-control:focus {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-        }
-
-        .form-label {
-            font-weight: bold;
-        }
-
-        .total-seats {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
     <div class="container mt-4">
         <div class="form-container">
             <div class="row">
@@ -160,7 +30,7 @@
                             <div class="col-md-6">
                                 <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
                                 <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror"
-                                    id="jumlah_tiket_input" name="jumlah_tiket">
+                                    id="jumlah_tiket_input" name="jumlah_tiket" readonly>
                                 @error('jumlah_tiket')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -168,7 +38,7 @@
                             <div class="col-md-6">
                                 <label for="total_harga" class="form-label">Total Harga</label>
                                 <input type="text" class="form-control @error('total_harga') is-invalid @enderror"
-                                    id="total_harga_input" name="total_harga">
+                                    id="total_harga_input" name="total_harga" readonly>
                                 @error('total_harga')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -176,84 +46,152 @@
                         </div>
                         <div class="container">
                             <h2 class="form-title">Pilih Studio</h2>
-                            {{--  <div class="form-group">
-                                <select class="form-control" id="studioSelect" onchange="handleStudioChange(this)">
-                                    <option value="">Pilih Studio</option>
-                                    @foreach ($studio as $index => $namaStudio)
-                                        <option value="{{ $index }}">{{ $namaStudio }}</option>
-                                    @endforeach
-                                </select>
+                            {{--  <div class="film-container">
+                                @foreach ($kursi as $studioId => $kursis)
+                                    <div class="film-card text-center" data-bs-toggle="modal"
+                                        data-bs-target="#filmModal{{ $studioId }}">
+                                        <label class="film-label">{{ $kursis->first()->studio->studio }}</label>
+                                    </div>
+                                @endforeach
                             </div>  --}}
-                            @foreach ($studio as $index => $namaStudio)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $index }}"
-                                        name="id_studios" id="id_studios" id="flexCheckDefault"
-                                        onchange="handleStudioChange(this)">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        {{ $namaStudio }}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <div class="mb-3">
+                                <label for="studio" class="form-label">Pilih Studio</label>
+                                @foreach ($kursi as $studioId => $kursis)
+                                    <div class="form-check" class="film-card text-center" data-bs-toggle="modal"
+                                    data-bs-target="#filmModal{{ $studioId }}">
+                                        <input class="form-check-input" id="id_studios" name="id_studios" type="radio" id="studio{{ $studioId }}" value="{{ $studioId }}">
+                                        <label class="form-check-label" for="studio{{ $studioId }}">
+                                            {{ $kursis->first()->studio->studio }}
+                                        </label>
+                                        @error('id_studio')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    </div>
+                                @endforeach
+                            </div>
 
-                            <div>Jumlah Kursi: <span id="kursiCount"></span></div>
+
                             <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Order</button>
                         </div>
-                        <!-- Modal Kursi -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h2 class="form-title">Pilih Kursi</h2>
-                                        <div class="seats" id="seatsContainer">
-                                            <!-- Kursi akan ditampilkan di sini -->
+
+                        @foreach ($kursi as $studioId => $kursis)
+                            <!-- Film Modal -->
+                            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
+                                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Pilih Kursi</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="modal-body">
+                                            @foreach ($kursis->chunk(10) as $chunk)
+                                                <div class="kursi-row">
+                                                    @foreach ($chunk as $item)
+                                                        <div class="kursi-item @if($item->is_reserved) reserved @endif"
+                                                            data-seat-id="{{ $item->id }}"
+                                                            data-seat-number="{{ $item->kursi }}">
+                                                            <strong>{{ $item->kursi }}</strong>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <script>
-                            function handleStudioChange(select) {
-                                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-                                myModal.show();
-                            }
-                        </script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const kursi = @json($kursi);
-                                const hargaPerKursi = {{ $detail->harga }};
-                                const jumlahKursi = kursi.length;
-                                document.getElementById('kursiCount').innerText = jumlahKursi;
-                                const seatsContainer = document.getElementById('seatsContainer');
-                                kursi.forEach((nominal, index) => {
-                                    const seat = document.createElement('div');
-                                    seat.className = 'seat available';
-                                    seat.textContent = nominal;
-                                    seat.setAttribute('data-seat', index + 1);
-                                    seatsContainer.appendChild(seat);
-                                    seat.addEventListener('click', function() {
-                                        seat.classList.toggle('selected');
-                                        updateTotalHarga();
-                                    });
-                                });
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                function updateTotalHarga() {
-                                    const selectedSeats = document.querySelectorAll('.seat.selected').length;
-                                    const totalHarga = selectedSeats * hargaPerKursi;
-                                    document.getElementById('jumlah_tiket_input').value = selectedSeats;
-                                    document.getElementById('total_harga_input').value = totalHarga;
-                                }
-                            });
-                        </script>
-                    @endsection
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hargaPerKursi = {{ $detail->harga }};
+
+            function updateTotalHarga() {
+                const selectedSeats = document.querySelectorAll('.kursi-item.selected').length;
+                const totalHarga = selectedSeats * hargaPerKursi;
+                document.getElementById('jumlah_tiket_input').value = selectedSeats;
+                document.getElementById('total_harga_input').value = totalHarga;
+            }
+
+            document.querySelectorAll('.kursi-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!item.classList.contains('reserved')) {
+                        item.classList.toggle('selected');
+                        updateTotalHarga();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .film-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .film-card {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            width: calc(25% - 10px);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .film-card:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        .film-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .kursi-item {
+            width: 50px;
+            height: 50px;
+            background-color: #e0f7fa;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .kursi-item.selected {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .kursi-item.reserved {
+            background-color: #f44336;
+            cursor: not-allowed;
+        }
+
+        .kursi-row {
+            margin-bottom: 10px;
+        }
+
+        /* Adjust the size of the modal content to fit better */
+        .modal-dialog {
+            max-width: 80%;
+        }
+    </style>
+@endsection
