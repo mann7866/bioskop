@@ -17,9 +17,9 @@ class OrderController extends Controller
     public function index()
     {
         $detail = Detail::all();
-
+        $studio = Studio::all();
         $order = Order::all();
-        return view("orders.order", compact("detail",  "order"));
+        return view("orders.order", compact("detail",  "order", "studio"));
     }
 
     /**
@@ -32,13 +32,12 @@ class OrderController extends Controller
     public function order($id)
     {
         $detail = Detail::find($id);
-        $kursi = Kursi::pluck('kursi');
-        $studio = Studio::pluck('studio','id');
+        $kursi = Kursi::pluck('id_studio');
+        $studio = Studio::pluck('studio');
 
-        // dd($id);
-         return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
+            return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
     }
-    
+
 
 
 
@@ -53,9 +52,9 @@ class OrderController extends Controller
 
             'jumlah_tiket' => 'required|integer|min:1', // Contoh validasi jumlah_tiket
             'total_harga' => 'required|min:0|numeric',
-            'pembayaran' => '',
             'id_detail' => '',
-            'id_studio' => '',
+            'pembayaran' => '',
+            'id_studios' => 'required',
 
         ],[
             'jumlah_tiket.required'=> 'Jumlah Tiket Harus Diisi',
@@ -63,8 +62,8 @@ class OrderController extends Controller
             'total_harga.min'=> 'Jumlah Tiket Minimal 0',
             'total_harga.required'=> 'Total Harga Harus Diisi',
             'total_harga.numeric'=> 'Total Harga Harus Abjad',
-            'id_studio.required' => 'Studio Harus Dipilih',
-        ]); 
+            'id_studios.required' => 'Studio Harus Dipilih',
+        ]);
 
         Order::create($validateData);
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
