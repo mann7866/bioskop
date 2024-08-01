@@ -259,7 +259,7 @@ class DetailController extends Controller
         }
 
         // Redirect dengan pesan sukses setelah berhasil update
-        return redirect()->route("detail")->with("success", "Berhasil Update Detail");
+        return redirect()->route("detail")->with("success", "Berhasil Edit Detail Film");
     }
 
 
@@ -285,6 +285,6 @@ class DetailController extends Controller
         }
         $detail->delete();
 
-        return redirect()->route("detail")->with("delete", "Berhasil Menghapus Detail");
+        return redirect()->route("detail")->with("success", "Berhasil Menghapus Detail");
     }
 }

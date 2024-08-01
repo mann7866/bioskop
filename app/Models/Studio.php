@@ -17,4 +17,8 @@ class Studio extends Model
     {
         return $this->hasMany(Kursi::class,'id_studio','id');
     }
+    public function order()
+    {
+        return $this->hasMany(Order::class,'id_studio','id');
+    }
 }

@@ -311,7 +311,7 @@
                             @foreach ($detail as $key => $item)
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
-                                        alt="{{ $item->judul }}">
+                                        alt="{{ $item->judul }}" data-aos="fade-up">
                                     {{-- <div class="carousel-caption d-none d-md-block mb-3 warna">
                                             <h5><strong>{{$item->judul}} </strong></h5>
                                             <p><strong>{{$item->deskripsi}}</strong> </p>
@@ -337,10 +337,10 @@
                         <div class="carousel-item active">
                             <div class="film-container">
                                 @forelse ($detail as $item)
-                                    <div class="film-card" data-bs-toggle="modal"
+                                    <div class="film-card" data-aos="fade-right" data-bs-toggle="modal"
                                         data-bs-target="#filmModal{{ $item->id }}">
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                            alt="{{ $item->judul }}">
+                                            alt="{{ $item->judul }}" >
                                         <div class="film-description">
                                             <button class="btn-pesan"
                                                 onclick="link('{{ route('order.create', $item->id) }}')">

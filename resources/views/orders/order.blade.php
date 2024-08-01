@@ -198,6 +198,15 @@
                                 <div>
                                     <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                                 </div>
+                                <label for="" class="total-payment-label">Studio:</label>
+                                @if($item->$studio)
+                                <h6 class="badge border border-primary text-primary">
+                                    {{ $item->studio->studio }}
+                                </h6>
+                            @else
+                                <p>No studio information available.</p>
+                            @endif
+
                                 <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.

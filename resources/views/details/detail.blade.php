@@ -7,7 +7,7 @@
         <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
-{{--  @if (session('delete'))
+@if (session('delete'))
 <div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
     <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
         aria-atomic="true">
@@ -21,7 +21,7 @@
 @endif
 @if (session('success'))
 <div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
-    <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
+    <div class="toast mt-3 align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
         aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-@endif  --}}
+@endif
 @section('content')
     <style>
         * {
@@ -435,7 +435,7 @@
                                 <div class="modal-footer">
                                     <a href="{{ route('detail.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal{{ $item->id }}">Delete</button>
+                                        data-bs-target="#deleteModal{{ $item->id }}">Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -447,20 +447,21 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Confirm Delete</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure you want to delete this film?
+                                    Apakah anda yakin ingin menghapus?
                                 </div>
                                 <div class="modal-footer">
                                     <form action="{{ route('detail.delete', $item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                        <a href="{{ route('detail') }}"> <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Kembali</button></a>
+
                                     </form>
                                 </div>
                             </div>

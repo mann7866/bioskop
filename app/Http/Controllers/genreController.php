@@ -88,9 +88,9 @@ class genreController extends Controller
 
             ]);
             $genre->update($validateData);
-            return redirect()->route("genre")->with("success", "Berhasil Update Genre");
+            return redirect()->route("genre")->with("success", "Berhasil Edit Genre");
         } else {
-            return redirect()->route("genre")->with("success", "Berhasil Update Genre");
+            return redirect()->route("genre")->with("success", "Berhasil Edit Genre");
         }
     }
 
@@ -108,6 +108,6 @@ class genreController extends Controller
         }
 
         $genre->delete();
-        return redirect()->route("genre")->with('delete', 'genre berhasil diHapus.');
+        return redirect()->route("genre")->with('success', 'genre berhasil diHapus.');
     }
 }
