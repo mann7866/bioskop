@@ -66,7 +66,8 @@ class timeController extends Controller
     public function edit(string $id)
     {
         $time = Time::find($id);
-        return view("times.editTime", compact("time"));
+        $detail = Detail::all();
+        return view("times.editTime", compact("time", "detail"));
     }
 
     /**
@@ -76,9 +77,11 @@ class timeController extends Controller
     {
 
         $time = Time::find($id);
-        // $validateData = $request;
+          $validateData = $request;
+        if($validateData['jamTayang'] !== $time->jamTayang){
+
         $validateData = $request->validate([
-            "id_judul"=>"required",
+          "id_judul"=>"required",
             "jamTayang"=> "required|unique:time,jamTayang",
             "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
         ],[
@@ -92,6 +95,9 @@ class timeController extends Controller
             $time->update($validateData);
             return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
 
+        }else{
+            return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
+        }
 
     }
 

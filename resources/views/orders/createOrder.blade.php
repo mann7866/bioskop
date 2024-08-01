@@ -1,5 +1,46 @@
 @extends('layouts.app')
 
+<style>
+    .studio-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.studio-card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.studio-card:hover {
+    background-color: #e9ecef;
+    transform: scale(1.02);
+}
+
+.studio-card input[type="radio"] {
+    margin-right: 10px;
+}
+
+.studio-card label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+}
+
+</style>
+
 @section('content')
     <div class="container mt-4">
         <div class="form-container">
@@ -56,19 +97,22 @@
                             </div>  --}}
                             <div class="mb-3">
                                 <label for="studio" class="form-label">Pilih Studio</label>
-                                @foreach ($kursi as $studioId => $kursis)
-                                    <div class="form-check" class="film-card text-center" data-bs-toggle="modal"
-                                    data-bs-target="#filmModal{{ $studioId }}">
-                                        <input class="form-check-input" id="id_studios" name="id_studios" type="radio" id="studio{{ $studioId }}" value="{{ $studioId }}">
-                                        <label class="form-check-label" for="studio{{ $studioId }}">
-                                            {{ $kursis->first()->studio->studio }}
-                                        </label>
-                                        @error('id_studio')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-                                @endforeach
+                                <div class="studio-container">
+                                    @foreach ($kursi as $studioId => $kursis)
+                                        <div class="form-check studio-card" class="film-card text-center" data-bs-toggle="modal"
+                                        data-bs-target="#filmModal{{ $studioId }}">
+                                            <input class="form-check-input" type="radio" id="studio{{ $studioId }}" name="id_studios" value="{{ $studioId }}">
+                                            <label class="form-check-label" for="studio{{ $studioId }}">
+                                                {{ $kursis->first()->studio->studio }}
+                                            </label>
+                                            @error('id_studios')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
+
 
 
                             <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Order</button>
@@ -91,6 +135,7 @@
                                                     @foreach ($chunk as $item)
                                                         <div class="kursi-item @if($item->is_reserved) reserved @endif"
                                                             data-seat-id="{{ $item->id }}"
+
                                                             data-seat-number="{{ $item->kursi }}">
                                                             <strong>{{ $item->kursi }}</strong>
                                                         </div>

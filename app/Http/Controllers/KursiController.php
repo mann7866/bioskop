@@ -15,12 +15,12 @@ class KursiController extends Controller
     {
         $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
         $studio = Studio::all();
-    
+
         // dd($kursi, $studio); // Cek data yang dikirim ke view
-    
+
         return view("chairs.kursi", compact("kursi", "studio"));
     }
-    
+
 
     // public function getKursiByStudio($id)
     // {

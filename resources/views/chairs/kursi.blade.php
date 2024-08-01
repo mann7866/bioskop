@@ -1,151 +1,97 @@
 @extends('layouts.app')
 
-<style>
-    /* Styling umum untuk form */
-    .form-container {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin-top: 20px;
-    }
-
-    .form-title {
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .card {
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .card img {
-        border-bottom: 2px solid #ddd;
-    }
-
-    .card-body {
-        padding: 15px;
-    }
-
-    .card-title {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .card-text {
-        color: #555;
-    }
-
-    .seats {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .seat {
-        width: 50px;
-        height: 50px;
-        background-color: #e0f7fa;
-        margin: 5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s, transform 0.3s;
-        position: relative;
-    }
-
-    .seat:hover {
-        transform: scale(1.1);
-    }
-
-    .seat::after {
-        content: attr(data-seat);
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #333;
-        color: white;
-        padding: 2px 5px;
-        border-radius: 4px;
-        font-size: 12px;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-    .seat:hover::after {
-        opacity: 1;
-    }
-
-    .seat.selected {
-        background-color: #4caf50;
-        color: white;
-    }
-
-    .seat.reserved {
-        background-color: #f44336;
-        cursor: not-allowed;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
-
-    .form-control {
-        border-radius: 8px;
-        box-shadow: none;
-        border: 1px solid #ced4da;
-    }
-
-    .form-control:focus {
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-    }
-
-    .form-label {
-        font-weight: bold;
-    }
-
-    .total-seats {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-</style>
-
 @section('search')
-    <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
-        <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
+    <form action="{{ route('detail') }}" method="GET" class="d-flex mb-4">
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
+        <button class="btn btn-outline-primary" type="submit">Cari</button>
+        <a class="btn btn-outline-secondary ms-2" href="{{ route('detail') }}">Refresh</a>
     </form>
 @endsection
 
-<link rel="stylesheet" href="{{ asset('css/kursi.css') }}">
 @section('content')
-    {{-- alert --}}
+    <style>
+        /* Styling untuk modal dan kursi */
+        .modal-content {
+            border-radius: 12px;
+        }
+
+        .kursi-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .kursi-card {
+            width: 50px;
+            height: 50px;
+            background-color: #1a8bb8;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            text-align: center;
+        }
+
+        .kursi-card:hover {
+            transform: scale(1.1);
+        }
+
+        .kursi-card.selected {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .kursi-card.reserved {
+            background-color: #f44336;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .film-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .film-card {
+            background-color: #0d3e83;
+            border: 1px solid #0f0303;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .film-card:hover {
+            background-color: #147dc8;
+            transform: scale(1.05);
+        }
+
+        .toast-container {
+            z-index: 9999;
+        }
+
+        .toast {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .toast.fade-out {
+            opacity: 0;
+        }
+    </style>
+
+    {{-- Alert Success --}}
     @if (session('success'))
-        <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
-                aria-live="assertive" aria-atomic="true">
+        <div class="toast-container position-fixed top-5 end-0 p-2">
+            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
@@ -158,115 +104,82 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center text-secondary">Kursi Film</h1>
+                <h1 class="text-center text-secondary">Studio dan Kursi</h1>
 
-                <a href="{{ route('kursi.create') }}" class="btn btn-primary btn-create">Tambah Kursi</a>
+                <a href="{{ route('studio.create') }}" class="btn btn-primary mb-4">Tambah Studio</a>
 
                 <div class="film-container">
-                    @forelse ($kursi as $studioId => $kursis)
-                        @foreach ($kursis->chunk(10) as $chunk)
-                            <div class="kursi-row">
-                                @foreach ($chunk as $item)
-                                    <div class="kursi-item">
-                                        <strong>{{ $item->kursi }}</strong>
-                                        <div class="button-group">
-                                            <button class="btn btn-sm btn-edit">
-                                                <a href="{{ route('kursi.edit', $item->id) }}"><i class="bi bi-pen"></i></a>
-                                            </button>
-                                            <button class="btn btn-sm btn-delete">
-                                                <a href="{{ route('kursi.delete', $item->id) }}"><i
-                                                        class="bi bi-backspace-reverse"></i></a>
-                                            </button>
+                    @forelse ($studio as $studio)
+                        <div class="film-card" data-bs-toggle="modal" data-bs-target="#studioModal{{ $studio->id }}">
+                            <p>{{ $studio->studio }}</p>
+                        </div>
+
+                        <!-- Studio Modal -->
+                        <div class="modal fade" id="studioModal{{ $studio->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $studio->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="studioModalLabel{{ $studio->id }}">Kursi Studio {{ $studio->studio }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="kursi-container">
+                                            @forelse ($studio->kursi as $kursi)
+                                                <div class="kursi-card @if($kursi->is_reserved) reserved @endif" data-seat="{{ $kursi->studio }}">
+                                                    {{ $kursi->kursi }}
+                                                </div>
+                                            @empty
+                                                <p class="text-center">Tidak ada kursi untuk studio ini</p>
+                                            @endforelse
                                         </div>
                                     </div>
-                                @endforeach
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
                             </div>
-                        @endforeach
-                    @empty
-                        <div class="text-center">
-                            <p class="text-secondary">Tidak ada kursi yang tersedia.</p>
                         </div>
+
+                    @empty
+                        <p class="text-center text-secondary">Tidak ada studio</p>
                     @endforelse
                 </div>
             </div>
         </div>
-
-        @foreach ($kursi as $studioId => $kursis)
-            <!-- Film Modal -->
-            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
-                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Detail Film</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            @foreach ($kursis->chunk(10) as $chunk)
-                                <div class="kursi-row">
-                                    @foreach ($chunk as $item)
-                                        <div class="kursi-item">
-                                            <strong>{{ $item->kursi }}</strong>
-                                            <div class="button-group">
-                                                <button class="btn btn-sm btn-edit">
-                                                    <a href="{{ route('kursi.edit', $item->id) }}"><i
-                                                            class="bi bi-pen"></i></a>
-                                                </button>
-                                                <button class="btn btn-sm btn-delete">
-                                                    <a href="{{ route('kursi.delete', $item->id) }}"><i
-                                                            class="bi bi-backspace-reverse"></i></a>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
     </div>
-
-    @push('style')
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-        <style>
-            .fade-out {
-                opacity: 0;
-                transition: opacity 0.5s ease-out;
-            }
-        </style>
-    @endpush
-    @push('script')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-    @endpush
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let table = new DataTable('#GO');
-            setTimeout(function() {
-                var toastElList = document.querySelectorAll('.toast');
-                toastElList.forEach(function(toastEl) {
-                    var toast = new bootstrap.Toast(toastEl, {
-                        autohide: true,
-                        delay: 2000
-                    });
-                    toast.show();
-
-                    setTimeout(function() {
-                        toastEl.classList.add('fade-out');
-                    }, 2000);
-                });
-            }, 2000);
-        });
-    </script>
 @endsection
+
+@push('style')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+@endpush
+
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+@endpush
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DataTable if necessary
+        // let table = new DataTable('#GO'); // Uncomment if needed
+
+        // Initialize Toast notifications
+        setTimeout(function() {
+            var toastElList = document.querySelectorAll('.toast');
+            toastElList.forEach(function(toastEl) {
+                var toast = new bootstrap.Toast(toastEl, {
+                    autohide: true,
+                    delay: 2000
+                });
+                toast.show();
+
+                setTimeout(function() {
+                    toastEl.classList.add('fade-out');
+                }, 2000);
+            });
+        }, 2000);
+    });
+</script>

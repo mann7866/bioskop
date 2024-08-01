@@ -54,6 +54,8 @@ class OrderController extends Controller
             'id_detail' => 'required', // Pastikan ini sesuai dengan form
             'id_studios' => 'required',
             'pembayaran' => '',
+           
+
         ], [
             'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
             'jumlah_tiket.min' => 'Jumlah Tiket Minimal 1',
@@ -62,15 +64,22 @@ class OrderController extends Controller
             'total_harga.numeric' => 'Total Harga Harus Angka',
             'id_studios.required' => 'Studio Harus Dipilih',
             'id_detail.required' => 'Detail ID Harus Diisi', // Tambahkan pesan error jika perlu
+
         ]);
 
         // Debug: cek isi data yang valid
         // dd($validateData);
 
         // Simpan data ke dalam tabel 'orders'
-        Order::create($validateData);
+       $order = Order::create([
+        'jumlah_tiket'=> $validateData['jumlah_tiket'],
+        'total_harga'=> $validateData['total_harga'],
+        'id_detail'=> $validateData['id_detail'],
+        'id_studios'=> $validateData['id_studios'],
 
-        // Redirect ke halaman home dengan pesan sukses
+
+       ]);
+
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
 
