@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_kursi', function (Blueprint $table) {
             $table->id();
+            $table->enum('status',['Notorder','order'])->default('Notorder');
             $table->foreignId('id_kursi')->references('id')->on('kursi')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_order')->references('id')->on('order')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
