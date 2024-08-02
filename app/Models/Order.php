@@ -25,5 +25,4 @@ class Order extends Model
         return $this->belongsToMany(Kursi::class, 'order_kursi', 'id_order', 'id_kursi');
     }
 
-
 }

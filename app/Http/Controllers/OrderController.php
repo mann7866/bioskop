@@ -11,16 +11,16 @@ use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
-public function index()
-{
-    $detail = Detail::all();
-    $studio = Studio::all();
-    $kursi = Kursi::all();
-    $order = Order::with('studio', 'detail', 'kursi')->get();
-// dd($order);
+    public function index()
+    {
+        $detail = Detail::all();
+        $studio = Studio::all();
+        $kursi = Kursi::all();
+        $order = Order::with('studio', 'detail', 'kursi')->get();
+        // dd($order);
 
-    return view("orders.order", compact("detail", "order", "studio", "kursi"));
-}
+        return view("orders.order", compact("detail", "order", "studio", "kursi"));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,9 +38,6 @@ public function index()
     }
 
 
-
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -50,12 +47,10 @@ public function index()
         $validateData = $request->validate([
             'jumlah_tiket' => 'required|integer|min:1',
             'total_harga' => 'required|numeric|min:0',
-            'id_detail' => 'required', // Pastikan ini sesuai dengan form
+            'id_detail' => 'required',
             'id_studios' => 'required',
-            'pembayaran' => '',
-            'kursis'=> 'required|array',
-
-
+            'kursis' => 'required|array',
+            'kursis.*' => 'unique:order_kursi,id_kursi', // Ubah kursi_table_name dan column_name sesuai dengan tabel dan kolom yang relevan
         ], [
             'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
             'jumlah_tiket.min' => 'Jumlah Tiket Minimal 1',
@@ -63,28 +58,33 @@ public function index()
             'total_harga.required' => 'Total Harga Harus Diisi',
             'total_harga.numeric' => 'Total Harga Harus Angka',
             'id_studios.required' => 'Studio Harus Dipilih',
-            'id_detail.required' => 'Detail ID Harus Diisi', // Tambahkan pesan error jika perlu
-
+            'id_detail.required' => 'Detail ID Harus Diisi',
+            'kursis.required' => 'Kursi yang dipilih harus diisi',
+            'kursis.*.unique' => 'Kursi yang dipilih harus unik',
         ]);
-
-        // Debug: cek isi data yang valid
-        // dd($validateData);
-
+    
         // Simpan data ke dalam tabel 'orders'
-       $order = Order::create([
-        'jumlah_tiket'=> $validateData['jumlah_tiket'],
-        'total_harga'=> $validateData['total_harga'],
-        'id_detail'=> $validateData['id_detail'],
-        'id_studios'=> $validateData['id_studios'],
-
-
-       ]);
-       if ($request->has('kursis')) {
-        $kursis = $request->input('kursis');
-        $order->kursi()->sync($kursis);
-    }
+        $order = Order::create([
+            'jumlah_tiket' => $validateData['jumlah_tiket'],
+            'total_harga' => $validateData['total_harga'],
+            'id_detail' => $validateData['id_detail'],
+            'id_studios' => $validateData['id_studios'],
+        ]);
+    
+        // Sinkronkan kursi yang dipilih jika ada
+        if ($request->has('kursis')) {
+            $kursis = $request->input('kursis');
+            $order->kursi()->sync($kursis);
+        } else {
+            if ($request->has('id_kursi')) {
+                $id_kursi = $request->input('id_kursi');
+                $order->kursi()->sync($id_kursi);
+            }
+        }
+    
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
+    
 
 
     /**
