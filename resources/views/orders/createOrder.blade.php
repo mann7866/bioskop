@@ -133,7 +133,7 @@
                                             @foreach ($kursis->chunk(10) as $chunk)
                                             <div class="kursi-row">
                                                 @foreach ($chunk as $item)
-                                                <div class="kursi-item"
+                                                <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger' : '' }}"
                                                     data-seat-id="{{ $item->id }}"
                                                     data-seat-number="{{ $item->kursi }}">
                                                    <input class="form-check-input @error('kursis') is-invalid @enderror" type="checkbox" name="kursis[]" value="{{ $item->id }}">

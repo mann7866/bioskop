@@ -34,7 +34,10 @@ class OrderController extends Controller
         $detail = Detail::find($id);
         $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
         $studio = Studio::pluck('studio');
-        return view('orders.createOrder', compact('detail', 'kursi', 'studio'));
+
+        $bookedSeats = Order::with('kursi')->get()->pluck('kursi')->flatten()->pluck('id')->toArray();
+
+        return view('orders.createOrder', compact('detail', 'kursi', 'studio', 'bookedSeats'));
     }
 
 
