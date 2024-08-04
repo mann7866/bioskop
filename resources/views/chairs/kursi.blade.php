@@ -2,7 +2,8 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex mb-4">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
+            required>
         <button class="btn btn-outline-primary" type="submit">Cari</button>
         <a class="btn btn-outline-secondary ms-2" href="{{ route('detail') }}">Refresh</a>
     </form>
@@ -11,10 +12,11 @@
 @section('content')
     <style>
         /* Styling untuk modal dan kursi */
-        *{
+        * {
             scroll-behavior: smooth;
             font-family: Arial, sans-serif;
         }
+
         .modal-content {
             border-radius: 25px;
             padding: 27px;
@@ -70,7 +72,7 @@
             background-color: #0d3e83;
             /* border: 1px solid #0f0303;    */
             border-radius: 8px;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
@@ -113,6 +115,7 @@
             border-radius: 20px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         /* button ya  */
         .button-group .btn-edit a {
             color: black;
@@ -157,12 +160,26 @@
         .toast.fade-out {
             opacity: 0;
         }
+
+        .warning {
+            /* border-block-start: 1rem solid;
+            writing-mode: horizontal-tb; */
+            background-clip: border-box;
+            background-color: royalblue;
+            border-radius: 15px;
+            transition: 3s ease;
+        }
+
+        .warning:hover {
+            border-radius: 30px 20px 15px;
+        }
     </style>
 
     {{-- Alert Success --}}
     @if (session('success'))
         <div class="toast-container position-fixed top-5 end-0 p-2">
-            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+                aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
@@ -172,23 +189,24 @@
         </div>
     @endif
     @if (session('gagal'))
-    <div class="toast-container position-fixed top-5 end-0 p-2">
-        <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    {{ session('gagal') }}
+        <div class="toast-container position-fixed top-5 end-0 p-2">
+            <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('gagal') }}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
-{{-- kursi Semua  --}}
+    @endif
+    {{-- kursi Semua  --}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="text-center text-secondary">Studio dan Kursi</h1>
 
-                <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4">Tambah Kursi</a>
+                <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4 warning">Tambah Kursi</a>
 
                 <div class="film-container">
                     @forelse ($studio as $studio)
@@ -202,17 +220,21 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="studioModalLabel{{ $studio->id }}">Kursi Studio {{ $studio->studio }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title" id="studioModalLabel{{ $studio->id }}">Kursi Studio
+                                            {{ $studio->studio }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="kursi-container">
                                             @forelse ($studio->kursi as $kursi)
-                                                <div class="kursi-card @if ($kursi->is_reserved) reserved @endif" data-seat="{{ $kursi->studio }}">
+                                                <div class="kursi-card @if ($kursi->is_reserved) reserved @endif"
+                                                    data-seat="{{ $kursi->studio }}">
                                                     {{ $kursi->kursi }}
                                                     <div class="button-group">
                                                         <button class="btn btn-sm btn-edit">
-                                                            <a href="{{ route('kursi.edit', $kursi->id) }}"><i class="bi bi-pen"></i></a>
+                                                            <a href="{{ route('kursi.edit', $kursi->id) }}"><i
+                                                                    class="bi bi-pen"></i></a>
                                                         </button>
                                                         <button class="btn btn-sm btn-delete">
                                                             <a href="{{ route('kursi.delete', $kursi->id) }}"
@@ -220,7 +242,9 @@
                                                                 <i class="bi bi-backspace-reverse"></i>
                                                             </a>
                                                         </button>
-                                                        <form id="delete-form-{{ $kursi->id }}" action="{{ route('kursi.delete', $kursi->id) }}" method="GET" style="display: none;">
+                                                        <form id="delete-form-{{ $kursi->id }}"
+                                                            action="{{ route('kursi.delete', $kursi->id) }}" method="GET"
+                                                            style="display: none;">
                                                             @csrf
                                                         </form>
                                                     </div>
@@ -231,7 +255,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>
                             </div>
