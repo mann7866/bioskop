@@ -178,8 +178,8 @@
                         <div class="card">
                             <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h4 class="card-category ">Judul:</h4>
-                                <h5 class="">{{ $item->detail->judul }}</h5>
+
+
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
@@ -197,6 +197,8 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-body">
+                                <h4 class="card-category ">Judul:</h4>
+                                <h5 class="">{{ $item->detail->judul }}</h5>
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
                                 <div>
                                     <span

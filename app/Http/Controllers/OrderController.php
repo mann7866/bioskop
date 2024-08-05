@@ -65,7 +65,7 @@ class OrderController extends Controller
             'kursis.required' => 'Kursi yang dipilih harus diisi',
             'kursis.*.unique' => 'Kursi yang dipilih harus unik',
         ]);
-    
+
         // Simpan data ke dalam tabel 'orders'
         $order = Order::create([
             'jumlah_tiket' => $validateData['jumlah_tiket'],
@@ -73,7 +73,7 @@ class OrderController extends Controller
             'id_detail' => $validateData['id_detail'],
             'id_studios' => $validateData['id_studios'],
         ]);
-    
+
         // Sinkronkan kursi yang dipilih jika ada
         if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
@@ -84,10 +84,10 @@ class OrderController extends Controller
                 $order->kursi()->sync($id_kursi);
             }
         }
-    
+
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
-    
+
 
 
     /**
@@ -195,6 +195,6 @@ class OrderController extends Controller
     {
         Order::find($id)->delete();
         // dd($id);
-        return redirect()->route("order.index")->with("success", "Berhasil Membatalkan Pesanan");
+        return redirect()->route("order.index")->with("success", "Berhasil Menghapus Pesanan");
     }
 }
