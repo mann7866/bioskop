@@ -4,7 +4,7 @@
     <form action="{{ route('home') }}" method="GET" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
             required>
-            <a class="btn btn-outline-primary" href="{{ route('home') }}">Refresh</a>
+        <a class="btn btn-outline-primary" href="{{ route('home') }}">Refresh</a>
     </form>
 @endsection
 {{-- @if ('berhasil')
@@ -163,9 +163,22 @@
             display: none;
         }
 
-        .carousel-control-prev,
-        .carousel-control-next {
-            display: none;
+        .carousel-caption-custom {
+            position: relative;
+            top: -45px;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            /* padding: 10px;
+            border-radius: 10px; */
+            text-align: center;
+            width: 90%;
+        }
+
+        .carousel-caption-custom h5,
+        .carousel-caption-custom p {
+            margin: 0;
+            color: black;
         }
 
         .back {
@@ -305,32 +318,31 @@
                     </div>
                 </div>
 
-                <div class="container mt-4" id="film">
-                    <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            @foreach ($detail as $key => $item)
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
-                                        alt="{{ $item->judul }}" data-aos="fade-up">
-                                    {{-- <div class="carousel-caption d-none d-md-block mb-3 warna">
-                                            <h5><strong>{{$item->judul}} </strong></h5>
-                                            <p><strong>{{$item->deskripsi}}</strong> </p>
-                                        </div> --}}
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach ($detail as $key => $item)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
+                                    alt="{{ $item->judul }}" data-aos="fade-up">
+                                <div class="carousel-caption-custom d-none d-md-block">
+                                    <h5><strong>{{ $item->judul }}</strong></h5>
+                                    <p><strong>{{ $item->deskripsi }}</strong></p>
                                 </div>
-                            @endforeach
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Sebelumnya</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Berikutnya</span>
-                        </button>
+                            </div>
+                        @endforeach
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
+
 
                 <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -340,7 +352,7 @@
                                     <div class="film-card" data-aos="fade-right" data-bs-toggle="modal"
                                         data-bs-target="#filmModal{{ $item->id }}">
                                         <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                            alt="{{ $item->judul }}" >
+                                            alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <button class="btn-pesan"
                                                 onclick="link('{{ route('order.create', $item->id) }}')">
@@ -353,9 +365,9 @@
                                     </div>
 
                                 @empty
-                                <div class="empty-message-container">
-                                    <p class="empty-message">Tidak Ada Film</p>
-                                </div>
+                                    <div class="empty-message-container">
+                                        <p class="empty-message">Tidak Ada Film</p>
+                                    </div>
                                 @endforelse
                             </div>
                         </div>

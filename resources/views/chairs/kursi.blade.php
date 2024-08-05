@@ -20,7 +20,6 @@
         .modal-content {
             border-radius: 25px;
             padding: 27px;
-
         }
 
         .kursi-container {
@@ -34,29 +33,30 @@
             margin: 25px;
             width: 80px;
             height: 80px;
-            background-color: #1a8bb8;
-            color: #333;
+            background-color: #3498db; /* Biru cerah */
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            cursor: progress;
+            cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             position: relative;
             text-align: center;
         }
 
         .kursi-card:hover {
+            background-color: #2980b9; /* Biru lebih gelap */
             transform: scale(1.1);
         }
 
         .kursi-card.selected {
-            background-color: #4caf50;
+            background-color: #2ecc71; /* Hijau cerah */
             color: white;
         }
 
         .kursi-card.reserved {
-            background-color: #f44336;
+            background-color: #e74c3c; /* Merah cerah */
             color: white;
             cursor: not-allowed;
         }
@@ -69,8 +69,7 @@
         }
 
         .film-card {
-            background-color: #0d3e83;
-            /* border: 1px solid #0f0303;    */
+            background-color: #4454ad; /* Ungu cerah */
             border-radius: 8px;
             padding: 10px;
             text-align: center;
@@ -79,7 +78,7 @@
         }
 
         .film-card:hover {
-            background-color: #147dc8;
+            background-color: #4454ad; /* Ungu lebih cerah */
             transform: scale(1.05);
         }
 
@@ -108,21 +107,20 @@
             position: relative;
             padding: 10%;
             margin: 15px;
-            background-color: #14c14b;
-            color: black;
+            background-color: #28a745; /* Hijau */
+            color: white;
             top: 17px;
             left: -10px;
             border-radius: 20px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        /* button ya  */
         .button-group .btn-edit a {
-            color: black;
+            color: white;
         }
 
         .button-group .btn-edit:hover {
-            background-color: #e0a800;
+            background-color: #218838; /* Hijau lebih gelap */
             transform: scale(1.05);
         }
 
@@ -130,12 +128,11 @@
             position: relative;
             padding: 10%;
             margin: 15px;
-            background-color: #dc3545;
+            background-color: #dc3545; /* Merah */
             color: white;
             top: 17px;
             left: 12px;
             border-radius: 20px;
-            /* border-radius: 20px; */
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
@@ -144,7 +141,7 @@
         }
 
         .button-group .btn-delete:hover {
-            background-color: #c82333;
+            background-color: #c82333; /* Merah lebih gelap */
             transform: scale(1.05);
         }
 
@@ -162,15 +159,13 @@
         }
 
         .warning {
-            /* border-block-start: 1rem solid;
-            writing-mode: horizontal-tb; */
-            background-clip: border-box;
-            background-color: royalblue;
+            background-color: #0f29f1; /* royalblue cerah */
             border-radius: 15px;
-            transition: 3s ease;
+            transition: 0.3s ease;
         }
 
         .warning:hover {
+            background-color: #121df3; /* Kuning lebih gelap */
             border-radius: 30px 20px 15px;
         }
     </style>

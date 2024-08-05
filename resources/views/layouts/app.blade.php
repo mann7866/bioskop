@@ -30,14 +30,15 @@
 
     <!-- Custom CSS untuk Sidebar dan Overlay -->
     <style>
+
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             width: 250px;
             height: 100%;
-            background-color: #343a40;
-            color: #fff;
+            background-color: #fff !important;
+            color: #000;
             padding: 15px;
             transition: transform 0.3s ease-in-out;
             transform: translateX(-100%);
@@ -76,12 +77,12 @@
         }
 
         .sidebar ul li a {
-            color: #fff;
+            color: #000;
             text-decoration: none;
         }
 
         .btn-close {
-            color: #fff;
+            color: #000;
             font-size: 1.5rem;
             margin: 10px 0;
         }

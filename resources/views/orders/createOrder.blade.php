@@ -2,43 +2,42 @@
 
 <style>
     .studio-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 
-.studio-card {
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    .studio-card {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
 
-.studio-card:hover {
-    background-color: #e9ecef;
-    transform: scale(1.02);
-}
+    .studio-card:hover {
+        background-color: #e9ecef;
+        transform: scale(1.02);
+    }
 
-.studio-card input[type="radio"] {
-    margin-right: 10px;
-}
+    .studio-card input[type="radio"] {
+        margin-right: 10px;
+    }
 
-.studio-card label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #495057;
-}
+    .studio-card label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #495057;
+    }
 
-.invalid-feedback {
-    display: block;
-    color: #dc3545;
-    font-size: 0.875rem;
-}
-
+    .invalid-feedback {
+        display: block;
+        color: #dc3545;
+        font-size: 0.875rem;
+    }
 </style>
 
 @section('content')
@@ -99,9 +98,10 @@
                                 <label for="studio" class="form-label">Pilih Studio</label>
                                 <div class="studio-container">
                                     @foreach ($kursi as $studioId => $kursis)
-                                        <div class="form-check studio-card" class="film-card text-center" data-bs-toggle="modal"
-                                        data-bs-target="#filmModal{{ $studioId }}">
-                                            <input class="form-check-input" type="radio" id="studio{{ $studioId }}" name="id_studios" value="{{ $studioId }}">
+                                        <div class="form-check studio-card" class="film-card text-center"
+                                            data-bs-toggle="modal" data-bs-target="#filmModal{{ $studioId }}">
+                                            <input class="form-check-input" type="radio" id="studio{{ $studioId }}"
+                                                name="id_studios" value="{{ $studioId }}">
                                             <label class="form-check-label" for="studio{{ $studioId }}">
                                                 {{ $kursis->first()->studio->studio }}
                                             </label>
@@ -131,21 +131,25 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach ($kursis->chunk(10) as $chunk)
-                                            <div class="kursi-row">
-                                                @foreach ($chunk as $item)
-                                                <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger' : '' }}"
-                                                    data-seat-id="{{ $item->id }}"
-                                                    data-seat-number="{{ $item->kursi }}">
-                                                   <input class="form-check-input @error('kursis') is-invalid @enderror" type="checkbox" name="kursis[]" value="{{ $item->id }}">
-                                                   <strong>{{ $item->kursi }}</strong>
-                                               </div>
-                                                @endforeach
-                                            </div>
-                                        @endforeach
+                                                <div class="kursi-row">
+                                                    @foreach ($chunk as $item)
+                                                        <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger' : '' }}"
+                                                            data-seat-id="{{ $item->id }}"
+                                                            data-seat-number="{{ $item->kursi }}">
+                                                            <input
+                                                                class="form-check-input @error('kursis') is-invalid @enderror"
+                                                                type="checkbox" name="kursis[]"
+                                                                value="{{ $item->id }}">
+                                                            <strong>{{ $item->kursi }}</strong>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Tutup</button>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +174,8 @@
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
-                if (!item.classList.contains('reserved')) { // Hanya tambahkan event listener untuk kursi yang belum dipesan
+                if (!item.classList.contains(
+                    'reserved')) { // Hanya tambahkan event listener untuk kursi yang belum dipesan
                     item.addEventListener('click', function() {
                         const checkbox = item.querySelector('input[type="checkbox"]');
                         checkbox.checked = !checkbox.checked; // Toggle checkbox status
@@ -180,11 +185,9 @@
                 }
             });
         });
-
     </script>
 
     <style>
-
         .film-container {
             display: flex;
             flex-wrap: wrap;
@@ -212,33 +215,33 @@
             color: #333;
         }
 
-       /* Sembunyikan checkbox tetapi tetap bisa diakses secara programatik */
-.kursi-item input[type="checkbox"] {
-    display: none;
-}
+        /* Sembunyikan checkbox tetapi tetap bisa diakses secara programatik */
+        .kursi-item input[type="checkbox"] {
+            display: none;
+        }
 
-.kursi-item {
-    width: 50px;
-    height: 50px;
-    background-color: #e0f7fa;
-    margin: 5px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.3s;
-}
+        .kursi-item {
+            width: 50px;
+            height: 50px;
+            background-color: #e0f7fa;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-.kursi-item.selected {
-    background-color: #4caf50;
-    color: white;
-}
+        .kursi-item.selected {
+            background-color: #4caf50;
+            color: white;
+        }
 
-.kursi-item.reserved {
-    background-color: #f44336;
-    cursor: not-allowed;
-}
+        .kursi-item.reserved {
+            background-color: #f44336;
+            cursor: not-allowed;
+        }
 
 
         .kursi-row {
