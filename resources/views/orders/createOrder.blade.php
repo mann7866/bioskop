@@ -115,7 +115,7 @@
 
 
 
-                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Order</button>
+                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                         </div>
 
                         @foreach ($kursi as $studioId => $kursis)
@@ -131,20 +131,19 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach ($kursis->chunk(10) as $chunk)
-                                                <div class="kursi-row">
-                                                    @foreach ($chunk as $item)
-                                                        <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger' : '' }}"
-                                                            data-seat-id="{{ $item->id }}"
-                                                            data-seat-number="{{ $item->kursi }}">
-                                                            <input
-                                                                class="form-check-input @error('kursis') is-invalid @enderror"
-                                                                type="checkbox" name="kursis[]"
-                                                                value="{{ $item->id }}">
-                                                            <strong>{{ $item->kursi }}</strong>
-                                                        </div>
-                                                    @endforeach
+                                            <div class="kursi-row">
+                                                @foreach ($chunk as $item)
+                                                <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
+                                                    data-seat-id="{{ $item->id }}"
+                                                    data-seat-number="{{ $item->kursi }}"
+                                                    title="{{ in_array($item->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                                                    <input class="form-check-input @error('kursis') is-invalid @enderror" type="checkbox" name="kursis[]" value="{{ $item->id }}">
+                                                    <strong>{{ $item->kursi }}</strong>
                                                 </div>
-                                            @endforeach
+
+                                                @endforeach
+                                            </div>
+                                        @endforeach
 
                                         </div>
                                         <div class="modal-footer">
@@ -188,6 +187,55 @@
     </script>
 
     <style>
+
+        .kursi-item {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: #e0f7fa;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .kursi-item.selected {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .kursi-item.reserved {
+            background-color: #f44336;
+            cursor: not-allowed;
+        }
+
+        .kursi-item::after {
+            content: attr(title);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .kursi-item:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
         .film-container {
             display: flex;
             flex-wrap: wrap;
