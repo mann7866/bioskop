@@ -324,10 +324,10 @@
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                 <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
                                     alt="{{ $item->judul }}" data-aos="fade-up">
-                                <div class="carousel-caption-custom d-none d-md-block">
+                                {{-- <div class="carousel-caption-custom d-none d-md-block">
                                     <h5><strong>{{ $item->judul }}</strong></h5>
                                     <p><strong>{{ $item->deskripsi }}</strong></p>
-                                </div>
+                                </div> --}}
                             </div>
                         @endforeach
                     </div>
@@ -383,15 +383,12 @@
                                 <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid"
                                     alt="{{ $item->judul }}">
                                 <div class="news-body">
-
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
-
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
                     <!-- Placeholder jika tidak ada berita -->
                     @if ($berita->isEmpty())
                         <p class=" text-secondary text-center">Tidak Ada Berita Hari Ini</p>

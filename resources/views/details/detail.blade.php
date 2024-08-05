@@ -20,16 +20,15 @@
 </div>
 @endif
 @if (session('success'))
-<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
-    <div class="toast mt-3 align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
-        aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                {{ session('success') }}
+    <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+        <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endif
 @section('content')
     <style>
@@ -329,6 +328,35 @@
         .sok {
             border-radius: 20px;
         }
+        .slide-down {
+        animation: slide-down 2s ease 0s 1 normal forwards;
+    }
+    @keyframes slide-down {
+        from {
+            transform: translateZ(-9.7rem);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .fade-out {
+        animation: fade-out 1s ease forwards;
+    }
+
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+    }
     </style>
 
 

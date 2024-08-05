@@ -317,17 +317,5 @@
                 });
             }, 1000);
         });
-
-        // document.addEventListener('contextmenu', function(event) {
-        //     event.preventDefault(); // Mencegah menu konteks muncul
-        //     alert('Maaf Alat Pengembag Kami Blokir')
-
-        // });
-        // document.addEventListener('keydown', function(event) {
-        //     if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
-        //         event.preventDefault();
-        //     alert('Maaf Alat Pengembag Kami Blokir')
-        //     }
-        // });
     </script>
 @endsection
