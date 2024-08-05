@@ -196,14 +196,14 @@
                     </div>
                     <div class="col-8">
                         <div class="card">
+                            <div>
+                                <span
+                                    class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-category ">Judul:</h4>
                                 <h5 class="">{{ $item->detail->judul }}</h5>
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
-                                <div>
-                                    <span
-                                        class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
-                                </div>
 
                                 <label for="" class="total-payment-label">Studio:</label>
 

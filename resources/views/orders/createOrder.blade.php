@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 <style>
+    /* Styles for the studio and seat selection */
     .studio-container {
         display: flex;
         flex-wrap: wrap;
@@ -37,6 +38,92 @@
         display: block;
         color: #dc3545;
         font-size: 0.875rem;
+    }
+
+    .kursi-item {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        background-color: #e0f7fa;
+        margin: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .kursi-item.selected {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .kursi-item.reserved {
+        background-color: #f44336;
+        cursor: not-allowed;
+    }
+
+    .kursi-item::after {
+        content: attr(title);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s;
+        z-index: 10;
+    }
+
+    .kursi-item:hover::after {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .film-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .film-card {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        width: calc(25% - 10px);
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .film-card:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.05);
+    }
+
+    .film-label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .kursi-item input[type="checkbox"] {
+        display: none;
+    }
+
+    .kursi-row {
+        margin-bottom: 10px;
+    }
+
+    .modal-dialog {
+        max-width: 80%;
     }
 </style>
 
@@ -86,20 +173,12 @@
                         </div>
                         <div class="container">
                             <h2 class="form-title">Pilih Studio</h2>
-                            {{--  <div class="film-container">
-                                @foreach ($kursi as $studioId => $kursis)
-                                    <div class="film-card text-center" data-bs-toggle="modal"
-                                        data-bs-target="#filmModal{{ $studioId }}">
-                                        <label class="film-label">{{ $kursis->first()->studio->studio }}</label>
-                                    </div>
-                                @endforeach
-                            </div>  --}}
                             <div class="mb-3">
                                 <label for="studio" class="form-label">Pilih Studio</label>
                                 <div class="studio-container">
                                     @foreach ($kursi as $studioId => $kursis)
                                         <div class="form-check studio-card" class="film-card text-center"
-                                            data-bs-toggle="modal" data-bs-target="#filmModal{{ $studioId }}">
+                                            data-studio-id="{{ $studioId }}">
                                             <input class="form-check-input" type="radio" id="studio{{ $studioId }}"
                                                 name="id_studios" value="{{ $studioId }}">
                                             <label class="form-check-label" for="studio{{ $studioId }}">
@@ -113,48 +192,30 @@
                                 </div>
                             </div>
 
-
-
-                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
-                        </div>
-
-                        @foreach ($kursi as $studioId => $kursis)
-                            <!-- Film Modal -->
-                            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
-                                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Pilih Kursi</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @foreach ($kursis->chunk(10) as $chunk)
+                            <div class="kursi-container mt-4">
+                                @foreach ($kursi as $studioId => $kursis)
+                                    <div class="kursi-section" data-studio-id="{{ $studioId }}" style="display: none;">
+                                        <h5>Kursi untuk Studio: {{ $kursis->first()->studio->studio }}</h5>
+                                        @foreach ($kursis->chunk(10) as $chunk)
                                             <div class="kursi-row">
                                                 @foreach ($chunk as $item)
-                                                <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
-                                                    data-seat-id="{{ $item->id }}"
-                                                    data-seat-number="{{ $item->kursi }}"
-                                                    title="{{ in_array($item->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
-                                                    <input class="form-check-input @error('kursis') is-invalid @enderror" type="checkbox" name="kursis[]" value="{{ $item->id }}">
-                                                    <strong>{{ $item->kursi }}</strong>
-                                                </div>
-
+                                                    <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
+                                                        data-seat-id="{{ $item->id }}"
+                                                        data-seat-number="{{ $item->kursi }}"
+                                                        title="{{ in_array($item->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                                                        <input class="form-check-input @error('kursis') is-invalid @enderror"
+                                                            type="checkbox" name="kursis[]" value="{{ $item->id }}">
+                                                        <strong>{{ $item->kursi }}</strong>
+                                                    </div>
                                                 @endforeach
                                             </div>
                                         @endforeach
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
-                        @endforeach
 
+                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -173,132 +234,28 @@
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
-                if (!item.classList.contains(
-                    'reserved')) { // Hanya tambahkan event listener untuk kursi yang belum dipesan
+                if (!item.classList.contains('reserved')) {
                     item.addEventListener('click', function() {
-                        const checkbox = item.querySelector('input[type="checkbox"]');
-                        checkbox.checked = !checkbox.checked; // Toggle checkbox status
-                        item.classList.toggle('selected');
+                        const checkbox = this.querySelector('input[type="checkbox"]');
+                        checkbox.checked = !checkbox.checked;
+                        this.classList.toggle('selected', checkbox.checked);
                         updateTotalHarga();
                     });
                 }
             });
+
+            const radioButtons = document.querySelectorAll('input[name="id_studios"]');
+            radioButtons.forEach(radioButton => {
+                radioButton.addEventListener('change', function() {
+                    const studioId = this.value;
+
+                    document.querySelectorAll('.kursi-section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    document.querySelector(`.kursi-section[data-studio-id="${studioId}"]`).style.display = 'block';
+                });
+            });
         });
     </script>
-
-    <style>
-
-        .kursi-item {
-            position: relative;
-            width: 50px;
-            height: 50px;
-            background-color: #e0f7fa;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .kursi-item.selected {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        .kursi-item.reserved {
-            background-color: #f44336;
-            cursor: not-allowed;
-        }
-
-        .kursi-item::after {
-            content: attr(title);
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 3px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-
-        .kursi-item:hover::after {
-            opacity: 1;
-            visibility: visible;
-        }
-
-
-        .film-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .film-card {
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 10px;
-            width: calc(25% - 10px);
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .film-card:hover {
-            background-color: #e0e0e0;
-            transform: scale(1.05);
-        }
-
-        .film-label {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Sembunyikan checkbox tetapi tetap bisa diakses secara programatik */
-        .kursi-item input[type="checkbox"] {
-            display: none;
-        }
-
-        .kursi-item {
-            width: 50px;
-            height: 50px;
-            background-color: #e0f7fa;
-            margin: 5px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .kursi-item.selected {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        .kursi-item.reserved {
-            background-color: #f44336;
-            cursor: not-allowed;
-        }
-
-
-        .kursi-row {
-            margin-bottom: 10px;
-        }
-
-        /* Adjust the size of the modal content to fit better */
-        .modal-dialog {
-            max-width: 80%;
-        }
-    </style>
 @endsection

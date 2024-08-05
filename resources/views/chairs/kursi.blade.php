@@ -2,8 +2,7 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex mb-4">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
         <button class="btn btn-outline-primary" type="submit">Cari</button>
         <a class="btn btn-outline-secondary ms-2" href="{{ route('detail') }}">Refresh</a>
     </form>
@@ -11,7 +10,6 @@
 
 @section('content')
     <style>
-        /* Styling untuk modal dan kursi */
         * {
             scroll-behavior: smooth;
             font-family: Arial, sans-serif;
@@ -33,7 +31,7 @@
             margin: 25px;
             width: 80px;
             height: 80px;
-            background-color: #3498db; /* Biru cerah */
+            background-color: #3498db;
             color: white;
             display: flex;
             align-items: center;
@@ -46,17 +44,17 @@
         }
 
         .kursi-card:hover {
-            background-color: #2980b9; /* Biru lebih gelap */
+            background-color: #2980b9;
             transform: scale(1.1);
         }
 
         .kursi-card.selected {
-            background-color: #2ecc71; /* Hijau cerah */
+            background-color: #2ecc71;
             color: white;
         }
 
         .kursi-card.reserved {
-            background-color: #e74c3c; /* Merah cerah */
+            background-color: #e74c3c;
             color: white;
             cursor: not-allowed;
         }
@@ -69,7 +67,7 @@
         }
 
         .film-card {
-            background-color: #4454ad; /* Ungu cerah */
+            background-color: #3498db;
             border-radius: 8px;
             padding: 10px;
             text-align: center;
@@ -78,7 +76,7 @@
         }
 
         .film-card:hover {
-            background-color: #4454ad; /* Ungu lebih cerah */
+            background-color: #44ad9a;
             transform: scale(1.05);
         }
 
@@ -107,7 +105,7 @@
             position: relative;
             padding: 10%;
             margin: 15px;
-            background-color: #28a745; /* Hijau */
+            background-color: #28a745;
             color: white;
             top: 17px;
             left: -10px;
@@ -120,7 +118,7 @@
         }
 
         .button-group .btn-edit:hover {
-            background-color: #218838; /* Hijau lebih gelap */
+            background-color: #218838;
             transform: scale(1.05);
         }
 
@@ -128,7 +126,7 @@
             position: relative;
             padding: 10%;
             margin: 15px;
-            background-color: #dc3545; /* Merah */
+            background-color: #dc3545;
             color: white;
             top: 17px;
             left: 12px;
@@ -141,7 +139,7 @@
         }
 
         .button-group .btn-delete:hover {
-            background-color: #c82333; /* Merah lebih gelap */
+            background-color: #c82333;
             transform: scale(1.05);
         }
 
@@ -159,22 +157,20 @@
         }
 
         .warning {
-            background-color: #0f29f1; /* royalblue cerah */
+            background-color: #0f29f1;
             border-radius: 15px;
             transition: 0.3s ease;
         }
 
         .warning:hover {
-            background-color: #121df3; /* Kuning lebih gelap */
+            background-color: #121df3;
             border-radius: 30px 20px 15px;
         }
     </style>
 
-    {{-- Alert Success --}}
     @if (session('success'))
         <div class="toast-container position-fixed top-5 end-0 p-2">
-            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
+            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
@@ -185,8 +181,7 @@
     @endif
     @if (session('gagal'))
         <div class="toast-container position-fixed top-5 end-0 p-2">
-            <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
+            <div class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('gagal') }}
@@ -195,7 +190,7 @@
             </div>
         </div>
     @endif
-    {{-- kursi Semua  --}}
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -209,37 +204,28 @@
                             <p>{{ $studio->studio }}</p>
                         </div>
 
-                        <!-- Studio Modal -->
-                        <div class="modal fade" id="studioModal{{ $studio->id }}" tabindex="-1"
-                            aria-labelledby="studioModalLabel{{ $studio->id }}" aria-hidden="true">
+                        <div class="modal fade" id="studioModal{{ $studio->id }}" tabindex="-1" aria-labelledby="studioModalLabel{{ $studio->id }}" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="studioModalLabel{{ $studio->id }}">Kursi Studio
-                                            {{ $studio->studio }}</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <h5 class="modal-title" id="studioModalLabel{{ $studio->id }}">Kursi Studio {{ $studio->studio }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="kursi-container">
                                             @forelse ($studio->kursi as $kursi)
-                                                <div class="kursi-card @if ($kursi->is_reserved) reserved @endif"
-                                                    data-seat="{{ $kursi->studio }}">
+                                                <div class="kursi-card @if ($kursi->is_reserved) reserved @endif" data-seat="{{ $kursi->studio }}">
                                                     {{ $kursi->kursi }}
                                                     <div class="button-group">
                                                         <button class="btn btn-sm btn-edit">
-                                                            <a href="{{ route('kursi.edit', $kursi->id) }}"><i
-                                                                    class="bi bi-pen"></i></a>
+                                                            <a href="{{ route('kursi.edit', $kursi->id) }}"><i class="bi bi-pen"></i></a>
                                                         </button>
                                                         <button class="btn btn-sm btn-delete">
-                                                            <a href="{{ route('kursi.delete', $kursi->id) }}"
-                                                                onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $kursi->id }}').submit(); }">
+                                                            <a href="{{ route('kursi.delete', $kursi->id) }}" onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-form-{{ $kursi->id }}').submit(); }">
                                                                 <i class="bi bi-backspace-reverse"></i>
                                                             </a>
                                                         </button>
-                                                        <form id="delete-form-{{ $kursi->id }}"
-                                                            action="{{ route('kursi.delete', $kursi->id) }}" method="GET"
-                                                            style="display: none;">
+                                                        <form id="delete-form-{{ $kursi->id }}" action="{{ route('kursi.delete', $kursi->id) }}" method="GET" style="display: none;">
                                                             @csrf
                                                         </form>
                                                     </div>
@@ -250,8 +236,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>
                             </div>
@@ -271,31 +256,18 @@
 
 @push('script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 @endpush
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize DataTable if necessary
-        // let table = new DataTable('#GO'); // Uncomment if needed
-
-        // Initialize Toast notifications
         setTimeout(function() {
-            var toastElList = document.querySelectorAll('.toast');
-            toastElList.forEach(function(toastEl) {
-                var toast = new bootstrap.Toast(toastEl, {
-                    autohide: true,
-                    delay: 2000
-                });
-                toast.show();
-
-                setTimeout(function() {
-                    toastEl.classList.add('fade-out');
-                }, 2000);
-            });
-        }, 2000);
+            const toastEl = document.querySelector('.toast');
+            if (toastEl) {
+                toastEl.classList.add('fade-out');
+                setTimeout(() => toastEl.remove(), 500);
+            }
+        }, 3000);
     });
 </script>

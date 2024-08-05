@@ -48,15 +48,24 @@ class KursiController extends Controller
      */
     public function store(Request $request)
     {
-        $vakidateData = $request->validate([
-            "kursi"=> "required",
-            "id_studio"=> "required",
-
+        $validatedData = $request->validate([
+            "kursi" => "required|integer|min:1",
+            "id_studio" => "required",
         ]);
 
-        Kursi::create($vakidateData);
-        return redirect()->route("kursi.index")->with("success","Berhasil Tambah Data");
+        $validatedData = $validatedData['kursi'];
+        // untuk menambahkan data yang sesuai
+        for ($i = 1; $i <= $request->kursi; $i++) {
+            Kursi::create([
+                'kursi' => $i,
+                'id_studio' => $request->id_studio,
+            ]);
+        }
+
+        return redirect()->route("kursi.index")->with("success", "Berhasil Tambah Data");
     }
+
+
 
     /**
      * Display the specified resource.
@@ -74,7 +83,7 @@ class KursiController extends Controller
 
         $kursi = Kursi::find($id);
         $studio = Studio::all();
-        return view("chairs.kursiEdit", compact("kursi","studio"));
+        return view("chairs.kursiEdit", compact("kursi", "studio"));
     }
 
     /**
@@ -86,13 +95,12 @@ class KursiController extends Controller
         $kursi = Kursi::find($id);
 
         $vakidateData = $request->validate([
-            "kursi"=> "required",
-            "id_studio"=> "required",
+            "kursi" => "required",
+            "id_studio" => "required",
         ]);
 
         $kursi->update($vakidateData);
-        return redirect()->route("kursi.index")->with("success","Berhasil Edit Data");
-
+        return redirect()->route("kursi.index")->with("success", "Berhasil Edit Data");
     }
 
     /**
@@ -100,13 +108,16 @@ class KursiController extends Controller
      */
     public function destroy(string $id)
     {
-       $kursi = Kursi::find($id);
-       $kursiCount = $kursi->studio->count();
-       if ($kursiCount > 0) {
-        return redirect()->route("kursi.index")->with("gagal","Gagal Menghapus Karena Maih Berkaitan Dengan Order");
-    }
-       $kursi->delete();
-       return redirect()->route("kursi.index")->with("success","Berhasil Menghapus");
+        $kursi = Kursi::find($id);
 
+        // Periksa apakah kursi terkait dengan order
+        if ($kursi->order()->count() > 0) {
+            return redirect()->route("kursi.index")->with("gagal", "Gagal Menghapus Karena Masih Berkaitan Dengan Order");
+        }
+
+        // Hapus kursi
+        $kursi->delete();
+
+        return redirect()->route("kursi.index")->with("success", "Berhasil Menghapus");
     }
 }
