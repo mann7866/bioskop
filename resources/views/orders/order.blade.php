@@ -117,6 +117,11 @@
                 transform: translateY(-10px);
             }
         }
+        .warna{
+            position: relative;
+            left: 7px;
+            top: 20px;
+        }
     </style>
     {{-- data yang ambil dari ordercontroller --}}
 
@@ -196,9 +201,11 @@
                     </div>
                     <div class="col-8">
                         <div class="card">
-                            <div>
+                            <div class="warna">
                                 <span
-                                    class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
+                                    class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
+                                </span>
+                                
                             </div>
                             <div class="card-body">
                                 <h4 class="card-category ">Judul:</h4>
