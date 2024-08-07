@@ -54,7 +54,6 @@
                 </div>
             @endforeach
         </div>
-
         <a href="{{ route('home') }}" class="btn btn-secondary btn-back">Kembali ke Beranda</a>
     </div>
 @endsection
