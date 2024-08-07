@@ -387,23 +387,10 @@
                                             alt="{{ $item->judul }}">
                                         <div class="film-description">
                                             <p class="poss">{{ $item->judul }}</p>
-
-                                            @if ($timeCount > 0)
-                                            <h6><strong>Tanggal Tayang:</strong></h6>
-                                            <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
-
-                                            @endif
-
                                         </div>
 
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
-                                            @if ($timeCount > 0)
-                                            <h6><strong>Tanggal Tayang:</strong></h6>
-                                            <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
-
-                                            @endif
-
                                         </div>
                                     </div>
                                 @empty
@@ -433,6 +420,8 @@
                                     </div>
                                     <hr>
                                     <div class="mb-3">
+                                        <h6><strong>Studio:</strong></h6>
+                                        <p class="text-muted">{{ $item->studio->studio }}</p>
                                         <h6><strong>Genre:</strong></h6>
                                         <ul class="list-unstyled">
                                             @foreach ($item->genres as $genre)
@@ -443,12 +432,11 @@
                                     <div class="mb-3">
                                         <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
-                                        @if ($timeCount > 0)
                                         <h6><strong>Tanggal Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+                                        <p class="text-muted">{{ $item->tanggal->tanggalTayang }}</p>
                                         <h6><strong>Jam Tayang:</strong></h6>
                                         <p class="text-muted">{{ $item->time->jamTayang }}</p>
-                                        @endif
+
 
                                     </div>
                                     <div class="mb-3">

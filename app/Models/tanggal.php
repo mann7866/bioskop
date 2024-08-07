@@ -10,5 +10,9 @@ class tanggal extends Model
     use HasFactory;
 
     protected $table = 'tanggal';
-    protected $guarded = [];    
+    protected $guarded = [];
+    public function details()
+    {
+        return $this->hasMany(Detail::class,'id_tanggal','id');
+    }
 }

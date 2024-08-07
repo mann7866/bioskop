@@ -2,94 +2,58 @@
 
 @section('content')
     <style>
-        * {
-            scroll-behavior: smooth;
-            font-family: Arial, sans-serif;
-        }
-
-        .seat-container {  
+        .kursi-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        .seat-card {
-            background-color: #3498db;
+        .kursi-card {
+            background-color: #3498db; /* Biru cerah */
             color: white;
             padding: 15px;
             border-radius: 8px;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
-            flex: 0 0  100px;
-            /* Adjust this value for different seat widths */
+            width: 120px; /* Lebar kartu */
         }
 
-        .seat-card:hover {
-            background-color: #2980b9;
+        .kursi-card:hover {
+            background-color: #2980b9; /* Biru lebih gelap */
             transform: scale(1.05);
         }
 
-        .toast-container {
-            max-width: 300px;
+        .kursi-card a {
+            color: white;
+            text-decoration: none;
         }
 
-        .slide-down {
-            animation: slide-down 2s ease 0s 1 normal forwards;
+        .kursi-card a:hover {
+            text-decoration: underline;
         }
 
-        @keyframes slide-down {
-            from {
-                transform: translateZ(-9.7rem);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .fade-out {
-            animation: fade-out 1s ease forwards;
-        }
-
-        @keyframes fade-out {
-            from {
-                opacity: 1;
-            }
-
-            to {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
+        .btn-back {
+            margin-top: 20px;
         }
     </style>
 
-    @if (session('success'))
-        <div class="toast-container position-fixed top-5 end-0 p-2">
-            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('success') }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="container">
-        <h1 class="text-center text-secondary small">Daftar Kursi</h1>
-        <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4 rounded">Tambah Kursi</a>
-        <div class="seat-container">
+        <h1 class="text-center text-secondary">Daftar Kursi Bioskop</h1>
+
+<a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4 warning">Tambah Kursi</a>
+
+        <div class="kursi-container">
             @foreach ($kursi as $seat)
-                <div class="seat-card">
-                    {{ $seat->kursi }}
+                <div class="kursi-card">
+
+                        Kursi {{ $seat->label }}
+
                 </div>
             @endforeach
         </div>
-        <a href="{{ route('home') }}" class="btn btn-secondary btn-back mt-4">Back to Home</a>
+        <a href="{{ route('home') }}" class="btn btn-secondary btn-back">Kembali ke Beranda</a>
     </div>
 @endsection

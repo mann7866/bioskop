@@ -14,6 +14,24 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="seats" class="form-label">Pilih Kursi:</label>
+                    <div class="kursi-container">
+                        @foreach ($kursi as $seat)
+                            <div class="kursi-seat">
+                                <input type="checkbox" id="seat-{{ $seat->id }}" name="id_kursi[]" value="{{ $seat->id }}" class="form-check-input">
+                                <label for="seat-{{ $seat->id }}" class="form-check-label">
+                                    Kursi {{ $seat->label }} (Posisi: {{ $seat->position }})
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button type="button" class="btn btn-outline-primary mt-3" id="select-all">Pilih Semua Kursi</button>
+                    @error('id_kursi')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="d-flex">
                     <button class="btn btn-outline-primary mt-3 col-md-2 hover" type="submit" name="submit">
                         <ion-icon name="add-circle-outline"></ion-icon>
@@ -25,6 +43,7 @@
             </form>
         </div>
     </div>
+
     <style>
         .hover:hover {
             cursor: pointer;
@@ -84,5 +103,31 @@
         .invalid-feedback {
             font-size: 0.875rem;
         }
+
+        .kursi-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .kursi-seat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .form-check-input {
+            margin-bottom: 5px;
+        }
     </style>
+
+    <script>
+        document.getElementById('select-all').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => checkbox.checked = true);
+        });
+    </script>
 @endsection

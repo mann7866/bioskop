@@ -6,6 +6,8 @@ use App\Models\Time;
 use App\Models\genre;
 use App\Models\Kursi;
 use App\Models\Detail;
+use App\Models\Studio;
+use App\Models\tanggal;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller
@@ -71,82 +73,97 @@ class DetailController extends Controller
     {
         $genre = Genre::all();
         $time = Time::all();
-        return view("details.createDetail", compact("genre", "time"));
+        $tanggal = tanggal::all();
+        $studio = Studio::all();
+        return view("details.createDetail", compact("genre", "time", "tanggal", "studio"));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validateData = $request->validate([
-            "judul" => "required|max:100",
-            "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
-            "tanggalRilis" => "required|date_format:Y-m-d",
-            "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
-            "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
-            "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
-            "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
-            "deskripsi" => "required|max:300",
-            "harga" => "required|numeric|min:0",
-            "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
+{
+    $validateData = $request->validate([
+        "judul" => "required|max:100",
+        "pemeran" => "required|max:300|regex:/^[a-zA-Z\s\,]+$/",
+        "tanggalRilis" => "required|date_format:Y-m-d",
+        "penulis" => "required|max:200|regex:/^[a-zA-Z\s\,]+$/",
+        "sutradara" => "required|max:100|regex:/^[a-zA-Z\s\,]+$/",
+        "perusahaanProduksi" => "required|regex:/^[a-zA-Z\s\,]+$/|max:20",
+        "foto" => "required|mimes:jpeg,jpg,png,gif|max:4096",
+        "deskripsi" => "required|max:300",
+        "harga" => "required|numeric|min:0",
+        "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
+        "id_studio" => "required",
+        "id_time" => "required",
+        "id_tanggal" => "required",
+    ], [
+        "judul.required" => "Judul Harus diIsi",
+        "judul.max" => "Judul Maksimal 100 karakter",
+        "deskripsi.required" => "Deskripsi Harus diIsi",
+        "deskripsi.max" => "Deskripsi Maksimal 300 karakter",
+        "pemeran.required" => "Pemeran Harus diIsi",
+        "pemeran.max" => "Pemeran Maksimal 300 karakter",
+        "pemeran.regex" => "Pemeran Hanya Boleh Abjad",
+        "tanggalRilis.required" => "Tanggal Rilis Harus diIsi",
+        "tanggalRilis.date_format" => "Tanggal Rilis Y-m-d",
+        "penulis.required" => "Penulis Harus diIsi",
+        "penulis.max" => "Penulis Maksimal 200 Karakter",
+        "penulis.regex" => "Penulis Hanya Boleh Abjad",
+        "sutradara.required" => "Sutradara Harus diIsi",
+        "sutradara.max" => "Sutradara Maksimal 100 Karakter",
+        "sutradara.regex" => "Sutradara Hanya Boleh Abjad",
+        "perusahaanProduksi.required" => "Perusahaan Harus diIsi",
+        "perusahaanProduksi.regex" => "Perusahaan Produksi Hanya Boleh Abjad",
+        "perusahaanProduksi.max" => "Perusahaan Produksi Maksimal 20 karakter",
+        "foto.required" => "Foto Harus Diisi",
+        "foto.mimes" => "Foto Harus Berupa jpeg,jpg,png,gif",
+        "foto.max" => "Foto Maksimal 4MB",
+        "harga.required" => "Harga Harus Diisi",
+        "harga.numeric" => "Harga Harus Berupa Angka",
+        "harga.min" => "Harga Minimal 0",
+        "genres.required" => "Genre Harus Diisi",
+        "id_studio.required" => "Studio harus diisi",
+        "id_time.required" => "Jam Tayang Harus diisi",
+        "id_tanggal.required" => "Tanggal Tayang Harus diisi",
+    ]);
 
-        ],[
-            "judul.required"=> "Judul Harus diIsi",
-            "judul.max"=> "Judul Maksimal 100 karakter",
-            "deskripsi.required"=> "Deskripsi Harus diIsi",
-            "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
-            "pemeran.required"=> "Pemeran Harus diIsi",
-            "pemeran.max"=> "Pemeran Maksimal 300 karakter",
-            "pemeran.regex"=> "Pemeran Hanya Boleh Abjad",
-            "tanggalRilis.required"=> "Tanggal Rilis Harus diIsi",
-            "tanggalRilis.date_format"=> "Tanggal Rilis Y-m-d",
-            "penulis.required"=> "Penulis Harus diIsi",
-            "penulis.max"=> "Penulis Maksimal 200 Karakter",
-            "penulis.regex"=>"Penulis Hanya Boleh Abjad",
-            "sutradara.required"=> "Sutradara Harus diIsi",
-            "sutradara.max"=> "Sutradara Maksimal 100 Karakter",
-            "sutradara.regex"=>"Sutradara Hanya Boleh Abjad",
-            "perusahaanProduksi.required"=> "Perusahaan Harus diIsi",
-            "perusahaanProduksi.regex"=>"Perusahaan Produksi Hanya Boleh Abjad",
-            "perusahaanProduksi.max"=>"Perusahaan Produksi Maksimal 20",
-            "foto.required"=> "Foto Harus Diisi",
-            "foto.mimes"=>"Foto Harus Berupa jpeg,jpg,png,gif",
-            "foto.max"=>"Foto Maksimal 4Mb",
-            "harga.required"=> "Harga Harus Diisi",
-            "harga.numeric"=> "Harga Harus Berupa Angka",
-            "harga.min"=> "Harga Minimal 0",
-            "genre.required"=> "Genre Harus Diisi",
-        ]);
+    // Initialize $imageName
+    $imageName = null;
 
-        // Upload and save the image
-        if ($request->hasFile("foto")) {
-            $image = $request->file("foto");
-            $imageName = time() . "_" . $image->getClientOriginalName();
-            $image->move(public_path("image"), $imageName);
-        }
-
-        // Create new Detail instance
-        $detail = Detail::create([
-            'judul' => $validateData['judul'],
-            'pemeran' => $validateData['pemeran'],
-            'tanggalRilis' => $validateData['tanggalRilis'],
-            'penulis' => $validateData['penulis'],
-            'sutradara' => $validateData['sutradara'],
-            'perusahaanProduksi' => $validateData['perusahaanProduksi'],
-            'foto' => $imageName, // Assign the uploaded image name
-            'deskripsi' => $validateData['deskripsi'],
-            'harga' => $validateData['harga'],
-
-        ]);
-
-        // Sync genres with the detail using 'sync'
-        if ($request->has('genres')) {
-            $genres = $request->input('genres');
-            $detail->genres()->sync($genres);
-        }
-        return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
+    // Upload and save the image
+    if ($request->hasFile("foto")) {
+        $image = $request->file("foto");
+        $imageName = time() . "_" . $image->getClientOriginalName();
+        $image->move(public_path("image"), $imageName);
     }
+
+    // Create new Detail instance
+    $detail = Detail::create([
+        'judul' => $validateData['judul'],
+        'pemeran' => $validateData['pemeran'],
+        'tanggalRilis' => $validateData['tanggalRilis'],
+        'penulis' => $validateData['penulis'],
+        'sutradara' => $validateData['sutradara'],
+        'perusahaanProduksi' => $validateData['perusahaanProduksi'],
+        'foto' => $imageName, // Assign the uploaded image name
+        'deskripsi' => $validateData['deskripsi'],
+        'harga' => $validateData['harga'],
+        'id_studio' => $validateData['id_studio'],
+        'id_time' => $validateData['id_time'],
+        'id_tanggal' => $validateData['id_tanggal'],
+    ]);
+
+    // Sync genres with the detail using 'sync'
+    if ($request->has('genres')) {
+        $genres = $request->input('genres');
+        $detail->genres()->sync($genres);
+    }
+
+    // Redirect with success message
+    return redirect()->route("detail")->with("success", "Berhasil Tambah Detail");
+}
+
 
     /**
      * Display the specified re source.
@@ -219,7 +236,7 @@ class DetailController extends Controller
             "harga.required"=> "Harga Harus Diisi",
             "harga.numeric"=> "Harga Harus Berupa Angka",
             "harga.min"=> "Harga Minimal 0",
-            "genre.required"=> "Genre Harus Diisi",
+            "genres.required"=> "Genre Harus Diisi",
 
         ]);
 

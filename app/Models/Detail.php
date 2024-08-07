@@ -19,7 +19,17 @@ class Detail extends Model
 
     public function time()
     {
-        return $this->hasOne(time::class, 'id_judul', 'id');
+        return $this->belongsTo(time::class, 'id_time', 'id');
+    }
+
+    public function tanggal()
+    {
+        return $this->belongsTo(tanggal::class, 'id_tanggal', 'id');
+    }
+
+    public function studio()
+    {
+        return $this->belongsTo(Studio::class, 'id_studio', 'id');
     }
     public function orders()
     {
