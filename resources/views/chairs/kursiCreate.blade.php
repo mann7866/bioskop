@@ -9,7 +9,7 @@
                
                 <div class="mb-3">
                     <label for="kursi" class="form-label">Jumlah Kursi:</label>
-                    <input type="number" min="1" class="form-control @error('kursi') is-invalid @enderror" id="kursi" name="kursi" placeholder="Tambahkan jumlah kursi" value="{{ old('kursi') }}">
+                    <input type="text"class="form-control @error('kursi') is-invalid @enderror" id="kursi" name="kursi" placeholder="Tambahkan jumlah kursi" value="{{ old('kursi') }}">
                     @error('kursi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

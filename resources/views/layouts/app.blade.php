@@ -327,37 +327,37 @@
         <ul>
             <li>
                 <a class="dropdown-item" href="{{ route('genre') }}">
-                    <ion-icon name="albums-outline"></ion-icon>Tambah Genre
+                    <ion-icon name="albums-outline"></ion-icon> Tambah Genre
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('time') }}">
-                    <ion-icon name="time-outline"></ion-icon>Tambah Waktu
+                    <ion-icon name="time-outline"></ion-icon> Tambah Waktu
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('tanggal.index') }}">
-                    <ion-icon name="time-outline"></ion-icon>Tambah Tanggal
+                    <ion-icon name="calendar-outline"></ion-icon> Tambah Tanggal
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('detail') }}">
-                    <ion-icon name="film-outline"></ion-icon>Tambah Film
+                    <ion-icon name="film-outline"></ion-icon> Tambah Film
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('studio') }}">
-                    <ion-icon name="ticket-outline"></ion-icon>Tambah Studio
+                    <ion-icon name="videocam-outline"></ion-icon> Tambah Studio
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('kursi.index') }}">
-                    <ion-icon name="ticket-outline"></ion-icon>Tambah Kursi
+                    <ion-icon name="ticket-outline"></ion-icon> Tambah Kursi
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('berita') }}">
-                    <ion-icon name="newspaper-outline"></ion-icon>Tambah Berita
+                    <ion-icon name="newspaper-outline"></ion-icon> Tambah Berita
                 </a>
             </li>
         </ul>

@@ -17,7 +17,6 @@ class KursiController extends Controller
 
 
         // dd($kursi, $studio); // Cek data yang dikirim ke view
-
         return view("chairs.kursi", compact("kursi"));
     }
 
@@ -46,44 +45,17 @@ class KursiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+   
     public function store(Request $request)
     {
         $vakidateData = $request->validate([
-            "kursi"=> "required",
-
-
+            "kursi" => "required",
         ]);
 
-        $totalKursi = $validatedData['kursi'];
-
-        // Menggunakan kombinasi huruf dan angka untuk nomor kursi
-        $alphabet = range('A', 'Z');
-        $kursiIndex = 0;
-
-        for ($i = 1; $i <= $totalKursi; $i++) {
-            // Menentukan huruf dan angka kursi
-            $currentLetter = $alphabet[$kursiIndex % count($alphabet)];
-            $currentNumber = $i;
-            // kursi create
-            Kursi::create([
-                'kursi' => $currentLetter . $currentNumber,
-                'id_studio' => $request->id_studio,
-            ]);
-
-            // Menambah indeks huruf
-            $kursiIndex++;
-        }
-
+        Kursi::create($vakidateData);
         return redirect()->route("kursi.index")->with("success", "Berhasil Tambah Data");
     }
 
-
-
-
-
-    /**
-     * Display the specified resource.
-     */
     public function show(kursi $kursi)
     {
         //

@@ -157,6 +157,8 @@
                     <table class="table table-bordered" id="GO" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
+
+                                {{-- <th class="text-center">No</th> --}}
                                 <th class="text-center">Genre</th>
                                 <th class="text-center">Opsi</th>
                             </tr>
@@ -164,6 +166,7 @@
                         <tbody>
                             @foreach ($genre as $item)
                                 <tr>
+                                    {{-- <td class="col">{{ $loop->iteration }}</td> --}}
                                     <td class="col">{{ $item->genre }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('genre.edit', $item->id) }}" class="btn btn-success btn-sm">
