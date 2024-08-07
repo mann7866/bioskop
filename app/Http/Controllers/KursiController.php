@@ -63,7 +63,7 @@ class KursiController extends Controller
             // Menentukan huruf dan angka kursi
             $currentLetter = $alphabet[$kursiIndex % count($alphabet)];
             $currentNumber = $i;
-
+            // kursi create
             Kursi::create([
                 'kursi' => $currentLetter . $currentNumber,
                 'id_studio' => $request->id_studio,
