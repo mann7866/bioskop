@@ -53,17 +53,30 @@ class KursiController extends Controller
             "id_studio" => "required",
         ]);
 
-        $validatedData = $validatedData['kursi'];
-        // untuk menambahkan data yang sesuai
-        for ($i = 1; $i <= $request->kursi; $i++) {
+        $totalKursi = $validatedData['kursi'];
+
+        // Menggunakan kombinasi huruf dan angka untuk nomor kursi
+        $alphabet = range('A', 'Z');
+        $kursiIndex = 0;
+
+        for ($i = 1; $i <= $totalKursi; $i++) {
+            // Menentukan huruf dan angka kursi
+            $currentLetter = $alphabet[$kursiIndex % count($alphabet)];
+            $currentNumber = $i;
+
             Kursi::create([
-                'kursi' => $i,
+                'kursi' => $currentLetter . $currentNumber,
                 'id_studio' => $request->id_studio,
             ]);
+
+            // Menambah indeks huruf
+            $kursiIndex++;
         }
 
         return redirect()->route("kursi.index")->with("success", "Berhasil Tambah Data");
     }
+
+
 
 
 
