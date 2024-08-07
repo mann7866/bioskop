@@ -86,7 +86,7 @@
             font-size: 1.5rem;
             margin: 10px 0;
         }
-        
+
   .dropdown-item:hover {
         text-decoration: underline;
         color: #0056b3;
@@ -163,7 +163,7 @@
     }
 
     .offcanvas-header {
-        text-align: center; 
+        text-align: center;
         background-color: #0056b3;
         /* Dark background color */
         color: #ffffff;
@@ -172,7 +172,7 @@
     .text{
         text-align: center;
         justify-content: center;
-        
+
     }
     .offcanvas-body {
         padding: 20px;
@@ -332,7 +332,12 @@
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('time') }}">
-                    <ion-icon name="time-outline"></ion-icon>Tambah Time
+                    <ion-icon name="time-outline"></ion-icon>Tambah Waktu
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('tanggal.index') }}">
+                    <ion-icon name="time-outline"></ion-icon>Tambah Tanggal
                 </a>
             </li>
             <li>

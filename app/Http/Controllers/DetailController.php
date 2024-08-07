@@ -220,7 +220,7 @@ class DetailController extends Controller
             "harga.numeric"=> "Harga Harus Berupa Angka",
             "harga.min"=> "Harga Minimal 0",
             "genre.required"=> "Genre Harus Diisi",
-            
+
         ]);
 
         // Handle file foto jika ada di request

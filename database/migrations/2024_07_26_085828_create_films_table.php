@@ -16,7 +16,7 @@ class CreateFilmsTable extends Migration
             $table->id();
             $table->string('judul'); // Atau 'title' sesuai dengan kode pencarian
             $table->text('deskripsi')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

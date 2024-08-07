@@ -192,11 +192,22 @@
                                 </div>
                             </div>
 
-                            <div class="kursi-container mt-4">
-                                @foreach ($kursi as $studioId => $kursis)
-                                    <div class="kursi-section" data-studio-id="{{ $studioId }}" style="display: none;">
-                                        <h5>Kursi untuk Studio: {{ $kursis->first()->studio->studio }}</h5>
-                                        @foreach ($kursis->chunk(10) as $chunk)
+                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
+                        </div>
+
+                        @foreach ($kursi as $studioId => $kursis)
+                            <!-- Film Modal -->
+                            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
+                                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Pilih Kursi</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @foreach ($kursis->chunk(10) as $chunk)
                                             <div class="kursi-row">
                                                 @foreach ($chunk as $item)
                                                     <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"

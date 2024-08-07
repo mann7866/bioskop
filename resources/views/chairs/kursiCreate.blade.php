@@ -6,19 +6,7 @@
             <h1 class="form-title text-center text-secondary">Tambah Kursi</h1>
             <form action="{{ route('kursi.store') }}" method="POST">
                 @csrf
-                <div class="col-md-6">
-                    <label class="form-label">Studio</label>
-                    <select class="mt-3 form-select @error('id_studio') is-invalid @enderror"
-                            aria-label="Select Studio" name="id_studio">
-                        <option selected disabled>Pilih Studio</option>
-                        @foreach ($studio as $item)
-                            <option value="{{ $item->id }}">{{ $item->studio }}</option>
-                        @endforeach
-                    </select>
-                    @error('id_studio')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+               
                 <div class="mb-3">
                     <label for="kursi" class="form-label">Jumlah Kursi:</label>
                     <input type="number" min="1" class="form-control @error('kursi') is-invalid @enderror" id="kursi" name="kursi" placeholder="Tambahkan jumlah kursi" value="{{ old('kursi') }}">

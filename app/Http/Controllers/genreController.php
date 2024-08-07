@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GenreRequest;
 use App\Models\genre;
 use App\Models\Detail;
 use Illuminate\Http\Request;
@@ -35,19 +36,20 @@ class genreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GenreRequest $request)
     {
-        $validateData = $request->validate([
-            "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
-        ],[
-            "genre.required"=> "Genre Harus Diisi",
-            "genre.max"=> "Genre Harus Diisi",
-            "genre.regex"=> "Genre Hanya Boleh Abjad",
-            "genre.unique"=> "Genre Tidak Boleh Sama",
+        // $validateData = $request->validate([
+        //     "genre" => "required|max:20|regex:/^[a-zA-Z\s]+$/|unique:genre,genre",
+        // ],[
+        //     "genre.required"=> "Genre Harus Diisi",
+        //     "genre.max"=> "Genre Harus Diisi",
+        //     "genre.regex"=> "Genre Hanya Boleh Abjad",
+        //     "genre.unique"=> "Genre Tidak Boleh Sama",
 
-        ]);
+        // ]);
 
-        genre::create($validateData);
+
+        genre::create($request->validated());
         return redirect()->route("genre")->with("success", "Berhasil Tambah Genre");
     }
 

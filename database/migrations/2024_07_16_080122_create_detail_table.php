@@ -22,7 +22,9 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('foto');
             $table->string('harga');
-      
+            $table->foreignId('id_studio')->references('id')->on('studio')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('id_time')->references('id')->on('time')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('id_tanggal')->references('id')->on('tanggal')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

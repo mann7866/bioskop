@@ -23,10 +23,14 @@ class Detail extends Model
     }
     public function orders()
     {
-        return $this->hasMany(Order::class, 'id_detail', 'id',);
+        return $this->hasMany(Order::class, 'id_detail', 'id');
+    }
+    public function studios()
+    {
+        return $this->belongsTo(Studio::class, 'id_studio', 'id');
     }
 
-    // app/Models/Detail.php
+
 
 
     public function scopeFilter($query, array $filters)

@@ -13,12 +13,12 @@ class KursiController extends Controller
      */
     public function index()
     {
-        $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
-        $studio = Studio::all();
+        $kursi = Kursi::all();
+
 
         // dd($kursi, $studio); // Cek data yang dikirim ke view
 
-        return view("chairs.kursi", compact("kursi", "studio"));
+        return view("chairs.kursi", compact("kursi"));
     }
 
 
@@ -39,8 +39,8 @@ class KursiController extends Controller
      */
     public function create()
     {
-        $studio = Studio::all();
-        return view("chairs.kursiCreate", compact("studio"));
+
+        return view("chairs.kursiCreate");
     }
 
     /**
@@ -48,9 +48,10 @@ class KursiController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            "kursi" => "required|integer|min:1",
-            "id_studio" => "required",
+        $vakidateData = $request->validate([
+            "kursi"=> "required",
+
+
         ]);
 
         $totalKursi = $validatedData['kursi'];
@@ -95,8 +96,8 @@ class KursiController extends Controller
     {
 
         $kursi = Kursi::find($id);
-        $studio = Studio::all();
-        return view("chairs.kursiEdit", compact("kursi", "studio"));
+
+        return view("chairs.kursiEdit", compact("kursi"));
     }
 
     /**
@@ -108,8 +109,8 @@ class KursiController extends Controller
         $kursi = Kursi::find($id);
 
         $vakidateData = $request->validate([
-            "kursi" => "required",
-            "id_studio" => "required",
+            "kursi"=> "required",
+
         ]);
 
         $kursi->update($vakidateData);

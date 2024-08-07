@@ -324,10 +324,10 @@
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                 <img src="{{ asset('image/' . $item->foto) }}" class="d-block w-100"
                                     alt="{{ $item->judul }}" data-aos="fade-up">
-                                {{-- <div class="carousel-caption-custom d-none d-md-block">
+                                {{--  <div class="carousel-caption-custom d-none d-md-block">
                                     <h5><strong>{{ $item->judul }}</strong></h5>
                                     <p><strong>{{ $item->deskripsi }}</strong></p>
-                                </div> --}}
+                                </div>  --}}
                             </div>
                         @endforeach
                     </div>

@@ -1,6 +1,7 @@
 <?php
 // routes/web.php
 
+use App\Http\Controllers\CobaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\genreController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\KursiController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\f\FilmController;
+use App\Http\Controllers\TanggalController;
 
 // Route untuk halaman welcome
 // Route::get('/', function () {
@@ -54,16 +56,12 @@ Route::put('/kursi/{id}/update', [App\Http\Controllers\KursiController::class,'u
 Route::get('/kursi/{id}/delete', [App\Http\Controllers\KursiController::class,'destroy'])->name('kursi.delete');
 // Route::get('kursi/{id}', [KursiController::class, 'getKursiByStudio']);
 
-
-
 Route::get('/studio', [App\Http\Controllers\StudioController::class,'index'])->name('studio');
 Route::get('/studio/create', [App\Http\Controllers\StudioController::class,'create'])->name('studio.create');
 Route::post('/studio/store', [App\Http\Controllers\StudioController::class,'store'])->name('studio.store');
 Route::get('/studio/{id}/edit', [App\Http\Controllers\StudioController::class,'edit'])->name('studio.edit');
 Route::put('/studio/{id}/update', [App\Http\Controllers\StudioController::class,'update'])->name('studio.update');
 Route::delete('/studio/{id}/delete', [App\Http\Controllers\StudioController::class,'destroy'])->name('studio.delete');
-
-
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order.create');
@@ -74,7 +72,6 @@ Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'d
 Route::put('/paid/{id}/order', [App\Http\Controllers\OrderController::class,'paid'])->name('paid');
 Route::put('/cancel/{id}/order', [App\Http\Controllers\OrderController::class,'cancel'])->name('cancel');
 
-
 Route::get('/berita', [App\Http\Controllers\BeritaController::class,'index'])->name('berita');
 Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'create'])->name('berita.create');
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
@@ -84,3 +81,9 @@ Route::delete('/berita/{id}/delete', [App\Http\Controllers\BeritaController::cla
 
 Route::get('/kursi', [KursiController::class, 'index'])->name('kursi.index');
 Route::get('/kursi/studio', [KursiController::class, 'getKursiByStudio']);
+
+
+Route::resource('coba',CobaController::class);
+Route::resource('tanggal',TanggalController::class);
+// web.php
+Route::get('/kursi/{id}', [KursiController::class, 'show'])->name('kursi.show');
