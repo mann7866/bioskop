@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('time', function (Blueprint $table) {
+        Schema::create('tanggal', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_judul')->references('id')->on('detail')->onDelete('restrict')->onUpdate('cascade');
-            $table->time('jamTayang');
             $table->date('tanggalTayang');
             $table->timestamps();
         });
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('time');
+        Schema::dropIfExists('tanggal');
     }
 };

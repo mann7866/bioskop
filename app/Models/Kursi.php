@@ -13,7 +13,7 @@ class Kursi extends Model
 
     public function studio()
     {
-        return $this->belongsTo(Studio::class,'id_studio','id');
+        return $this->hasmany(Studio::class,'id_studio','id');
     }
     public function order()
     {

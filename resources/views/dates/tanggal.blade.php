@@ -75,33 +75,29 @@
 
     <div class="container mt-4">
         <div class="d-flex mb-4">
-            <a class="btn btn-primary warning" href="{{ route('time.create') }}">
+            <a class="btn btn-primary warning" href="{{ route('tanggal.create') }}">
                 <i class="fas fa-plus"></i> Tambah Time
             </a>
         </div>
         <div class="card text-center">
             <div class="card-header">
-                <h3>{{ __('Daftar Jam Tayang') }}</h3>
+                <h3>{{ __('Daftar Tanggal Tayang') }}</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
-
-                                <th class="text-center">Jam Tayang</th>
-
+                                <th class="text-center">Tanggal Tayang</th>
                                 <th class="text-center">Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($time as $item)
+                            @foreach ($tanggal as $item)
                                 <tr>
-
-                                    <td class="text-center">{{ date('H:i', strtotime($item->jamTayang)) }}</td>
-
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($item->tanggalTayang)) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('time.edit', $item->id) }}" class="btn btn-success">
+                                        <a href="{{ route('tanggal.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
@@ -120,14 +116,18 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Apa Kamu Mau Hapus Waktu Film ?
+                                                Apa Kamu Mau Hapus Tanggal Film ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                                <form action="{{ route('time.delete', $item->id) }}" method="GET">
+                                                <form action="{{ route('tanggal.destroy', $item->id) }}" method="POST">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon> Hapus</button>
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <ion-icon name="trash-outline"></ion-icon> Hapus
+                                                    </button>
                                                 </form>
+
                                             </div>
                                         </div>
                                     </div>

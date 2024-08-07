@@ -187,7 +187,7 @@
                     <img src="{{ asset('imageBerita/' . $item->foto_deskripsi) }}" class="img-fluid"
                         alt="{{ $item->judul }}">
                     <div class="news-body">
-                        <h5 class="news-title">Judul:{{ $item->judul }}</h5>
+                        <h5 class="news-title">Judul: {{ $item->judul }}</h5>
                         <p class="news-text">Deskripsi:{{ $item->deskripsi }}</p>
                     </div>
                     <div class="film-label-container">

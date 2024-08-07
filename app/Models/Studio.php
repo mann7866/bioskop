@@ -15,14 +15,14 @@ class Studio extends Model
 
     public function kursi()
     {
-        return $this->hasMany(Kursi::class,'id_studio','id');
+        return $this->belongsto(Kursi::class,'id_studio','id');
     }
     public function order()
     {
         return $this->hasMany(Order::class,'id_studio','id');
     }
-    public function studio()
+    public function details()
     {
-        return $this->hasMany(Studio::class,'id_studios','id');
+        return $this->hasMany(Detail::class,'id_studio','id');
     }
 }
