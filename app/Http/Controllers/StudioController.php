@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kursi;
 use App\Models\Studio;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class StudioController extends Controller
      */
     public function create()
     {
-        return view("studios.studioCreate");
+        $kursi = Kursi::all();
+        return view("studios.studioCreate", compact('kursi'));
     }
 
     /**
@@ -31,14 +33,25 @@ class StudioController extends Controller
     {
         $validateData = $request->validate([
             "studio" => "required|unique:studio,studio",
-        ],[
-            "studio.required"=> "Studio Harus Diisi",
-            "studio.unique"=> "Studio Sudaj Ada",
+            "id_kursi" => "nullable|array"
+        ], [
+            "studio.required" => "Studio Harus Diisi",
+            "studio.unique" => "Studio Sudah Ada",
+            "id_kursi.array" => "Pilih setidaknya satu kursi"
         ]);
 
-        Studio::create($validateData);
+        $studio = Studio::create([
+            'studio' => $validateData['studio']
+        ]);
+
+        // Attach kursi ke studio, misalnya jika relasi many-to-many
+        if (isset($validateData['id_kursi'])) {
+            $studio->kursi()->sync($validateData['id_kursi']);
+        }
+
         return redirect()->route('studio')->with("success", "Berhasil Tambah Studio");
     }
+
 
     /**
      * Display the specified resource.

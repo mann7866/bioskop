@@ -13,10 +13,7 @@ class Studio extends Model
 
     protected $fillable = ['studio'];
 
-    public function kursi()
-    {
-        return $this->belongsto(Kursi::class,'id_studio','id');
-    }
+
     public function order()
     {
         return $this->hasMany(Order::class,'id_studio','id');
@@ -25,4 +22,10 @@ class Studio extends Model
     {
         return $this->hasMany(Detail::class,'id_studio','id');
     }
+
+    public function kursi()
+    {
+        return $this->belongsToMany(Kursi::class, 'studio_seat');
+    }
+
 }

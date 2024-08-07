@@ -11,12 +11,17 @@ class Kursi extends Model
     protected $table = 'kursi';
     protected $fillable = ['id_studio', 'kursi'];
 
-    public function studio()
-    {
-        return $this->hasmany(Studio::class,'id_studio','id');
-    }
+
     public function order()
     {
         return $this->belongsToMany(Order::class, 'order_kursi', 'id_order','id_kursi');
     }
+
+    
+    public function studios()
+    {
+        return $this->belongsToMany(Studio::class, 'studio_seat');
+    }
 }
+
+

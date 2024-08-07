@@ -78,7 +78,47 @@
             @enderror
         </div>
 
+        <div class="col-md-6">
+            <label class="form-label">Jam Tayang</label>
+            <select class="mt-3 form-select @error('id_time') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_time">
+                <option selected disabled>Pilih Jam Tayang</option>
+                @foreach ($time as $item)
+                    <option value="{{ $item->id }}">{{ $item->jamTayang }}</option>
+                @endforeach
+            </select>
+            @error('id_time')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
+        <div class="col-md-6">
+            <label class="form-label">Tanggal Tayang</label>
+            <select class="mt-3 form-select @error('id_tanggal') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_tanggal">
+                <option selected disabled>Pilih Tanggal Tayang</option>
+                @foreach ($tanggal as $item)
+                    <option value="{{ $item->id }}">{{ $item->tanggalTayang }}</option>
+                @endforeach
+            </select>
+            @error('id_tanggal')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Studio</label>
+            <select class="mt-3 form-select @error('id_studio') is-invalid @enderror"
+                    aria-label="Select Payment Method" name="id_studio">
+                <option selected disabled>Pilih Studio</option>
+                @foreach ($studio as $item)
+                    <option value="{{ $item->id }}">{{ $item->studio }}</option>
+                @endforeach
+            </select>
+            @error('id_studio')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="col-12">
             <label for="deskripsi" class="form-label">Deskripsi</label>
@@ -91,7 +131,7 @@
 
 
         <div class="col-12">
-            <label for="foto" class="form-label">Upload Foto</label>
+            <label for="foto" class="form-label">Upload Poster</label>
             <div class="input-group">
                 <input type="file" class="form-control @error('foto') is-invalid @enderror" id="inputGroupFile" name="foto" required>
                 <label class="input-group-text" for="inputGroupFile">Upload</label>

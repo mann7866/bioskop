@@ -13,8 +13,8 @@ class Time extends Model
 
     protected $guarded = [] ;
 
-    public function detail()
+    public function details()
     {
-        return $this->belongsTo(Detail::class, 'id_judul','id');
+        return $this->hasMany(Detail::class, 'id_time','id');
     }
 }
