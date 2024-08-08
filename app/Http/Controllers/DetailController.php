@@ -75,7 +75,8 @@ class DetailController extends Controller
         $time = Time::all();
         $tanggal = tanggal::all();
         $studio = Studio::all();
-        return view("details.createDetail", compact("genre", "time", "tanggal", "studio"));
+        $detail = Detail::all();
+        return view("details.createDetail", compact("genre", "time", "tanggal", "studio", "detail"));
     }
 
     /**
@@ -185,8 +186,11 @@ class DetailController extends Controller
         $detail = Detail::find($id);
 
         $genre = Genre::all();
+
+        $tanggal = tanggal::all();
+        $studio = Studio::all();
         $time = Time::all();
-        return view("details.editDetail", compact("detail", "genre", "time"));
+        return view("details.editDetail", compact("detail", "genre", "time", "tanggal", "studio"));
     }
 
     /**
@@ -209,6 +213,9 @@ class DetailController extends Controller
             "deskripsi" => "required|max:300",
             "harga" => "required|numeric|min:0",
             "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
+            "id_studio" => "required",
+            "id_time" => "required",
+            "id_tanggal" => "required",
 
 
         ],[
@@ -230,7 +237,9 @@ class DetailController extends Controller
             "perusahaanProduksi.required"=> "Perusahaan Harus diIsi",
             "perusahaanProduksi.regex"=>"Perusahaan Produksi Hanya Boleh Abjad",
             "perusahaanProduksi.max"=>"Perusahaan Produksi Maksimal 20",
-
+            "id_studio.required" => "Studio harus diisi",
+            "id_time.required" => "Jam Tayang Harus diisi",
+            "id_tanggal.required" => "Tanggal Tayang Harus diisi",
             "foto.mimes"=>"Foto Harus Berupa jpeg,jpg,png,gif",
             "foto.max"=>"Foto Maksimal 4Mb",
             "harga.required"=> "Harga Harus Diisi",
@@ -267,7 +276,9 @@ class DetailController extends Controller
             'perusahaanProduksi' => $validatedData['perusahaanProduksi'],
             'deskripsi' => $validatedData['deskripsi'],
             'harga' => $validatedData['harga'],
-
+            'id_studio' => $validatedData['id_studio'],
+            'id_time' => $validatedData['id_time'],
+            'id_tanggal' => $validatedData['id_tanggal'],
         ]);
 
         // Sinkronisasi genres jika ada yang dipilih

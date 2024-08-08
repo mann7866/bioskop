@@ -310,12 +310,14 @@
                                     <div class="mb-3">
                                         <h6><strong>Tanggal Rilis:</strong></h6>
                                         <p class="text-muted">{{ $item->tanggalRilis }}</p>
-                                        @if ($timeCount > 0)
+
+                                        <h6><strong>Studio:</strong></h6>
+                                        <p class="text-muted">{{ $item->studio->studio }}</p>
                                         <h6><strong>Tanggal Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->time->tanggalTayang }}</p>
+                                        <p class="text-muted">{{ $item->tanggal->tanggalTayang }}</p>
                                         <h6><strong>Jam Tayang:</strong></h6>
                                         <p class="text-muted">{{ $item->time->jamTayang }}</p>
-                                        @endif
+
                                     </div>
                                     <div class="mb-3">
                                         <h6><strong>Perusahaan Produksi:</strong></h6>

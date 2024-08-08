@@ -117,7 +117,8 @@
                 transform: translateY(-10px);
             }
         }
-        .warna{
+
+        .warna {
             position: relative;
             left: 7px;
             top: 20px;
@@ -202,32 +203,53 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="warna">
-                                <span
-                                    class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
+                                <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
                                 </span>
-                                
+
                             </div>
                             <div class="card-body">
                                 <h4 class="card-category ">Judul:</h4>
-                                <h5 class="">{{ $item->detail->judul }}</h5>
+                                <h5 class="text-muted">{{ $item->detail->judul }}</h5>
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
+                                <h6><strong>Tanggal Tayang:</strong></h6>
 
-                                <label for="" class="total-payment-label">Studio:</label>
+                                    <p  class="text-muted">{{ $item->detail->tanggal->tanggalTayang }}</p>
 
-                                <h6 class="badge border border-secondary text-secondary">
-                                    {{ $item->studio->studio }}
-                                </h6>
-                                <div class="mb-3">
-                                    <h6><strong>kursi:</strong></h6>
+                                <h6><strong>Jam Tayang:</strong></h6>
+                                <p class="text-muted">{{ $item->detail->time->jamTayang }}</p>
+
+
+                                <div class="d-flex">
+                                    <h6 style="margin-right: 10px"><strong>Studio</strong></h6>
+                                    <h6><strong>Kursi</strong></h6>
+                                </div>
+
+                                <div class="d-flex">
+                                    <div class="">
+                                        <h6 style="margin-right: 4px" class="badge border border-secondary text-secondary">
+                                            {{ $item->detail->studio->studio }}
+                                        </h6>
+                                    </div>
+
+
                                     <ul class="list-unstyled">
                                         @foreach ($item->kursi as $kursi)
-                                        <h6 class="badge border border-secondary text-secondary">
-                                            {{ $kursi->kursi }}
-                                        </h6>
+                                            <h6 class="badge border border-secondary text-secondary">
+                                                {{ $kursi->kursi }}
+                                            </h6>
                                             {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
                                         @endforeach
 
                                     </ul>
+                                </div>
+
+
+                                <div>
+                                    <label for="" class="total-payment-label">Total Tiket:</label>
+                                    <div>
+                                        <h6 class="badge border border-secondary text-secondary">
+                                            {{ $item->jumlah_tiket }}</h6>
+                                    </div>
                                 </div>
 
 
@@ -243,13 +265,9 @@
                                         <p> Kursi sedang error dan tidak bisa tampil</p>
                                     @endforelse
                                 @endif --}}
-                                <label for="" class="total-payment-label">Total Tiket:</label>
-                                <div>
-                                    <h6 class="badge border border-secondary text-secondary">
-                                        {{ $item->jumlah_tiket }}</h6>
-                                </div>
 
-                                <label for="" class="total-payment-label" >Total Pembayaran:</label>
+
+                                <label for="" class="total-payment-label">Total Pembayaran:</label>
                                 <div>
                                     <h6 class="badge border border-primary text-primary">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
@@ -273,13 +291,13 @@
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
                                     {{-- <div class="button-container d-flex justify-content-between"> --}}
-                                        <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('put')
-                                            <button type="submit" class="btn btn-success">Bayar</button>
-                                        </form>
+                                    <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('put')
+                                        <button type="submit" class="btn btn-success">Bayar</button>
+                                    </form>
 
-                                    <form action="{{ route('cancel', $item->id) }}" method="POST"  class="d-inline">
+                                    <form action="{{ route('cancel', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('put')
                                         <button type="submit" class="btn btn-danger">Cancel</button>
@@ -297,10 +315,10 @@
                                 @endif
 
                                 @if ($item->status == 'paid')
-                                <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                    onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                    Hapus
-                                </a>
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Hapus
+                                    </a>
                                 @endif
                             </div>
                         </div>
