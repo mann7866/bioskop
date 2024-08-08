@@ -68,7 +68,9 @@
         }
 
         * {
+            transition: all 0.3s ease;
             scroll-behavior: smooth;
+            scroll-padding: 10px;
         }
 
 

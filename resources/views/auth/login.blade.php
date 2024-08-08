@@ -34,8 +34,9 @@
 
 
         .toggle-password {
+            /* background-color: white; */
             position: absolute;
-            top: 50%;
+            top: 58%;
             right: 20px;
             transform: translateY(-50%);
             cursor: pointer;
@@ -89,7 +90,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+{{-- 
                             <div class="form-group row mb-3">
                                 <div class="col-md-8 offset-md-4">
                                     <div class="form-check">
@@ -100,7 +101,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
@@ -121,7 +122,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script>
         function togglePassword(id) {
