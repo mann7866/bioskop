@@ -11,7 +11,7 @@
                 <label class="form-label">Tanggal Tayang</label>
 
                 <input type="date" class="form-control @error('tanggalTayang') is-invalid @enderror" id="tanggalTayang"
-                name="tanggalTayang">
+                name="tanggalTayang" value="{{ old('tanggalTayang') }}">
 
                 @error('tanggalTayang')
                     <div class="invalid-feedback">{{ $message }}</div>

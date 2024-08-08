@@ -309,6 +309,8 @@
         }
 
         .warna {}
+
+
     </style>
     <div class="container">
         <div class="row justify-content-center">
@@ -363,6 +365,19 @@
                                         </div>
                                         <div class="film-label-container">
                                             <label class="film-label">{{ $item->judul }}</label>
+                                            <h6 style="font-size: 13px"><strong>Studio:</strong></h6>
+                                            <p class="text-muted" style="font-size: 11px">{{ $item->studio->studio }}</p>
+                                            <div class="d-flex">
+
+                                                <h6 style="font-size: 13px"><strong>Tayang Pada:</strong></h6>
+                                            </div>
+                                            <div class="d-flex">
+
+                                                <p style="font-size: 11px; margin-right: 5px" class="text-muted ">{{ $item->tanggal->tanggalTayang }}</p>
+
+                                                <p style="font-size: 11px" class="text-muted ">| {{ $item->time->jamTayang }}</p>
+                                            </div>
+
                                         </div>
                                     </div>
 

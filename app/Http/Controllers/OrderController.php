@@ -6,6 +6,7 @@ use App\Models\Kursi;
 use App\Models\Order;
 use App\Models\Detail;
 use App\Models\Studio;
+use App\Models\Time;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,12 +33,11 @@ class OrderController extends Controller
     public function order($id)
     {
         $detail = Detail::find($id);
-        $kursi = Kursi::with('studio')->get()->groupBy('id_studio');
-        $studio = Studio::pluck('studio');
-
-        $bookedSeats = Order::with('kursi')->get()->pluck('kursi')->flatten()->pluck('id')->toArray();
-
-        return view('orders.createOrder', compact('detail', 'kursi', 'studio', 'bookedSeats'));
+        // $studio = Studio::where('detail');
+        // $kursi = Kursi::all();
+        // $time = Time::all();
+        $details = Detail::with('studio.kursi')->findOrFail($id);
+        return view('orders.createOrder', compact('detail', 'details'));
     }
 
 
@@ -51,7 +51,6 @@ class OrderController extends Controller
             'jumlah_tiket' => 'required|integer|min:1',
             'total_harga' => 'required|numeric|min:0',
             'id_detail' => 'required',
-            'id_studios' => 'required',
             'kursis' => 'required|array',
             'kursis.*' => 'unique:order_kursi,id_kursi', // Ubah kursi_table_name dan column_name sesuai dengan tabel dan kolom yang relevan
         ], [
@@ -60,7 +59,7 @@ class OrderController extends Controller
             'total_harga.min' => 'Total Harga Minimal 0',
             'total_harga.required' => 'Total Harga Harus Diisi',
             'total_harga.numeric' => 'Total Harga Harus Angka',
-            'id_studios.required' => 'Studio Harus Dipilih',
+
             'id_detail.required' => 'Detail ID Harus Diisi',
             'kursis.required' => 'Kursi yang dipilih harus diisi',
             'kursis.*.unique' => 'Kursi yang dipilih harus unik',
@@ -71,7 +70,7 @@ class OrderController extends Controller
             'jumlah_tiket' => $validateData['jumlah_tiket'],
             'total_harga' => $validateData['total_harga'],
             'id_detail' => $validateData['id_detail'],
-            'id_studios' => $validateData['id_studios'],
+         
         ]);
 
         // Sinkronkan kursi yang dipilih jika ada

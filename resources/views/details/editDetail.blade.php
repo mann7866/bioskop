@@ -90,6 +90,48 @@
                 @enderror
             </div>
 
+            <div class="col-md-6">
+                <label class="form-label">Jam Tayang</label>
+                <select class="mt-3 form-select @error('id_time') is-invalid @enderror"
+                        aria-label="Select Payment Method" name="id_time">
+                    <option selected disabled>Pilih Jam Tayang</option>
+                    @foreach ($time as $item)
+                        <option value="{{ $item->id }}"@if ($item->id == $detail->id_time) selected @endif>{{ $item->jamTayang }}</option>
+                    @endforeach
+                </select>
+                @error('id_time')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Tanggal Tayang</label>
+                <select class="mt-3 form-select @error('id_tanggal') is-invalid @enderror"
+                        aria-label="Select Payment Method" name="id_tanggal">
+                    <option selected disabled>Pilih Tanggal Tayang</option>
+                    @foreach ($tanggal as $item)
+                        <option value="{{ $item->id }}"@if ($item->id == $detail->id_tanggal) selected @endif>{{ $item->tanggalTayang }}</option>
+                    @endforeach
+                </select>
+                @error('id_tanggal')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Studio</label>
+                <select class="mt-3 form-select @error('id_studio') is-invalid @enderror"
+                        aria-label="Select Payment Method" name="id_studio">
+                    <option selected disabled>Pilih Studio</option>
+                    @foreach ($studio as $item)
+                        <option value="{{ $item->id }}"@if ($item->id == $detail->id_studio) selected @endif>{{ $item->studio }}</option>
+                    @endforeach
+                </select>
+                @error('id_studio')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="col-12">
                 <label for="deskripsi" class="form-label">Deskripsi</label>
                 <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5"

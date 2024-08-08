@@ -9,7 +9,7 @@
 
         <div class="col-md-6">
             <label for="judul" class="form-label">Judul</label>
-            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" required>
+            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}">
             @error('judul')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -32,7 +32,7 @@
 
         <div class="col-md-6">
             <label for="tanggalRilis" class="form-label">Tanggal Rilis</label>
-            <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis" name="tanggalRilis" required>
+            <input type="date" class="form-control @error('tanggalRilis') is-invalid @enderror" id="tanggalRilis" name="tanggalRilis" value="{{ old('tanggalRilis') }}">
             @error('tanggalRilis')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -40,7 +40,7 @@
 
         <div class="col-md-6">
             <label for="pemeran" class="form-label">Pemeran</label>
-            <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran" name="pemeran" required>
+            <input type="text" class="form-control @error('pemeran') is-invalid @enderror" id="pemeran" name="pemeran" value="{{ old('pemeran') }}">
             @error('pemeran')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -48,7 +48,7 @@
 
         <div class="col-md-6">
             <label for="penulis" class="form-label">Penulis</label>
-            <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis" name="penulis" required>
+            <input type="text" class="form-control @error('penulis') is-invalid @enderror" id="penulis" name="penulis" value="{{ old('penulis') }}">
             @error('penulis')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -56,7 +56,7 @@
 
         <div class="col-md-6">
             <label for="sutradara" class="form-label">Sutradara</label>
-            <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara" name="sutradara" required>
+            <input type="text" class="form-control @error('sutradara') is-invalid @enderror" id="sutradara" name="sutradara" value="{{ old('sutradara') }}">
             @error('sutradara')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -64,7 +64,7 @@
 
         <div class="col-md-6">
             <label for="perusahaanProduksi" class="form-label">Perusahaan Produksi</label>
-            <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi" name="perusahaanProduksi" required>
+            <input type="text" class="form-control @error('perusahaanProduksi') is-invalid @enderror" id="perusahaanProduksi" name="perusahaanProduksi" value="{{ old('perusahaanProduksi') }}">
             @error('perusahaanProduksi')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -72,7 +72,7 @@
 
         <div class="col-md-6">
             <label for="harga" class="form-label">Harga Tiket</label>
-            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" required>
+            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}">
             @error('harga')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -122,7 +122,7 @@
 
         <div class="col-12">
             <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5">{{ old('deskripsi') }}</textarea>
             @error('deskripsi')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror

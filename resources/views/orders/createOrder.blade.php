@@ -132,6 +132,7 @@
         <div class="form-container">
             <div class="row">
                 <div class="col-md-4">
+                    <!-- Film Detail -->
                     <div class="card">
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
@@ -142,8 +143,18 @@
                                     <li class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</li>
                                 @endforeach
                             </ul>
+                            <h6><strong>Studio:</strong></h6>
+                            <p class="text-muted badge border border-primary">{{ $detail->studio->studio }}</p>
+                            <div class="d-flex">
+                                <h6><strong>Tayang pada </strong></h6>
+                            </div>
+                            <div class="d-flex">
+                                <p class="text-muted badge border border-primary">{{ $detail->tanggal->tanggalTayang }}</p>
+                                <p class="text-muted badge border border-primary">{{ $detail->time->jamTayang }}</p>
+                            </div>
+
                             <h6>Harga Tiket Film :</h6>
-                            <h6 class="card-">Rp. {{ number_format($detail->harga) }}</h6>
+                            <h6 class="text-muted badge border border-primary">Rp. {{ number_format($detail->harga) }}</h6>
                             <h6>Deskripsi :</h6>
                             <p class="card-text">{{ $detail->deskripsi }}</p>
                         </div>
@@ -171,62 +182,19 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="container">
-                            <h2 class="form-title">Pilih Studio</h2>
-                            <div class="mb-3">
-                                <label for="studio" class="form-label">Pilih Studio</label>
-                                <div class="studio-container">
-                                    @foreach ($kursi as $studioId => $kursis)
-                                        <div class="form-check studio-card" class="film-card text-center"
-                                            data-studio-id="{{ $studioId }}">
-                                            <input class="form-check-input" type="radio" id="studio{{ $studioId }}"
-                                                name="id_studios" value="{{ $studioId }}">
-                                            <label class="form-check-label" for="studio{{ $studioId }}">
-                                                {{ $kursis->first()->studio->studio }}
-                                            </label>
-                                            @error('id_studios')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    @endforeach
+
+                        <!-- Studio and Seat Selection -->
+                        <h6>Pilih Kursi:</h6>
+                        <div class="mb-3">
+                            @foreach ($details->studio->kursi as $kursi)
+                                <div class="kursi-item" title="Kursi {{ $kursi->nomor }}" data-id="{{ $kursi->id }}">
+                                    <input type="checkbox" name="kursis[]" value="{{ $kursi->id }}">
+                                    {{ $kursi->nomor }}
                                 </div>
-                            </div>
-
-                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
+                            @endforeach
                         </div>
 
-                        @foreach ($kursi as $studioId => $kursis)
-                            <!-- Film Modal -->
-                            <div class="modal fade" id="filmModal{{ $studioId }}" tabindex="-1"
-                                aria-labelledby="filmModalLabel{{ $studioId }}" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="filmModalLabel{{ $studioId }}">Pilih Kursi</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @foreach ($kursis->chunk(10) as $chunk)
-                                            <div class="kursi-row">
-                                                @foreach ($chunk as $item)
-                                                    <div class="kursi-item {{ in_array($item->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
-                                                        data-seat-id="{{ $item->id }}"
-                                                        data-seat-number="{{ $item->kursi }}"
-                                                        title="{{ in_array($item->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
-                                                        <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                                            type="checkbox" name="kursis[]" value="{{ $item->id }}">
-                                                        <strong>{{ $item->kursi }}</strong>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
-                        </div>
+                        <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
                 </div>
             </div>
@@ -253,19 +221,6 @@
                         updateTotalHarga();
                     });
                 }
-            });
-
-            const radioButtons = document.querySelectorAll('input[name="id_studios"]');
-            radioButtons.forEach(radioButton => {
-                radioButton.addEventListener('change', function() {
-                    const studioId = this.value;
-
-                    document.querySelectorAll('.kursi-section').forEach(section => {
-                        section.style.display = 'none';
-                    });
-
-                    document.querySelector(`.kursi-section[data-studio-id="${studioId}"]`).style.display = 'block';
-                });
             });
         });
     </script>
