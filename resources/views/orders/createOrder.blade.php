@@ -4,34 +4,36 @@
     /* Styles for the studio and seat selection */
     .studio-container {
         display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .studio-card {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
+        background-color: #f5f5f5;
+        border: 1px solid #dcdcdc;
+        border-radius: 10px;
+        padding: 20px;
         display: flex;
         align-items: center;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .studio-card:hover {
-        background-color: #e9ecef;
-        transform: scale(1.02);
+        background-color: #eaeaea;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     }
 
     .studio-card input[type="radio"] {
-        margin-right: 10px;
+        margin-right: 15px;
     }
 
     .studio-card label {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         font-weight: 600;
-        color: #495057;
+        color: #333;
     }
 
     .invalid-feedback {
@@ -44,23 +46,24 @@
         position: relative;
         width: 50px;
         height: 50px;
-        background-color: #e0f7fa;
-        margin: 5px;
+        background-color: #f0f0f0;
+        margin: 10px 5px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         border-radius: 8px;
-        transition: background-color 0.3s, transform 0.3s;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .kursi-item.selected {
-        background-color: #4caf50;
+        background-color: #76c7c0;
         color: white;
     }
 
     .kursi-item.reserved {
-        background-color: #f44336;
+        background-color: #b0bec5;
         cursor: not-allowed;
     }
 
@@ -89,29 +92,31 @@
 
     .film-container {
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .film-card {
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
         border-radius: 10px;
-        padding: 10px;
-        width: calc(25% - 10px);
+        padding: 20px;
+        width: 100%;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .film-card:hover {
         background-color: #e0e0e0;
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     }
 
     .film-label {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: bold;
-        color: #333;
+        color: #444;
     }
 
     .kursi-item input[type="checkbox"] {
@@ -119,7 +124,10 @@
     }
 
     .kursi-row {
-        margin-bottom: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 15px;
     }
 
     .modal-dialog {
@@ -133,7 +141,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <!-- Film Detail -->
-                    <div class="card">
+                    <div class="card film-card">
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
@@ -185,14 +193,20 @@
 
                         <!-- Studio and Seat Selection -->
                         <h6>Pilih Kursi:</h6>
-                        <div class="mb-3">
-                            @foreach ($details->studio->kursi as $kursi)
-                                <div class="kursi-item" title="Kursi {{ $kursi->nomor }}" data-id="{{ $kursi->id }}">
-                                    <input type="checkbox" name="kursis[]" value="{{ $kursi->id }}">
-                                    {{ $kursi->nomor }}
+                        <div class="mb-3 kursi-row">
+                            @foreach ($detail->studio->kursi as $kursi)
+                                <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
+                                    data-seat-id="{{ $kursi->id }}"
+                                    data-seat-number="{{ $kursi->kursi }}"
+                                    title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                                    <input class="form-check-input @error('kursis') is-invalid @enderror"
+                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}" 
+                                        {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
+                                    <strong>{{ $kursi->kursi }}</strong>
                                 </div>
                             @endforeach
                         </div>
+                        
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
@@ -200,7 +214,6 @@
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPerKursi = {{ $detail->harga }};

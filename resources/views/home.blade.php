@@ -172,7 +172,7 @@
             left: 50%;
             transform: translateX(-50%);
             /* padding: 10px;
-            border-radius: 10px; */
+                border-radius: 10px; */
             text-align: center;
             width: 90%;
         }
@@ -309,8 +309,6 @@
         }
 
         .warna {}
-
-
     </style>
     <div class="container">
         <div class="row justify-content-center">
@@ -373,9 +371,11 @@
                                             </div>
                                             <div class="d-flex">
 
-                                                <p style="font-size: 11px; margin-right: 5px" class="text-muted ">{{ $item->tanggal->tanggalTayang }}</p>
+                                                <p style="font-size: 11px; margin-right: 5px" class="text-muted ">
+                                                    {{ $item->tanggal->tanggalTayang }}</p>
 
-                                                <p style="font-size: 11px" class="text-muted ">| {{ $item->time->jamTayang }}</p>
+                                                <p style="font-size: 11px" class="text-muted ">|
+                                                    {{ $item->time->jamTayang }}</p>
                                             </div>
 
                                         </div>
@@ -419,8 +419,44 @@
                             interval: 2000,
                             wrap: true
                         });
+                
+                        // Variabel untuk menyimpan posisi awal dan akhir dari swipe/drag
+                        var touchStartX = 0;
+                        var touchEndX = 0;
+                
+                        // Menangani swipe pada perangkat seluler
+                        myCarousel.addEventListener('touchstart', function(event) {
+                            touchStartX = event.changedTouches[0].screenX;
+                        });
+                
+                        myCarousel.addEventListener('touchend', function(event) {
+                            touchEndX = event.changedTouches[0].screenX;
+                            handleSwipe();
+                        });
+                
+                        // Menangani drag pada perangkat desktop
+                        myCarousel.addEventListener('mousedown', function(event) {
+                            touchStartX = event.screenX;
+                        });
+                
+                        myCarousel.addEventListener('mouseup', function(event) {
+                            touchEndX = event.screenX;
+                            handleSwipe();
+                        });
+                
+                        // Fungsi untuk menentukan arah swipe atau drag
+                        function handleSwipe() {
+                            if (touchEndX < touchStartX) {
+                                // Geser ke kiri (slide berikutnya)
+                                carousel.next();
+                            }
+                            if (touchEndX > touchStartX) {
+                                // Geser ke kanan (slide sebelumnya)
+                                carousel.prev();
+                            }
+                        }
                     });
-
+                
                     function link(url) {
                         window.location.href = url;
                     }
