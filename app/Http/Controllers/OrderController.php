@@ -32,13 +32,15 @@ class OrderController extends Controller
 
     public function order($id)
     {
-        $detail = Detail::find($id);
-        // $studio = Studio::where('detail');
-        // $kursi = Kursi::all();
-        // $time = Time::all();
-        $details = Detail::with('studio.kursi')->findOrFail($id);
-        return view('orders.createOrder', compact('detail', 'details'));
+        $detail = Detail::with('studio.kursi')->findOrFail($id);
+        $bookedSeats = Order::with('kursi')->where('id_detail', $id)->get()->pluck('kursi.*.id')->flatten()->toArray();
+
+        return view('orders.createOrder', compact('detail', 'bookedSeats'));
     }
+
+    // $studio = Studio::where('detail');
+    // $kursi = Kursi::all();
+    // $time = Time::all();
 
 
     /**
@@ -70,8 +72,10 @@ class OrderController extends Controller
             'jumlah_tiket' => $validateData['jumlah_tiket'],
             'total_harga' => $validateData['total_harga'],
             'id_detail' => $validateData['id_detail'],
-         
+
         ]);
+        // penjelasan di karena kan data sudah ada di public function create tidak boleh double di bawah 
+        // $bookedSeats = Order::with('id_detail')->get()->pluck('kursi')->flatten()->pluck('id')->toArray();
 
         // Sinkronkan kursi yang dipilih jika ada
         if ($request->has('kursis')) {
