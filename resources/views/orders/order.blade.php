@@ -203,38 +203,41 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="warna">
-                                <span class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
+                                <span style="margin-left: 10px" class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
                                 </span>
 
                             </div>
                             <div class="card-body">
-                                <h4 class="card-category ">Judul:</h4>
-                                <h5 class="text-muted">{{ $item->detail->judul }}</h5>
+                                <h4 class="card-category badge border border-secondary text-dark ">Judul:</h4>
+                                <div class="d-flex">
+                                    <h5 class="badge text-bg-secondary badge-genre text-light">{{ $item->detail->judul }}</h5>
+                                </div>
                                 {{-- data di ambil dari atas dan kirim kan ke bawah --}}
-                                <h6><strong>Tanggal Tayang:</strong></h6>
+                                <div class="d-flex">
+                                    <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
 
-                                    <p  class="text-muted">{{ $item->detail->tanggal->tanggalTayang }}</p>
 
-                                <h6><strong>Jam Tayang:</strong></h6>
-                                <p class="text-muted">{{ $item->detail->time->jamTayang }}</p>
-
+                                </div>
+                                <div class="d-flex">
+                                    <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->tanggal->tanggalTayang }}</p>
+                                    <p class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jamTayang }}</p>
+                                </div>
 
                                 <div class="d-flex">
-                                    <h6 style="margin-right: 10px"><strong>Studio</strong></h6>
-                                    <h6><strong>Kursi</strong></h6>
+                                    <h6 class="badge border border-secondary text-dark" style="margin-right: 10px"><strong>Studio</strong></h6>
+                                    <h6 style="margin-left: 10px" class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
                                 </div>
 
                                 <div class="d-flex">
                                     <div class="">
-                                        <h6 style="margin-right: 4px" class="badge border border-secondary text-secondary">
+                                        <h6 style="margin-right: 4px" class="badge text-bg-secondary badge-genre text-light">
                                             {{ $item->detail->studio->studio }}
                                         </h6>
                                     </div>
 
-
-                                    <ul class="list-unstyled">
+                                    <ul class="list-unstyled mb-0">
                                         @foreach ($item->kursi as $kursi)
-                                            <h6 class="badge border border-secondary text-secondary">
+                                            <h6 class="badge text-bg-secondary badge-genre text-light">
                                                 {{ $kursi->kursi }}
                                             </h6>
                                             {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
@@ -243,13 +246,13 @@
                                     </ul>
                                 </div>
 
-
                                 <div>
-                                    <label for="" class="total-payment-label">Total Tiket:</label>
                                     <div>
-                                        <h6 class="badge border border-secondary text-secondary">
+                                    <label style="margin-bottom: 4px" class="badge border border-secondary text-dark">Total Tiket :</label>
+                                </div>
+                                        <h6  class="badge text-bg-secondary badge-genre text-light">
                                             {{ $item->jumlah_tiket }}</h6>
-                                    </div>
+
                                 </div>
 
 
@@ -267,9 +270,13 @@
                                 @endif --}}
 
 
-                                <label for="" class="total-payment-label">Total Pembayaran:</label>
+
                                 <div>
-                                    <h6 class="badge border border-primary text-primary">Rp.
+                                    <div>
+                                    <label style="margin-bottom: 4px" class="badge border border-secondary text-dark">Total Pembayaran :</label>
+                                </div>
+
+                                    <h6 class="badge text-bg-secondary badge-genre text-light">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
                                 </div>
 

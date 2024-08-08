@@ -362,18 +362,18 @@
                                             </button>
                                         </div>
                                         <div class="film-label-container">
-                                            <label class="film-label">{{ $item->judul }}</label>
-                                            <h6 style="font-size: 13px"><strong>Studio:</strong></h6>
-                                            <p class="text-muted" style="font-size: 11px">{{ $item->studio->studio }}</p>
+                                            <label style="margin-bottom: 5px" class="film-label">{{ $item->judul }}</label>
+                                            <h6 style="font-size: 13px " class="badge border border-success text-success"><strong>Studio:</strong></h6>
+                                            <p class="badge text-bg-secondary badge-genre text-light" style="font-size: 11px">{{ $item->studio->studio }}</p>
                                             <div class="d-flex">
 
-                                                <h6 style="font-size: 13px"><strong>Tayang Pada:</strong></h6>
+                                                <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
                                             </div>
                                             <div class="d-flex">
 
-                                                <p style="font-size: 11px; margin-right: 5px" class="text-muted ">{{ $item->tanggal->tanggalTayang }}</p>
+                                                <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ $item->tanggal->tanggalTayang }}</p>
 
-                                                <p style="font-size: 11px" class="text-muted ">| {{ $item->time->jamTayang }}</p>
+                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jamTayang }}</p>
                                             </div>
 
                                         </div>

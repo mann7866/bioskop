@@ -144,19 +144,19 @@
                                 @endforeach
                             </ul>
                             <h6><strong>Studio:</strong></h6>
-                            <p class="text-muted badge border border-primary">{{ $detail->studio->studio }}</p>
+                            <p class="badge text-bg-secondary badge-genre text-light">{{ $detail->studio->studio }}</p>
                             <div class="d-flex">
                                 <h6><strong>Tayang pada </strong></h6>
                             </div>
                             <div class="d-flex">
-                                <p class="text-muted badge border border-primary">{{ $detail->tanggal->tanggalTayang }}</p>
-                                <p class="text-muted badge border border-primary">{{ $detail->time->jamTayang }}</p>
+                                <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->tanggal->tanggalTayang }}</p>
+                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->time->jamTayang }}</p>
                             </div>
 
                             <h6>Harga Tiket Film :</h6>
-                            <h6 class="text-muted badge border border-primary">Rp. {{ number_format($detail->harga) }}</h6>
+                            <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($detail->harga) }}</h6>
                             <h6>Deskripsi :</h6>
-                            <p class="card-text">{{ $detail->deskripsi }}</p>
+                            <p class="card-text text-muted badge border border-dark ">{{ $detail->deskripsi }}</p>
                         </div>
                     </div>
                 </div>
