@@ -63,7 +63,6 @@
         }
     </style>
 
-
 @if (session('gagal'))
 <div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
     <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
