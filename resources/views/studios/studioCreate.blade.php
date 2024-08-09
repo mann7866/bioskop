@@ -18,7 +18,7 @@
                 <div class="mb-3">
                     <label for="seats" class="form-label font-weight-bold text-gray-700 text-center">Pilih Kursi:</label>
                     <div class="kursi-container d-flex flex-wrap gap-4 mt-2">
-                        @foreach ($kursi->chunk(5) as $chunk)
+                        @foreach ($kursi->skip(5)->chunk(5) as $chunk)
                             <div class="row mb-3">
                                 @foreach ($chunk as $seat)
                                     <div class="col">

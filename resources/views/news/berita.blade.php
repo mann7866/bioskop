@@ -1,18 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('success'))
-        <div class="toast-container position-fixed top-3 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        {{ session('success') }}
-                    </div>
-                </div>
+  
+@if (session('success'))
+<div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <div class="toast mt-3 align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ session('success') }}
             </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
         </div>
-    @endif
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        var toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl, {
+                delay: 3000
+            });
+        });
+        toastList.forEach(toast => toast.show());
+    });
+</script>
+@endif
     @if (session('delete'))
         <div class="toast-container position-fixed top-3 end-0 p-2" style="z-index: 11">
             <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert"

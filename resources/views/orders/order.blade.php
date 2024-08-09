@@ -221,10 +221,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="modal-title">
+                                            <div class="d-flex">
                                             <h4 class="category badge border border-secondary text-dark ">Judul:</h4>
                                         </div>
-                                        <div class="modal-title">
                                             <h5 class="badge text-bg-secondary badge-genre text-light">{{ $item->detail->judul }}</h5>
+                                        </div>
+                                        <div class="modal-title">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -298,6 +300,32 @@
                                             @method('put')
                                             <button type="submit" class="btn btn-danger">Cancel</button>
                                         </form>
+
+                                    </div>
+                                @endif
+                                
+                                @if ($item->status == 'paid' )
+                                    
+                                <form action="{{ route('order.delete', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <ion-icon name="trash-outline"></ion-icon> Hapus
+                                    </button>
+                                </form>
+                                        
+                                    
+                                @endif
+                                @if ($item->status == 'cancel' )
+                                    
+                                <form action="{{ route('order.delete', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <ion-icon name="trash-outline"></ion-icon> Hapus
+                                    </button>
+                                </form>
+                                        
                                     </div>
                                 @endif
                             </div>

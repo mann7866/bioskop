@@ -4,32 +4,60 @@
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
         <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
             required>
-        <a class="btn btn-outline-primary" href="{{ route('detail') }}">Refresh</a>
+        <a class="btn btn-outline-primary" href="{{ route('home') }}">Refresh</a>
     </form>
 @endsection
 @if (session('delete'))
-<div class="toast-container mt-5 position-fixed top-3 end-0 p-2" style="z-index: 11">
-    <div class="toast mt-3 align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive"
-        aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                {{ session('delete') }}
+    <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div class="toast mt-3 align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('delete') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var toastList = toastElList.map(function(toastEl) {
+                return new bootstrap.Toast(toastEl, {
+                    delay: 3000
+                });
+            });
+            toastList.forEach(toast => toast.show());
+        });
+    </script>
 @endif
 @if (session('success'))
-    <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-        <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div class="toast mt-3 align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+            aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
                 </div>
+                {{-- <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button> --}}
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var toastList = toastElList.map(function(toastEl) {
+                return new bootstrap.Toast(toastEl, {
+                    delay: 3000
+                });
+            });
+            toastList.forEach(toast => toast.show());
+        });
+    </script>
 @endif
+
 @section('content')
     <style>
         * {
@@ -328,35 +356,75 @@
         .sok {
             border-radius: 20px;
         }
+
         .slide-down {
-        animation: slide-down 2s ease 0s 1 normal forwards;
-    }
-    @keyframes slide-down {
-        from {
-            transform: translateZ(-9.7rem);
-            opacity: 0;
+            animation: slide-down 2s ease 0s 1 normal forwards;
         }
 
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
+        @keyframes slide-down {
+            from {
+                transform: translateZ(-9.7rem);
+                opacity: 0;
+            }
 
-    .fade-out {
-        animation: fade-out 1s ease forwards;
-    }
-
-    @keyframes fade-out {
-        from {
-            opacity: 1;
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        to {
-            opacity: 0;
-            transform: translateY(-10px);
+        .fade-out {
+            animation: fade-out 1s ease forwards;
         }
-    }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .modal-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            /* transition: transform 0.2s ease; */
+        }
+        /* .modal-card:hover{
+            transform: scale(1.1);
+        } */
+        .modal-card img {
+            width: 100%;
+            max-height: 400px;
+            /* Atur tinggi maksimal untuk gambar */
+            object-fit: cover;
+            /* Menjaga proporsi gambar */
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease;
+            /* Tambahkan properti transition untuk animasi */
+        }
+
+        .modal-card img:hover {
+            transform: scale(1.1);
+            /* Menggunakan transform untuk menggeser gambar ke atas */
+        }
+
+        @media (max-width: 576px) {
+            .modal-card img {
+                max-height: 200px;
+            }
+
+            .modal-body {
+                padding: 10px;
+            }
+        }
     </style>
 
 
@@ -414,38 +482,55 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="embed-responsive embed-responsive-16by9 mb-3">
-                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                            alt="{{ $item->judul }}">
-                                    </div>
-                                    <hr>
-                                    <div class="mb-3">
-                                        <h6><strong>Studio:</strong></h6>
-                                        <p class="text-muted">{{ $item->studio->studio }}</p>
-                                        <h6><strong>Genre:</strong></h6>
-                                        <ul class="list-unstyled">
-                                            @foreach ($item->genres as $genre)
-                                                <li class="text-secondary">{{ $genre->genre }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h6><strong>Tanggal Rilis:</strong></h6>
-                                        <p class="text-muted">{{ $item->tanggalRilis }}</p>
-                                        <h6><strong>Tanggal Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->tanggal->tanggalTayang }}</p>
-                                        <h6><strong>Jam Tayang:</strong></h6>
-                                        <p class="text-muted">{{ $item->time->jamTayang }}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="modal-card mb-4">
+                                                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
+                                                    alt="{{ $item->judul }}">
+                                                <div class="modal-card mt-4">
+                                                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">
+                                                        {{ $item->judul }}
+                                                    </h5>
+                                                </div>
 
+                                                <div class="modal-card mb-4">
+                                                    <h6><strong>Genre:</strong></h6>
+                                                    <ul class="list-unstyled">
+                                                        @foreach ($item->genres as $genre)
+                                                            <li class="text-secondary">{{ $genre->genre }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-card mb-3">
+                                                    <h6><strong>Studio:</strong></h6>
+                                                    <p class="text-muted">{{ $item->studio->studio }}</p>
+                                                </div>
 
-                                    </div>
-                                    <div class="mb-3">
-                                        <h6><strong>Perusahaan Produksi:</strong></h6>
-                                        <p>{{ $item->perusahaanProduksi }}</p>
-                                    </div>
-                                    <div>
-                                        <h6><strong>Deskripsi:</strong></h6>
-                                        <p>{{ $item->deskripsi }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="modal-card mb-3">
+                                                <h6><strong>Tanggal Rilis:</strong></h6>
+                                                <p class="text-muted">{{ $item->tanggalRilis }}</p>
+                                            </div>
+                                            <div class="modal-card">
+                                                <h6><strong>Jam Tayang:</strong></h6>
+                                                <p class="text-muted">{{ $item->time->jamTayang }}</p>
+                                            </div>
+                                            <div class="modal-card">
+                                                <h6><strong>Tanggal Tayang:</strong></h6>
+                                                <p class="text-muted">{{ $item->tanggal->tanggalTayang }}</p>
+                                            </div>
+                                            <div class="modal-card mb-3">
+                                                <h6><strong>Perusahaan Produksi:</strong></h6>
+                                                <p>{{ $item->perusahaanProduksi }}</p>
+                                            </div>
+                                            <div class="modal-card mb-3">
+                                                <h6><strong>Deskripsi:</strong></h6>
+                                                <p>{{ $item->deskripsi }}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -463,7 +548,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus
+                                    </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -475,8 +561,8 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus</button>
-                                        <a href="{{ route('detail') }}"> <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Kembali</button></a>
+                                        <a href="{{ route('detail') }}"> <button type="button"
+                                                class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button></a>
 
                                     </form>
                                 </div>
@@ -485,7 +571,7 @@
                     </div>
                 @endforeach
 
-
+                    
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         var myCarousel = document.querySelector('#film');

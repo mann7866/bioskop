@@ -45,13 +45,13 @@
                                     <div class="mb-3">
                                         <label class="form-label">Upload Foto</label>
                                         <div class="input-group mb-3">
-                                            <input type="file" name="foto_deskripsi" class="form-control @error('foto_deskripsi') is-invalid @enderror" id="inputGroupFile" onchange="previewImage(event)" required>
+                                            <input type="file" name="foto_deskripsi" class="form-control @error('foto_deskripsi') is-invalid @enderror" id="inputGroupFile" onchange="previewImage(event)">
                                             <label class="input-group-text" for="inputGroupFile">Upload</label>
                                             @error('foto_deskripsi')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <img id="imagePreview" src="{{ asset('imageBerita/' . $berita->foto_deskripsi) }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
+                                        <img id="imagePreview" src="{{ $berita->foto_deskripsi ? asset('imageBerita/' . $berita->foto_deskripsi) : '' }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">
                             Order
                         </button>

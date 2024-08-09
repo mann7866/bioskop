@@ -68,7 +68,7 @@ Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/{id}/pembayaran', [App\Http\Controllers\OrderController::class,'edit'])->name('pembayaran');
 Route::put('/order/{id}/update', [App\Http\Controllers\OrderController::class,'update'])->name('order.update');
-Route::get('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
+Route::delete('/order/{id}/delete', [App\Http\Controllers\OrderController::class,'destroy'])->name('order.delete');
 Route::put('/paid/{id}/order', [App\Http\Controllers\OrderController::class,'paid'])->name('paid');
 Route::put('/cancel/{id}/order', [App\Http\Controllers\OrderController::class,'cancel'])->name('cancel');
 

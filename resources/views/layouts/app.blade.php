@@ -300,10 +300,11 @@
                                     <ion-icon name="person-outline"></ion-icon>{{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item text-center" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                                        <ion-icon name="log-out-outline"></ion-icon>{{ __('Logout') }}
+                                                      {{ __('Logout') }} 
+                                        {{-- <ion-icon name="log-out-outline"></ion-icon>--}}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         class="d-none">

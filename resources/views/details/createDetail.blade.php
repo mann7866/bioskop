@@ -175,8 +175,8 @@
             <div class="col-12">
                 <label for="foto" class="form-label">Poster</label>
                 <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto"
-                    name="foto" value="{{ old('foto') }}" required>
-                <img id="imagePreview" class="mt-2" style="max-width: 200px; max-height: 200px; display: none;">
+                    name="foto" value="{{ old('foto') }}" onchange="previewImage(event)"  required>
+                <img id="imagePreview" class="mt-2 suggets" style="max-width: 200px; max-height: 200px; display: none;">
                 @error('foto')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -185,24 +185,35 @@
                 @endif
             </div>
 
-            <div class="col-12 text-center">
-                <button class="btn btn-success mt-4" type="submit">Submit form</button>
+            <div class="col-12">
+                <button class="btn btn-success mt-4" style="background-color: blue; border-radius:30px;" type="submit">Submit form</button>
             </div>
         </form>
-        <script>
-            // Function to preview image
-            function previewImage(event) {
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var output = document.getElementById('imagePreview');
-                    output.style.display = 'block'; // Ensure image preview is visible
-                    output.src = reader.result;
-                }
-                reader.readAsDataURL(event.target.files[0]);
+        <style>
+            .suggets{
+                border: 3px solid blue;
             }
+        </style>
+        <script>
+           function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imagePreview');
+                output.style.display = 'block';
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-            // Event listener for file input change
-            document.getElementById('inputGroupFile').addEventListener('change', previewImage);
+        // Event listener for file input change
+        document.getElementById('inputGroupFile').addEventListener('change', function(event) {
+            previewImage(event);
+            var input = event.target;
+            if (input.files && input.files.length > 0) {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            }
+        });
 
             // JavaScript for Bootstrap form validation
             (function() {
