@@ -239,7 +239,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+    {{-- kursi data  --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="modal-title">
