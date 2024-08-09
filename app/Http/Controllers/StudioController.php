@@ -33,21 +33,25 @@ class StudioController extends Controller
     {
         $validateData = $request->validate([
             "studio" => "required|unique:studio,studio",
-            "id_kursi" => "nullable|array"
+            "kursis" => "required|array"
+
         ], [
             "studio.required" => "Studio Harus Diisi",
             "studio.unique" => "Studio Sudah Ada",
-            "id_kursi.array" => "Pilih setidaknya satu kursi"
+            "kursis.required" => "kursi Harus Diisi",
         ]);
 
         $studio = Studio::create([
             'studio' => $validateData['studio']
         ]);
 
-        // Attach kursi ke studio, misalnya jika relasi many-to-many
-        if (isset($validateData['id_kursi'])) {
-            $studio->kursi()->sync($validateData['id_kursi']);
+
+         // Sinkronisasi kursis jika ada yang dipilih
+         if ($request->has('kursis')) {
+            $kursis = $request->input('kursis');
+            $studio->kursis()->sync($kursis);
         }
+
 
         return redirect()->route('studio')->with("success", "Berhasil Tambah Studio");
     }

@@ -93,7 +93,7 @@
         <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4 rounded">Tambah Kursi</a>
         {{-- atur sesuka anda ingin berapa baris dan skin berapa  --}}
         <div class="seat-container">
-            @foreach ($kursi->skip(4)->chunk(6) as $seatChunk)
+            @foreach ($kursi->skip(6)->chunk(6) as $seatChunk)
                 <div class="seat-row">
                     @foreach ($seatChunk as $seat)
                         <div class="seat-card">

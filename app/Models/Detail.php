@@ -27,15 +27,12 @@ class Detail extends Model
         return $this->belongsTo(tanggal::class, 'id_tanggal', 'id');
     }
 
-    public function studio()
-    {
-        return $this->belongsTo(Studio::class, 'id_studio', 'id');
-    }
+
     public function orders()
     {
         return $this->hasMany(Order::class, 'id_detail', 'id');
     }
-    public function studios()
+    public function studio()
     {
         return $this->belongsTo(Studio::class, 'id_studio', 'id');
     }

@@ -12,16 +12,23 @@ class Kursi extends Model
     protected $fillable = ['id_studio', 'kursi'];
 
 
-    public function order()
+    public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_kursi', 'id_order','id_kursi');
     }
 
+public function studios()
+{
     
-    public function studios()
-    {
-        return $this->belongsToMany(Studio::class, 'studio_seat');
-    }
 }
+    public function studio()
+    {
+        return $this->belongsToMany(Studio::class, 'studio_seat' , 'studio_id', 'kursi_id');
+    }
+    public function isReservedInStudio($studioId)
+    {
+        // Logika untuk mengecek apakah kursi sudah dipesan di studio tertentu
+        return $this->orders()->where('studio_id', $studioId)->exists();
+    }
 
-
+}

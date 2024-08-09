@@ -134,7 +134,7 @@
         max-width: 80%;
     }
     .modal-title{
-      
+
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         background-color: #fff;
@@ -153,7 +153,7 @@
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
-                            <h5 class="card-categori">Genres:</h5>                            
+                            <h5 class="card-categori">Genres:</h5>
                                 @foreach ($detail->genres as $genre)
                                     <p class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</p>
                                 @endforeach
@@ -198,21 +198,20 @@
                         </div>
 
                         <!-- Studio and Seat Selection -->
-                        <h6>Pilih Kursi:</h6>
-                        <div class="modal-title mb-3 kursi-row">
-                            @foreach ($detail->studio->kursi as $kursi)
-                                <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
-                                    data-seat-id="{{ $kursi->id }}"
-                                    data-seat-number="{{ $kursi->kursi }}"
-                                    title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
-                                    <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}" 
-                                        {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
-                                    <strong>{{ $kursi->kursi }}</strong>
-                                </div>
-                            @endforeach
+                        @foreach ($availableSeats as $kursi)
+                        <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
+                            data-seat-id="{{ $kursi->id }}"
+                            data-seat-number="{{ $kursi->kursi }}"
+                            title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                            <input class="form-check-input @error('kursis') is-invalid @enderror"
+                                type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
+                                {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
+                            <strong>{{ $kursi->kursi }}</strong>
                         </div>
-                        
+                    @endforeach
+
+
+
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
@@ -223,6 +222,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPerKursi = {{ $detail->harga }};
+            const bookedSeats = @json($bookedSeats); // Kursi yang sudah dipesan
 
             function updateTotalHarga() {
                 const selectedSeats = document.querySelectorAll('.kursi-item.selected').length;
@@ -232,7 +232,12 @@
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
-                if (!item.classList.contains('reserved')) {
+                const seatId = item.getAttribute('data-seat-id');
+
+                if (bookedSeats.includes(parseInt(seatId))) {
+                    item.classList.add('reserved');
+                    item.querySelector('input[type="checkbox"]').disabled = true;
+                } else {
                     item.addEventListener('click', function() {
                         const checkbox = this.querySelector('input[type="checkbox"]');
                         checkbox.checked = !checkbox.checked;
@@ -242,5 +247,6 @@
                 }
             });
         });
+
     </script>
 @endsection

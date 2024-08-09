@@ -251,7 +251,7 @@
                                             <h6 class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
                                         </div>
                                         <ul class="list-unstyled mb-0 modal-title">
-                                            @foreach ($item->kursi as $kursi)
+                                            @foreach ($item->kursis as $kursi)
                                                 <h6 class=" badge text-bg-secondary badge-genre text-light">
                                                     {{ $kursi->kursi }}
                                                 </h6>
@@ -297,6 +297,28 @@
                                         </form>
                                     </div>
                                 @endif
+                                @if ($item->status == 'paid')
+                                <div class="button-container">
+                                    <form action="{{ route('order.delete', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <ion-icon name="trash-outline"></ion-icon> Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                            @if ($item->status == 'cancel')
+                            <div class="button-container">
+                                <form action="{{ route('order.delete', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <ion-icon name="trash-outline"></ion-icon> Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                             </div>
                         </div>
                     </div>

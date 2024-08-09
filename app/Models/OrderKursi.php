@@ -11,4 +11,18 @@ class OrderKursi extends Model
 
     protected $table = 'order_kursi';
     protected $guarded = [];
+
+    public function studios()
+    {
+        return $this->belongsTo(Studio::class, 'id_studio');
+    }
+
+    public function detail()
+    {
+        return $this->belongsTo(Detail::class, 'id_detail');
+    }
+    public function kursis()
+    {
+        return $this->belongsToMany(Kursi::class, 'order_kursi', 'order_id', 'kursi_id');
+    }
 }

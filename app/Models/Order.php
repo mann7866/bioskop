@@ -16,13 +16,14 @@ class Order extends Model
     {
         return $this->belongsTo(Detail::class, 'id_detail', 'id');
     }
-    public function studio()
+    public function studios()
     {
         return $this->belongsTo(Studio::class,'id_studios','id');
     }
-    public function kursi()
+    public function kursis()
     {
         return $this->belongsToMany(Kursi::class, 'order_kursi', 'id_order', 'id_kursi');
     }
+
 
 }

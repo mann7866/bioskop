@@ -23,7 +23,7 @@
                                 @foreach ($chunk as $seat)
                                     <div class="col">
                                         <div class="card kursi-seat d-flex align-items-center justify-content-center">
-                                            <input type="checkbox" id="seat-{{ $seat->id }}" name="id_kursi[]"
+                                            <input type="checkbox" id="seat-{{ $seat->id }}" name="kursis[]"
                                                 value="{{ $seat->id }}" class="form-check-input mr-2"
                                                 {{ in_array($seat->id, old('id_kursi', [])) ? 'checked' : '' }}>
                                             <label for="seat-{{ $seat->id }}" class="form-check-label text-gray-600">

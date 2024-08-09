@@ -17,7 +17,7 @@ class OrderController extends Controller
         $detail = Detail::all();
         $studio = Studio::all();
         $kursi = Kursi::all();
-        $order = Order::with('studio', 'detail', 'kursi')->get();
+        $order = Order::with('studio', 'detail', 'kursis')->get();
         // dd($order);
 
         return view("orders.order", compact("detail", "order", "studio", "kursi"));
@@ -30,17 +30,34 @@ class OrderController extends Controller
     {
     }
 
-    public function order($id)
-    {
-        $detail = Detail::with('studio.kursi')->findOrFail($id);
-        $bookedSeats = Order::with('kursi')->where('id_detail', $id)->get()->pluck('kursi.*.id')->flatten()->toArray();
+public function order($id)
+{
+    // Mengambil detail dengan relasi yang diperlukan
+    $detail = Detail::with(['studio', 'genres', 'tanggal', 'time'])->findOrFail($id);
 
-        return view('orders.createOrder', compact('detail', 'bookedSeats'));
-    }
+    // Mendapatkan ID studio dari detail
+    $studioId = $detail->studio->id;
+
+    // Mengambil kursi yang tersedia berdasarkan studio ID
+    $availableSeats = kursi::where('id_studio', $studioId)->get();
+
+    // Menyaring kursi yang sudah dipesan
+    $bookedSeats = $availableSeats->filter(function ($kursi) use ($studioId) {
+        return $kursi->isReservedInStudio($studioId);
+    })->pluck('id');
+
+    // Mengembalikan view dengan data yang diperlukan
+    return view('orders.createOrder', compact('detail', 'availableSeats', 'bookedSeats'));
+}
+
+
+
+
+
 
     // $studio = Studio::where('detail');
     // $kursi = Kursi::all();
-    // $time = Time::all();
+    // $time = Time::all
 
 
     /**
@@ -74,17 +91,17 @@ class OrderController extends Controller
             'id_detail' => $validateData['id_detail'],
 
         ]);
-        // penjelasan di karena kan data sudah ada di public function create tidak boleh double di bawah 
+        // penjelasan di karena kan data sudah ada di public function create tidak boleh double di bawah
         // $bookedSeats = Order::with('id_detail')->get()->pluck('kursi')->flatten()->pluck('id')->toArray();
 
         // Sinkronkan kursi yang dipilih jika ada
         if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
-            $order->kursi()->sync($kursis);
+            $order->kursis()->sync($kursis);
         } else {
             if ($request->has('id_kursi')) {
                 $id_kursi = $request->input('id_kursi');
-                $order->kursi()->sync($id_kursi);
+                $order->KursiSeeder()->sync($id_kursi);
             }
         }
 
