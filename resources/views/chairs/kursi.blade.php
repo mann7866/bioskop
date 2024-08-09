@@ -9,29 +9,29 @@
 
         .seat-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .seat-row {
+            display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
         }
 
         .seat-card {
             background-color: #3498db;
             color: white;
-            padding: 5px;
+            padding: 10px;
             border-radius: 4px;
-            /* Smaller radius */
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             width: 40px;
-            /* Smaller width */
             height: 40px;
-            /* Smaller height */
             line-height: 30px;
-            /* Center text vertically */
             font-size: 14px;
-            /* Smaller font size */
         }
 
         .seat-card:hover {
@@ -91,16 +91,21 @@
     <div class="container">
         <h1 class="text-center text-secondary small">Daftar Kursi</h1>
         <a href="{{ route('kursi.create') }}" class="btn btn-primary mb-4 rounded">Tambah Kursi</a>
+        {{-- atur sesuka anda ingin berapa baris dan skin berapa  --}}
         <div class="seat-container">
-            @foreach ($kursi as $seat)
-                <div class="seat-card">
-                    {{ $seat->kursi }}
+            @foreach ($kursi->skip(4)->chunk(6) as $seatChunk)
+                <div class="seat-row">
+                    @foreach ($seatChunk as $seat)
+                        <div class="seat-card">
+                            {{ $seat->kursi }}
+                        </div>
+                    @endforeach
                 </div>
             @endforeach
+
         </div>
 
         <a href="{{ route('home') }}"
             class="btn btn-secondary btn-back mt-4 d-flex justify-content-center align-items-center">Back to Home</a>
-
     </div>
 @endsection

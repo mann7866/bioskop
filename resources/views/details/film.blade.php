@@ -4,11 +4,11 @@
 
 @section('search')
     <form action="{{ route('detail') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search"
-            required>
+        <input class="form-control me-2" type="search" name="search" placeholder="Cari judul film" aria-label="Search" required>
         <a class="btn btn-outline-primary" href="{{ route('film') }}">Refresh</a>
     </form>
 @endsection
+
 <style>
     * {
         scroll-behavior: smooth;
@@ -233,164 +233,150 @@
             flex: 0 0 calc(100% - 20px);
         }
     }
+
+    /* Penambahan CSS untuk modal card */
+    .modal-card { 
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+  }
+
+    .modal-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .modal-card h6 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .modal-card p {
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .badge-genre {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-right: 5px;
+    }
 </style>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class="text-center text-secondary">Daftar FIlm</h1>
+            <h1 class="text-center text-secondary">Daftar Film</h1>
             <div class="container mt-4" id="film">
-
-                <div id="smallCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <button class="carousel-control-prev" type="button" data-bs-target="#smallCarousel"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Sebelumnya</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#smallCarousel"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Berikutnya</span>
-                    </button>
-                </div>
-            </div>
-
-            <div id="filmCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="film-container">
-                            @forelse ($detail as $item)
-                                <div class="film-card" data-bs-toggle="modal"
-                                    data-bs-target="#filmModal{{ $item->id }}">
-                                    <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                        alt="{{ $item->judul }}">
-                                    {{--  <div class="film-description">
-                                            <p class="poss">{{ $item->judul }}</p>
-                                            <p>{{ $item->deskripsi }}</p>
-                                        </div>  --}}
-
-
-                                    <div class="film-label-container">
-                                        <label class="film-label">{{ $item->judul }}</label>
-                                        <div class="d-flex">
-
-                                            <h6 style="font-size: 13px margin-bottom: 5px"
-                                                class="badge border border-secondary text-secondary"><strong>Tayang
-                                                    Pada:</strong></h6>
-                                        </div>
-                                        <div class="d-flex">
-
-                                            <p style="font-size: 11px; margin-right: 5px"
-                                                class="badge text-bg-warning badge-genre text-light ">
-                                                {{ $item->tanggal->tanggalTayang }}</p>
-
-                                            <p style="font-size: 11px"
-                                                class="badge text-bg-warning badge-genre text-light ">
-                                                {{ $item->time->jamTayang }}</p>
+                <div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="film-container">
+                                @forelse ($detail as $item)
+                                    <div class="film-card" data-bs-toggle="modal" data-bs-target="#filmModal{{ $item->id }}">
+                                        <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                        <div class="film-label-container">
+                                            <label class="film-label">{{ $item->judul }}</label>
+                                            <div class="d-flex">
+                                                <h6 style="font-size: 13px; margin-bottom: 5px" class="badge border border-secondary text-secondary">
+                                                    <strong>Tayang Pada:</strong>
+                                                </h6>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light">
+                                                    {{ $item->tanggal->tanggalTayang }}</p>
+                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light">
+                                                    {{ $item->time->jamTayang }}</p>
+                                            </div>
                                         </div>
                                     </div>
-
-                                </div>
-
-                            @empty
-                                <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
-                            @endforelse
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @foreach ($detail as $item)
-                <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1"
-                    aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}
-                                </h5>
-
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="embed-responsive embed-responsive-16by9 mb-3">
-                                    <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid"
-                                        alt="{{ $item->judul }}">
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <h6 class="badge border border-secondary text-dark"><strong>Genre:</strong></h6>
-                                    <ul class="list-unstyled">
-                                        @foreach ($item->genres as $genre)
-                                            <li class="list-inline-item"><span
-                                                    class="badge text-bg-info badge-genre">{{ $genre->genre }}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                <div class="mb-0">
-                                    <div class="d-flex">
-                                        <h6 class="badge border border-secondary text-dark"><strong>Tanggal Rilis:</strong>
-                                        </h6>
-                                    </div>
-
-                                    <p class="badge text-bg-secondary badge-genre text-light">{{ $item->tanggalRilis }}
-                                    </p>
-
-                                    <div class="d-flex">
-                                        <h6 class="badge border border-secondary text-dark"><strong>Studio:</strong></h6>
-
-                                    </div>
-                                    <p class="badge text-bg-secondary badge-genre text-light">
-                                        {{ $item->studio->studio }}</p>
-                                    <div class="d-flex">
-                                        <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada
-                                                :</strong></h6>
-                                    </div>
-                                    <div  class="d-flex">
-                                        <p style="margin-right: 5px"
-                                            class="badge text-bg-warning badge-genre text-light">
-                                            {{ $item->tanggal->tanggalTayang }}</p>
-                                        <p class="badge text-bg-warning badge-genre text-light">
-                                            {{ $item->time->jamTayang }}</p>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div class="d-flex">
-                                        <h6 class="badge border border-secondary text-dark"><strong>Perusahaan Produksi:</strong></h6>
-
-                                    </div>
-                                    <p class="badge text-bg-secondary badge-genre text-light">
-                                        {{ $item->perusahaanProduksi }}</p>
-                                </div>
-                                <div>
-                                    <div class="dflex">
-                                        <h6 class="badge border border-secondary text-dark"><strong>Deskripsi:</strong></h6>
-
-                                    </div>
-                                    <p class="badge border border-secondary text-dark">{{ $item->deskripsi }}</p>
-                                </div>
+                                @empty
+                                    <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
+                                @endforelse
                             </div>
                         </div>
                     </div>
                 </div>
+
+                @foreach ($detail as $item)
+                    <div class="modal fade" id="filmModal{{ $item->id }}" tabindex="-1" aria-labelledby="filmModalLabel{{ $item->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="filmModalLabel{{ $item->id }}">{{ $item->judul }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="modal-card">
+                                                <img src="{{ asset('image/' . $item->foto) }}" class="img-fluid" alt="{{ $item->judul }}">
+                                                <div class="modal-card">
+                                                    <h6>Genre:</h6>
+                                                    <ul class="list-unstyled">
+                                                        @foreach ($item->genres as $genre)
+                                                            <li class="list-inline-item">
+                                                                <span class="badge text-bg-info badge-genre">{{ $genre->genre }}</span>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-card">
+                                                    <h6>Tanggal Rilis:</h6>
+                                                    <p class="badge text-bg-secondary badge-genre text-light">{{ $item->tanggalRilis }}</p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="modal-card">
+                                                <h6>Studio:</h6>
+                                                <p class="badge text-bg-secondary badge-genre text-light">{{ $item->studio->studio }}</p>
+                                            </div>
+                                            <div class="modal-card">
+                                                <h6>Tayang Pada:</h6>
+                                                <p class="badge text-bg-warning badge-genre text-light">{{ $item->tanggal->tanggalTayang }}</p>
+                                                <p class="badge text-bg-warning badge-genre text-light">{{ $item->time->jamTayang }}</p>
+                                            </div>
+                                            <div class="modal-card">
+                                                <h6>Perusahaan Produksi:</h6>
+                                                <p class="badge text-bg-secondary badge-genre text-light">{{ $item->perusahaanProduksi }}</p>
+                                            </div>
+                                            <div class="modal-card">
+                                                <h6>Deskripsi:</h6>
+                                                <p>{{ $item->deskripsi }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-        @endforeach
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var myCarousel = document.querySelector('#film');
-                var carousel = new bootstrap.Carousel(myCarousel, {
-                    interval: 2000,
-                    wrap: true
-                });
-            });
-
-            function link(url) {
-                window.location.href = url;
-            }
-        </script>
     </div>
 </div>
-</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myCarousel = document.querySelector('#film');
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 2000,
+            wrap: true
+        });
+    });
+
+    function link(url) {
+        window.location.href = url;
+    }
+</script>
+
 @endsection
