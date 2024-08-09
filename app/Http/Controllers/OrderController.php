@@ -38,6 +38,7 @@ class OrderController extends Controller
         $studioId = $detail->id_studio;
 
         // Ambil kursi yang sudah dipesan di studio yang sama
+        // sebuh cek data yang uhd adad
         $bookedSeats = Order::whereHas('detail', function($query) use ($studioId) {
             $query->where('id_studio', $studioId);
         })->with('kursi')->get()->pluck('kursi.*.id')->flatten()->toArray();
