@@ -23,7 +23,7 @@ class Studio extends Model
         return $this->hasMany(Detail::class,'id_studio','id');
     }
 
-    public function kursis()
+    public function kursi()
     {
         return $this->belongsToMany(Kursi::class, 'studio_seat' , 'studio_id', 'kursi_id');
     }
