@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
-            KursiSeeder::class,
+            // StudioTableSeeder::class,
             GenreTableSeeder::class,
+            KursiSeeder::class
             // Panggil seeder lain di sini jika ada
         ]);
         User::factory()->create([

@@ -123,6 +123,15 @@
             left: 7px;
             top: 20px;
         }
+        .modal-title{
+
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      padding: 15px;
+      /* text-align:leftd; */
+      margin-bottom: 10px;
+  }
     </style>
     {{-- data yang ambil dari ordercontroller --}}
 
@@ -182,7 +191,10 @@
                 <div class="row mb-4">
                     <div class="col-4">
                         <div class="card">
-                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
+                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="{{ $item->detail->judul }}">
+                            <div class="warna">
+                                <span style="margin-left: 10px" class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
+                            </div>
                             <div class="card-body">
 
 
@@ -202,130 +214,88 @@
                     </div>
                     <div class="col-8">
                         <div class="card">
-                            <div class="warna">
-                                <span style="margin-left: 10px" class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
-                                </span>
-
-                            </div>
                             <div class="card-body">
-                                <h4 class="card-category badge border border-secondary text-dark ">Judul:</h4>
-                                <div class="d-flex">
-                                    <h5 class="badge text-bg-secondary badge-genre text-light">{{ $item->detail->judul }}</h5>
-                                </div>
-                                {{-- data di ambil dari atas dan kirim kan ke bawah --}}
-                                <div class="d-flex">
-                                    <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
-
-
-                                </div>
-                                <div class="d-flex">
-                                    <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->tanggal->tanggalTayang }}</p>
-                                    <p class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jamTayang }}</p>
-                                </div>
-
-                                <div class="d-flex">
-                                    <h6 class="badge border border-secondary text-dark" style="margin-right: 10px"><strong>Studio</strong></h6>
-                                    <h6 style="margin-left: 10px" class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
-                                </div>
-
-                                <div class="d-flex">
-                                    <div class="">
-                                        <h6 style="margin-right: 4px" class="badge text-bg-secondary badge-genre text-light">
-                                            {{ $item->detail->studio->studio }}
-                                        </h6>
-                                    </div>
-
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach ($item->kursi as $kursi)
-                                            <h6 class="badge text-bg-secondary badge-genre text-light">
-                                                {{ $kursi->kursi }}
-                                            </h6>
-                                            {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
-                                        @endforeach
-
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <div>
-                                    <label style="margin-bottom: 4px" class="badge border border-secondary text-dark">Total Tiket :</label>
-                                </div>
-                                        <h6  class="badge text-bg-secondary badge-genre text-light">
-                                            {{ $item->jumlah_tiket }}</h6>
-
-                                </div>
-
-
-
-                                {{-- @dd($item) --}}
-                                {{-- <label for="" class="total-payment-label">Kursi Yang Dipilih:</label>
-                                @if ($item->kursi)
-                                    @forelse ($item->kursi as $kursi)
-                                        <h6 class="badge border border-primary text-primary">
-                                            {{ $kursi->kursi }}
-                                        </h6>
-                                    @empty
-                                        <p> Kursi sedang error dan tidak bisa tampil</p>
-                                    @endforelse
-                                @endif --}}
-
-
-
-                                <div>
-                                    <div>
-                                    <label style="margin-bottom: 4px" class="badge border border-secondary text-dark">Total Pembayaran :</label>
-                                </div>
-
-                                    <h6 class="badge text-bg-secondary badge-genre text-light">Rp.
-                                        {{ number_format($item->total_harga) }}</h6>
-                                </div>
-
-                                @if ($item->status !== 'pending' && $item->status !== 'cancel')
-                                    <div>
-                                        <label for="" class="total-payment-label">Total Bayar:</label>
-                                        <div>
-                                            <h6 class="badge border border-success text-success">Rp.
-                                                {{ number_format($item->pembayaran) }}</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <h4 class="category badge border border-secondary text-dark ">Judul:</h4>
+                                        </div>
+                                        <div class="modal-title">
+                                            <h5 class="badge text-bg-secondary badge-genre text-light">{{ $item->detail->judul }}</h5>
                                         </div>
                                     </div>
-
-                                    <label for="" class="total-payment-label">Kembalian:</label>
-                                    <div>
-                                        <h6 class="badge border border-warning text-warning">Rp.
-                                            {{ number_format($item->kembalian) }}</h6>
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
+                                        </div>
+                                        <div class="modal-title">
+                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->tanggal->tanggalTayang }}</p>
+                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jamTayang }}</p>
+                                        </div>
                                     </div>
-                                @endif
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <h6 class="badge border border-secondary text-dark"><strong>Studio</strong></h6>
+                                        </div>
+                                        <div class="modal-title">
+                                            <h6 style="margin-right: 4px" class=" badge text-bg-secondary badge-genre   text-light">
+                                                {{ $item->detail->studio->studio }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <h6 class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
+                                        </div>
+                                        <ul class="list-unstyled mb-0 modal-title">
+                                            @foreach ($item->kursi as $kursi)
+                                                <h6 class=" badge text-bg-secondary badge-genre text-light">
+                                                    {{ $kursi->kursi }}
+                                                </h6>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <label class="badge border border-secondary text-dark">Total Tiket :</label>
+                                        </div>
+                                        <div class="modal-title">
+                                            <h6 class="badge text-bg-secondary badge-genre text-light">
+                                                {{ $item->jumlah_tiket }}
+                                            </h6>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <label class="badge border border-secondary text-dark">Total Pembayaran :</label>
+                                        </div>
+                                        <div class="modal-title">
+                                            <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($item->total_harga) }}</h6>
+                                        </div>
+
+                                    </div>
+                                </div>
 
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
-                                    {{-- <div class="button-container d-flex justify-content-between"> --}}
-                                    <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('put')
-                                        <button type="submit" class="btn btn-success">Bayar</button>
-                                    </form>
-
-                                    <form action="{{ route('cancel', $item->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('put')
-                                        <button type="submit" class="btn btn-danger">Cancel</button>
-                                    </form>
-
-
-                                    {{-- </div> --}}
-                                @endif
-
-                                @if ($item->status == 'cancel')
-                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                        Hapus
-                                    </a>
-                                @endif
-
-                                @if ($item->status == 'paid')
-                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
-                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
-                                        Hapus
-                                    </a>
+                                    <div class="button-container">
+                                        <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('put')
+                                            <button type="submit" class="btn btn-success">Bayar</button>
+                                        </form>
+                                        <form action="{{ route('cancel', $item->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('put')
+                                            <button type="submit" class="btn btn-danger">Cancel</button>
+                                        </form>
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -338,22 +308,4 @@
             @endforelse
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var toastElList = document.querySelectorAll('.toast');
-                toastElList.forEach(function(toastEl) {
-                    var toast = new bootstrap.Toast(toastEl, {
-                        autohide: true,
-                        delay: 2000
-                    });
-                    toast.show();
-
-                    setTimeout(function() {
-                        toastEl.classList.add('fade-out');
-                    }, 2000);
-                });
-            }, 1000);
-        });
-    </script>
 @endsection

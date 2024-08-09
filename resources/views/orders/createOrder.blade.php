@@ -133,6 +133,14 @@
     .modal-dialog {
         max-width: 80%;
     }
+    .modal-title{
+      
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
 </style>
 
 @section('content')
@@ -145,19 +153,17 @@
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
-                            <h5 class="card-categori">Genres:</h5>
-                            <ul>
+                            <h5 class="card-categori">Genres:</h5>                            
                                 @foreach ($detail->genres as $genre)
-                                    <li class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</li>
+                                    <p class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</p>
                                 @endforeach
-                            </ul>
                             <h6><strong>Studio:</strong></h6>
                             <p class="badge text-bg-secondary badge-genre text-light">{{ $detail->studio->studio }}</p>
-                            <div class="d-flex">
+                            <div class="">
                                 <h6><strong>Tayang pada </strong></h6>
                             </div>
-                            <div class="d-flex">
-                                <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->tanggal->tanggalTayang }}</p>
+                            <div class="">
+                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->tanggal->tanggalTayang }}</p>
                                 <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->time->jamTayang }}</p>
                             </div>
 
@@ -193,7 +199,7 @@
 
                         <!-- Studio and Seat Selection -->
                         <h6>Pilih Kursi:</h6>
-                        <div class="mb-3 kursi-row">
+                        <div class="modal-title mb-3 kursi-row">
                             @foreach ($detail->studio->kursi as $kursi)
                                 <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
                                     data-seat-id="{{ $kursi->id }}"
