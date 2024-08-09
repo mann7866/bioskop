@@ -16,7 +16,8 @@ class Order extends Model
     {
         return $this->belongsTo(Detail::class, 'id_detail', 'id');
     }
-    public function studios()
+    // data studio
+    public function studio()
     {
         return $this->belongsTo(Studio::class,'id_studios','id');
     }

@@ -236,7 +236,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+    {{-- kursi data  --}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="modal-title">
@@ -300,9 +300,9 @@
 
                                     </div>
                                 @endif
-                                
+
                                 @if ($item->status == 'paid' )
-                                    
+
                                 <form action="{{ route('order.delete', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -310,11 +310,11 @@
                                         <ion-icon name="trash-outline"></ion-icon> Hapus
                                     </button>
                                 </form>
-                                        
-                                    
+
+
                                 @endif
                                 @if ($item->status == 'cancel' )
-                                    
+
                                 <form action="{{ route('order.delete', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -322,7 +322,7 @@
                                         <ion-icon name="trash-outline"></ion-icon> Hapus
                                     </button>
                                 </form>
-                                        
+
                                     </div>
                                 @endif
                                 @if ($item->status == 'paid')

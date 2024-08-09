@@ -198,15 +198,20 @@
                         </div>
 
                         <!-- Studio and Seat Selection -->
-                        @foreach ($availableSeats as $kursi)
-                        <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
-                            data-seat-id="{{ $kursi->id }}"
-                            data-seat-number="{{ $kursi->kursi }}"
-                            title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
-                            <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
-                                {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
-                            <strong>{{ $kursi->kursi }}</strong>
+                        {{-- data ada di query --}}
+                        <h6>Pilih Kursi:</h6>
+                        <div class="modal-title mb-3 kursi-row">
+                            @foreach ($detail->studio->kursi as $kursi)
+                                <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
+                                    data-seat-id="{{ $kursi->id }}"
+                                    data-seat-number="{{ $kursi->kursi }}"
+                                    title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                                    <input class="form-check-input @error('kursis') is-invalid @enderror"
+                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
+                                        {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
+                                    <strong>{{ $kursi->kursi }}</strong>
+                                </div>
+                            @endforeach
                         </div>
                     @endforeach
 
