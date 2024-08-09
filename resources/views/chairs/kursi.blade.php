@@ -75,17 +75,31 @@
         }
     </style>
 
+
     @if (session('success'))
-        <div class="toast-container position-fixed top-5 end-0 p-2">
-            <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+        <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div class="toast mt-3 align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
                     </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+                var toastList = toastElList.map(function(toastEl) {
+                    return new bootstrap.Toast(toastEl, {
+                        delay: 3000
+                    });
+                });
+                toastList.forEach(toast => toast.show());
+            });
+        </script>
     @endif
 
     <div class="container">

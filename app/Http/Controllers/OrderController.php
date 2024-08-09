@@ -30,28 +30,20 @@ class OrderController extends Controller
     {
     }
 
-public function order($id)
-{
-    // Mengambil detail dengan relasi yang diperlukan
-    $detail = Detail::with(['studio', 'genres', 'tanggal', 'time'])->findOrFail($id);
+    public function order($id)
+    {
+        $detail = Detail::with('studio.kursi')->findOrFail($id);
 
-    // Mendapatkan ID studio dari detail
-    $studioId = $detail->studio->id;
+        // Ambil ID studio dari detail
+        $studioId = $detail->id_studio;
 
-    // Mengambil kursi yang tersedia berdasarkan studio ID
-    $availableSeats = kursi::where('id_studio', $studioId)->get();
+        // Ambil kursi yang sudah dipesan di studio yang sama
+        $bookedSeats = Order::whereHas('detail', function($query) use ($studioId) {
+            $query->where('id_studio', $studioId);
+        })->with('kursi')->get()->pluck('kursi.*.id')->flatten()->toArray();
 
-    // Menyaring kursi yang sudah dipesan
-    $bookedSeats = $availableSeats->filter(function ($kursi) use ($studioId) {
-        return $kursi->isReservedInStudio($studioId);
-    })->pluck('id');
-
-    // Mengembalikan view dengan data yang diperlukan
-    return view('orders.createOrder', compact('detail', 'availableSeats', 'bookedSeats'));
-}
-
-
-
+        return view('orders.createOrder', compact('detail', 'bookedSeats'));
+    }
 
 
 
@@ -71,17 +63,31 @@ public function order($id)
             'total_harga' => 'required|numeric|min:0',
             'id_detail' => 'required',
             'kursis' => 'required|array',
-            'kursis.*' => 'unique:order_kursi,id_kursi', // Ubah kursi_table_name dan column_name sesuai dengan tabel dan kolom yang relevan
+            'kursis.*' => [
+                function($attribute, $value, $fail) use ($request) {
+                    $detail = Detail::findOrFail($request->id_detail);
+                    $studioId = $detail->id_studio;
+
+                    // Cek apakah kursi sudah dipesan di studio yang sama
+                    $alreadyBooked = Order::whereHas('detail', function($query) use ($studioId) {
+                        $query->where('id_studio', $studioId);
+                    })->whereHas('kursi', function($query) use ($value) {
+                        $query->where('id_kursi', $value);
+                    })->exists();
+
+                    if ($alreadyBooked) {
+                        $fail('Kursi yang dipilih sudah dipesan di studio ini.');
+                    }
+                }
+            ],
         ], [
             'jumlah_tiket.required' => 'Jumlah Tiket Harus Diisi',
             'jumlah_tiket.min' => 'Jumlah Tiket Minimal 1',
             'total_harga.min' => 'Total Harga Minimal 0',
             'total_harga.required' => 'Total Harga Harus Diisi',
             'total_harga.numeric' => 'Total Harga Harus Angka',
-
             'id_detail.required' => 'Detail ID Harus Diisi',
             'kursis.required' => 'Kursi yang dipilih harus diisi',
-            'kursis.*.unique' => 'Kursi yang dipilih harus unik',
         ]);
 
         // Simpan data ke dalam tabel 'orders'
@@ -89,24 +95,17 @@ public function order($id)
             'jumlah_tiket' => $validateData['jumlah_tiket'],
             'total_harga' => $validateData['total_harga'],
             'id_detail' => $validateData['id_detail'],
-
         ]);
-        // penjelasan di karena kan data sudah ada di public function create tidak boleh double di bawah
-        // $bookedSeats = Order::with('id_detail')->get()->pluck('kursi')->flatten()->pluck('id')->toArray();
 
         // Sinkronkan kursi yang dipilih jika ada
         if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
-            $order->kursis()->sync($kursis);
-        } else {
-            if ($request->has('id_kursi')) {
-                $id_kursi = $request->input('id_kursi');
-                $order->KursiSeeder()->sync($id_kursi);
-            }
+            $order->kursi()->sync($kursis);
         }
 
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
+
 
 
 
@@ -213,7 +212,8 @@ public function order($id)
      */
     public function destroy(string $id)
     {
-        Order::find($id)->delete();
+        $order = Order::find($id);
+        $order->delete();
         // dd($id);
         return redirect()->route("order.index")->with("success", "Berhasil Menghapus Pesanan");
     }
