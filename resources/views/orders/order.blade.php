@@ -2,6 +2,7 @@
 
 @section('content')
     <style>
+        /* Styling khusus untuk form */
         .form-container {
             background-color: #f9f9f9;
             padding: 20px;
@@ -16,7 +17,6 @@
         .card-category {
             font-size: 1.1rem;
             font-weight: bold;
-            color: #333;
         }
 
         .toast-container {
@@ -65,7 +65,6 @@
         .no-order-message {
             margin-top: 50px;
             font-size: 1.5rem;
-            color: #666;
         }
 
         .card-category {
@@ -119,35 +118,30 @@
             }
         }
 
-        .badge {
-            padding: 0.4em 0.8em;
-            font-size: 0.9em;
-        }
-
         .warna {
             position: relative;
             left: 7px;
             top: 20px;
         }
     </style>
+    {{-- data yang ambil dari ordercontroller --}}
 
     @php
         function getBadgeClass($status)
         {
             switch ($status) {
                 case 'paid':
-                    return 'badge rounded-pill bg-success';
+                    return 'badge rounded-pill text-bg-success';
                 case 'cancel':
-                    return 'badge rounded-pill bg-danger';
+                    return 'badge rounded-pill text-bg-danger';
                 default:
-                    return 'badge rounded-pill bg-secondary';
+                    return 'badge rounded-pill text-bg-secondary';
             }
         }
     @endphp
-
     @if (session('canceli'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center bg-success text-white border-0 show slide-down" role="alert" aria-live="assertive"
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
@@ -159,7 +153,7 @@
     @endif
     @if (session('cancel'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center bg-success text-white border-0 show slide-down" role="alert"
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
                 aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
@@ -171,7 +165,7 @@
     @endif
     @if (session('success'))
         <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
-            <div class="toast align-items-center bg-success text-white border-0 show slide-down" role="alert"
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert"
                 aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
@@ -186,24 +180,27 @@
         <div class="form-container">
             @forelse ($order as $item)
                 <div class="row mb-4">
-                    <div class="col-md-4">
+                    <div class="col-4">
                         <div class="card">
-                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="{{ $item->detail->judul }}">
+                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="">
                             <div class="card-body">
+
+
                                 <div class="card-category">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
-                                        <li class="list-inline-item"><span class="badge bg-info badge-genre">{{ $genre->genre }}</span></li>
+                                        <li class="list-inline-item"><span
+                                                class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
-                                <h4 class="card-category">Harga:</h4>
-                                <h6>Rp. {{ number_format($item->detail->harga, 0, ',', '.') }}</h6>
-                                <h4 class="card-category">Deskripsi:</h4>
+                                <h4 class="card-category ">Harga:</h4>
+                                <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
+                                <h4 class="card-category ">Deskripsi:</h4>
                                 <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <div class="card">
                             <div class="warna">
                                 <span style="margin-left: 10px" class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}
@@ -230,6 +227,7 @@
                                     <h6 class="badge border border-secondary text-dark" style="margin-right: 10px"><strong>Studio</strong></h6>
                                     <h6 style="margin-left: 10px" class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
                                 </div>
+
                                 <div class="d-flex">
                                     <div class="">
                                         <h6 style="margin-right: 4px" class="badge text-bg-secondary badge-genre text-light">
@@ -244,6 +242,7 @@
                                             </h6>
                                             {{--  <li class="text-secondary">{{ $kursi->kursi }}</li>  --}}
                                         @endforeach
+
                                     </ul>
                                 </div>
 
@@ -280,27 +279,81 @@
                                     <h6 class="badge text-bg-secondary badge-genre text-light">Rp.
                                         {{ number_format($item->total_harga) }}</h6>
                                 </div>
+
+                                @if ($item->status !== 'pending' && $item->status !== 'cancel')
+                                    <div>
+                                        <label for="" class="total-payment-label">Total Bayar:</label>
+                                        <div>
+                                            <h6 class="badge border border-success text-success">Rp.
+                                                {{ number_format($item->pembayaran) }}</h6>
+                                        </div>
+                                    </div>
+
+                                    <label for="" class="total-payment-label">Kembalian:</label>
+                                    <div>
+                                        <h6 class="badge border border-warning text-warning">Rp.
+                                            {{ number_format($item->kembalian) }}</h6>
+                                    </div>
+                                @endif
+
                                 @if ($item->status !== 'paid' && $item->status !== 'cancel')
+                                    {{-- <div class="button-container d-flex justify-content-between"> --}}
                                     <form action="{{ route('paid', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('put')
                                         <button type="submit" class="btn btn-success">Bayar</button>
                                     </form>
+
                                     <form action="{{ route('cancel', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('put')
                                         <button type="submit" class="btn btn-danger">Cancel</button>
                                     </form>
+
+
+                                    {{-- </div> --}}
+                                @endif
+
+                                @if ($item->status == 'cancel')
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Hapus
+                                    </a>
+                                @endif
+
+                                @if ($item->status == 'paid')
+                                    <a class="btn btn-danger" href="{{ route('order.delete', $item->id) }}"
+                                        onclick="return confirm('yakin ingin Membatalkan Pesanan')">
+                                        Hapus
+                                    </a>
                                 @endif
                             </div>
                         </div>
                     </div>
+
                 </div>
+                <hr class="separator">
             @empty
-                <div class="no-order-message">
-                    <p>No order data available.</p>
-                </div>
+                <h1 class="text-center text-secondary no-order-message">Tidak Ada Film Yang di Order</h1>
             @endforelse
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var toastElList = document.querySelectorAll('.toast');
+                toastElList.forEach(function(toastEl) {
+                    var toast = new bootstrap.Toast(toastEl, {
+                        autohide: true,
+                        delay: 2000
+                    });
+                    toast.show();
+
+                    setTimeout(function() {
+                        toastEl.classList.add('fade-out');
+                    }, 2000);
+                });
+            }, 1000);
+        });
+    </script>
 @endsection
