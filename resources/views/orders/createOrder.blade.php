@@ -43,20 +43,17 @@
     }
 
     .kursi-item {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        background-color: #f0f0f0;
-        margin: 10px 5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
+    width: 85%; /* Membuat kursi memenuhi lebar kolom grid */
+    height: 85%; /* Membuat kursi memenuhi tinggi baris grid */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
     .kursi-item.selected {
         background-color: #76c7c0;
         color: white;
@@ -124,17 +121,18 @@
     }
 
     .kursi-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 15px;
-    }
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Membuat grid dengan 5 kolom */
+    grid-auto-rows: 50px; /* Menentukan tinggi setiap baris */
+    gap: 10px; /* Jarak antar kursi */
+    justify-items: center; /* Menempatkan kursi di tengah setiap kolom */
+}
 
     .modal-dialog {
         max-width: 80%;
     }
     .modal-title{
-
+      
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         background-color: #fff;
@@ -153,7 +151,7 @@
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
-                            <h5 class="card-categori">Genres:</h5>
+                            <h5 class="card-categori">Genres:</h5>                            
                                 @foreach ($detail->genres as $genre)
                                     <p class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</p>
                                 @endforeach
@@ -170,7 +168,7 @@
                             <h6>Harga Tiket Film :</h6>
                             <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($detail->harga) }}</h6>
                             <h6>Deskripsi :</h6>
-                            <p >{{ $detail->deskripsi }}</p>
+                            <p class="card-text text-muted badge border border-dark ">{{ $detail->deskripsi }}</p>
                         </div>
                     </div>
                 </div>
@@ -207,13 +205,13 @@
                                     data-seat-number="{{ $kursi->kursi }}"
                                     title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
                                     <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
+                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}" 
                                         {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
                                     <strong>{{ $kursi->kursi }}</strong>
                                 </div>
                             @endforeach
                         </div>
-
+                        
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
@@ -224,7 +222,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPerKursi = {{ $detail->harga }};
-            const bookedSeats = @json($bookedSeats); // Kursi yang sudah dipesan
 
             function updateTotalHarga() {
                 const selectedSeats = document.querySelectorAll('.kursi-item.selected').length;
@@ -234,12 +231,7 @@
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
-                const seatId = item.getAttribute('data-seat-id');
-
-                if (bookedSeats.includes(parseInt(seatId))) {
-                    item.classList.add('reserved');
-                    item.querySelector('input[type="checkbox"]').disabled = true;
-                } else {
+                if (!item.classList.contains('reserved')) {
                     item.addEventListener('click', function() {
                         const checkbox = this.querySelector('input[type="checkbox"]');
                         checkbox.checked = !checkbox.checked;
@@ -249,6 +241,5 @@
                 }
             });
         });
-
     </script>
 @endsection
