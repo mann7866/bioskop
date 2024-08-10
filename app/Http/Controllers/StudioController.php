@@ -49,7 +49,7 @@ class StudioController extends Controller
          // Sinkronisasi kursis jika ada yang dipilih
          if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
-            $studio->kursis()->sync($kursis);
+            $studio->kursi()->sync($kursis);
         }
 
 
@@ -88,7 +88,7 @@ class StudioController extends Controller
                 "studio" => "required|unique:studio,studio",
             ],[
                 "studio.required"=> "Studio Harus Diisi",
-                "studio.unique"=> "Studio Sudaj Ada",
+                "studio.unique"=> "Studio Sudah Ada",
             ]);
 
             $studio->update($validateData);
@@ -104,9 +104,9 @@ class StudioController extends Controller
     public function destroy(string $id)
     {
         $studio = Studio::find($id);
-        $studioCount =$studio->kursi->count();
+        $studioCount = $studio->details->count();
         if ($studioCount > 0) {
-            return redirect()->route("studio")->with("gagal", "Gagal Menghapus Studio Karena Masih Berkaitan Dengan Kursi");
+            return redirect()->route("studio")->with("gagal", "Gagal Menghapus Studio Karena Masih Berkaitan Dengan Film");
         }
         $studio->delete();
         return redirect()->route("studio")->with("success", "Berhasil Menghapus Studio");

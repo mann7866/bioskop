@@ -22,7 +22,7 @@ class TanggalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "tanggalTayang"=> "required|after:yesterday|date_format:Y-m-d",
+            "tanggalTayang"=> "required|after:today|date_format:Y-m-d",
         ];
     }
 
@@ -30,7 +30,7 @@ class TanggalRequest extends FormRequest
     {
         return[
             "tanggalTayang.required"=> "Tanggal Tayang Harus Diisi",
-            "tanggalTayang.after"=> "Tanggal Tayang Tidak Boleh Kurang Dari Hari Imi",
+            "tanggalTayang.after"=> "Tanggal Tayang Harus Lebih Dari Hari Imi",
             "tanggalTayang.date_format"=> "Tanggal Tayang Harus Y-m-d",
         ];
     }

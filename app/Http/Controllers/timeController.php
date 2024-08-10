@@ -85,7 +85,7 @@ class timeController extends Controller
 
             "jamTayang.required"=> "Jam Tayang Harus Diisi",
             "jamTayang.unique"=> "Jam Tayang Sudah Ada",
-           
+
         ]) ;
             $time->update($validateData);
             return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
@@ -102,7 +102,12 @@ class timeController extends Controller
     public function destroy(string $id)
     {
         $time = Time::find($id);
-$time->delete();
+        $timeCount = $time->details()->count();
+
+        if ($timeCount > 0) {
+            return redirect()->route("time")->with('gagal', 'Waktu Tidak Dapat diHapus Karena Masih Berkaitan Dengan Film.');
+        }
+       $time->delete();
             return redirect()->route("time")->with("delete","Berhasil Menghapus waktu");
 
 

@@ -24,6 +24,18 @@
         </div>
     @endif
 
+    @if (session('gagal'))
+    <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+        <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('gagal') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
     <style>
         .pos {
             text-align: center;
@@ -87,7 +99,7 @@
     <div class="container mt-4">
         <div class="d-flex mb-4">
             <a class="btn btn-primary warning" href="{{ route('time.create') }}">
-                <i class="fas fa-plus"></i> Tambah Time
+                <i class="fas fa-plus"></i> Tambah Waktu Tayang
             </a>
         </div>
         <div class="card text-center">

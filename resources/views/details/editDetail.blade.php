@@ -147,7 +147,7 @@
                 <div class="mb-3">
                     <label class="form-label">Upload Foto</label>
                     <div class="input-group mb-3">
-                        <input type="file" name="foto" class="form-control" id="inputGroupFile"
+                        <input type="file" name="foto"  class="form-control" id="inputGroupFile"
                             onchange="previewImage(event)">
                         <label class="input-group-text" for="inputGroupFile">Upload</label>
                     </div>

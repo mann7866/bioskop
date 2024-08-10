@@ -21,7 +21,7 @@ class Order extends Model
     {
         return $this->belongsTo(Studio::class,'id_studios','id');
     }
-    public function kursis()
+    public function kursi()
     {
         return $this->belongsToMany(Kursi::class, 'order_kursi', 'id_order', 'id_kursi');
     }

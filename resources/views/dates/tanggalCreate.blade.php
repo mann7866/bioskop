@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="form-container">
-        <h1 class="form-title text-center">Tambah Waktu Tayang</h1>
+        <h1 class="form-title text-center">Tambah Tanggal Tayang</h1>
         <form action="{{ route('tanggal.store') }}" method="POST">
             @csrf
 

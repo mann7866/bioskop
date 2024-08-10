@@ -46,11 +46,12 @@ class TanggalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TanggalRequest $tanggal)
+    public function edit($id)
     {
-
-        return view("dates.tanggalEdit", compact( "tanggal"));
+        $tanggal = Tanggal::findOrFail($id);
+        return view('dates.tanggalEdit', compact('tanggal'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -70,13 +71,29 @@ class TanggalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TanggalRequest $tanggal)
-    {
-        $tanggal = Tanggal::find($tanggal);
+    // public function destroy(TanggalRequest $tanggal)
+    // {
+    //     $tanggal = Tanggal::find($tanggal);
 
-        $tanggal->delete();
-            return redirect()->route('tanggal.index')->with('success', 'Tanggal Tayang updated successfully');
+    //
+
+    //     $tanggal->delete();
+    //         return redirect()->route('tanggal.index')->with('success', 'Tanggal Tayang updated successfully');
 
 
-    }
+    // }
+
+    public function destroy($id)
+{
+    $tanggal = Tanggal::findOrFail($id);
+     $tanggalCount = $tanggal->details()->count();
+
+        if ($tanggalCount > 0) {
+            return redirect()->route("tanggal.index")->with('gagal', 'Tanggal Tidak Dapat diHapus Karena Masih Berkaitan Dengan Film.');
+        }
+    $tanggal->delete();
+
+    return redirect()->route('tanggal.index')->with('success', 'Tanggal berhasil dihapus');
+}
+
 }

@@ -18,16 +18,16 @@
                 <div class="mb-3">
                     <label for="seats" class="form-label font-weight-bold text-gray-700 text-center">Pilih Kursi:</label>
                     <div class="kursi-container d-flex flex-wrap gap-4 mt-2">
-                        @foreach ($kursi->skip(5)->chunk(5) as $chunk)
+                        @foreach ($kursi->skip(9)->chunk(5) as $chunk)
                             <div class="row mb-3">
                                 @foreach ($chunk as $seat)
                                     <div class="col">
                                         <div class="card kursi-seat d-flex align-items-center justify-content-center">
                                             <input type="checkbox" id="seat-{{ $seat->id }}" name="kursis[]"
                                                 value="{{ $seat->id }}" class="form-check-input mr-2"
-                                                {{ in_array($seat->id, old('id_kursi', [])) ? 'checked' : '' }}>
+                                                {{ in_array($seat->id, old('kursis', [])) ? 'checked' : '' }}>
                                             <label for="seat-{{ $seat->id }}" class="form-check-label text-gray-600">
-                                                 {{ $seat->label }} <br> ( {{ $seat->kursi }})
+                                                 {{ $seat->label }} <br>  {{ $seat->kursi }}
                                             </label>
                                         </div>
                                     </div>
@@ -122,6 +122,7 @@
             gap: 10px;
             justify-content: center;
             margin-top: 20px;
+
         }
 
         .kursi-seat {
@@ -129,21 +130,29 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            width: 100px;
+            width: 50px;
+            height: 50px;
             /* Adjust width as needed */
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #100375;
+            background-color: #9ea4af;
             border-radius: 8px;
         }
 
 
         .form-check-input {
-            margin-bottom: 5px;
-            transition: all 0.3s ease;
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
         }
 
+        .form-check-label {
+            display: block;
+            cursor: pointer;
+            color: #faf7f7;
+        }
         .form-check-input:checked+.form-check-label {
-            color: #007bff;
+            color: #01060a;
             font-weight: bold;
         }
     </style>

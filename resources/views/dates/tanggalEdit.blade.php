@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="form-container">
-        <h1 class="form-title text-center">Edit Waktu Tayang</h1>
+        <h1 class="form-title text-center">Edit TAnggal Tayang</h1>
         <form action="{{ route('tanggal.update', $tanggal->id) }}" method="POST">
             @csrf
             @method('PUT')

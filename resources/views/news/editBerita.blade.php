@@ -51,8 +51,13 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <img id="imagePreview" src="{{ $berita->foto_deskripsi ? asset('imageBerita/' . $berita->foto_deskripsi) : '' }}" class="mt-2" style="max-width: 200px; max-height: 200px; display: block;">
+
+                                        <!-- Menampilkan gambar yang sudah ada -->
+                                        <div class="mt-2">
+                                            <img id="imagePreview" src="{{ $berita->foto_deskripsi ? asset('imageBerita/' . $berita->foto_deskripsi) : '' }}" alt="Preview" style="max-width: 200px; max-height: 200px; display: block;">
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -82,6 +87,18 @@
             </div>
         </div>
     </form>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
 
     <script>
         // Function to preview image

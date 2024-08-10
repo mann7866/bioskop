@@ -36,6 +36,7 @@ class BeritaController extends Controller
             "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "judul" => "required",
             "deskripsi" => "required",
+             "jamTayang"=> "required",
         ],[
             "foto_deskripsi.required"=> "Foto Harus diIsi",
             "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
@@ -44,6 +45,7 @@ class BeritaController extends Controller
             "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
             "judul.required"=> "Judul Harus diIsi",
             "judul.max"=> "Judul Maksimal 100 karakter",
+            "jamTayang.required"=> "Jam Tayang Harus Diisi",
         ]);
 
         if ($request->hasFile("foto_deskripsi")) {
@@ -107,6 +109,7 @@ class BeritaController extends Controller
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "judul" => "required|max:100",
                 "deskripsi" => "required|max:200",
+                "jamTayang"=> "required",
             ],[
                 "foto_deskripsi.required"=> "Foto Harus diIsi",
                 "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
@@ -114,6 +117,7 @@ class BeritaController extends Controller
                 "deskripsi.required"=> "Deskripsi Harus diIsi",
                 "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
                 "judul.required"=> "Judul Harus diIsi",
+                "jamTayang.required"=> "Jam Tayang Harus Diisi",
                 "judul.max"=> "Judul Maksimal 100 karakter",
             ]);
         } else {
@@ -128,7 +132,6 @@ class BeritaController extends Controller
         // Update data berita setelah validasi berhasil
         $berita->update([
             'judul' => $request->input('judul'),
-
             'deskripsi' => $request->input('deskripsi'),
             // foto_deskripsi sudah diupdate jika ada file baru
         ]);

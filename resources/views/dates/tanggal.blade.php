@@ -13,6 +13,17 @@
         </div>
     @endif
 
+    @if (session('gagal'))
+    <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+        <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('gagal') }}
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
     <style>
         .pos {
             text-align: center;
@@ -37,6 +48,17 @@
             width: 100%;
             left: 0;
             background-color: red;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            color: #fff;
         }
 
         .toast-container {
@@ -76,7 +98,7 @@
     <div class="container mt-4">
         <div class="d-flex mb-4">
             <a class="btn btn-primary warning" href="{{ route('tanggal.create') }}">
-                <i class="fas fa-plus"></i> Tambah Time
+                <i class="fas fa-plus"></i> Tambah Tanggal Tayang
             </a>
         </div>
         <div class="card text-center">
@@ -100,6 +122,7 @@
                                         <a href="{{ route('tanggal.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
+
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
                                             <ion-icon name="trash-outline"></ion-icon>
                                         </button>
@@ -120,13 +143,14 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                                <form action="{{ route('tanggal.destroy', $item->id) }}" method="POST">
+                                                <form action="{{ route('tanggal.destroy', $item->id) }}" method="POST" >
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
                                                         <ion-icon name="trash-outline"></ion-icon> Hapus
                                                     </button>
                                                 </form>
+
 
                                             </div>
                                         </div>

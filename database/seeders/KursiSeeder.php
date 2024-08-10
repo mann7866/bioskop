@@ -9,21 +9,17 @@ class KursiSeeder extends Seeder
 {
     public function run()
     {
-        $seats = [
-            ['kursi' => 'A1'],
-            ['kursi' => 'B2'],
-            ['kursi' => 'CA'],
-            ['kursi' => 'C4'],
-            ['kursi' => 'D5'],
-            ['kursi' => 'E6'],
-            ['kursi' => 'F8'],
-            ['kursi' => 'G9'],
-            ['kursi' => 'H10'],
-            ['kursi' => 'J11']
-        ];
+        $seats = [];
+        $rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        $columns = range(1, 8); // Kolom 1 sampai 8
 
-        foreach ($seats as $seat) {
-            DB::table('kursi')->insert($seat);
+        foreach ($rows as $row) {
+            foreach ($columns as $column) {
+                $seats[] = ['kursi' => $row . $column];
+            }
         }
+
+        // Insert all seats into the database
+        DB::table('kursi')->insert($seats);
     }
 }

@@ -170,7 +170,7 @@
                             <h6>Harga Tiket Film :</h6>
                             <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($detail->harga) }}</h6>
                             <h6>Deskripsi :</h6>
-                            <p class="card-text text-muted badge border border-dark ">{{ $detail->deskripsi }}</p>
+                            <p >{{ $detail->deskripsi }}</p>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    @endforeach
+
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>

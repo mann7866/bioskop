@@ -77,7 +77,7 @@ Route::get('/berita/create', [App\Http\Controllers\BeritaController::class,'crea
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class,'store'])->name('berita.store');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class,'edit'])->name('berita.edit');
 Route::put('/berita/{id}/update', [App\Http\Controllers\BeritaController::class,'update'])->name('berita.update');
-Route::delete('/berita/{id}/delete', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.delete');
+Route::delete('/berita/{id}',[App\Http\Controllers\BeritaController::class,'update'])->name('berita.delete');
 
 Route::get('/kursi', [KursiController::class, 'index'])->name('kursi.index');
 Route::get('/kursi/studio', [KursiController::class, 'getKursiByStudio']);
@@ -85,5 +85,10 @@ Route::get('/kursi/studio', [KursiController::class, 'getKursiByStudio']);
 
 Route::resource('coba',CobaController::class);
 Route::resource('tanggal',TanggalController::class);
+
+Route::delete('/tanggal/{id}', [TanggalController::class, 'destroy'])->name('tanggal.destroy');
+Route::get('/tanggal/{id}/edit', [TanggalController::class, 'edit'])->name('tanggal.edit');
+
+
 // web.php
 Route::get('/kursi/{id}', [KursiController::class, 'show'])->name('kursi.show');

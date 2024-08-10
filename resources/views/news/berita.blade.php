@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  
+
 @if (session('success'))
 <div class="toast-container mt-5 position-fixed top-0 end-0 p-3" style="z-index: 11">
     <div class="toast mt-3 align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
@@ -232,10 +232,12 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <form action="{{ route('berita.delete', $item->id) }}" method="GET">
+                                <form action="{{ route('berita.delete', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-danger">
+                                        <ion-icon name="trash-outline"></ion-icon> Hapus
+                                    </button>
                                 </form>
                             </div>
                         </div>
