@@ -112,8 +112,8 @@
                         <thead class="table-primary">
                             <tr>
 
-                                <th class="text-center">Jam Tayang</th>
-
+                                <th class="text-center">Jam Mulai</th>
+                                <th class="text-center">Jam Berakhir</th>
                                 <th class="text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -121,8 +121,8 @@
                             @foreach ($time as $item)
                                 <tr>
 
-                                    <td class="text-center">{{ date('H:i', strtotime($item->jamTayang)) }}</td>
-
+                                    <td class="text-center">{{ date('H:i', strtotime($item->jam_mulai)) }}</td>
+                                    <td class="text-center">{{ date('H:i', strtotime($item->jam_selesai)) }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('time.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>

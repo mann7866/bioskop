@@ -35,12 +35,16 @@ class timeController extends Controller
     {
         $validateData = $request->validate([
 
-            "jamTayang"=> "required|unique:time,jamTayang",
-
+            "jam_mulai"=> "required|unique:time,jam_mulai",
+            "jam_selesai"=> "required|unique:time,jam_selesai|after:jam_mulai",
         ],[
 
-            "jamTayang.required"=> "Jam Tayang Harus Diisi",
-            "jamTayang.unique"=> "Jam Tayang Sudah Ada",
+            "jam_mulai.required"=> "Jam mulai Harus Diisi",
+            "jam_mulai.unique"=> "Jam mulai Sudah Ada",
+           
+            "jam_selesai.required"=> "Jam selesai Harus Diisi",
+            "jam_selesai.unique"=> "Jam selesai Sudah Ada",
+            'jam_selesai.after' => 'Jam Selesai harus setelah Jam Mulai',
 
         ]) ;
 
@@ -75,24 +79,26 @@ class timeController extends Controller
 
         $time = Time::find($id);
           $validateData = $request;
-        if($validateData['jamTayang'] !== $time->jamTayang){
 
-        $validateData = $request->validate([
+            $validateData = $request->validate([
 
-            "jamTayang"=> "required|unique:time,jamTayang",
+                "jam_mulai"=> "required",
+                "jam_selesai"=> "required|after:jam_mulai",
+            ],[
 
-        ],[
+                "jam_mulai.required"=> "Jam mulai Harus Diisi",
 
-            "jamTayang.required"=> "Jam Tayang Harus Diisi",
-            "jamTayang.unique"=> "Jam Tayang Sudah Ada",
+                "jam_mulai.date_format"=> "Jam mulai Harus Lewat Dari Jam Sekarang",
+                "jam_selesai.required"=> "Jam selesai Harus Diisi",
 
-        ]) ;
+                'jam_selesai.after' => 'Jam Selesai harus setelah Jam Mulai',
+                "jam_mulai.selesai"=> "Jam Selesai Harus Setelah Jam Mulai",
+            ]) ;
             $time->update($validateData);
             return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
 
-        }else{
-            return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
-        }
+
+
 
     }
 

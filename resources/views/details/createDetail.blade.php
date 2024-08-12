@@ -115,7 +115,7 @@
                     <option selected disabled>Pilih Jam Tayang</option>
                     @foreach ($time as $item)
                         <option value="{{ $item->id }}" {{ old('id_time') == $item->id ? 'selected' : '' }}>
-                            {{ $item->jamTayang }}</option>
+                            {{ $item->jam_mulai }} - {{ $item->jam_selesai }}</option>
                     @endforeach
                 </select>
                 @error('id_time')
@@ -132,7 +132,7 @@
                     <option selected disabled>Pilih Tanggal Tayang</option>
                     @foreach ($tanggal as $item)
                         <option value="{{ $item->id }}" {{ old('id_tanggal') == $item->id ? 'selected' : '' }}>
-                            {{ $item->tanggalTayang }}</option>
+                            {{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</option>
                     @endforeach
                 </select>
                 @error('id_tanggal')

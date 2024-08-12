@@ -36,7 +36,7 @@ class BeritaController extends Controller
             "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
             "judul" => "required",
             "deskripsi" => "required",
-             "jamTayang"=> "required",
+             "tanggal"=> "required|after:yesterday|date_format:Y-m-d",
         ],[
             "foto_deskripsi.required"=> "Foto Harus diIsi",
             "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
@@ -45,15 +45,15 @@ class BeritaController extends Controller
             "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
             "judul.required"=> "Judul Harus diIsi",
             "judul.max"=> "Judul Maksimal 100 karakter",
-            "jamTayang.required"=> "Jam Tayang Harus Diisi",
+            "tanggal.required"=> "Tanggal Tidak Boleh Kosong",
+            "tanggal.after"=> "Tanggal Harus Lebih Dari Hari Kemarin",
+            "tanggal.date_format"=> "Tanggal Harus Y-m-d",
         ]);
 
         if ($request->hasFile("foto_deskripsi")) {
             $imageBerita = $request->file("foto_deskripsi");
             $imageName = time() . "_" . $imageBerita->getClientOriginalName();
             $imageBerita->move(public_path("imageBerita"), $imageName);
-
-
             $validateData['foto_deskripsi'] = $imageName;
         }
 
@@ -109,7 +109,7 @@ class BeritaController extends Controller
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "judul" => "required|max:100",
                 "deskripsi" => "required|max:200",
-                "jamTayang"=> "required",
+                "tanggal"=> "required",
             ],[
                 "foto_deskripsi.required"=> "Foto Harus diIsi",
                 "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
@@ -117,7 +117,7 @@ class BeritaController extends Controller
                 "deskripsi.required"=> "Deskripsi Harus diIsi",
                 "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
                 "judul.required"=> "Judul Harus diIsi",
-                "jamTayang.required"=> "Jam Tayang Harus Diisi",
+                "tanggal.required"=> "Tanggal Tidak Boleh Kosong",
                 "judul.max"=> "Judul Maksimal 100 karakter",
             ]);
         } else {

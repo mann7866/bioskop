@@ -132,7 +132,7 @@
         max-width: 80%;
     }
     .modal-title{
-      
+
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         background-color: #fff;
@@ -151,7 +151,7 @@
                         <img src="{{ asset('image/' . $detail->foto) }}" class="img-fluid" alt="{{ $detail->judul }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $detail->judul }}</h5>
-                            <h5 class="card-categori">Genres:</h5>                            
+                            <h5 class="card-categori">Genres:</h5>
                                 @foreach ($detail->genres as $genre)
                                     <p class="badge text-bg-info" style="list-style:none;">{{ $genre->genre }}</p>
                                 @endforeach
@@ -161,14 +161,14 @@
                                 <h6><strong>Tayang pada </strong></h6>
                             </div>
                             <div class="">
-                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->tanggal->tanggalTayang }}</p>
-                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ $detail->time->jamTayang }}</p>
+                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ strftime('%d, %B, %Y', strtotime($detail->tanggal->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($detail->tanggal->tanggal_selesai)) }}</p>
+                                <p class="badge text-bg-warning badge-genre text-muted text-muted"> {{ $detail->time->jam_mulai }} - {{ $detail->time->jam_selesai }}</p>
                             </div>
 
                             <h6>Harga Tiket Film :</h6>
                             <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($detail->harga) }}</h6>
                             <h6>Deskripsi :</h6>
-                            <p class="card-text text-muted badge border border-dark ">{{ $detail->deskripsi }}</p>
+                            <p class="card-text text-muted ">{{ $detail->deskripsi }}</p>
                         </div>
                     </div>
                 </div>
@@ -205,13 +205,13 @@
                                     data-seat-number="{{ $kursi->kursi }}"
                                     title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
                                     <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}" 
+                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
                                         {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
                                     <strong>{{ $kursi->kursi }}</strong>
                                 </div>
                             @endforeach
                         </div>
-                        
+
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>

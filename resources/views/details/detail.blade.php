@@ -515,13 +515,14 @@
                                                 <p class="text-muted">{{ $item->tanggalRilis }}</p>
                                             </div>
                                             <div class="modal-card">
-                                                <h6><strong>Jam Tayang:</strong></h6>
-                                                <p class="text-muted">{{ $item->time->jamTayang }}</p>
+                                                <h6><strong>Tanggal Tayang:</strong></h6>
+                                                <p class="badge text-bg-warning badge-genre text-lightx">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
                                             </div>
                                             <div class="modal-card">
-                                                <h6><strong>Tanggal Tayang:</strong></h6>
-                                                <p class="text-muted">{{ $item->tanggal->tanggalTayang }}</p>
+                                                <h6><strong>Jam Tayang:</strong></h6>
+                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-dark "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
                                             </div>
+
                                             <div class="modal-card mb-3">
                                                 <h6><strong>Perusahaan Produksi:</strong></h6>
                                                 <p>{{ $item->perusahaanProduksi }}</p>
@@ -571,7 +572,7 @@
                     </div>
                 @endforeach
 
-                    
+
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         var myCarousel = document.querySelector('#film');

@@ -74,8 +74,20 @@
 
                         <div class="col-12">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required>{{ $berita->deskripsi }}</textarea>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" >{{ $berita->deskripsi }}</textarea>
                             @error('deskripsi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Upload Berita</label>
+
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                                name="tanggal" value="{{ $berita->tanggal }}">
+
+
+                            @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

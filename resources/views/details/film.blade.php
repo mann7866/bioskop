@@ -235,7 +235,7 @@
     }
 
     /* Penambahan CSS untuk modal card */
-    .modal-card { 
+    .modal-card {
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       background-color: #fff;
@@ -332,10 +332,10 @@
                                                     <h6>Tanggal Rilis:</h6>
                                                     <p class="badge text-bg-secondary badge-genre text-light">{{ $item->tanggalRilis }}</p>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        <div class="col-md-6"> 
+                                        <div class="col-md-6">
                                             <div class="modal-card">
                                                 <h6>Studio:</h6>
                                                 <p class="badge text-bg-secondary badge-genre text-light">{{ $item->studio->studio }}</p>
@@ -343,7 +343,7 @@
                                             <div class="modal-card">
                                                 <h6>Tayang Pada:</h6>
                                                 <p class="badge text-bg-warning badge-genre text-light">{{ $item->tanggal->tanggalTayang }}</p>
-                                                <p class="badge text-bg-warning badge-genre text-light">{{ $item->time->jamTayang }}</p>
+                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
                                             </div>
                                             <div class="modal-card">
                                                 <h6>Perusahaan Produksi:</h6>

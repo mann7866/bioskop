@@ -368,13 +368,12 @@
                                             <div class="d-flex">
 
                                                 <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
-                                            </div>
-                                            <div class="d-flex">
 
-                                                <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ $item->tanggal->tanggalTayang }}</p>
-
-                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jamTayang }}</p>
                                             </div>
+                                            <div style="margin-bottom: 0%" class="d-flex">
+                                                <p style="font-size: 9px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
+                                            </div>
+                                            <p style="font-size: 8px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
 
                                         </div>
                                     </div>
@@ -400,6 +399,8 @@
                                 <div class="news-body">
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
+                                        <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Di Unggah Pada:</strong></h6>
+                                        <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ $item->tanggal }}</p>
                                 </div>
                             </div>
                         @endforeach

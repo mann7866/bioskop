@@ -228,24 +228,25 @@
                                     <div class="col-md-6">
                                         <div class="modal-title">
                                             <div class="d-flex">
-                                                <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
-                                            </div>
-                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->tanggal->tanggalTayang }}</p>
-                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jamTayang }}</p>
-
-                                        </div>
-                                    </div>
-                                </div>
-    {{-- kursi data  --}}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="modal-title">
-                                            <div class="d-flex">
                                                 <h6 class="badge border border-secondary text-dark"><strong>Studio</strong></h6>
                                             </div>
                                             <h6 style="margin-right: 4px" class=" badge text-bg-secondary badge-genre   text-light">
                                                 {{ $item->detail->studio->studio }}
                                             </h6>
+                                        </div>
+                                    </div>
+                                </div>
+    {{-- kursi data  --}}
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="modal-title">
+                                            <div class="d-flex">
+                                                <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
+                                            </div>
+                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
+                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jam_mulai }} -{{ $item->detail->time->jam_selesai }}</p>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">

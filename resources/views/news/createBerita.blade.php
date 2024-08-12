@@ -55,7 +55,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                              
+
                             </div>
                         </div>
                     </div>
@@ -73,6 +73,18 @@
                             <label for="deskripsi" class="form-label">Deskripsi</label>
                             <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" required></textarea>
                             @error('deskripsi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Upload Berita</label>
+
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                                name="tanggal" value="{{ old('tanggal', '') }}">
+
+
+                            @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

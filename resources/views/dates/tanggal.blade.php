@@ -3,7 +3,8 @@
 @section('content')
     @if (session('success'))
         <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center text-bg-success border-0 show slide-down" role="alert" aria-live="assertive"
+                aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         {{ session('success') }}
@@ -14,16 +15,17 @@
     @endif
 
     @if (session('gagal'))
-    <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
-        <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    {{ session('gagal') }}
+        <div class="toast-container position-fixed top-5 end-0 p-2" style="z-index: 11">
+            <div class="toast align-items-center text-bg-danger border-0 show slide-down" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('gagal') }}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
     <style>
         .pos {
             text-align: center;
@@ -49,6 +51,7 @@
             left: 0;
             background-color: red;
         }
+
         .btn-danger {
             background-color: #dc3545;
             border-color: #dc3545;
@@ -74,6 +77,7 @@
                 transform: translateY(-50px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -88,6 +92,7 @@
             from {
                 opacity: 1;
             }
+
             to {
                 opacity: 0;
                 transform: translateY(-10px);
@@ -110,20 +115,25 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
-                                <th class="text-center">Tanggal Tayang</th>
+                                <th class="text-center">Tanggal Mulai</th>
+                                <th class="text-center">Tanggal Selesai</th>
                                 <th class="text-center">Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tanggal as $item)
                                 <tr>
-                                    <td class="text-center">{{ date('d-m-Y', strtotime($item->tanggalTayang)) }}</td>
+                                    <td class="text-center">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</td>
+                                    <td class="text-center">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}
+                                    </td>
+
                                     <td class="text-center">
                                         <a href="{{ route('tanggal.edit', $item->id) }}" class="btn btn-success">
                                             <ion-icon name="pencil-outline"></ion-icon>
                                         </a>
 
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal{{ $item->id }}">
                                             <ion-icon name="trash-outline"></ion-icon>
                                         </button>
                                     </td>
@@ -131,27 +141,29 @@
 
 
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi Hapus</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Konfirmasi
+                                                    Hapus</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 Apa Kamu Mau Hapus Tanggal Film ?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                                <form action="{{ route('tanggal.destroy', $item->id) }}" method="POST" >
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Kembali</button>
+                                                <form action="{{ route('tanggal.destroy', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
                                                         <ion-icon name="trash-outline"></ion-icon> Hapus
                                                     </button>
                                                 </form>
-
-
                                             </div>
                                         </div>
                                     </div>

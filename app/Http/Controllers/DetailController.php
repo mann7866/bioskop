@@ -96,9 +96,10 @@ class DetailController extends Controller
         "harga" => "required|numeric|min:0",
         "genres" => "required|array", // Assuming 'genre' is an array of genre IDs
         "id_studio" => "required",
-        "id_time" => "required",
+        "id_time" => "required|unique:detail,id_time",
         "id_tanggal" => "required",
     ], [
+
         "judul.required" => "Judul Harus diIsi",
         "judul.max" => "Judul Maksimal 100 karakter",
         "deskripsi.required" => "Deskripsi Harus diIsi",
@@ -127,6 +128,7 @@ class DetailController extends Controller
         "id_studio.required" => "Studio harus diisi",
         "id_time.required" => "Jam Tayang Harus diisi",
         "id_tanggal.required" => "Tanggal Tayang Harus diisi",
+       "id_time.unique"=> "Jam Tayang Sudah Terpakai",
     ]);
 
     // Initialize $imageName

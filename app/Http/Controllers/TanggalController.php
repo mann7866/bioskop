@@ -31,8 +31,11 @@ class TanggalController extends Controller
      */
     public function store(TanggalRequest $request)
     {
+
         tanggal::create($request->validated());
+
         return redirect()->route("tanggal.index")->with('success','Berhasil Tambah Data');
+
     }
 
     /**
@@ -60,11 +63,12 @@ class TanggalController extends Controller
     {
         // Update record menggunakan data dari request yang telah divalidasi
         $tanggal->update([
-            'tanggalTayang' => $request->input('tanggalTayang'),
+            'tanggal_mulai' => $request->input('tanggal_mulai'),
+            'tanggal_selesai' => $request->input('tanggal_selesai'),
         ]);
 
         // Redirect ke daftar tanggal dengan pesan sukses
-        return redirect()->route('tanggal.index')->with('success', 'Tanggal Tayang updated successfully');
+        return redirect()->route('tanggal.index')->with('success', 'Tanggal Tayang Berhasil Di Update');
     }
 
 
