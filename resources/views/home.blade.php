@@ -367,17 +367,17 @@
                                             <p class="badge text-bg-secondary badge-genre text-light" style="font-size: 11px">{{ $item->studio->studio }}</p>
                                             <div class="d-flex">
 
-                                                <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
+                                        <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
 
                                             </div>
                                             <div style="margin-bottom: 0%" class="d-flex">
-                                                <p style="font-size: 9px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
+                                                <p style="font-size: 8                          px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
                                             </div>
                                             <p style="font-size: 8px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
 
                                         </div>
                                     </div>
-
+                                    
                                 @empty
                                     <div class="empty-message-container">
                                         <p class="empty-message">Tidak Ada Film</p>
