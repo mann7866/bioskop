@@ -362,18 +362,16 @@
                                             </button>
                                         </div>
                                         <div class="film-label-container">
-                                            <label style="margin-bottom: 5px" class="film-label">{{ $item->judul }}</label>
-                                            <h6 style="font-size: 13px " class="badge border border-success text-success"><strong>Studio:</strong></h6>
+                                            <label style="margin-bottom: 5px; font-size: 13px" class="film-label">{{ $item->judul }}</label>
+                                            <h6 style="font-size: 12px " class="badge border border-success text-success"><strong>Studio:</strong></h6>
                                             <p class="badge text-bg-secondary badge-genre text-light" style="font-size: 11px">{{ $item->studio->studio }}</p>
                                             <div class="d-flex">
-
-                                                <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
-
-                                            </div>
+                                                <h6 style="font-size: 10px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
+                                           </div>
                                             <div style="margin-bottom: 0%" class="d-flex">
-                                                <p style="font-size: 9px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
+                                                <p style="font-size: 9px; margin-right: 5px" class="badge text-bg-warning badge text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</p>
                                             </div>
-                                            <p style="font-size: 8px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
+                                            <p style="font-size: 8px" class="badge text-bg-warning badge text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
 
                                         </div>
                                     </div>
@@ -399,8 +397,10 @@
                                 <div class="news-body">
                                     <h5 class="news-title">{{ $item->judul }}</h5>
                                     <p class="news-text">{{ $item->deskripsi }}</p>
-                                        <h6 style="font-size: 13px" class="badge border border-secondary text-secondary"><strong>Di Unggah Pada:</strong></h6>
-                                        <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light ">{{ $item->tanggal }}</p>
+                                    <div class="d-flex justify-content-end">
+                                        <p style="font-size: 8px; margin-right: 7px" class="text-muted"><strong>Di Unggah Pada:  </strong>  {{strftime('%d, %B, %Y', strtotime($item->tanggal)) }}</p>
+                                    </div>
+
                                 </div>
                             </div>
                         @endforeach

@@ -290,11 +290,11 @@
                                                 </h6>
                                             </div>
                                             <div class="d-flex">
-                                                <p style="font-size: 11px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light">
-                                                    {{ $item->tanggal->tanggalTayang }}</p>
-                                                <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light">
-                                                    {{ $item->time->jamTayang }}</p>
+                                                <p style="font-size: 7px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light">
+                                                    {{ strftime('%d, %B, %Y', strtotime($item->tanggal->tanggal_mulai)) }}</p>
                                             </div>
+                                            <p style="font-size: 7px; margin-top:0%" class="badge text-bg-warning badge-genre text-light">
+                                                {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
                                         </div>
                                     </div>
                                 @empty
@@ -323,7 +323,7 @@
                                                     <ul class="list-unstyled">
                                                         @foreach ($item->genres as $genre)
                                                             <li class="list-inline-item">
-                                                                <span class="badge text-bg-info badge-genre">{{ $genre->genre }}</span>
+                                                                <span style="font-size:50%; margin-left:0%" class="badge text-bg-info badge-genre">{{ $genre->genre }}</span>
                                                             </li>
                                                         @endforeach
                                                     </ul>
@@ -342,7 +342,7 @@
                                             </div>
                                             <div class="modal-card">
                                                 <h6>Tayang Pada:</h6>
-                                                <p class="badge text-bg-warning badge-genre text-light">{{ $item->tanggal->tanggalTayang }}</p>
+                                                <p class="badge text-bg-warning badge-genre text-light">{{ strftime('%d, %B, %Y', strtotime($item->tanggal->tanggal_mulai)) }} - {{  strftime('%d, %B, %Y', strtotime($item->tanggal->tanggal_selesai))}}</p>
                                                 <p style="font-size: 11px" class="badge text-bg-warning badge-genre text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
                                             </div>
                                             <div class="modal-card">

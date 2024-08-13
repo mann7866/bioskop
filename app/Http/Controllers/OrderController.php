@@ -184,16 +184,33 @@ class OrderController extends Controller
         return redirect()->route("pembayaran", $order->id);
     }
 
-    public function cancel(string $id)
-    {
-        $order = Order::find($id);
+  // OrderController.php
 
-        $order->update([
-            'status' => 'cancel'
-        ]);
+// OrderController.php
 
-        return redirect()->route("order.index")->with('cancel', "Berhasil Cancel Pesanan");
+public function cancel(string $id)
+{
+    // Temukan pesanan berdasarkan ID
+    $order = Order::find($id);
+
+
+    $order->update([
+        'status' => 'cancel'
+    ]);
+
+    if (!$order) {
+        return redirect()->route("order.index")->with('error', "Pesanan tidak ditemukan");
     }
+
+    // Hapus hubungan antara pesanan dan kursi di tabel pivot
+    $order->kursi()->detach();
+
+    // Hapus pesanan itu sendiri
+    $order->delete();
+
+    return redirect()->route("order.index")->with('success', "Pesanan berhasil dibatalkan.");
+}
+
 
     private function getBadgeClass($status)
     {

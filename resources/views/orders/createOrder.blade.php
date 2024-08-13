@@ -161,7 +161,7 @@
                                 <h6><strong>Tayang pada </strong></h6>
                             </div>
                             <div class="">
-                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ strftime('%d, %B, %Y', strtotime($detail->tanggal->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($detail->tanggal->tanggal_selesai)) }}</p>
+                                <p class="badge text-bg-warning badge-genre text-muted text-muted">{{ strftime('%d, %B, %Y', strtotime($detail->tanggal->tanggal_mulai)) }}</p>
                                 <p class="badge text-bg-warning badge-genre text-muted text-muted"> {{ $detail->time->jam_mulai }} - {{ $detail->time->jam_selesai }}</p>
                             </div>
 
