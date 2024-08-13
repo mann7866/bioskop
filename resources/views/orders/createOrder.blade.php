@@ -43,17 +43,18 @@
     }
 
     .kursi-item {
-    width: 85%; /* Membuat kursi memenuhi lebar kolom grid */
-    height: 85%; /* Membuat kursi memenuhi tinggi baris grid */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+        width: 85%; /* Membuat kursi memenuhi lebar kolom grid */
+        height: 85%; /* Membuat kursi memenuhi tinggi baris grid */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
     .kursi-item.selected {
         background-color: #76c7c0;
         color: white;
@@ -121,22 +122,34 @@
     }
 
     .kursi-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Membuat grid dengan 5 kolom */
-    grid-auto-rows: 50px; /* Menentukan tinggi setiap baris */
-    gap: 10px; /* Jarak antar kursi */
-    justify-items: center; /* Menempatkan kursi di tengah setiap kolom */
-}
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Membuat grid dengan 5 kolom */
+        grid-auto-rows: 50px; /* Menentukan tinggi setiap baris */
+        gap: 10px; /* Jarak antar kursi */
+        justify-items: center; /* Menempatkan kursi di tengah setiap kolom */
+    }
 
     .modal-dialog {
         max-width: 80%;
     }
-    .modal-title{
 
+    .modal-title {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         background-color: #fff;
         padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .summary-card {
+        background-color: #f5f5f5;
+        border: 1px solid #dcdcdc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-card h5 {
         margin-bottom: 10px;
     }
 </style>
@@ -176,25 +189,7 @@
                     <form action="{{ route('order.store') }}" method="POST" id="orderForm">
                         @csrf
                         <input type="hidden" name="id_detail" value="{{ $detail->id }}">
-                        <div class="mb-3">
-                            <div class="col-md-6">
-                                <label for="jumlah_tiket" class="form-label">Jumlah Tiket</label>
-                                <input type="text" class="form-control @error('jumlah_tiket') is-invalid @enderror"
-                                    id="jumlah_tiket_input" name="jumlah_tiket" readonly>
-                                @error('jumlah_tiket')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="total_harga" class="form-label">Total Harga</label>
-                                <input type="text" class="form-control @error('total_harga') is-invalid @enderror"
-                                    id="total_harga_input" name="total_harga" readonly>
-                                @error('total_harga')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
+                        
                         <!-- Studio and Seat Selection -->
                         {{-- data ada di query --}}
                         <h6>Pilih Kursi:</h6>
@@ -212,22 +207,29 @@
                             @endforeach
                         </div>
 
-
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
+
+                    <!-- Summary Card -->
+                    <div class="summary-card mt-4">
+                        <h5>Rangkuman Pemesanan</h5>
+                        <p><strong>Jumlah Tiket:</strong> <span id="jumlah_tiket">0</span></p>
+                        <p><strong>Total Harga:</strong> <span id="total_harga">Rp. 0</span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPerKursi = {{ $detail->harga }};
 
-            function updateTotalHarga() {
+            function updateSummary() {
                 const selectedSeats = document.querySelectorAll('.kursi-item.selected').length;
                 const totalHarga = selectedSeats * hargaPerKursi;
-                document.getElementById('jumlah_tiket_input').value = selectedSeats;
-                document.getElementById('total_harga_input').value = totalHarga;
+                document.getElementById('jumlah_tiket').textContent = selectedSeats;
+                document.getElementById('total_harga').textContent = `Rp. ${totalHarga.toLocaleString()}`;
             }
 
             document.querySelectorAll('.kursi-item').forEach(item => {
@@ -236,7 +238,7 @@
                         const checkbox = this.querySelector('input[type="checkbox"]');
                         checkbox.checked = !checkbox.checked;
                         this.classList.toggle('selected', checkbox.checked);
-                        updateTotalHarga();
+                        updateSummary();
                     });
                 }
             });
