@@ -31,11 +31,18 @@ class TanggalController extends Controller
      */
     public function store(TanggalRequest $request)
     {
+        // $overlap = Tanggal::where(function ($query) use ($request) {
+        //     $query->where('tanggal_mulai', '<', $request->tanggal_selesai)
+        //          ->where('tanggal_selesai', '>', $request->tanggal_mulai);
+        // })->exists();
+
+        // if($overlap){
+        //     return back()->with('eror', 'Tanggal Tayang Yang Anda Masukkan Sudah Terisi');
+        // }
 
         tanggal::create($request->validated());
 
         return redirect()->route("tanggal.index")->with('success','Berhasil Tambah Data');
-
     }
 
     /**
@@ -61,10 +68,19 @@ class TanggalController extends Controller
      */
     public function update(TanggalRequest $request, Tanggal $tanggal)
     {
+
+        // $overlap = Tanggal::where(function ($query) use ($request) {
+        //     $query->where('tanggal_mulai', '<', $request->tanggal_selesai)
+        //          ->where('tanggal_selesai', '>', $request->tanggal_mulai);
+        // })->exists();
+
+        // if($overlap){
+        //     return back()->with('eror', 'Tanggal Tayang Yang Anda Masukkan Sudah Terisi');
+        // }
         // Update record menggunakan data dari request yang telah divalidasi
         $tanggal->update([
             'tanggal_mulai' => $request->input('tanggal_mulai'),
-            'tanggal_selesai' => $request->input('tanggal_selesai'),
+            // 'tanggal_selesai' => $request->input('tanggal_selesai'),
         ]);
 
         // Redirect ke daftar tanggal dengan pesan sukses

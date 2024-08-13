@@ -24,6 +24,7 @@ class timeController extends Controller
      */
     public function create()
     {
+
         $detail = Detail::all();
         return view("times.createTime", compact("detail"));
     }
@@ -41,15 +42,33 @@ class timeController extends Controller
 
             "jam_mulai.required"=> "Jam mulai Harus Diisi",
             "jam_mulai.unique"=> "Jam mulai Sudah Ada",
-           
+
             "jam_selesai.required"=> "Jam selesai Harus Diisi",
             "jam_selesai.unique"=> "Jam selesai Sudah Ada",
             'jam_selesai.after' => 'Jam Selesai harus setelah Jam Mulai',
 
         ]) ;
 
+        // if('jam_mulai' < $request->jam_selesai && 'jam_selesai' > $request->jam_mulai){
+        //     Time::create($validateData);
+        //     return redirect()->route("time")->with("success","Berhasil Tambah waktu");
+        // }else{
+        //     return back()->with('eror', 'Jam Tayang Yang Anda Inputkan Sudah Terisi');
+        // }
+
+
+
+        $overlap = Time::where(function ($query) use ($request) {
+            $query->where('jam_mulai', '<', $request->jam_selesai)
+                 ->where('jam_selesai', '>', $request->jam_mulai);
+        })->exists();
+
+        if($overlap){
+            return back()->with('eror', 'Jam Tayang Yang Anda Masukkan Sudah Terisi');
+        }
+
         Time::create($validateData);
-        return redirect()->route("time")->with("success","Berhasil Tambah waktu");
+        return redirect()->route("time")->with("success","Berhasil Tambah Jam Tayang");
 
     }
 
@@ -94,8 +113,22 @@ class timeController extends Controller
                 'jam_selesai.after' => 'Jam Selesai harus setelah Jam Mulai',
                 "jam_mulai.selesai"=> "Jam Selesai Harus Setelah Jam Mulai",
             ]) ;
+
+            if ($time->jam_mulai === $request->input('jam_mulai') && $time->jam_selesai === $request->input('jam_selesai')) {
+
+                return redirect()->route("time")->with("success","Berhasil Edit Jam Tayang");
+               }
+
+            $overlap = Time::where(function ($query) use ($request) {
+                $query->where('jam_mulai', '<', $request->jam_selesai)
+                     ->where('jam_selesai', '>', $request->jam_mulai);
+            })->exists();
+
+            if($overlap){
+                return back()->with('eror', 'Jam Tayang Yang Anda Masukkan Sudah Terisi');
+            }
             $time->update($validateData);
-            return redirect()->route("time")->with("success","Berhasil Edit Waktu Tayang");
+            return redirect()->route("time")->with("success","Berhasil Edit Jam Tayang");
 
 
 

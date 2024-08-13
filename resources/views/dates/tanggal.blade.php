@@ -115,8 +115,8 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead class="table-primary">
                             <tr>
-                                <th class="text-center">Tanggal Mulai</th>
-                                <th class="text-center">Tanggal Selesai</th>
+                                <th class="text-center">Tanggal Tayang</th>
+                                {{--  <th class="text-center">Tanggal Selesai</th>  --}}
                                 <th class="text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -124,8 +124,8 @@
                             @foreach ($tanggal as $item)
                                 <tr>
                                     <td class="text-center">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</td>
-                                    <td class="text-center">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}
-                                    </td>
+                                    {{--  <td class="text-center">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}
+                                    </td>  --}}
 
                                     <td class="text-center">
                                         <a href="{{ route('tanggal.edit', $item->id) }}" class="btn btn-success">

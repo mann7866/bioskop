@@ -74,7 +74,7 @@
 
         .badge-genre {
             font-size: 0.9rem;
-            margin-right: 5px;
+            margin-right: 0px;
         }
 
         .button-container {
@@ -123,15 +123,16 @@
             left: 7px;
             top: 20px;
         }
-        .modal-title{
 
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      background-color: #fff;
-      padding: 15px;
-      /* text-align:leftd; */
-      margin-bottom: 10px;
-  }
+        .modal-title {
+
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            padding: 15px;
+            /* text-align:leftd; */
+            margin-bottom: 10px;
+        }
     </style>
     {{-- data yang ambil dari ordercontroller --}}
 
@@ -191,23 +192,25 @@
                 <div class="row mb-4">
                     <div class="col-4">
                         <div class="card">
-                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top" alt="{{ $item->detail->judul }}">
+                            <img src="{{ asset('image/' . $item->detail->foto) }}" class="card-img-top"
+                                alt="{{ $item->detail->judul }}">
                             <div class="warna">
-                                <span style="margin-left: 10px" class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
+                                <span style="margin-left: 10px"
+                                    class="{{ getBadgeClass($item->status) }} mb-3">{{ ucfirst($item->status) }}</span>
                             </div>
                             <div class="card-body">
 
 
-                                <div class="card-category">Genres:</div>
+                                <div class="card-category text-dark">Genres:</div>
                                 <ul class="list-inline">
                                     @foreach ($item->detail->genres as $genre)
-                                        <li class="list-inline-item"><span
+                                        <li class="list-inline-item"><span style="font-size: 50%"
                                                 class="badge text-bg-info badge-genre">{{ $genre->genre }}</span></li>
                                     @endforeach
                                 </ul>
-                                <h4 class="card-category ">Harga:</h4>
-                                <h6 class="">Rp. {{ number_format($item->detail->harga) }}</h6>
-                                <h4 class="card-category ">Deskripsi:</h4>
+                                <h4 class="card-category text-dark">Harga:</h4>
+                                <h6 class="text-muted">Rp. {{ number_format($item->detail->harga) }}</h6>
+                                <h4 class="card-category text-dark ">Deskripsi:</h4>
                                 <p class="card-text">{{ $item->detail->deskripsi }}</p>
                             </div>
                         </div>
@@ -219,49 +222,59 @@
                                     <div class="col-md-6">
                                         <div class="modal-title">
                                             <div class="d-flex">
-                                            <h4 class="category badge border border-secondary text-dark ">Judul:</h4>
+                                                <h4 class="category badge border border-secondary text-dark ">Judul:</h4>
                                             </div>
-                                            <h5 class="badge text-bg-secondary badge-genre text-light">{{ $item->detail->judul }}</h5>
+                                            <h5 class="badge text-bg-secondary badge-genre text-light">
+                                                {{ $item->detail->judul }}</h5>
                                         </div>
 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="modal-title">
                                             <div class="d-flex">
-                                                <h6 class="badge border border-secondary text-dark"><strong>Studio</strong></h6>
+                                                <h6 class="badge border border-secondary text-dark"><strong>Studio</strong>
+                                                </h6>
                                             </div>
-                                            <h6 style="margin-right: 4px" class=" badge text-bg-secondary badge-genre   text-light">
+                                            <h6 style="margin-right: 4px"
+                                                class=" badge text-bg-secondary badge-genre   text-light">
                                                 {{ $item->detail->studio->studio }}
                                             </h6>
                                         </div>
                                     </div>
                                 </div>
-    {{-- kursi data  --}}
+                                {{-- kursi data  --}}
                                 <div class="row">
 
                                     <div class="col-md-6">
                                         <div class="modal-title">
                                             <div class="d-flex">
-                                                <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada :</strong></h6>
+                                                <h6 class="badge border border-secondary text-dark"><strong>Tayang Pada
+                                                        :</strong></h6>
                                             </div>
-                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }} - {{ strftime('%d, %B, %Y', strtotime($item->tanggal_selesai)) }}</p>
-                                            <p style="margin-right: 5px" class="badge text-bg-warning badge-genre text-light">{{ $item->detail->time->jam_mulai }} -{{ $item->detail->time->jam_selesai }}</p>
+                                            <p style="margin-right: 5px"
+                                                class="badge text-bg-warning badge-genre text-light">
+                                                {{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</p>
+                                            <p style="margin-right: 5px"
+                                                class="badge text-bg-warning badge-genre text-light">
+                                                {{ $item->detail->time->jam_mulai }}
+                                                -{{ $item->detail->time->jam_selesai }}</p>
 
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
 
+                                        <div class="modal-title">
+                                            <div class="d-flex">
+                                                <label style="margin-bottom: 8px"
+                                                    class="badge border border-secondary text-dark">Total Pembayaran
+                                                    :</label>
+                                            </div>
+                                            <h6 class="badge text-bg-secondary badge-genre text-light">Rp.
+                                                {{ number_format($item->total_harga) }}</h6>
+                                        </div>
 
-                                            <ul class="list-unstyled mb-0 modal-title">
-                                                <div class="d-flex">
-                                                    <h6 class="badge border border-secondary text-dark"><strong>Kursi</strong></h6>
-                                                </div>
-                                                @foreach ($item->kursi as $kursi)
-                                                    <h6 class=" badge text-bg-secondary badge-genre text-light">
-                                                        {{ $kursi->kursi }}
-                                                    </h6>
-                                                @endforeach
-                                            </ul>
+
 
                                     </div>
                                 </div>
@@ -270,7 +283,8 @@
                                     <div class="col-md-6">
                                         <div class="modal-title">
                                             <div class="d-flex">
-                                                <label style="margin-bottom: 8px" class=" badge border border-secondary text-dark">Total Tiket :</label>
+                                                <label style="margin-bottom: 8px"
+                                                    class=" badge border border-secondary text-dark">Total Tiket :</label>
                                             </div>
                                             <h6 class="badge text-bg-secondary badge-genre text-light">
                                                 {{ $item->jumlah_tiket }}
@@ -279,12 +293,20 @@
 
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="modal-title">
+                                        {{--  @if ($item->status !== 'cancel')  --}}
+                                        <ul class="list-unstyled mb-0 modal-title">
                                             <div class="d-flex">
-                                             <label style="margin-bottom: 8px" class="badge border border-secondary text-dark">Total Pembayaran :</label>
+                                                <h6 class="badge border border-secondary text-dark">
+                                                    <strong>Kursi</strong>
+                                                </h6>
                                             </div>
-                                            <h6 class="badge text-bg-secondary badge-genre text-light">Rp. {{ number_format($item->total_harga) }}</h6>
-                                        </div>
+                                            @foreach ($item->kursi as $kursi)
+                                                <h6 class=" badge text-bg-secondary badge-genre text-light">
+                                                    {{ $kursi->kursi }}
+                                                </h6>
+                                            @endforeach
+                                        </ul>
+                                        {{--  @endif  --}}
 
                                     </div>
                                 </div>
@@ -305,7 +327,7 @@
                                     </div>
                                 @endif
 
-                                @if ($item->status == 'paid' )
+                                {{--  @if ($item->status == 'paid')
 
                                 <form action="{{ route('order.delete', $item->id) }}" method="POST">
                                     @csrf
@@ -316,29 +338,27 @@
                                 </form>
 
 
-                                @endif
-                                @if ($item->status == 'cancel' )
-
-                                <form action="{{ route('order.delete', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
-                                        <ion-icon name="trash-outline"></ion-icon> Hapus
-                                    </button>
-                                </form>
-
-                                    </div>
-                                @endif
-
+                                @endif  --}}
+                                {{--  @if ($item->status == 'paid')
+                                    <form action="{{ route('order.delete', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <ion-icon name="trash-outline"></ion-icon> Hapus Riwayat
+                                        </button>
+                                    </form>
                             </div>
-                        </div>
-                    </div>
+            @endif  --}}
 
-                </div>
-                <hr class="separator">
-            @empty
-                <h1 class="text-center text-secondary no-order-message">Tidak Ada Film Yang di Order</h1>
-            @endforelse
         </div>
+    </div>
+    </div>
+
+    </div>
+    <hr class="separator">
+@empty
+    <h1 class="text-center text-secondary no-order-message">Tidak Ada Film Yang di Order</h1>
+    @endforelse
+    </div>
     </div>
 @endsection

@@ -34,15 +34,15 @@ class BeritaController extends Controller
     {
         $validateData = $request->validate([
             "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
-            "judul" => "required",
-            "deskripsi" => "required",
+            "judul" => "required|max:100",
+            "deskripsi" => "required|max:500",
              "tanggal"=> "required|after:yesterday|date_format:Y-m-d",
         ],[
             "foto_deskripsi.required"=> "Foto Harus diIsi",
             "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
             "foto_deskripsi.max"=> "Maksimal Foto 2Mb",
             "deskripsi.required"=> "Deskripsi Harus diIsi",
-            "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+            "deskripsi.max"=> "Deskripsi Maksimal 500 karakter",
             "judul.required"=> "Judul Harus diIsi",
             "judul.max"=> "Judul Maksimal 100 karakter",
             "tanggal.required"=> "Tanggal Tidak Boleh Kosong",
@@ -108,14 +108,14 @@ class BeritaController extends Controller
             $request->validate([
                 "foto_deskripsi" => "required|mimes:jpeg,jpg,png,gif|max:2048",
                 "judul" => "required|max:100",
-                "deskripsi" => "required|max:200",
+                "deskripsi" => "required|max:500",
                 "tanggal"=> "required",
             ],[
                 "foto_deskripsi.required"=> "Foto Harus diIsi",
                 "foto_deskripsi.mimes"=> "Foto Harus Berupa jpeg,jpg,png,gif",
                 "foto_deskripsi.max"=> "Makimal Foto 2Mb",
                 "deskripsi.required"=> "Deskripsi Harus diIsi",
-                "deskripsi.max"=> "Deskripsi Maksimal 200 karakter",
+                "deskripsi.max"=> "Deskripsi Maksimal 500 karakter",
                 "judul.required"=> "Judul Harus diIsi",
                 "tanggal.required"=> "Tanggal Tidak Boleh Kosong",
                 "judul.max"=> "Judul Maksimal 100 karakter",
