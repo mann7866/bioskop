@@ -98,10 +98,16 @@ class OrderController extends Controller
             'id_detail' => $validateData['id_detail'],
         ]);
 
+
         // Sinkronkan kursi yang dipilih jika ada
         if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
             $order->kursi()->sync($kursis);
+        }
+
+        foreach ($order->kursi as $kursi) {
+            // Mengupdate status di tabel pivot untuk menunjukkan bahwa kursi tersedia
+            $order->kursi()->updateExistingPivot($kursi->id, ['status' => 'order']);
         }
 
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
@@ -203,10 +209,14 @@ public function cancel(string $id)
     }
 
     // Hapus hubungan antara pesanan dan kursi di tabel pivot
-    $order->kursi()->detach();
+    foreach ($order->kursi as $kursi) {
+        // Mengupdate status di tabel pivot untuk menunjukkan bahwa kursi tersedia
+        $order->kursi()->updateExistingPivot($kursi->id, ['status' => 'Notorder']);
+    }
+    // $order->kursi()->detach();
 
     // Hapus pesanan itu sendiri
-    $order->delete();
+    // $order->delete();
 
     return redirect()->route("order.index")->with('success', "Pesanan berhasil dibatalkan.");
 }

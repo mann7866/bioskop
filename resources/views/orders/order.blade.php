@@ -273,9 +273,7 @@
                                             <h6 class="badge text-bg-secondary badge-genre text-light">Rp.
                                                 {{ number_format($item->total_harga) }}</h6>
                                         </div>
-
-
-
+                                        
                                     </div>
                                 </div>
 

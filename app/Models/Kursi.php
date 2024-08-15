@@ -19,7 +19,7 @@ class Kursi extends Model
 
 public function studios()
 {
-    
+
 }
     public function studio()
     {

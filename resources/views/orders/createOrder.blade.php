@@ -43,24 +43,23 @@
     }
 
     .kursi-item {
-        width: 85%; /* Membuat kursi memenuhi lebar kolom grid */
-        height: 85%; /* Membuat kursi memenuhi tinggi baris grid */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f0f0f0;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
+    width: 85%; /* Membuat kursi memenuhi lebar kolom grid */
+    height: 85%; /* Membuat kursi memenuhi tinggi baris grid */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
     .kursi-item.selected {
         background-color: #76c7c0;
         color: white;
     }
 
-    .kursi-item.reserved {
+    .kursi-item.status {
         background-color: #b0bec5;
         cursor: not-allowed;
     }
@@ -122,34 +121,22 @@
     }
 
     .kursi-row {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* Membuat grid dengan 5 kolom */
-        grid-auto-rows: 50px; /* Menentukan tinggi setiap baris */
-        gap: 10px; /* Jarak antar kursi */
-        justify-items: center; /* Menempatkan kursi di tengah setiap kolom */
-    }
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Membuat grid dengan 5 kolom */
+    grid-auto-rows: 50px; /* Menentukan tinggi setiap baris */
+    gap: 10px; /* Jarak antar kursi */
+    justify-items: center; /* Menempatkan kursi di tengah setiap kolom */
+}
 
     .modal-dialog {
         max-width: 80%;
     }
+    .modal-title{
 
-    .modal-title {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         background-color: #fff;
         padding: 15px;
-        margin-bottom: 10px;
-    }
-
-    .summary-card {
-        background-color: #f5f5f5;
-        border: 1px solid #dcdcdc;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .summary-card h5 {
         margin-bottom: 10px;
     }
 </style>
@@ -183,65 +170,137 @@
                             <h6>Deskripsi :</h6>
                             <p class="card-text text-muted ">{{ $detail->deskripsi }}</p>
                         </div>
+
                     </div>
+
                 </div>
                 <div class="col-md-8">
                     <form action="{{ route('order.store') }}" method="POST" id="orderForm">
                         @csrf
                         <input type="hidden" name="id_detail" value="{{ $detail->id }}">
-                        
+                        <div class="mb-3">
+                            <div class="col-md-6">
+                                <input type="hidden" class="form-control @error('jumlah_tiket') is-invalid @enderror"
+                                    id="jumlah_tiket_input" name="jumlah_tiket" readonly>
+                                @error('jumlah_tiket')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="hidden" class="form-control @error('total_harga') is-invalid @enderror"
+                                    id="total_harga_input" name="total_harga" readonly>
+                                @error('total_harga')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Studio and Seat Selection -->
                         {{-- data ada di query --}}
                         <h6>Pilih Kursi:</h6>
                         <div class="modal-title mb-3 kursi-row">
                             @foreach ($detail->studio->kursi as $kursi)
-                                <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'bg-danger reserved' : '' }}"
-                                    data-seat-id="{{ $kursi->id }}"
-                                    data-seat-number="{{ $kursi->kursi }}"
-                                    title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
-                                    <input class="form-check-input @error('kursis') is-invalid @enderror"
-                                        type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
-                                        {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
-                                    <strong>{{ $kursi->kursi }}</strong>
+                            <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'status' : '' }}"
+                                data-seat-id="{{ $kursi->id }}"
+                                data-seat-number="{{ $kursi->kursi }}"
+                                title="{{ in_array($kursi->id, $bookedSeats) ? 'Kursi sudah dipesan' : '' }}">
+                                <input class="form-check-input @error('kursis') is-invalid @enderror"
+                                    type="checkbox" name="kursis[]" value="{{ $kursi->id }}"
+                                    {{ in_array($kursi->id, $bookedSeats) ? 'disabled' : '' }}>
+                                <strong>{{ $kursi->kursi }}</strong>
+                            </div>
+                        @endforeach
+
+                        </div>
+                        <div class="card film-card">
+                            <div class="card-body">
+                                <div class="summary-card mt-4">
+                                    <h6 class="mb-2">Ringkasan:</h6>
+                                    <p id="jumlah_tiket_summary">Jumlah Tiket: 0</p>
+                                    <p id="total_harga_summary">Total Harga: Rp. 0</p>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
 
                         <button class="btn btn-primary mt-3 col-md-2" type="submit" name="submit">Pesan</button>
                     </form>
-
-                    <!-- Summary Card -->
-                    <div class="summary-card mt-4">
-                        <h5>Rangkuman Pemesanan</h5>
-                        <p><strong>Jumlah Tiket:</strong> <span id="jumlah_tiket">0</span></p>
-                        <p><strong>Total Harga:</strong> <span id="total_harga">Rp. 0</span></p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPerKursi = {{ $detail->harga }};
 
-            function updateSummary() {
-                const selectedSeats = document.querySelectorAll('.kursi-item.selected').length;
+            // Ambil data kursi dari elemen HTML
+            const seats = Array.from(document.querySelectorAll('.kursi-item')).map(item => ({
+                id: parseInt(item.dataset.seatId),
+                status: item.classList.contains('status') ? 'order' : 'Notorder',
+                element: item // Simpan referensi elemen HTML kursi
+            }));
+
+            // Fungsi untuk memperbarui total harga
+            function updateTotalHarga() {
+                const selectedSeats = seats.filter(seat => seat.status === 'selected').length;
                 const totalHarga = selectedSeats * hargaPerKursi;
-                document.getElementById('jumlah_tiket').textContent = selectedSeats;
-                document.getElementById('total_harga').textContent = `Rp. ${totalHarga.toLocaleString()}`;
+
+                // Update summary
+                document.getElementById('jumlah_tiket_summary').textContent = `Jumlah Tiket: ${selectedSeats}`;
+                document.getElementById('total_harga_summary').textContent = `Total Harga: Rp. ${totalHarga.toLocaleString()}`;
+
+                // Update form inputs
+                document.getElementById('jumlah_tiket_input').value = selectedSeats;
+                document.getElementById('total_harga_input').value = totalHarga; // Just the number, not formatted
             }
 
-            document.querySelectorAll('.kursi-item').forEach(item => {
-                if (!item.classList.contains('reserved')) {
-                    item.addEventListener('click', function() {
-                        const checkbox = this.querySelector('input[type="checkbox"]');
-                        checkbox.checked = !checkbox.checked;
-                        this.classList.toggle('selected', checkbox.checked);
-                        updateSummary();
-                    });
+            // Fungsi untuk menggambar kursi di halaman
+            function drawSeats() {
+                seats.forEach(seat => {
+                    const seatElement = seat.element;
+                    seatElement.classList.remove('selected');
+                    seatElement.classList.add(seat.status);
+
+                    const checkbox = seatElement.querySelector('input[type="checkbox"]');
+                    checkbox.disabled = seat.status === 'order'; // Disable checkbox if the seat is ordered
+                });
+
+                updateTotalHarga(); // Update total harga setiap kali kursi digambar
+            }
+
+            // Fungsi untuk memilih kursi
+            function selectSeat(seatId) {
+                const seat = seats.find(seat => seat.id === seatId);
+                const seatElement = seat.element;
+                const checkbox = seatElement.querySelector('input[type="checkbox"]');
+
+                if (seat.status === 'order') {
+                    alert('Kursi ini sudah dipesan dan tidak bisa dipesan.');
+                    return;
                 }
+
+                // Toggle between 'notorder' and 'selected'
+                if (seat.status === 'Notorder') {
+                    seat.status = 'selected';
+                    seatElement.classList.add('selected');
+                    checkbox.checked = true;
+                } else if (seat.status === 'selected') {
+                    seat.status = 'Notorder';
+                    seatElement.classList.remove('selected');
+                    checkbox.checked = false;
+                }
+
+                updateTotalHarga(); // Update total harga setelah status kursi diubah
+            }
+
+            // Pasang event listener untuk setiap kursi
+            seats.forEach(seat => {
+                seat.element.addEventListener('click', () => selectSeat(seat.id));
             });
+
+            // Gambar kursi saat halaman dimuat
+            drawSeats();
         });
+
+
     </script>
 @endsection

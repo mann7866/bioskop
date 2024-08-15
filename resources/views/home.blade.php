@@ -81,7 +81,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             margin: 10px;
-            flex: 0 0 calc(16.66% - 20px);
+            flex: 0 0 calc(22.66% - 20px);
             box-sizing: border-box;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -128,6 +128,17 @@
             flex-direction: column;
             align-items: center;
             margin: 10px;
+
+        }
+        .film-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 10px;
+        }
+
+        .film-container::-webkit-scrollbar {
+            display: none;
         }
 
         .film-label {
@@ -369,13 +380,11 @@
                                                 <h6 style="font-size: 10px" class="badge border border-secondary text-secondary"><strong>Tayang Pada:</strong></h6>
                                            </div>
                                             <div style="margin-bottom: 0%" class="d-flex">
-                                                <p style="font-size: 9px; margin-right: 5px" class="badge text-bg-warning badge text-light ">{{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</p>
+                                                <p style="font-size: 9px; " class="badge text-bg-warning badge text-light "> {{ strftime('%d, %B, %Y', strtotime($item->tanggal_mulai)) }}</p>
                                             </div>
                                             <p style="font-size: 8px" class="badge text-bg-warning badge text-light "> {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
-
                                         </div>
                                     </div>
-
                                 @empty
                                     <div class="empty-message-container">
                                         <p class="empty-message">Tidak Ada Film</p>
