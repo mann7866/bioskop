@@ -41,8 +41,7 @@ class TanggalController extends Controller
         // }
 
         tanggal::create($request->validated());
-
-        return redirect()->route("tanggal.index")->with('success','Berhasil Tambah Data');
+                return redirect()->route("tanggal.index")->with('success','Berhasil Tambah Data');
     }
 
     /**

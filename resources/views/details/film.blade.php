@@ -20,7 +20,7 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
         margin: 10px;
-        flex: 0 0 calc(16.66% - 20px);
+        flex: 0 0 calc(22.66% - 20px);
         box-sizing: border-box;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -290,12 +290,13 @@
                                                 </h6>
                                             </div>
                                             <div class="d-flex">
-                                                <p style="font-size: 7px; margin-right: 5px" class="badge text-bg-warning badge-genre text-light">
+                                                <p style="font-size: 7px; margin-right: 9px" class="badge text-bg-warning badge-genre text-light">
                                                     {{ strftime('%d, %B, %Y', strtotime($item->tanggal->tanggal_mulai)) }}</p>
                                             </div>
-                                            <p style="font-size: 7px; margin-top:0%" class="badge text-bg-warning badge-genre text-light">
+                                            <p style="font-size: 8px; margin-top:0%" class="badge text-bg-warning badge-genre text-light">
                                                 {{ $item->time->jam_mulai }} - {{ $item->time->jam_selesai }}</p>
                                         </div>
+
                                     </div>
                                 @empty
                                     <h1 class="text-center text-secondary">Tidak Ada Film Yang di Upload</h1>
@@ -333,7 +334,9 @@
                                                     <p class="badge text-bg-secondary badge-genre text-light">{{ $item->tanggalRilis }}</p>
                                                 </div>
 
+
                                             </div>
+
                                         </div>
                                         <div class="col-md-6">
                                             <div class="modal-card">
@@ -353,6 +356,7 @@
                                                 <h6>Deskripsi:</h6>
                                                 <p>{{ $item->deskripsi }}</p>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
