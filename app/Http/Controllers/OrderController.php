@@ -20,9 +20,22 @@ class OrderController extends Controller
         $order = Order::with('studio', 'detail', 'kursi')->get();
         // dd($order);
 
-        return view("orders.order", compact("detail", "order", "studio", "kursi"));
+$orders = Order::withTrashed()->get();
+
+        return view("orders.order", compact("detail", "order", "studio", "kursi",'orders'));
     }
 
+    public function show()
+    {
+        $detail = Detail::all();
+        $studio = Studio::all();
+        $kursi = Kursi::all();
+        $order = Order::with('studio', 'detail', 'kursi')->get();
+        // dd($order);
+
+        $orders = Order::withTrashed()->get();
+        return view("histori", compact("detail", "order", "studio", "kursi",'orders'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -33,7 +46,6 @@ class OrderController extends Controller
     public function order($id)
     {
         $detail = Detail::with('studio.kursi')->findOrFail($id);
-
         // Ambil ID studio dari detail
         $studioId = $detail->id_studio;
 
@@ -41,7 +53,11 @@ class OrderController extends Controller
         // sebuh cek data yang uhd adad
         $bookedSeats = Order::whereHas('detail', function($query) use ($studioId) {
             $query->where('id_studio', $studioId);
-        })->with('kursi')->get()->pluck('kursi.*.id')->flatten()->toArray();
+        })->whereHas('kursi', function($query) use ($studioId) {
+            $query->where('status', 'order');
+        })
+
+        ->with('kursi')->get()->pluck('kursi.*.id')->flatten()->toArray();
 
         return view('orders.createOrder', compact('detail', 'bookedSeats'));
     }
@@ -53,7 +69,7 @@ class OrderController extends Controller
     // $time = Time::all
 
 
-    /**
+    /**aaaa
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -68,7 +84,6 @@ class OrderController extends Controller
                 function($attribute, $value, $fail) use ($request) {
                     $detail = Detail::findOrFail($request->id_detail);
                     $studioId = $detail->id_studio;
-
                     // Cek apakah kursi sudah dipesan di studio yang sama
                     $alreadyBooked = Order::whereHas('detail', function($query) use ($studioId) {
                         $query->where('id_studio', $studioId);
@@ -100,15 +115,29 @@ class OrderController extends Controller
 
 
         // Sinkronkan kursi yang dipilih jika ada
+        // if ($request->has('kursis')) {
+        //     $kursis = $request->input('kursis');
+        //     $order->kursi()->sync($kursis);
+        // }
         if ($request->has('kursis')) {
             $kursis = $request->input('kursis');
+
+            // Sync untuk menambahkan ID baru dan menghapus ID lama yang tidak ada
             $order->kursi()->sync($kursis);
+
+            // Update pivot table jika ada kolom tambahan
+            foreach ($kursis as $kursiId) {
+                // Misalnya, kita ingin mengatur status menjadi 'active'
+                $order->kursi()->updateExistingPivot($kursiId, [
+                    'status' => 'order', // Update atau data tambahan lainnya
+                ]);
+            }
         }
 
-        foreach ($order->kursi as $kursi) {
-            // Mengupdate status di tabel pivot untuk menunjukkan bahwa kursi tersedia
-            $order->kursi()->updateExistingPivot($kursi->id, ['status' => 'order']);
-        }
+        // foreach ($order->kursi as $kursi) {
+        //     // Mengupdate status di tabel pivot untuk menunjukkan bahwa kursi tersedia
+        //     $order->kursi()->updateExistingPivot($kursi->id, ['status' => 'order']);
+        // }
 
         return redirect()->route("home")->with("success", "Berhasil Pesan Tiket");
     }
@@ -119,10 +148,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -163,7 +189,6 @@ class OrderController extends Controller
 
             $kembalian = $validateData['pembayaran'] - $order->total_harga;
 
-            // Simpan kembalian ke dalam database
             $validateData['kembalian'] = $kembalian;
 
             $order->update($validateData);
@@ -187,6 +212,7 @@ class OrderController extends Controller
             'status' => 'paid'
         ]);
 
+
         return redirect()->route("pembayaran", $order->id);
     }
 
@@ -205,7 +231,7 @@ public function cancel(string $id)
     ]);
 
     if (!$order) {
-        return redirect()->route("order.index")->with('error', "Pesanan tidak ditemukan");
+        return redirect()->route("histori")->with('error', "Pesanan tidak ditemukan");
     }
 
     // Hapus hubungan antara pesanan dan kursi di tabel pivot
@@ -216,7 +242,7 @@ public function cancel(string $id)
     // $order->kursi()->detach();
 
     // Hapus pesanan itu sendiri
-    // $order->delete();
+    $order->delete();
 
     return redirect()->route("order.index")->with('success', "Pesanan berhasil dibatalkan.");
 }

@@ -198,6 +198,7 @@
                         <!-- Studio and Seat Selection -->
                         {{-- data ada di query --}}
                         <h6>Pilih Kursi:</h6>
+                        {{--  {{ dd($bookedSeats) }}  --}}
                         <div class="modal-title mb-3 kursi-row">
                             @foreach ($detail->studio->kursi as $kursi)
                             <div class="kursi-item {{ in_array($kursi->id, $bookedSeats) ? 'status' : '' }}"
