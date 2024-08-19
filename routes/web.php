@@ -63,6 +63,8 @@ Route::get('/studio/{id}/edit', [App\Http\Controllers\StudioController::class,'e
 Route::put('/studio/{id}/update', [App\Http\Controllers\StudioController::class,'update'])->name('studio.update');
 Route::delete('/studio/{id}/delete', [App\Http\Controllers\StudioController::class,'destroy'])->name('studio.delete');
 
+Route::get('/histori', [OrderController::class, 'show'])->name('histori');
+
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/{id}/create', [OrderController::class, 'order'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');

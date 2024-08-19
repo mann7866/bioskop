@@ -251,7 +251,7 @@ class DetailController extends Controller
 
         ]);
 
-        // Handle file foto jika ada di request
+     
         if ($request->hasFile("foto")) {
             $image = $request->file("foto");
             $imageName = time() . "_" . $image->getClientOriginalName();

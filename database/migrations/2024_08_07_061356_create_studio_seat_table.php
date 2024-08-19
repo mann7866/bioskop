@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('studio_seat', function (Blueprint $table) {
             $table->id();
+            
             $table->foreignId('studio_id')->references('id')->on('studio')->onDelete('cascade');
             $table->foreignId('kursi_id')->references('id')->on('kursi')->onDelete('cascade');
             $table->timestamps();

@@ -234,6 +234,9 @@
                     @yield('search')
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
+                        {{--  <a href="{{ route('histori') }}">
+                            <ion-icon name="cart" class="size-icon"></ion-icon>
+                        </a>  --}}
                         <a href="{{ route('order.index') }}">
                             <ion-icon name="cart" class="size-icon"></ion-icon>
                         </a>
@@ -303,7 +306,7 @@
                                     <a class="dropdown-item text-center" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
-                                                      {{ __('Logout') }} 
+                                                      {{ __('Logout') }}
                                         {{-- <ion-icon name="log-out-outline"></ion-icon>--}}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
